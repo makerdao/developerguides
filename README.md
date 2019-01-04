@@ -19,4 +19,4 @@ We welcome submissions of guides and tutorials that cover new types of integrati
 
 * Include all the sections present in this [sample guide](/sample/sample-guide-01/sample-guide-01.md)  
 * Create a folder with one markdown file using the same name
-* Append a number if a guide needs to be split into multile parts
+* Append a number if a guide needs to be split into multiple parts
