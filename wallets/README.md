@@ -1,9 +1,6 @@
 # Wallets
 
-## Getting Started
+This folder contains guides specifically for exchanges seeking to integrate with Maker products.
 
-## Beginner
+* [Quick guide for integrating DAI and MKR](/wallets/wallets-guide-01/wallets-guide-01.md)
 
-## Intermediate
-
-## Advanced
