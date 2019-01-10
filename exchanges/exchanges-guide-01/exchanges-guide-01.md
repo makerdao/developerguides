@@ -1,4 +1,4 @@
-# Quickguide --- Listing DAI or MKR tokens on exchange
+# Quick guide - Listing DAI or MKR tokens on exchange
 This document contains the necessary resources for an exchange to integrate the DAI and MKR ERC-20 tokens.
 
 **Prerequisites**
