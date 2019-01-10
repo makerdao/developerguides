@@ -12,6 +12,14 @@ All guides are organized in sections and by proficiency levels within each secti
 * [Oracles](oracles/)
 * [Partners](partners/)
 * [Risk](risk/)
+* [Development Tools](tools/)
+
+## Partner compilations
+In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
+
+* [Exchanges](exchanges/)
+* [Wallets](wallets/)
+* [Remittance services](remittance/)
 
 ## Contribution guidelines
 
