@@ -1,7 +1,7 @@
 # Quick guide - Integrating DAI or MKR tokens in wallets
 This document contains the necessary resources to integrate the DAI and MKR ERC-20 tokens into a wallet.
 
-##Prerequisites
+## Prerequisites
 This document assumes familiarity with Ethereum, how to integrate ERC-20 tokens, and basic knowledge of the [Maker platform](https://www.makerdao.com).
 
 ## Token contracts
