@@ -28,15 +28,15 @@ Similarly to the library above, the [Python API](https://github.com/makerdao/pym
 
 ## Fiat on-off ramps
 Maker has partnerships with the following on-off ramps for Dai liquidity and easy Dai to fiat currency conversion, proving a useful resource for remittance services.
-* [Wyre](https://www.sendwyre.com/)
-The [Wyre API](https://www.sendwyre.com/docs/) allows for easy exchange between a number of fiat currencies and Dai.
+* [Wyre](https://www.sendwyre.com/)\
+The [Wyre API](https://www.sendwyre.com/docs/) allows for easy exchange between a number of fiat currencies and Dai.\ Checkout [this guide](/partners/wyre/wyre-guide-01/wyre-guide-01.md) to see how to implement their API for cross/border transactions.
 Not supported in [these countries](https://support.sendwyre.com/security/non-operational-states-in-us-and-countries).
-* [Ripio](https://www.ripio.com/en/)
+* [Ripio](https://www.ripio.com/en/)\
 Countries: Argentina, Brazil, (Mexico soon)
 You might need a VPN to access their website, if you accessing their service outside South America.
-* [Buenbit](https://www.buenbit.com/)
+* [Buenbit](https://www.buenbit.com/)\
 Countries: Argentina, Peru
-* [Orion X](https://orionx.com/)
+* [Orion X](https://orionx.com/)\
 Countries: Mexico, Chile
 
 
