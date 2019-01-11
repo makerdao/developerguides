@@ -10,12 +10,12 @@ If you are already familiar with Ethereum, the ERC-20 token standard, and Solidi
 
 ## Relevant Maker products for exchanges
 The Maker platform consist of various products that are relevant for exchanges. In this guide we will cover the following products:
--   Dai stablecoin   
--   Maker token   
--   Dai credit system  
--   OasisDex  
--   Price feeds (Oracles)   
--   Fiat On-Off Ramps
+-   [Dai stablecoin](#dai-stablecoin)   
+-   [Maker token](#maker-token) 
+-   [Dai credit system](#dai-credit-system) 
+-   [OasisDex](#oasisdex)  
+-   [Price feeds (Oracles)](#price-feeds)    
+-   [Fiat On-Off Ramps](#fiat-on-off-ramps)
 
 ### Dai Stablecoin
 One of the main features of the Maker platform is the asset-backed cryptocurrency called [Dai](https://makerdao.com/dai) - a cryptocurrency soft-pegged to the USD at a 1:1 ratio. The Maker system ensures that Dai is price stable compared to the USD, why it is also known as a “stablecoin”. Consequently, 1 Dai is equal to 1 USD.
