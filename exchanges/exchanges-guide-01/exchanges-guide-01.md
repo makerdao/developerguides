@@ -25,13 +25,6 @@ When listing Dai or Maker tokens on exchanges or in wallets, you should use the 
 
 A style guide and additional logos can [be found here](https://github.com/makerdao/Overview-of-MakerDAO-design#style-guide).
 
-## Token libraries
-**Javascript Library**\
-[Dai.js](https://makerdao.com/documentation/) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
-
-**Python API**\
-Similarly to the library above, the [Python API](https://github.com/makerdao/pymaker) provides endpoints to interact with the smart contracts in a Python environment, such as [endpoints for token transfers](https://github.com/makerdao/pymaker#token-transfer).
-
 ## Additional source code and developer docs
 **DSToken (token standard for Maker tokens)**
 * Docs: https://dapp.tools/dappsys/ds-token.html
@@ -42,11 +35,14 @@ Similarly to the library above, the [Python API](https://github.com/makerdao/pym
 * Docs: https://github.com/makerdao/sai/blob/master/DEVELOPING.md
 * Source: https://github.com/makerdao/sai
 
-**Dai.js Javascript Library**
+### Token libraries
+**Javascript Library**\
+[Dai.js](https://makerdao.com/documentation/) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
 * Docs: https://makerdao.com/documentation/
 * Source: https://github.com/makerdao/dai.js
 
-**Python API**
+**Python API**\
+Similarly to the library above, the [Python API](https://github.com/makerdao/pymaker) provides endpoints to interact with the smart contracts in a Python environment, such as [endpoints for token transfers](https://github.com/makerdao/pymaker#token-transfer).
 * Docs/source: https://github.com/makerdao/pymaker
 
 **Maker platform in general**
