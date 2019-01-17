@@ -62,4 +62,4 @@ Countries: Mexico, Chile
 * [Dai Credit System Whitepaper](https://makerdao.com/whitepaper/)
 
 ## Need help?
-Contact integration@makerdao.com or #dev channel on [chat.makerdao.com](https://chat.makerdao.com/)
+Contact integrate@makerdao.com or #dev channel on [chat.makerdao.com](https://chat.makerdao.com/)
