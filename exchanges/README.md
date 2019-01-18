@@ -13,7 +13,7 @@ The Maker platform consist of various products that are relevant for exchanges. 
 -   [Dai stablecoin](#dai-stablecoin)   
 -   [Maker token](#maker-token) 
 -   [Dai credit system](#dai-credit-system) 
--   [OasisDex](#oasisdex)  
+-   [OTC Trading](#otc-trading)  
 -   [Price feeds (Oracles)](#price-feeds)    
 -   [Fiat On-Off Ramps](#fiat-on-off-ramps)
 
@@ -45,15 +45,15 @@ Thus, the credit system can be useful for exchanges, who want to,
 
 *Todo: Add integrations guides*
 
-### OasisDex
-[OasisDex](https://oasisdex.com/) is a decentralized exchange solution by Maker. The system allows users to buy and sell ERC-20 tokens on the Ethereum blockchain. More specifically, it allows users to create buy and sell orders for DAI, MKR and WETH, allowing for decentralized and automated trade of these tokens. OasisDex can be useful for exchanges who want to:
+### OTC Trading
+The OTC Trading system allows users to buy and sell ERC-20 tokens on the Ethereum blockchain. More specifically, it allows users to create buy and sell orders for DAI, MKR and WETH, allowing for decentralized and automated trade of these tokens. OasisDex can be useful for exchanges who want to:
 -   Allow their users direct access to the decentralized exchange service   
 -   Obtain liquidity in certain in MKR or DAI (without creating CDP)  
 
 *Todo: Add integrations guides*
 
 ### Price feeds
-OasisDex provides an API for trading prices that can [be found here](https://developer.makerdao.com/oasis/api/1/).
+Maker provides an API for trading prices that can [be found here](https://developer.makerdao.com/oasis/api/1/).
 The price feeds are valuable for exchanges who want to
 -   Access market prices for MKR and DAI pairs.
 
