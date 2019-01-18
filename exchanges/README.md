@@ -46,7 +46,7 @@ Thus, the credit system can be useful for exchanges, who want to,
 *Todo: Add integrations guides*
 
 ### OTC Trading
-The OTC Trading system allows users to buy and sell ERC-20 tokens on the Ethereum blockchain. More specifically, it allows users to create buy and sell orders for DAI, MKR and WETH, allowing for decentralized and automated trade of these tokens. OasisDex can be useful for exchanges who want to:
+The OTC Trading system allows users to buy and sell ERC-20 tokens on the Ethereum blockchain. More specifically, it allows users to create buy and sell orders for DAI, MKR and WETH, allowing for decentralized and automated trade of these tokens. OTC trading can be useful for exchanges who want to:
 -   Allow their users direct access to the decentralized exchange service   
 -   Obtain liquidity in certain in MKR or DAI (without creating CDP)  
 
