@@ -46,12 +46,12 @@ Thus, the credit system can be useful for wallets, who want to:
 ### OTC Trading
 
 The OTC Trading system allows users to buy and sell ERC-20 tokens on the Ethereum blockchain. More specifically, it allows users to create buy and sell orders for DAI, MKR and WETH, allowing for decentralized and automated trade of these tokens. OTC  trading can be useful for wallets who want to:
--   Allow their users direct access to the decentralized exchange service\
+-   Allow their users direct access to the decentralized exchange service
 
 *Todo: Add integrations guides*
 
 ### Price feeds
-OasisDex provides an API for trading prices that can [be found here](https://developer.makerdao.com/oasis/api/1/).
+Maker provides an API for trading prices that can [be found here](https://developer.makerdao.com/oasis/api/1/).
 The price feeds are valuable for wallets who want to,
 
 -   Access market prices for MKR and DAI pairs.
