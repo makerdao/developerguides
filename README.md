@@ -8,7 +8,7 @@ All guides are organized in sections and by proficiency levels within each secti
 * [Dai](dai/)
 * [Governance](governance/)
 * [Keepers](keepers/)
-* [Oasis](oasis/)
+* [OTC Exchange Service](oasis/)
 * [Oracles](oracles/)
 * [Partners](partners/)
 * [Risk](risk/)
@@ -20,6 +20,7 @@ In order to ensure that integration partners can get up and running quickly, rel
 * [Exchanges](exchanges/)
 * [Wallets](wallets/)
 * [Remittance services](remittance/)
+* [Market Makers](market-makers/)
 
 ### Custom integrations and support
 The Maker Foundation employs an integrations team, that can assist in designing and building custom integration solutions if there is a potential in driving the adoption of the Dai Credit System in accordance to the [Foundation Principles](https://medium.com/makerdao/foundation-proposal-v2-f10d8ee5fe8c). This means building smart contracts or Javascript libraries that enables integration of Dai and CDP mechanisms into specific business logic not easily supported by the existing libraries. Custom integrations can for example be a way to bridge the gap between Maker solutions and legacy systems from more traditional organizations.
