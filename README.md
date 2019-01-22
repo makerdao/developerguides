@@ -8,7 +8,7 @@ All guides are organized in sections and by proficiency levels within each secti
 * [Dai](dai/)
 * [Governance](governance/)
 * [Keepers](keepers/)
-* [OTC Exchange Service](oasis/)
+* [OTC Exchange Service](otc-exchange/)
 * [Oracles](oracles/)
 * [Partners](partners/)
 * [Risk](risk/)
