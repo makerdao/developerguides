@@ -10,11 +10,17 @@ This document assumes familiarity with Ethereum, and in-depth knowledge of the M
 
 ### [Market Maker Keeper](https://github.com/makerdao/market-maker-keeper)
 
-This repository contains a set of Keepers that have been implemented to facilitate market making on a specific set of decentralized exchanges. While implemented specifically to work on the specified exchanges, they all share logic and operate similarly.
+This repository contains a set of Keepers that have been implemented to facilitate market making on a specific set of decentralized exchanges. While implemented specifically to work on specific exchanges, all Keepers in the repo share logic and operate similarly, as they all rely on creating a series of orders in preconfigured “bands”.
 
 ### [Market Maker Stats](https://github.com/makerdao/market-maker-stats)
 
-Market Maker Stats provides a set of tools for visualizing market making data for a set of decentralized exchanges.
+Market Maker Stats provides a set of tools for visualizing market making data for a set of decentralized exchanges. These tools include:
+
+-   Trade chart tools for showing historical market prices and recent Keeper trades.
+    
+-   Profitability calculation tools for calculating profitability of ETH/DAI or BTC/DAI keepers.
+    
+-   Trade history dumping tools for exporting lists of recent trades.
 
 ### [Pymaker](https://github.com/makerdao/pymaker)
 
