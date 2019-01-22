@@ -44,12 +44,12 @@ The CDP Keeper can be used to automatically manage CDPs. Features include:
 
 ## Additional source code and developer docs
 
-Running a keeper node
+**Running a keeper node**
 
 -   [https://github.com/makerdao/keeper-node](https://github.com/makerdao/keeper-node)
     
 
-Multi Collateral Dai
+**Multi Collateral Dai**
 
 -   Docs: [https://github.com/makerdao/dss/blob/master/DEVELOPING.md](https://github.com/makerdao/dss/blob/master/DEVELOPING.md)
     
@@ -58,7 +58,7 @@ Multi Collateral Dai
 -   Source: [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
     
 
-Current Dai credit system implementation (Single Collateral Dai)
+**Current Dai credit system implementation (Single Collateral Dai)**
 
 -   Docs: [https://developer.makerdao.com/dai/1/api/](https://developer.makerdao.com/dai/1/api/)
     
@@ -67,12 +67,12 @@ Current Dai credit system implementation (Single Collateral Dai)
 -   Source: [https://github.com/makerdao/sai](https://github.com/makerdao/sai)
     
 
-Python API
+**Python API**
 
 -   Docs/source: [https://github.com/makerdao/pymaker](https://github.com/makerdao/pymaker)
     
 
-Maker platform in general
+**Maker platform in general**
 
 -   [Whitepaper](https://makerdao.com/whitepaper/)
     
