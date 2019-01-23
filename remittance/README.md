@@ -1,7 +1,8 @@
 # Remittance Services
 This folder contains guides specifically for remittance services seeking to integrate with Maker products.
 
-* [Quick guide for integrating DAI for remittance](/remittance/remittance-guide-01/remittance-guide-01.md)
+## Prerequisites
+This document assumes familiarity with Ethereum, how to integrate ERC-20 tokens, and basic knowledge of the [Maker platform](https://www.makerdao.com).
 
 ## Relevant Maker products for remittance services
 
@@ -15,9 +16,28 @@ One of the main features of the Maker platform is the asset-backed cryptocurrenc
 
 For users Dai is valuable, as it provides the same features as other cryptocurrencies, by being easy and cheap to transfer globally, while keeping a stable price to the USD. This is often useful in countries where fiat currencies are inflationary. In the future, users will be able to earn dividends by holding Dai as an interest rate will be introduced. It also provides an opportunity for crypto-speculators to hedge their positions. Therefore it can be valuable for wallets to integrate Dai, as users are seeking options to obtain and hold the currency.
 
-*Todo: Add integrations guides*
+#### Dai token contract
+In order to interact directly with the DAI token, you can find the deployed smart contract addresses, source code, and ABIs in the links below.
+The DAI token follows the [ERC20 token standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md), and thus should be interoperable with contracts that implement this standard interface.
 
-### Fiat On-Off Ramps
+##### Live Dai token smart contract deployments
+* Ethereum Mainnet DAI: [0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359](https://etherscan.io/address/0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359#code)
+* Kovan Testnet DAI: [0xC4375B7De8af5a38a93548eb8453a498222C4fF2](https://kovan.etherscan.io/address/0xC4375B7De8af5a38a93548eb8453a498222C4fF2#code)
+
+##### Listing symbols
+When listing DAI in your implementation, you should use the following currency notations.
+* DAI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Icon source](https://github.com/makerdao/Overview-of-MakerDAO-design/tree/master/DAI)
+
+A style guide and additional logos can [be found here](https://github.com/makerdao/Overview-of-MakerDAO-design#style-guide).
+
+### Token libraries
+#### Javascript Library
+[Dai.js](https://makerdao.com/documentation/) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage), and [OTC exchange services](https://makerdao.com/documentation/#exchange-service) to obtain DAI liquidity, in return for other ERC20 tokens.
+
+#### Python API
+Similarly to the library above, the [Python API](https://github.com/makerdao/pymaker) provides endpoints to interact with the smart contracts in a Python environment, such as [endpoints for token transfers](https://github.com/makerdao/pymaker#token-transfer).
+
+## Fiat On-Off Ramps
 Fiat on-off ramps are services that exchanges fiat currencies to Dai, bridging the gap between the fiat and crypto world. Fiat on-off ramps are valuable for remittance, commerce and for users just seeking to cash out Dai holdings in local currencies. It is also valuable for users for do not possess crypto, and want to easily exchange fiat holdings to Dai. Therefore, an on-off ramp partner can be valuable for wallets to:
 -   Bridge gap between fiat and crypto, and thus drive adoption and user growth
     
