@@ -14,7 +14,7 @@ The Maker platform consist of various products that are relevant for remittance 
 
 One of the main features of the Maker platform is the asset-backed cryptocurrency called [Dai](https://makerdao.com/dai) - a cryptocurrency soft-pegged to the USD at a 1:1 ratio. The Maker system ensures that Dai is price stable compared to the USD, therefore it is also known as a “stablecoin”. Consequently, 1 Dai is equal to 1 USD.
 
-For users Dai is valuable, as it provides the same features as other cryptocurrencies, by being easy and cheap to transfer globally, while keeping a stable price to the USD. This is often useful in countries where fiat currencies are inflationary. In the future, users will be able to earn dividends by holding Dai as an interest rate will be introduced. It also provides an opportunity for crypto-speculators to hedge their positions. Therefore it can be valuable for wallets to integrate Dai, as users are seeking options to obtain and hold the currency.
+For users Dai is valuable, as it provides the same features as other cryptocurrencies, by being easy and cheap to transfer globally, while keeping a stable price to the USD. This is often useful in countries where fiat currencies are inflationary. In the future, users will be able to earn dividends by holding Dai as an interest rate will be introduced. It also provides an opportunity for crypto-speculators to hedge their positions. Therefore it can be valuable for remittance services to integrate Dai, as users are seeking ways to easily transfer globally, and hold a stable currency.
 
 #### Dai token contract
 In order to interact directly with the DAI token, you can find the deployed smart contract addresses, source code, and ABIs in the links below.
