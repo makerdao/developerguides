@@ -34,3 +34,19 @@ We welcome submissions of guides and tutorials that cover new types of integrati
 * Include all the sections present in this [sample guide](/sample/sample-guide-01/sample-guide-01.md)  
 * Create a folder with one markdown file using the same name
 * Append a number if a guide needs to be split into multiple parts
+
+## License
+
+```text
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
