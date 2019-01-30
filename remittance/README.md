@@ -60,13 +60,16 @@ Countries: Mexico, Chile
 **DSToken (token standard for Maker tokens)**
 - Docs: https://dapp.tools/dappsys/ds-token.html
 - Source: https://github.com/dapphub/ds-token
+
 **Current Dai credit system implementation**
 - Docs: https://developer.makerdao.com/dai/1/api/
 - Docs: https://github.com/makerdao/sai/blob/master/DEVELOPING.md
 - Source: https://github.com/makerdao/sai
+
 **Dai.js Javascript Library**
 - Docs: https://makerdao.com/documentation/
 - Source: https://github.com/makerdao/dai.js
+
 **Python API**
 - Docs/source: https://github.com/makerdao/pymaker
 - Maker platform in general
