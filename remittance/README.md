@@ -55,3 +55,22 @@ You might need a VPN to access their website, if you accessing their service out
 Countries: Argentina, Peru
 * [Orion X](https://orionx.com/)\
 Countries: Mexico, Chile
+
+## Additional source code and developer docs
+**DSToken (token standard for Maker tokens)**
+- Docs: https://dapp.tools/dappsys/ds-token.html
+- Source: https://github.com/dapphub/ds-token
+**Current Dai credit system implementation**
+- Docs: https://developer.makerdao.com/dai/1/api/
+- Docs: https://github.com/makerdao/sai/blob/master/DEVELOPING.md
+- Source: https://github.com/makerdao/sai
+**Dai.js Javascript Library**
+- Docs: https://makerdao.com/documentation/
+- Source: https://github.com/makerdao/dai.js
+**Python API**
+- Docs/source: https://github.com/makerdao/pymaker
+- Maker platform in general
+-  [Whitepaper](https://makerdao.com/whitepaper/)
+
+## Need help?
+Contact integrate@makerdao.com or #dev channel on chat.makerdao.com
