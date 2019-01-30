@@ -72,7 +72,8 @@ Countries: Mexico, Chile
 
 **Python API**
 - Docs/source: https://github.com/makerdao/pymaker
-- Maker platform in general
+
+**Maker platform in general**
 -  [Whitepaper](https://makerdao.com/whitepaper/)
 
 ## Need help?
