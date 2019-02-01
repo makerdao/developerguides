@@ -4,7 +4,7 @@ Developers can build a variety of experiences using one or more components of th
 
 All guides are organized in sections and by proficiency levels within each section.
 
-* [CDP](cdp/)
+* [CDP](cdp/)  
 * [Dai](dai/)
 * [Governance](governance/)
 * [Keepers](keepers/) (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
@@ -16,7 +16,7 @@ All guides are organized in sections and by proficiency levels within each secti
 
 ## Partner compilations
 In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
-
+* [Upgrading to Multi-Collateral Dai](mcd/)
 * [Exchanges](exchanges/)
 * [Wallets](wallets/)
 * [Remittance services](remittance/)

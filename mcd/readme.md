@@ -3,7 +3,7 @@
 **Estimated Time**: 5 -20 minutes    
 **Audience**: Technical and commercial teams with partners and Dai holders
 ## Overview
-This guide is intended as a high level overview of the upgrade process. More details will become available as we close in on Multi-Collateral Dai (MCD) launch.  
+This guide gives a high level overview of the upgrade process for different actors in the Maker ecosystem. More details will become available as we close in on Multi-Collateral Dai (MCD) launch.  
 The steps necessary to migrate from Single-Collateral Dai (SCD) to Multi-Collateral Dai differ depending on your platform and use case for Dai, so the guide is split into sections.  
 
 ## Learning Objectives
@@ -25,10 +25,10 @@ The steps necessary to migrate from Single-Collateral Dai (SCD) to Multi-Collate
 - As a Market Maker
 
 ## As a Decentralized Exchange
-We recommend you take the following steps for adopting MCD:    
+We recommend you take the following steps for upgrading to MCD:    
 - After launch of MCD, inform your users as soon as possible about the timeline for your own integration.
 - Have both Single-Collateral Dai (SCD) and MCD listed concurrently for a period of time until trade demand for SCD diminishes.
-- After the launch, MCD should be named Dai on your platform.  SCD should be named Sai
+- After the launch, MCD should be named Dai on your platform. SCD should be named Sai
 - Inform users via an alert or warning when they begin a trade of SCD or MCD
 - If there are smart contracts with the address of Dai hard-coded, update the address to the address for MCD which will be published at launch
 - Inform users where to redeem SCD for MCD. We will announce tools for this closer to launch.
@@ -37,7 +37,7 @@ We recommend you take the following steps for adopting MCD:
   - Optional: Link users to a page on makerdao.com for activating savings, which will be announced at launch.    
   
 ## As a Centralized Exchange
-We recommend you take the following steps for adopting MCD:
+We recommend you take the following steps for upgrading to MCD:
 - After launch of MCD, inform your users as soon as possible about the timeline for your own integration.
 - Have both SCD and MCD listed concurrently for a period of time until trade demand for SCD diminishes.
 - After the launch, MCD should be named Dai. SCD should be named Sai
