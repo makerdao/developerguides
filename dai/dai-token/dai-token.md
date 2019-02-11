@@ -60,13 +60,13 @@ Care should be taken before using the price of Dai directly reported by sources 
 
 #### Mainnet
 
-Dai can be purchased with Ether on many popular exchanges, [https://coinmarketcap.com/currencies/dai/#markets](https://coinmarketcap.com/currencies/dai/#markets). It is also available on many decentralized exchanges like Eth2Dai, Kyber, and Uniswap.
+Dai can be purchased with Ether on many popular exchanges, [https://coinmarketcap.com/currencies/dai/#markets](https://coinmarketcap.com/currencies/dai/#markets). It is also available on many decentralized exchanges like [Eth2Dai](https://eth2dai.com), [KyberSwap](https://kyberswap.com/), and [Uniswap](https://uniswap.exchange/).
 
 You can also create your own Dai by opening a CDP with [https://cdp.makerdao.com](https://cdp.makerdao.com/).
 
 #### Testnet
 
-The best method to get Kovan Dai is to open a testnet CDP using Kovan ETH and create your required amount of Dai from it. The lowest collateralization ratio will give you the most bang for the buck!  Another option is to buy Kovan Dai using Kovan ETH on Eth2Dai.io if there is sufficient liquidity available.
+The best method to get Kovan Dai is to open a testnet CDP using Kovan ETH and create your required amount of Dai from it. The lowest collateralization ratio will give you the most bang for the buck!  Another option is to buy Kovan Dai with Kovan ETH on [Eth2Dai](https://eth2dai.com) if there is sufficient liquidity available.
 
 ### Token Contract
 
