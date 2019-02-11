@@ -12,20 +12,16 @@ All guides are organized in sections and by proficiency levels within each secti
 * [Oracles](oracles/) (Data Feeds)
 * [Partners](partners/)
 * [Risk](risk/)
-* [Development Tools](tools/)
+* [Development Tools](devtools/)
 
 ## Partner compilations
+
 In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
 * [Upgrading to Multi-Collateral Dai](mcd/)
 * [Exchanges](exchanges/)
 * [Wallets](wallets/)
 * [Remittance services](remittance/)
 * [Market Makers](market-makers/)
-
-### Custom integrations and support
-The Maker Foundation employs an integrations team, that can assist in designing and building custom integration solutions if there is a potential in driving the adoption of the Dai Credit System in accordance to the [Foundation Principles](https://medium.com/makerdao/foundation-proposal-v2-f10d8ee5fe8c). This means building smart contracts or Javascript libraries that enables integration of Dai and CDP mechanisms into specific business logic not easily supported by the existing libraries. Custom integrations can for example be a way to bridge the gap between Maker solutions and legacy systems from more traditional organizations.
-Former cases includes a partnership with Tradeshift where Dai is utilized for supply chain financing.
-For custom integrations contact integrate@makerdao.com or a business development representative to kickstart the conversation.
 
 ## Contribution guidelines
 
