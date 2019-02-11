@@ -28,13 +28,13 @@ The token contract conforms to the ERC20 token standard which allows wallets, ex
 
 ## Guide
 
-* Token Info
+* [Token Info](#token-info)
 
-* Getting Dai
+* [Getting Dai](#getting-dai)
 
-* Token contract
+* [Token contract](#token-contract)
 
-* Deploy a DSToken
+* [Deploy a DSToken](#deploy-a-dstoken)
 
 ### Token Info
 
