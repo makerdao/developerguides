@@ -4,15 +4,15 @@ Developers can build a variety of experiences using one or more components of th
 
 All guides are organized in sections and by proficiency levels within each section.
 
-* [CDP](cdp/)  
+* CDP
 * [Dai](dai/)
-* [Governance](governance/)
+* Governance
 * [Keepers](keepers/) (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
-* [OTC Exchange Service](otc-exchange/)
-* [Oracles](oracles/) (Data Feeds)
+* OTC Exchange Service
+* Oracles (Data Feeds)
 * [Partners](partners/)
-* [Risk](risk/)
-* [Development Tools](devtools/)
+* Risk
+* Development Tools
 
 ## Partner compilations
 
