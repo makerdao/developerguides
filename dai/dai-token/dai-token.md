@@ -98,7 +98,7 @@ There are few other functions which can call mint and burn but we can safely ign
 
 Owner variable in the contract has been set to the 0x0 address after deployment. Token holder functions like *transferFrom()*, and *approve()* are fully open for existing token holders to call.
 
-The entire Dai Credit system comprises of a modular set of contracts that each perform one specific action. They use a common [DSGuard](https://dapp.tools/dappsys/ds-guard.html) authority, which has been instantiated during the initial deployment, with an access control list(ACL) to track contracts that are permitted to call functions on others. Permissions on this ACL cannot be updated, as both its owner and authority are also set to 0x0.
+The entire Dai Credit system comprises of a modular set of contracts that each perform one specific action. They use a common [DSGuard](https://dapp.tools/dappsys/ds-guard.html) authority, which has been [instantiated](https://etherscan.io/address/0x315cbb88168396d12e1a255f9cb935408fe80710#events) during the initial deployment, with an access control list(ACL) to track contracts that are permitted to call functions on others. Permissions on this ACL cannot be updated, as both its owner and authority are also set to 0x0.
 
 On the Dai token contract, Tub is permitted to both mint and burn Dai balance of any token holder. Tap is allowed to mint and burn Dai balance of a token holder, and also burn its own Dai balance.
 
