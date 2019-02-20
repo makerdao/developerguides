@@ -92,7 +92,13 @@ Burn has the function signature: *burn(address guy, uint wad)*. It decreases the
 
 Calls to *burn()* originate from *wipe()* function on the [Tub](https://etherscan.io/address/0x448a5065aebb8e423f0896e6c5d525c040f59af3) contract and *heal()* on the [Tap](https://etherscan.io/address/0xbda109309f9fafa6dd6a9cb9f1df4085b27ee8ef) contract.
 
-There are few other functions which can call mint and burn but we can safely ignore discussing them here for the purposes of this document.
+Other functions which are not currently active but have permissions to call mint and burn are,
+
+*drip()* on Tub uses [mint](https://github.com/makerdao/sai/blob/0dd0a799e4746ac1955b67898762cff9b71aea17/src/tub.sol#L225) to assess CDP owners an additional fee and distribute it to PETH holders, but it is not used right now as [*tax*](https://github.com/makerdao/sai/blob/0dd0a799e4746ac1955b67898762cff9b71aea17/src/tub.sol#L51) isn't activated in the live system.
+
+*mock()* and *cash()* on Tap are authorized to call [mint](https://github.com/makerdao/sai/blob/0dd0a799e4746ac1955b67898762cff9b71aea17/src/tap.sol#L128) and [burn](https://github.com/makerdao/sai/blob/0dd0a799e4746ac1955b67898762cff9b71aea17/src/tap.sol#L123) respectively only after emergency shutdown.
+
+
 
 #### Authority
 
