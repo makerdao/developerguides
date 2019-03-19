@@ -12,7 +12,7 @@ All guides are organized in sections and by proficiency levels within each secti
 * Oracles (Data Feeds)
 * [Partners](partners/)
 * Risk
-* Development Tools
+* [Development Tools](devtools/)
 
 ## Partner compilations
 
