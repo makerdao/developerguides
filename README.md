@@ -17,6 +17,7 @@ All guides are organized in sections and by proficiency levels within each secti
 ## Partner compilations
 
 In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
+
 * [Upgrading to Multi-Collateral Dai](mcd/)
 * [Exchanges](exchanges/)
 * [Wallets](wallets/)
