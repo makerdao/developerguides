@@ -151,17 +151,13 @@ dapp install ds-math
 
 #### Setup WipeProxy.sol
 
-Import the DSMath contract and add it to the WipeProxy contract
+Import the DSMath contract
 
 ```text
 import "ds-math/math.sol";
-
-contract WipeProxy is DSMath {
-
-}
 ```
 
-Let's add the required interfaces to be able to interact with functions on those contracts later in the script.
+Let's add the required interfaces to interact with functions on those contracts later in the script.
 
 Add the `TubLike` interface to interact with CDPs on the Tub contract
 
@@ -206,7 +202,15 @@ interface UniswapExchangeLike {
 }
 ```
 
-#### Script outline
+Add DSMath to the WipeProxy contract
+
+```text
+contract WipeProxy is DSMath {
+
+}
+```
+
+#### Setup `wipeWithDai` function
 
 Add a new function `wipeWithDai` which takes in the following inputs,
 
@@ -232,7 +236,7 @@ function wipeWithDai(
 
 #### Checks
 
-Ensure at least some Dai debt is being wiped in the transaction using a require statement
+Within the function body, ensure at least some Dai debt is being wiped in the transaction using a require statement
 
 ```text
 require(wad > 0);
@@ -260,7 +264,7 @@ bytes32 cup = bytes32(cupid);
 
 #### Set all allowances
 
-Add a `setAllowance` private function to the contract to set allowances
+In the `WipeProxy` contract, create a new `setAllowance` private function
 
 ```text
 function setAllowance(TokenLike token_, address spender_) private {
@@ -288,12 +292,6 @@ Read the current MKRUSD price
 
 ```text
 (bytes32 val, bool ok) = pep.peek();
-```
-
-Calculate the stability fees owed for the `wad` amount of dai debt being wiped from the CDP
-
-```text
-uint daiFee = rmul(wad, rdiv(tub.rap(cup), tub.tab(cup)));
 ```
 
 Calculate the amount of MKR needed for successfully executing wipe by dividing the stability fee amount accrued in Dai with the current value reported by the MKRUSD price oracle contract
@@ -332,6 +330,59 @@ Wipe debt of the CDP with DAI and pay the stability fee with MKR available on th
 
 ```text
 tub.wipe(cup, wad);
+```
+
+Before we proceed to the next section of this guide, please ensure your code matches the `WipeProxy` contract below
+
+```text
+contract WipeProxy is DSMath {
+    function setAllowance(TokenLike token_, address spender_) private {
+        if (token_.allowance(address(this), spender_) != uint(-1)) {
+            token_.approve(spender_, uint(-1));
+        }
+    }
+
+    function wipeWithDai(
+        address _tub,
+        address _DAIExchange,
+        address _MKRExchange,
+        uint cupid,
+        uint wad
+    ) public {
+        require(wad > 0);
+
+        TubLike tub = TubLike(_tub);
+        UniswapExchangeLike daiEx = UniswapExchangeLike(_DAIExchange);
+        UniswapExchangeLike mkrEx = UniswapExchangeLike(_MKRExchange);
+        TokenLike dai = tub.sai();
+        TokenLike mkr = tub.gov();
+        PepLike pep =   tub.pep();
+
+        bytes32 cup = bytes32(cupid);
+
+        setAllowance(dai, _tub);
+        setAllowance(mkr, _tub);
+        setAllowance(dai, _DAIExchange);
+
+        (bytes32 val, bool ok) = pep.peek();
+
+        // MKR required for wipe = Stability fees accrued in Dai / MKRUSD value
+        uint mkrFee = wdiv(rmul(wad, rdiv(tub.rap(cup), tub.tab(cup))), uint(val));
+
+        uint ethAmt = mkrEx.getEthToTokenOutputPrice(mkrFee);
+        uint daiAmt = daiEx.getTokenToEthOutputPrice(ethAmt);
+
+        daiAmt = add(wad, daiAmt);
+        require(dai.transferFrom(msg.sender, address(this), daiAmt));
+
+        if(ok && val != 0) {
+           daiEx.tokenToTokenSwapOutput(mkrFee, daiAmt, uint(999000000000000000000), uint(1645118771), address(mkr));
+        }
+
+        tub.wipe(cup, wad);
+    }
+}
+
 ```
 
 ### Deployment and Execution
