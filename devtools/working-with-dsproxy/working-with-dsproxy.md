@@ -122,10 +122,10 @@ We'll use `dapp` and `seth` while working through this section but you can also 
 
 You have to create a `~/.sethrc` file and configure it with these values to work with the Kovan testnet,
 
-* `SETH_CHAIN=kovan`
-* `ETH_FROM=0xYourKovanAddressFromKeyStoreOrLedger`
-* `ETH_GAS=4000000`
-* `ETH_GAS_PRICE=2500000000`
+* `export SETH_CHAIN=kovan`
+* `export ETH_FROM=0xYourKovanAddressFromKeyStoreOrLedger`
+* `export ETH_GAS=4000000`
+* `export ETH_GAS_PRICE=2500000000`
 
 Seth uses an Infura RPC URL by default but you can also configure `ETH_RPC_URL` and point it to your preferred end-point.
 
@@ -410,16 +410,28 @@ export WIPEPROXY=0xfd92bd57d369714f519c3e6095d62d5872114e34
 Deploy your own DSProxy contract for your address using the factory contract present on Kovan
 
 ```bash
-seth send 0x64a436ae831c1672ae81f674cab8b6775df3475c 'build()'
+export PROXYREGISTRY=0x64a436ae831c1672ae81f674cab8b6775df3475c
+seth send $PROXYREGISTRY 'build()'
 ```
 
 This transaction might fail if you already have deployed a DSProxy contract before from this address. You can check if you have one now with this command
 
 ```bash
-seth call 0x64a436ae831c1672ae81f674cab8b6775df3475c 'proxies(address)(address)' 0xYourAddressHere
+seth call $PROXYREGISTRY 'proxies(address)(address)' 0xYourAddressHere
 ```
 
-Make a note of the returned DSProxy contract address to use in a command later.
+Make a note of the returned DSProxy contract address and store it as a variable.
+
+```bash
+export MYPROXY=0xYourDSProxyAddress
+```
+
+Set allowance for your DSProxy contract address to spend from the Dai token balance on your own address
+
+```bash
+export DAITOKEN=0xc4375b7de8af5a38a93548eb8453a498222c4ff2
+seth send $DAITOKEN 'approve(address)' $MYPROXY
+```
 
 We can prepare calldata to wipe 1 DAI in debt from CDP #44 on Kovan using this command with the following inputs,
 
@@ -445,7 +457,7 @@ Call execute on the DSProxy contract with these inputs,
 * Calldata to execute the `wipeWithDai` script
 
 ```bash
-seth send 0xd5282809a9d40311e06e0992b773075bbd40dde5 'execute(address,bytes memory)' $WIPEPROXY $CALLDATA
+seth send $MYPROXY 'execute(address,bytes memory)' $WIPEPROXY $CALLDATA
 ```
 
 ### Best Practices
