@@ -118,7 +118,7 @@ We've seen an example earlier of how a script can help CDP owners pay back their
 
 #### Environment Setup
 
-We'll use `dapp` and `seth` while working through this section but you can also your own tool of choice like the Remix IDE to execute these steps. Instructions to install both the tools can be found [here](https://dapp.tools/).
+We'll use `dapp` and `seth` while working through this section but you can also use your own tool of choice like the Remix IDE to execute these steps. Instructions to install both the tools can be found [here](https://dapp.tools/).
 
 You have to create a `~/.sethrc` file and configure it with these values to work with the Kovan testnet,
 
