@@ -10,4 +10,4 @@ Guides for tools and libraries developed at Maker
 
 ## Advanced
 
-[Working with DSProxy](/devtools/working-with-ds-proxy/working-with-dsproxy.md)
+[Working with DSProxy](/devtools/working-with-dsproxy/working-with-dsproxy.md)
