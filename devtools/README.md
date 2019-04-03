@@ -7,6 +7,7 @@ Guides for tools and libraries developed at Maker
 ## Beginner
 
 ## Intermediate
+[Test Chain Guide](/devtools/test-chain-guide/test-chain-guide.md)
 
 ## Advanced
 
