@@ -24,12 +24,12 @@ In this guide, we will learn how to
 
 
 ## Sections
-* [Configure geth](#Configure geth)
-* [Configure seth](#Configure seth)
-* [Initiate link](#Initiate link)
-* [Approve link](#Approve link)
-* [Approve MKR transfer](#Approve MKR transfer)
-* [Lock MKR](#Lock MKR)
+* [Configure geth](#configure-geth)
+* [Configure seth](#configure-seth)
+* [Initiate link](#initiate-link)
+* [Approve link](#approve-link)
+* [Approve MKR transfer](#approve-mkr-transfer)
+* [Lock MKR](#lock-mkr)
 
 
 #### Configure geth
@@ -160,7 +160,7 @@ Now, let’s head over to the `Write Contract` tab under the Kovan etherscan Add
 
 Select `Connect with MetaMask`:
 
-![Etherscan](./pictures/VoteProxyFactory.png)
+![Etherscan](./pictures/voteproxyfactory.png)
 
 Below, you’ll be able to select the `approveLink()` method.
 
@@ -238,7 +238,7 @@ Input the kovan vote-proxy contract and `lock()` ABI as follows:
   * `< your vote proxy address >`
 * ABI / JSON Interface:
   * `[{"constant":false,"inputs":[{"name":"wad","type":"uint256"}],"name":"lock","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}]`
-  
+
 
  Confirm you are on the kovan network (top right of screen), and click `Access` (bottom left).
  Below, you’ll be able to select the `lock()` method.
