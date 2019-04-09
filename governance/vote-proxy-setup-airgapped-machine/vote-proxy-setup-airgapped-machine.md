@@ -32,11 +32,13 @@ In this guide, we will learn how to
 * [Lock MKR](#lock-mkr)
 
 
-#### Configure geth
+
+
+### Configure geth
 Download a standalone bundle of geth and transfer it to your air-gapped machine:
 https://github.com/ethereum/go-ethereum/wiki/Installing-Geth#download-standalone-bundle
 
-Confirm that your cold wallet is in a local keystore file.
+Confirm that your cold wallet is in a local keystore file.\
 Let’s list which accounts are visible to geth.
 
 ```bash
@@ -90,7 +92,9 @@ If geth is the only program on the air-gapped computer, then the user would need
 4. Optional - publish the QR code of the signed transaction hash through a Broadcasting tool, such as https://etherscan.io/pushTx or https://www.mycrypto.com/pushTx
 
 
-#### Configure seth
+
+
+### Configure seth
 
 On another hot machine, install dapp.tools, which includes seth:
 
@@ -119,7 +123,8 @@ $ export SETH_CHAIN=kovan
 
 
 
-#### Initiate link
+
+### Initiate link
 Make sure you have enough kovan ethereum on your cold wallet to cover gas costs. [You can get kovan ETH here](https://github.com/kovan-testnet/faucet).
 
 Following the Signing Process outlined over in the Configure geth section
@@ -152,7 +157,7 @@ Following the Signing Process outlined over in the Configure geth section
 
 
 
-#### Approve link
+### Approve link
 
 To approve the link, we need to call `approveLink(coldAddress)` with our MetaMask wallet. To mitigate the risks in moving multiple private keys at once, we will use etherscan.io to call this smart contract function.
 
@@ -171,7 +176,7 @@ If the transaction went through without any reverts, great! Your link is now app
 Note: Every cold-hot wallet link is one to one, meaning for any approved link, there is one unique cold wallet for another unique hot wallet. If you’d like to break a link, you could use either address to call the public `breakLink()` function in the VoteProxyFactory contract.
 
 
-#### Approve MKR transfer
+### Approve MKR transfer
 
 Before we can lock up MKR, we need to approve our ERC20 token (MKR) to be pulled from the cold wallet and pushed to the voting contract (DSChief). Feel free to change the allowance to a value more appropriate for your case.
 
@@ -225,7 +230,8 @@ Following the Signing Process outlined over in the Configure geth section
 
 
 
-#### Lock MKR
+
+### Lock MKR
 With both the proxy link and MKR transfer approved, the hot wallet can be used to move MKR to and from DSChief. To call the `lock()` method, we will use MyCrypto, though the method can be called with your cold wallet as well. We are using MyCrypto instead of Etherscan because the former allows us to pass in our own ABI Interface sections on the fly. The lock method will pull MKR from your cold wallet and push it to DSChief. In this example, we will lock 5 MKR. Note that the MKR amount has to be represented in units of WEI.
 
 https://www.mycrypto.com/contracts/interact
