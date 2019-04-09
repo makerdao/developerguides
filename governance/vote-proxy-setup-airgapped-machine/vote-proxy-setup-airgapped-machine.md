@@ -58,36 +58,36 @@ If geth is the only program on the air-gapped computer, then the user would need
 
 1. Seth - create the data to be attached to the transaction (e.g. the method and the appropriate arguments being called). For example:
 
-    ```bash
-    $ seth calldata "approve(address,uint256)" <ERC20 Address> <ALLOWANCE>
-    ```
-    Output:0xdaea85c50000000000000000000000008e2a84d6ade1e7fffee039a35ef5f19f13057152
+  ```bash
+  $ seth calldata "approve(address,uint256)" <ERC20 Address> <ALLOWANCE>
+  ```
+  Output:0xdaea85c50000000000000000000000008e2a84d6ade1e7fffee039a35ef5f19f13057152
 
 2. Geth (air-gapped machine) - from the geth console and with your unlocked wallet, create and sign a transaction with the calldata, which is shown as bytecode from seth’s output.
 
-    ```bash
-    $ geth --verbosity 0 --unlock <0x123ABC cold address> --password <~/path/to/passwordFile console>
-    ```
-    Consult https://ethgasstation.info/ for current gas price information
+  ```bash
+  $ geth --verbosity 0 --unlock <0x123ABC cold address> --password <~/path/to/passwordFile console>
+  ```
+  Consult https://ethgasstation.info/ for current gas price information
 
-    ```bash
-    > var tx = eth.signTransaction({from:"<cold wallet address>", to:"<ERC20 Token Address>", gas: <gas>, gasPrice:<Wei per       unit of gas>, nonce:<transaction number>, data:"<calldata output 0x12345>"}, "<cold wallet address>")
-    > tx.raw
-    ```
+  ```bash
+  > var tx = eth.signTransaction({from:"<cold wallet address>", to:"<ERC20 Token Address>", gas: <gas>, gasPrice:<Wei per unit of gas>, nonce:<transaction number>, data:"<calldata output 0x12345>"}, "<cold wallet address>")
+  > tx.raw
+  ```
 
-    Output:"0xf88...f1a8"
+  Output:"0xf88...f1a8"
 
   Optional - generate a QR code and print it to the CLI
-  
-    ```bash
-    $ echo "<tx.raw output 0x12345>" | tr -d '[:space:]' | qrencode -t ANSIUTF8
-    ```
+
+  ```bash
+  $ echo "<tx.raw output 0x12345>" | tr -d '[:space:]' | qrencode -t ANSIUTF8
+  ```
 
 3. Seth - publish the signed transaction, which is shown as bytecode from geth’s output
 
-    ```bash
-    $ seth publish "<tx.raw output 0x12345>"
-    ```
+  ```bash
+  $ seth publish "<tx.raw output 0x12345>"
+  ```
 
 4. Optional - publish the QR code of the signed transaction hash through a Broadcasting tool, such as https://etherscan.io/pushTx or https://www.mycrypto.com/pushTx
 
@@ -130,33 +130,29 @@ Make sure you have enough kovan ethereum on your cold wallet to cover gas costs.
 Following the Signing Process outlined over in the Configure geth section
 
 1. Seth - hot machine
-    ```bash
-    $ HOTADDRESS=<address of one of your MetaMask wallets>
-    $ seth calldata "initiateLink(address)" $HOTADDRESS
-    ```
+  ```bash
+  $ HOTADDRESS=<address of one of your MetaMask wallets>
+  $ seth calldata "initiateLink(address)" $HOTADDRESS
+  ```
 2. Geth console - airgapped machine
-    ```bash
-    $ geth --verbosity 0 --unlock <0x123ABC cold address> --password ~/Library/Ethereum/passwords/<yourColdPublicAddress>.txt console
-    > KPROXYFACTORY="0x3E08741A68c2d964d172793cD0Ad14292F658cd8"
-    > GAS=75000
-    > GASPRICE=10000000000
-    > YOURADDRESS="<your cold wallet address>"
-    > CALLDATA="<output from seth calldata>"
-    > var tx = eth.signTransaction({from:YOURADDRESS, to:KPROXYFACTORY, gas:GAS, gasPrice:GASPRICE, nonce:1, chainId: 42, data:CALLDATA},YOURADDRESS)
-    > tx.raw
-    ```
-    
+  ```bash
+  $ geth --verbosity 0 --unlock <0x123ABC cold address> --password ~/Library/Ethereum/passwords/<yourColdPublicAddress>.txt console
+  > KPROXYFACTORY="0x3E08741A68c2d964d172793cD0Ad14292F658cd8"
+  > GAS=75000
+  > GASPRICE=10000000000
+  > YOURADDRESS="<your cold wallet address>"
+  > CALLDATA="<output from seth calldata>"
+  > var tx = eth.signTransaction({from:YOURADDRESS, to:KPROXYFACTORY, gas:GAS, gasPrice:GASPRICE, nonce:1, chainId: 42, data:CALLDATA},YOURADDRESS)
+  > tx.raw
+  ```
   Optional QR code generation (in another tab)
-    ```bash
-    $ echo "<tx.raw output 0x12345>" | tr -d '[:space:]' | qrencode -t ANSIUTF8
-    ```
-    
+  ```bash
+  $ echo "<tx.raw output 0x12345>" | tr -d '[:space:]' | qrencode -t ANSIUTF8
+  ```
 3. Seth - hot machine
-
-    ```bash
-    $ seth publish "<tx.raw output 0x12345>"
-    ```
-    
+  ```bash
+  $ seth publish "<tx.raw output 0x12345>"
+  ```
 4. Optional - publish the QR code of the signed transaction hash through a Broadcasting tool, such as https://etherscan.io/pushTx or https://www.mycrypto.com/pushTx
 
 
@@ -206,33 +202,30 @@ If your cold wallet is locked, refer to the Configure Geth section when unlockin
 Following the Signing Process outlined over in the Configure geth section
 
 1. Seth - hot machine
-    ```bash
-    $ ALLOWANCE=$(seth --to-uint256 $(seth --to-wei 100000 ether))
-    $ KVOTEPROXY=< your vote proxy address >
-    $ seth calldata "approve(address,uint256)" $KVOTEPROXY $ALLOWANCE
-    ```
-    
+  ```bash
+  $ ALLOWANCE=$(seth --to-uint256 $(seth --to-wei 100000 ether))
+  $ KVOTEPROXY=< your vote proxy address >
+  $ seth calldata "approve(address,uint256)" $KVOTEPROXY $ALLOWANCE
+  ```
 2. Geth console - airgapped machine
-    ```bash
-    $ geth --verbosity 0 --unlock <0x123ABC cold address> --password ~/Library/Ethereum/passwords/<yourColdPublicAddress>.txt console
-    > KMKR="0xAaF64BFCC32d0F15873a02163e7E500671a4ffcD"
-    > GAS=75000
-    > GASPRICE=10000000000
-    > YOURADDRESS="<your cold wallet address>"
-    > CALLDATA="<output from seth calldata>"
-    > var tx = eth.signTransaction({from:YOURADDRESS, to:KMKR, gas:GAS, gasPrice:GASPRICE, nonce:2, chainId: 42, data:CALLDATA},YOURADDRESS)
-    > tx.raw
-    ```
-    
+  ```bash
+  $ geth --verbosity 0 --unlock <0x123ABC cold address> --password ~/Library/Ethereum/passwords/<yourColdPublicAddress>.txt console
+  > KMKR="0xAaF64BFCC32d0F15873a02163e7E500671a4ffcD"
+  > GAS=75000
+  > GASPRICE=10000000000
+  > YOURADDRESS="<your cold wallet address>"
+  > CALLDATA="<output from seth calldata>"
+  > var tx = eth.signTransaction({from:YOURADDRESS, to:KMKR, gas:GAS, gasPrice:GASPRICE, nonce:2, chainId: 42 data:CALLDATA},YOURADDRESS)
+  > tx.raw
+  ```
   Optional QR code generation (in another tab)
-    ```bash
-    $ echo "<tx.raw output 0x12345>" | tr -d '[:space:]' | qrencode -t ANSIUTF8
-    ```
-    
+  ```bash
+  $ echo "<tx.raw output 0x12345>" | tr -d '[:space:]' | qrencode -t ANSIUTF8
+  ```
 3. Seth - hot machine
-    ```bash
-    $ seth publish "<tx.raw output 0x12345>"
-    ```
+  ```bash
+  $ seth publish "<tx.raw output 0x12345>"
+  ```
 4. Optional - publish the QR code of the signed transaction hash through a Broadcasting tool, such as https://etherscan.io/pushTx or https://www.mycrypto.com/pushTx
 
 
