@@ -6,7 +6,7 @@ All guides are organized in sections and by proficiency levels within each secti
 
 * CDP
 * [Dai](dai/)
-* Governance
+* [Governance](governance/)
 * [Keepers](keepers/) (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
 * OTC Exchange Service
 * Oracles (Data Feeds)
