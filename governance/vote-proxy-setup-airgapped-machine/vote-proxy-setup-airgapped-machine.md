@@ -20,7 +20,6 @@ In this guide, we will learn how to
 
 ## Pre-requisites and Disclaimers
 * In these instructions, it is assumed that you have correctly set up an air-gapped computer. Do not use these instructions if you have any concerns regarding the security of your machine.
-* Please be aware that we haven't been able to verify that constraining the chainId provides replay protection. Replay Protection prevents the same signed transaction from being published on a different chain. This is especially important right after a hard fork, which is when each chain's state is still very similar.
 
 
 ## Sections
@@ -30,6 +29,7 @@ In this guide, we will learn how to
 * [Approve link](#approve-link)
 * [Approve MKR transfer](#approve-mkr-transfer)
 * [Lock MKR](#lock-mkr)
+* [Using this guide on Mainnet](#using-this-guide-on-mainnet)
 
 
 
@@ -262,19 +262,25 @@ When ready, head over to https://vote.makerdao.com with your MetaMask hotwallet.
 
 For instructions on how to vote, and finding your way around the rest of the dashboard, please click [here](https://medium.com/makerdao/introducing-the-governance-voting-ui-for-the-maker-foundational-vote-3fa669551ce1).
 
-## Summary
+### Using this guide on Mainnet
 
-In this guide, you signed transactions on your air-gapped machine, initiated and approved a cold-hot wallet link, approved an MKR transfer, and locked MKR in DSChief. You can now participate in Polling and Executive Voting at the Governance dapp at https://vote.makerdao.com
-
-If you wish to work with mainnet, you would need to go through the guide again with a couple different parameters -- set the chain to mainnet, change the gas price to be consistent with the present average gas/txn, and use all mainnet addresses:
+If you wish to work with mainnet, you would need to go through the guide again with a couple different arguments -- set the chain to mainnet, change the gas price to be consistent with the present average gas/txn, change the chainId, and use all mainnet addresses:
 
 ```bash
 $ export SETH_CHAIN=ethlive
 
 $ GAS=<insert competitive gas price>
 
+$ chainId=1
+
 $ PROXYFACTORY=0xa63E145309cadaa6A903a19993868Ef7E85058BE
 ```
+
+
+## Summary
+
+In this guide, you signed transactions on your air-gapped machine, initiated and approved a cold-hot wallet link, approved an MKR transfer, and locked MKR in DSChief. You can now participate in Polling and Executive Voting at the Governance dapp at https://vote.makerdao.com
+
 If you have any questions, we’re always here to help either on our subreddit or chat.makerdao.com.
 
 Happy voting!
