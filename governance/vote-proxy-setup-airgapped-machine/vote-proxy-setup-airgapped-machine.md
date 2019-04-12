@@ -19,7 +19,8 @@ In this guide, we will learn how to
 
 
 ## Pre-requisites and Disclaimers
-* In these instructions, it is assumed that you have correctly set up an air-gapped computer. Do not use these instructions if you have any concerns regarding the security of your machine.
+* It is assumed that you have correctly set up an air-gapped computer. Do not use these instructions if you have any concerns regarding the security of your machine.
+* It is assumed that you broadcast signed transaction immediately after transaction fabrication. Especially near/after hard forks, we suggest researching methods of replay protection if signed transactions are not immediately broadcasted. [EIP-155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md) is a great starting point.
 
 
 ## Sections
@@ -143,7 +144,7 @@ Following the Signing Process outlined over in the Configure geth section
   > GASPRICE=10000000000
   > YOURADDRESS="<your cold wallet address>"
   > CALLDATA="<output from seth calldata>"
-  > var tx = eth.signTransaction({from:YOURADDRESS, to:KPROXYFACTORY, gas:GAS, gasPrice:GASPRICE, nonce:1, chainId: 42, data:CALLDATA},YOURADDRESS)
+  > var tx = eth.signTransaction({from:YOURADDRESS, to:KPROXYFACTORY, gas:GAS, gasPrice:GASPRICE, nonce:1, data:CALLDATA},YOURADDRESS)
   > tx.raw
   ```
   Optional QR code generation (in another tab)
@@ -216,7 +217,7 @@ Following the Signing Process outlined over in the Configure geth section
   > GASPRICE=10000000000
   > YOURADDRESS="<your cold wallet address>"
   > CALLDATA="<output from seth calldata>"
-  > var tx = eth.signTransaction({from:YOURADDRESS, to:KMKR, gas:GAS, gasPrice:GASPRICE, nonce:2, chainId: 42 data:CALLDATA},YOURADDRESS)
+  > var tx = eth.signTransaction({from:YOURADDRESS, to:KMKR, gas:GAS, gasPrice:GASPRICE, nonce:2, data:CALLDATA},YOURADDRESS)
   > tx.raw
   ```
   Optional QR code generation (in another tab)
@@ -264,14 +265,12 @@ For instructions on how to vote, and finding your way around the rest of the das
 
 ### Using this guide on Mainnet
 
-If you wish to work with mainnet, you would need to go through the guide again with a couple different arguments -- set the chain to mainnet, change the gas price to be consistent with the present average gas/txn, change the chainId, and use all mainnet addresses:
+If you wish to work with mainnet, you would need to go through the guide again with a couple different arguments -- set the chain to mainnet, change the gas price to be consistent with the present average gas/txn, and use all mainnet addresses:
 
 ```bash
 $ export SETH_CHAIN=ethlive
 
 $ GAS=<insert competitive gas price>
-
-$ chainId=1
 
 $ PROXYFACTORY=0xa63E145309cadaa6A903a19993868Ef7E85058BE
 ```
