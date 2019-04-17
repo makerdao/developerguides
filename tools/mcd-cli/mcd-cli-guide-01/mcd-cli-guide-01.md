@@ -68,11 +68,11 @@ In order to receive some tokens of the COL1 type, you must run the following com
 
 **i. Setting the COL1 address to env variable:**
 
-`$ export COL1A=0x911eb92e02477a4e0698790f4d858e09dc39468a`
+`$ export COL1A=0xb3844361e19ab82fce3dddd81637b85bcb554da7`
 
 **ii. Setting the Faucet address to env variable:**
 
-`export FAUCET=0xe8121d250973229e7988ffa1e9330b420666113a`
+`export FAUCET=0xDF31eF13A608728b6fEE5d2596Ddbb1e0d8BDe31`
 
 **iii. Now, you can call the** **_gulp(address)_** **function:**
 
