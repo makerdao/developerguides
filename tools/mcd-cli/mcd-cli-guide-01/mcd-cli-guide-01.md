@@ -59,7 +59,7 @@ There are many sources from which to get Kovan ETH, including:
 
 We have deployed a special faucet that allows you to withdraw testnet collateral tokens that essentially mimic the real tokens that exist on mainnet.  
 
-**K-Collateral Token Faucet Address:** `0xe8121d250973229e7988ffa1e9330b420666113a`
+**K-Collateral Token Faucet Address:** `0xa402e771a4662dcbe661e839a6e8c294d2ce44cf`
 
 **Note:**  You can call the  **gulp(address)**  function on it with  **seth**. The  **address**parameter is the address of the COL1 to COL5 collateral types we have added to this deployment.  
 
@@ -68,11 +68,11 @@ In order to receive some tokens of the COL1 type, you must run the following com
 
 **i. Setting the COL1 address to env variable:**
 
-`$ export COL1A=0xb3844361e19ab82fce3dddd81637b85bcb554da7`
+`$ export COL1A=0xc644e83399f3c0b4011d3dd3c61bc8b1617253e5`
 
 **ii. Setting the Faucet address to env variable:**
 
-`export FAUCET=0xDF31eF13A608728b6fEE5d2596Ddbb1e0d8BDe31`
+`export FAUCET=0xa402e771a4662dcbe661e839a6e8c294d2ce44cf`
 
 **iii. Now, you can call the** **_gulp(address)_** **function:**
 
@@ -89,7 +89,7 @@ In order to receive some tokens of the COL1 type, you must run the following com
 **That’s it! You now have some COL1 k-collateral tokens.**  
 
 **Note:**  If you would like to receive some K-MKR tokens, you would need to replace the  **COL1** token address with the  K-MKR  token address (0x770272c5847d718612e6aa4ee552e5ea64e1b7d8) and follow the exact same process as above.
-`export MKR=0x770272c5847d718612e6aa4ee552e5ea64e1b7d8`
+`export MKR=0x62048f1d8090889f269bc97ee69de731a21273e3`
 
 After you have successfully received the Kovan collateral tokens, you can continue on and explore the MCD-CLI.
 
@@ -148,13 +148,7 @@ For this example, we are going to use the COL1 tokens as the first type of colla
     
     gem 0.000000000000000000
 
-**2a. Approve the MCD_JOIN_DAI to withdraw the minted Dai from your urn.**  
-This will enable you to add MCD_JOIN_DAI and MCD_VAT variables with the respective contract addresses to the terminal.  
 
-**Run:**  
-`$ seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI`
-
-**Note**: This is a temporary solution until we finalize MCD Dai.  
 
 ----------
 
@@ -186,7 +180,7 @@ This will enable you to add MCD_JOIN_DAI and MCD_VAT variables with the respecti
 
 **Run:**
 
-`$ mcd –ilk=COL1-A frob — -60 -1`
+`$ mcd –-ilk=COL1-A frob -- -60 -1`
 
 **Example Output:**
 
@@ -218,7 +212,7 @@ This will enable you to add MCD_JOIN_DAI and MCD_VAT variables with the respecti
 
 **Run:**
 
-`$ mcd –ilk=COL1-A gem exit 60` 
+`$ mcd –-ilk=COL1-A gem exit 60` 
 
 **Example Output**
 
