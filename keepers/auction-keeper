@@ -1,0 +1,75 @@
+-- Summary --
+The auction-keeper is a framework for watching the 3 types of MCD auctions, and submitting bids according to an ‘auction-models’ bidding strategy.   
+The auction-keeper needs to be directed to watch a specific chain’s auctions, which can be either: a local testchain, Kovan, or Mainnet.
+Because a local testchain is the best to develop on, these instructions include installing and running the MCD testchain in a local Docker instance.
+
+-- Prerequisites -- 
+Install MCD testchain locally. 
+https://github.com/grandizzy/mcd-testchain-docker-deploy
+In a separate tab, run these steps:
+
+git clone https://github.com/grandizzy/mcd-testchain-docker-deploy.git
+cd mcd-testchain-docker-deploy
+./setup.sh
+./start-parity.sh
+./deploy.sh
+
+Further information can be found in that repository’s Readme
+
+-- Installing auction-keeper -- 
+
+Note: This project uses Python version 3.6.6
+
+git clone https://github.com/makerdao/auction-keeper.git
+cd auction-keeper
+git submodule update --init --recursive
+pip3 install -r requirements.txt
+https://github.com/makerdao/auction-keeper
+
+
+-- Further information on using auction-keeper -- 
+
+-- Bidding Models -- 
+
+auction-keeper maintains a collection of child processes, as each bidding model is its own dedicated process. New processes (new bidding model instances) are spawned by executing a command according to the --model commandline parameter. These processes are automatically terminated (via SIGKILL) by the keeper shortly after their associated auction expires.
+Whenever the bidding model process dies, it gets automatically respawned by the keeper.
+Example:
+bin/auction-keeper --model '../my-bidding-model.sh' [...]
+
+Communicating with bidding models
+auction-keeper communicates with bidding models via their standard input and standard output.
+Straight away after the process gets started, and every time the auction state changes, the keeper sends a one-line JSON document to the standard input of the bidding model process. Sample message sent from the keeper to the model looks like:
+{"id": "6", "flapper": "0xf0afc3108bb8f196cf8d076c8c4877a4c53d4e7c", "bid": "7.142857142857142857", "lot": "10000.000000000000000000", "beg": "1.050000000000000000", "guy": "0x00531a10c4fbd906313768d277585292aa7c923a", "era": 1530530620, "tic": 1530541420, "end": 1531135256, "price": "1400.000000000000000028"}
+In that JSON, the meaning of individual fields are:
+id - auction identifier.
+flipper - Ethereum address of the Flipper contract (only for flip auctions).
+flapper - Ethereum address of the Flapper contract (only for flap auctions).
+flopper - Ethereum address of the Flopper contract (only for flop auctions).
+bid - current highest bid (will go up for flip and flap auctions).
+lot - amount being currently auctioned (will go down for flip and flop auctions).
+tab - bid value which will cause the auction to enter the dent phase (only for flip auctions).
+beg - minimum price increment (1.05 means minimum 5% price increment).
+guy - Ethereum address of the current highest bidder.
+era - current time (in seconds since the UNIX epoch).
+tic - time when the current bid will expire (null if no bids yet).
+end - time when the entire auction will expire.
+price - current price being tendered (can be null if price is infinity).
+
+Bidding models should never make an assumption that messages will be sent only when auction state changes. It is perfectly fine for the auction-keeper to periodically send the same messages to bidding models.
+At the same time, the auction-keeper reads one-line messages from the standard output of the bidding model process and tries to parse them as JSON documents. Then it extracts two fields from that document:
+price - the maximum (for flip and flop auctions) or the minimum (for flap auctions) price the model is willing to bid.
+gasPrice (optional) - gas price in Wei to use when sending the bid.
+
+Sample message send from the model to the keeper may look like:
+{"price": "750.0", "gasPrice": 7000000000}
+
+Whenever the keeper and the model communicate in terms of prices, it is the MKR/DAI price (for flap and flop auctions) or the collateral price expressed in DAI e.g. DGX/DAI (for flip auctions).
+Any messages writen by a bidding model to stderr will be passed through by the keeper to its logs. This is the most convenient way of implementing logging from bidding models.
+
+Simplest possible bidding model
+If you just want to bid a fixed price for each auction, this is the simplest possible bidding model you can use, which would go in a file simple.sh in a directory next to auction-keeper called auction-model :
+
+#!/usr/bin/env bash
+
+echo "{\"price\": \"750.0\"}"  # put your price here
+sleep 1000000
