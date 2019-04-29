@@ -82,7 +82,9 @@ In order to receive some tokens of the COL1 type, you must run the following com
 
 **iv. Please verify your COL1 balance by running:**
 
-`$ seth --from-wei $(seth --to-dec $(seth call $COL1A 'balanceOf(address)' $ETH_FROM)) eth`
+`$ seth --from-wei $(seth --to-dec $(seth call $COL1A 'balanceOf(address)' $ETH_FROM)) eth`   
+or   
+`mcd --ilk=COL1-A gem balance ext`
 
 **An example of the output you should be viewing when running the above command:**
 
