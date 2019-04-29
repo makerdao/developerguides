@@ -1,5 +1,7 @@
 # How to use mcd-cli to interact with Kovan deployment of MCD
 
+This guide works under the [0.2.4 Release](https://changelog.makerdao.com/releases/0.2.4/index.html) of the system. 
+
 This guide will show how to use the [mcd-cli](https://github.com/makerdao/mcd-cli) to interact with the Kovan deployment of the MCD smart contracts. The guide will showcase how to go through the following stages of the lifecycle of a collateralized debt position (CDP):
 
  - Opening CDP
@@ -61,7 +63,7 @@ We have deployed a special faucet that allows you to withdraw testnet collateral
 
 **K-Collateral Token Faucet Address:** `0xa402e771a4662dcbe661e839a6e8c294d2ce44cf`
 
-**Note:**  You can call the  **gulp(address)**  function on it with  **seth**. The  **address**parameter is the address of the COL1 to COL5 collateral types we have added to this deployment.  
+**Note:**  You can call the  **gulp(address)**  function on it with  **seth**. The **address** parameter is the address of the COL1 to COL5 collateral types we have added to this deployment.  
 
 **Instructions:**  
 In order to receive some tokens of the COL1 type, you must run the following commands in the CLI:
@@ -88,7 +90,7 @@ In order to receive some tokens of the COL1 type, you must run the following com
 
 **That’s it! You now have some COL1 k-collateral tokens.**  
 
-**Note:**  If you would like to receive some K-MKR tokens, you would need to replace the  **COL1** token address with the  K-MKR  token address (0x770272c5847d718612e6aa4ee552e5ea64e1b7d8) and follow the exact same process as above.
+**Note:**  If you would like to receive some K-MKR tokens, you would need to replace the  **COL1** token address with the  K-MKR  token address (0x62048f1d8090889f269bc97ee69de731a21273e3) and follow the exact same process as above.
 `export MKR=0x62048f1d8090889f269bc97ee69de731a21273e3`
 
 After you have successfully received the Kovan collateral tokens, you can continue on and explore the MCD-CLI.
