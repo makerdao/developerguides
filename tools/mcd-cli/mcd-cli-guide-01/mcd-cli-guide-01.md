@@ -1,6 +1,6 @@
 # How to use mcd-cli to interact with Kovan deployment of MCD
 
-This guide works under the [0.2.4 Release](https://changelog.makerdao.com/releases/0.2.4/index.html) of the system. 
+**This guide works under the [0.2.4 Release](https://changelog.makerdao.com/releases/0.2.4/index.html) of the system.** 
 
 This guide will show how to use the [mcd-cli](https://github.com/makerdao/mcd-cli) to interact with the Kovan deployment of the MCD smart contracts. The guide will showcase how to go through the following stages of the lifecycle of a collateralized debt position (CDP):
 
