@@ -8,6 +8,7 @@ All guides are organized in sections and by proficiency levels within each secti
 * [Dai](dai/)
 * [Governance](governance/)
 * [Keepers](keepers/) (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
+* [MCD](mcd/)
 * OTC Exchange Service
 * Oracles (Data Feeds)
 * [Partners](partners/)
@@ -18,7 +19,7 @@ All guides are organized in sections and by proficiency levels within each secti
 
 In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
 
-* [Upgrading to Multi-Collateral Dai](mcd/)
+* [Upgrading to Multi-Collateral Dai](mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
 * [Exchanges](exchanges/)
 * [Wallets](wallets/)
 * [Remittance services](remittance/)
