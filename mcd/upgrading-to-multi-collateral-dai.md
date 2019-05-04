@@ -32,8 +32,8 @@ We recommend you take the following steps for upgrading to MCD:
 - Inform users via an alert or warning when they begin a trade of SCD or MCD
 - If there are smart contracts with the address of Dai hard-coded, update the address to the address for MCD which will be published at launch
 - Inform users where to redeem SCD for MCD. We will announce tools for this closer to launch.
-- Inform users about Savings Dai, which allows Dai holders to earn interest.
-  - Optional: Build a UI that facilitates the usage of the Savings Dai service for your users in your exchange, where users will keep the accrued interest themselves.
+- Inform users about Savings Dai, which allows Dai holders to earn savings.
+  - Optional: Build a UI that facilitates the usage of the Savings Dai service for your users in your exchange, where users will keep the accrued savings themselves.
   - Optional: Link users to a page on makerdao.com for activating savings, which will be announced at launch.    
   
 ## As a Centralized Exchange
@@ -44,9 +44,9 @@ We recommend you take the following steps for upgrading to MCD:
 - Shortly after launch, use the Redeemer smart contract to swap all user’s SCD for MCD
   - Inform users of Dai upgrade and offer an Opt-out method as a withdrawal of funds by a certain date.
     - Opt-out could also be a user setting, preferably communicated as “not recommended”.  
-- Inform users about Savings Dai, which allows Dai holders to earn interest.
+- Inform users about Savings Dai, which allows Dai holders to earn savings.
   - Optional: Integrate Savings Dai and distribute profits to your users
-  - Optional: Integrate Savings Dai in your exchange and profit from ~2% accrued annual interest. 
+  - Optional: Integrate Savings Dai in your exchange and profit from ~2% accrued annual savings. 
 
 ## As a relayer
 - Follow the updates from the exchanges that you’re relaying. 
@@ -56,7 +56,7 @@ We recommend you take the following steps for upgrading to MCD:
 If you are a creator of a wallet that allows users to be in control of their private keys we recommend you do the following:
 - After launch of MCD, inform your users as soon as possible about the timeline for your own integration.
 - Provide them relevant links to where they can do the swap. This will be available on makerdao.com at launch.
-- Inform users about Savings Dai, which allows Dai holders to earn interest.
+- Inform users about Savings Dai, which allows Dai holders to earn savings.
     - Optional: Create an UI where users can activate Savings Dai.
     - Optional: Link users to a page on makerdao.com for activating savings, which will be announced at launch. 
 
@@ -66,7 +66,7 @@ If you are a creator of a wallet that has control over users’ private keys, i.
 - Choose from these:
   - Option A: Perform the upgrade through our redeemer service which will be announced at launch
   - Option B: Provide option to opt-out through a withdrawal of funds and link to more information that can be found on makerdao.com at launch. 
-- Inform users about Savings Dai, which allows Dai holders to earn interest. 
+- Inform users about Savings Dai, which allows Dai holders to earn savings. 
   - Accumulate or distribute the profits to your users from integrating Savings Dai.
   
 ## As a Keeper
@@ -74,17 +74,17 @@ Update your codebase to point at the MCD DAI contract addresses, which will be a
 
 ## As a Dai holder    
 ### You control your private key
-If you hold your Dai in a wallet where you control your private keys, then head to a page on makerdao.com which will be announced at launch. Follow the instructions to upgrade to MCD and optionally activate Savings Dai, which allows you to earn interest.    
+If you hold your Dai in a wallet where you control your private keys, then head to a page on makerdao.com which will be announced at launch. Follow the instructions to upgrade to MCD and optionally activate Savings Dai, which allows you to earn savings.    
 
 ### You don’t control your private key
 If your Dai is in an exchange or centralized wallet or locked in a dApp smart contract, you can follow the instructions these platforms are providing or withdraw the DAI and complete the upgrade yourself at a page on makerdao.com which will be announced at launch. 
 
-With MCD you can deposit your Dai into a Savings Dai smart contract that will give you ~2% accrued annual interest. Find more info on a page at makerdao.com at launch. 
+With MCD you can deposit your Dai into a Savings Dai smart contract that will give you ~2% accrued annual savings. Find more info on a page at makerdao.com at launch. 
 
 ## As a SCD CDP owner    
 As a SCD CDP owner you can move your CDP to the MCD CDP through the redeemer portal that you’ll find at makerdao.com at launch. Or close your CDP by paying back your debt and redeeming your ether back.    
 
-Once upgraded, you can start using Savings Dai by locking your Dai into the Savings Dai smart contract and receive around ~2% annually accrued interest. Find more info on makerdao.com at launch. 
+Once upgraded, you can start using Savings Dai by locking your Dai into the Savings Dai smart contract and receive around ~2% annually accrued savings. Find more info on makerdao.com at launch. 
 
 ## As a Market Maker    
 As a market maker you should update the Dai currency pairs according to the instructions given by the exchange.    
