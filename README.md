@@ -2,14 +2,13 @@
 
 Developers can build a variety of experiences using one or more components of the Dai Credit System. This repo contains guides and tutorials to help you understand various approaches to integrate with MakerDAO and our partners by interfacing with smart contracts, SDKs, APIs, and products.
 
-The [MCD101](mcd/mcd-101.md) guide is **highly recommended** as a starting point into the Dai Credit System's smart contracts.
-
 All guides are organized in sections and by proficiency levels within each section.
 
 * CDP
 * [Dai](dai/)
 * [Governance](governance/)
 * [Keepers](keepers/) (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
+* [MCD](mcd/)
 * OTC Exchange Service
 * Oracles (Data Feeds)
 * [Partners](partners/)
@@ -20,7 +19,7 @@ All guides are organized in sections and by proficiency levels within each secti
 
 In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
 
-* [Upgrading to Multi-Collateral Dai](mcd/)
+* [Upgrading to Multi-Collateral Dai](mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
 * [Exchanges](exchanges/)
 * [Wallets](wallets/)
 * [Remittance services](remittance/)
