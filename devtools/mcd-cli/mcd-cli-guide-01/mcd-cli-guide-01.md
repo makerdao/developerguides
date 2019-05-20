@@ -1,6 +1,6 @@
 # How to use mcd-cli to interact with Kovan deployment of MCD
 
-**This guide works under the [0.2.4 Release](https://changelog.makerdao.com/releases/0.2.4/index.html) of the system.** 
+**This guide works under the [0.2.6 Release](https://changelog.makerdao.com/releases/0.2.6/index.html) of the system.** 
 
 This guide will show how to use the [mcd-cli](https://github.com/makerdao/mcd-cli) to interact with the Kovan deployment of the MCD smart contracts. The guide will showcase how to go through the following stages of the lifecycle of a collateralized debt position (CDP):
 
@@ -25,7 +25,7 @@ The command-line interface mcd-cli will enable you to easily interact with the M
 `$ dapp pkg install mcd`
 
 ### Setting up variables in seth
-Configuring Seth can be done with environment variables or command line options. Environment variables can be generally used in two ways: you can save them in a configuration file named .sethrc in specific locations, like your home folder, or just set them only for the current terminal session. In this guide we will use environment variables with the latter approach for simplicity’s sake, however for ease-of-use in the future, we strongly encourage to save the variables in your project folder. Follow [this example](https://github.com/dapphub/dapptools/tree/master/src/seth#example-sethrc-file) to do so.
+Configuring Seth can be done with environment variables or command line options. Environment variables can be generally used in two ways: you can save them in a configuration file named `.sethrc` in specific locations, like your home folder, or just set them only for the current terminal session. In this guide we will use environment variables with the latter approach for simplicity’s sake, however for ease-of-use in the future, we strongly encourage to save the variables in your project folder. Follow [this example](https://github.com/dapphub/dapptools/tree/master/src/seth#example-sethrc-file) to do so.
 
 Seth can connect to the Kovan Ethereum testnet through a default remote node provided by Infura, by specifying the `SETH_CHAIN` variable in a terminal or the `.sethrc` file:
 
