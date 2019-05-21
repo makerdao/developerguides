@@ -184,7 +184,7 @@ For this example, we are going to use the COL1 tokens as the first type of colla
 
 **Run:**
 
-`$ mcd –-ilk=COL1-A frob -- -60 -1`
+`$ mcd --ilk=COL1-A frob -- -60 -1`
 
 **Example Output:**
 
@@ -216,7 +216,7 @@ For this example, we are going to use the COL1 tokens as the first type of colla
 
 **Run:**
 
-`$ mcd –-ilk=COL1-A gem exit 60` 
+`$ mcd --ilk=COL1-A gem exit 60` 
 
 **Example Output**
 
