@@ -6,24 +6,10 @@ load 'libs/bats-assert/load'
 
 load test_helper
 
-@test "mcd prints COL1-A ilk line" {
-  result="$(mcd --ilk=COL1-A ilk line)"
-  echo "result: ${result}"
-  [ "$result" = 200000.000000000000000000000000000000000000000000000 ]
- }
-
-
-
 @test "mcd ilks" {
   run mcd ilks
   assert_line 'ILK      GEM           DESC'
 }
-
-@test "check line" {
-  run mcd ilks
-  assert_line --index 2 'ETH-A    WETH      Ethereum'
-}
-
 
 @test "mcd --ilk=COL1-A gem join 60" {
   run mcd --ilk=COL1-A gem join 60
