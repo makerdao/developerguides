@@ -46,7 +46,7 @@ We recommend you take the following steps for upgrading to MCD:
     - Opt-out could also be a user setting, preferably communicated as “not recommended”.  
 - Inform users about Savings Dai, which allows Dai holders to earn savings.
   - Optional: Integrate Savings Dai and distribute profits to your users
-  - Optional: Integrate Savings Dai in your exchange and profit from ~2% accrued annual savings. 
+  - Optional: Integrate Savings Dai in your exchange and profit from accrued annual savings. 
 
 ## As a relayer
 - Follow the updates from the exchanges that you’re relaying. 
@@ -79,12 +79,12 @@ If you hold your Dai in a wallet where you control your private keys, then head 
 ### You don’t control your private key
 If your Dai is in an exchange or centralized wallet or locked in a dApp smart contract, you can follow the instructions these platforms are providing or withdraw the DAI and complete the upgrade yourself at a page on makerdao.com which will be announced at launch. 
 
-With MCD you can deposit your Dai into a Savings Dai smart contract that will give you ~2% accrued annual savings. Find more info on a page at makerdao.com at launch. 
+With MCD you can deposit your Dai into a Savings Dai smart contract that will give you accrued annual savings. Find more info on a page at makerdao.com at launch. 
 
 ## As a SCD CDP owner    
 As a SCD CDP owner you can move your CDP to the MCD CDP through the redeemer portal that you’ll find at makerdao.com at launch. Or close your CDP by paying back your debt and redeeming your ether back.    
 
-Once upgraded, you can start using Savings Dai by locking your Dai into the Savings Dai smart contract and receive around ~2% annually accrued savings. Find more info on makerdao.com at launch. 
+Once upgraded, you can start using Savings Dai by locking your Dai into the Savings Dai smart contract and receive annually accrued savings. Find more info on makerdao.com at launch. 
 
 ## As a Market Maker    
 As a market maker you should update the Dai currency pairs according to the instructions given by the exchange.    
