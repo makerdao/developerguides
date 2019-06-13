@@ -97,7 +97,7 @@ contract mortal is owned {
 	// Only owner can shutdown this contract. 
 	function destroy() public onlyOwner {
 	    daitoken.transfer(owner, daitoken.balanceOf(address(this)));
-	    selfdestruct(msg.owner);
+	    selfdestruct(msg.sender);
 	}
 }
 
