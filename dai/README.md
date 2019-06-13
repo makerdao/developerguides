@@ -6,7 +6,8 @@ The Dai stablecoin is a collateral-backed cryptocurrency whose value is stable r
 
 ## Beginner
 
-[Dai Token](/dai/dai-token/dai-token.md)
+[Dai Token](/dai/dai-token/dai-token.md)    
+[Dai in Smart Contracts](/dai/dai-in-smart-contracts/README.md)
 
 ## Intermediate
 
