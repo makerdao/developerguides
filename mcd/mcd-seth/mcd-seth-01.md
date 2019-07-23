@@ -22,6 +22,7 @@ Next, we are going to need some test collateral tokens (REP) on the Kovan networ
 You can only call the faucet once per account address, so if you mess something up in the future or you need more for any reason, you are going to need to create a new account. This is how you can call the faucet with seth:
 
 **REP ERC-20 token contract**
+
 `export REP=0xc7aa227823789e363f29679f23f7e8f6d9904a9b`
 
 **Token faucet on Kovan**
