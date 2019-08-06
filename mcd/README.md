@@ -7,3 +7,4 @@ This repo contains guides for interacting and integrating with Multi-Collateral 
 - [Using MCD-CLI to create and close a MCD CDP on Kovan](/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)
 - [Using Seth to create and close a MCD CDP on Kovan](/mcd/mcd-seth/mcd-seth-01.md)
 - [Upgrading to MCD - overview for different partners](/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
+- [Add a new collateral type to DCS - Kovan](/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
