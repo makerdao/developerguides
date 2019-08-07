@@ -139,7 +139,7 @@ seth send "$FLIP" 'deny(address)' "$ETH_FROM"
 
 All collateral types need risk parameters to set bounds for issuing Dai debt. We'll set the new collateral type with some starting parameters and they can also be updated later by governance through executive votes.
 
-Debt ceiling sets the maximum amount of Dai that can be issued against CDPs of this collateral type. Calculate and initialize the LINE variable with `5 Million`.
+Debt ceiling sets the maximum amount of Dai that can be issued against CDPs of this collateral type. Calculate the uint256 value using the first command to initialize the LINE variable with `5 Million`.
 
 ```bash
 seth --to-uint256 $(echo "5000000"*10^45 | bc)
@@ -147,7 +147,7 @@ export LINE=000000000000000000000d5d238a4abe9806872a4904598d6d88000000000000
 ```
 
 Collateralization ratio sets the amount of over-collateralization required for the collateral type.
-Calculate and initialize the MAT variable with `150%`.
+Calculate the uint256 value using the first command to initialize the MAT variable with `150%`.
 
 ```bash
 seth --to-uint256 $(echo "150"*10^25 | bc)
@@ -155,7 +155,7 @@ export MAT=000000000000000000000000000000000000000004d8c55aefb8c05b5c000000
 ```
 
 Total stability fee accumulated for each collateral type inside its `rate` variable is calculated by adding up DSR `base` which is equal across all collateral types and the Risk Premium `duty` which is specific to each one.
-Calculate and initialize the DUTY variable with an annual rate of `1%`.
+Calculate the uint256 value using the first command to initialize the DUTY variable with an annual rate of `1%`.
 
 ```bash
 seth --to-uint256 1000000000315522921573372069
@@ -165,14 +165,15 @@ export DUTY=0000000000000000000000000000000000000000033b2e3ca43176a9d2dfd0a5
 *Note: We'll cover how the number `1000000000315522921573372069` corresponds to a `1%` annual rate in a future guide and link it here.*
 
 A liquidation penalty is imposed on a CDP by increasing it's debt by a percentage before a collateral aucion is kicked off. This penalty is imposed to prevent [Auction Grinding Attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf).
-Calculate and initialize the CHOP variable with `10%`.
+Calculate the uint256 value using the first command to initialize the CHOP variable with `10%`.
 
 ```bash
 seth --to-uint256 $(echo "110"*10^25 | bc)
 export CHOP=0000000000000000000000000000000000000000038de60f7c988d0fcc000000
 ```
 
-Size of CDPs can vary wildly and collateral auctions can be inefficient if there is no limit on the amount of collateral auctioned off in a single Flip auction. CDPs with collateral amount greater than liquidation quantity set for the collateral type are processed with multiple collateral auctions. Only one collateral auction is required if the amount of collateral locked in a CDP is below the liquidation quantity.
+Since the size of CDPs of a collateral type can vary wildly, collateral auctions can be inefficient if even large CDPs are auctioned off with a single Flip auction. CDPs with locked collateral amounts greater than liquidation quantity of their collateral type are processed with multiple collateral auctions. Only one collateral auction is required if the amount of collateral locked in a CDP is below the liquidation quantity.
+
 Calculate and initialize the LUMP variable with `1000`.
 
 ```bash
