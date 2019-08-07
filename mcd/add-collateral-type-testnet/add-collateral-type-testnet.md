@@ -43,7 +43,7 @@ After going through this guide you will get a better understanding of,
 You will need a good understanding of these concepts to be able to work through this guide,
 
 - [MCD 101](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-101/mcd-101.md).
-- Collateralied Debt Positions(CDP).
+- Collateralized Debt Positions(CDP).
 - Risk parameters of a collateral type.
 - Solidity.
 - Dapptools - Dapp, Seth.
@@ -77,7 +77,7 @@ export TOKEN=0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd
 
 ### Collateral Type
 
-Set the `ILK` variable with a name for the collateral type. Each ethereum token in DCS can have multiple collateral types and each one can be initialized with a different set of risk parameters. Affixing an alphabet to the token symbol will help users differentiate these collateral types.
+Set the `ILK` variable with a name for the collateral type. Each ethereum token in DCS can have multiple collateral types and each one can be initialized with a different set of risk parameters. Affixing an alphabetical letter to the token symbol will help users differentiate these collateral types.
 
 ```bash
 export ILK="$(seth --to-bytes32 "$(seth --from-ascii "MKR-A")")"
@@ -200,7 +200,7 @@ Execute this command to add weight to this spell with your MKR deposited in the 
 seth send "$MCD_ADM" 'vote(address[] memory)' ["${SPELL#0x}"]
 ```
 
-Please notify the Maker Foundation Integrations team who can help you garner a majority of votes for this spell before it can be executed.
+Please notify the [Maker Foundation Integrations team](mailto:integrate@makerdao.com) who can help you garner a majority of votes for this spell before it can be executed.
 
 ### Execute Spell
 
