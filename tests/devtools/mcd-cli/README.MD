@@ -1,5 +1,5 @@
 ## MCD-CLI Test    
-*Version: 0.2.10 kovan deployment*    
+*Version: [0.2.10](https://changelog.makerdao.com/releases/0.2.10/index.html) kovan deployment*    
 
 This test checks the [mcd-cli guide](https://github.com/makerdao/developerguides/blob/master/devtools/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md) against the mcd-cli tool to see if there's any breaking changes.     
 The `test` folder has necessary files to run the test.     
