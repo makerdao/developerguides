@@ -1,17 +1,17 @@
 # How to use mcd-cli to interact with Kovan deployment of MCD
 
-**This guide works under the [0.2.6 Release](https://changelog.makerdao.com/releases/0.2.6/index.html) of the system.** 
+**This guide works under the [0.2.10 Release](https://changelog.makerdao.com/releases/0.2.10/index.html) of the system.** 
 
 This guide will show how to use the [mcd-cli](https://github.com/makerdao/mcd-cli) to interact with the Kovan deployment of the MCD smart contracts. The guide will showcase how to go through the following stages of the lifecycle of a collateralized debt position (CDP):
 
  - Opening CDP
- - Depositing collateral tokens (COL1 token)
+ - Depositing collateral tokens (REP, OMG, ZRX, BAT, DGD, GNT)
  - Drawing Dai
  - Paying back Dai
  - Unlocking collateral
  - Closing CDP
 
-The command-line interface mcd-cli will enable you to easily interact with the Multi-Collateral Dai contracts. In the CLI, you can lock assets such as ETH and many other collateral testnet dummy tokens we have added (COL1, COL2, COL3, COL4, COL5), draw Dai against them, check your CDP position, and much more.  
+The command-line interface mcd-cli will enable you to easily interact with the Multi-Collateral Dai contracts. In the CLI, you can lock assets such as ETH and many other collateral tokens we have added (REP, OMG, ZRX, BAT, DGD, GNT)), draw Dai against them, check your CDP position, and much more.  
 
 ## Installing mcd-cli and seth
 **The following link provides you with the necessary instructions to get started with the MCD CLI:**  [https://github.com/makerdao/mcd-cli](https://github.com/makerdao/mcd-cli)  
@@ -42,7 +42,7 @@ Then you have to set up account variables:
 
 ## Acquiring test tokens
 
-To start using and interacting with the MCD contracts, you will need to get some Kovan ETH, COL1, COL2, COL3, COL4, COL5 and MKR. Please note that MKR holders will eventually confirm the final collateral types through a proposed vote from the Maker Risk Team. Once you have the respective Kovan tokens, you can proceed to the guide below to go through the processes of a CDP lifecycle. This includes locking in some collateral, drawing Dai, paying back the Dai, and then unlocking the collateral.  
+To start using and interacting with the MCD contracts, you will need to get some Kovan ETH, REP, OMG, ZRX, BAT, DGD and MKR. Please note that MKR holders will eventually confirm the final collateral types through a proposed vote from the Maker Risk Team. Once you have the respective Kovan tokens, you can proceed to the guide below to go through the processes of a CDP lifecycle. This includes locking in some collateral, drawing Dai, paying back the Dai, and then unlocking the collateral.  
 
 In the guide below, everything described above will be performed using the MCD-CLI.
 
@@ -61,172 +61,146 @@ There are many sources from which to get Kovan ETH, including:
 
 We have deployed a special faucet that allows you to withdraw testnet collateral tokens that essentially mimic the real tokens that exist on mainnet.  
 
-**K-Collateral Token Faucet Address:** `0xa402e771a4662dcbe661e839a6e8c294d2ce44cf`
+**K-Collateral Token Faucet Address:** `0x94598157fcf0715c3bc9b4a35450cce82ac57b20`
 
-**Note:**  You can call the  **gulp(address)**  function on it with  **seth**. The **address** parameter is the address of the COL1 to COL5 collateral types we have added to this deployment.  
+**Note:**  You can call the  **gulp(address)**  function on it with  **seth**. The **address** parameter is the address of the REP to GNT collateral types we have added to this deployment.  
 
 **Instructions:**  
-In order to receive some tokens of the COL1 type, you must run the following commands in the CLI:
+In order to receive some REP tokens, you must run the following commands in the CLI:
 
-**i. Setting the COL1 address to env variable:**
+**i. Setting the REP address to env variable:**
 
-`$ export COL1A=0xc644e83399f3c0b4011d3dd3c61bc8b1617253e5`
+`$ export REP=0xc7aa227823789e363f29679f23f7e8f6d9904a9b`
 
 **ii. Setting the Faucet address to env variable:**
 
-`export FAUCET=0xa402e771a4662dcbe661e839a6e8c294d2ce44cf`
+`export FAUCET=0x94598157fcf0715c3bc9b4a35450cce82ac57b20`
 
 **iii. Now, you can call the** **_gulp(address)_** **function:**
 
-`$ seth send $FAUCET 'gulp(address)' $COL1A` 
+`$ seth send $FAUCET 'gulp(address)' $REP` 
 
-**iv. Please verify your COL1 balance by running:**
+**iv. Please verify your REP balance by running:**
 
-`$ seth --from-wei $(seth --to-dec $(seth call $COL1A 'balanceOf(address)' $ETH_FROM)) eth`   
+`$ seth --from-wei $(seth --to-dec $(seth call $REP 'balanceOf(address)' $ETH_FROM)) eth`   
 or   
-`mcd --ilk=COL1-A gem balance ext`
+`mcd --ilk=REP-A gem balance ext`
 
 **An example of the output you should be viewing when running the above command:**
 
-`50.000000000000000000`
+    50.000000000000000000
 
-**That’s it! You now have some COL1 k-collateral tokens.**  
+**That’s it! You now have some kovan REP tokens.**  
 
-**Note:**  If you would like to receive some K-MKR tokens, you would need to replace the  **COL1** token address with the  K-MKR  token address (0x62048f1d8090889f269bc97ee69de731a21273e3) and follow the exact same process as above.
-`export MKR=0x62048f1d8090889f269bc97ee69de731a21273e3`
+**Note:**  If you would like to receive some K-MKR tokens, you would need to replace the  **REP** token address with the  K-MKR  token address (0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd) and follow the exact same process as above.
+`export MKR=0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd`
 
 After you have successfully received the Kovan collateral tokens, you can continue on and explore the MCD-CLI.
 
 ## CDP Lifecycle Walkthrough
 
-The following instructions will guide you through an example of a CDP’s lifecycle. We will be creating a loan with COL1 type collateral (note that COL1-COL5 collateral types simply simulate ERC-20 tokens) and will then pay it back. Make sure you have set up the env variables outlined above in **Setting up variables in seth** since we will be using those in the following.
+The following instructions will guide you through an example of a CDP’s lifecycle. We will be creating a loan with the REP token and will then pay it back. Make sure you have set up the env variables outlined above in **Setting up variables in seth** since we will be using those in the following.
 
 **Once set up, you can begin to run through the CDP lifecycle using the commands noted below.**  
 
-For this example, we are going to use the COL1 tokens as the first type of collateral in our CDP. Before proceeding, please check that you have already received some COL1 from the faucet. If you haven’t, please visit the  **‘Getting K Collateral tokens’** section above.  
+For this example, we are going to use the REP token as the first type of collateral in our CDP. Before proceeding, please check that you have already received some REP from the faucet. If you haven’t, please visit the  **‘Getting K Collateral tokens’** section above.  
 
 **Instructions**  
 
-**1. Connect the COL1 tokens into the COL1 adapter. Here, you must change the below value of ’60’ to your own value.**  
+**1. Add the REP token into the REP adapter. Here, you must change the below value of ’40’ to your own value.**  
 
 **Run:**  
-`$ mcd --ilk=COL1-A gem join 60`
+`$ mcd --ilk=REP-A gem join 40`
 
 **Output Example:**  
 
-    vat 60.000000000000000000 Unlocked collateral (COL1)
-    
-    ink 0.000000000000000000 Locked collateral (COL1)
-    
-    ext 0.000000000000000000 External account balance (COL1)
+    vat 40.000000000000000000 Unlocked collateral (REP)
+    ink 0.000000000000000000 Locked collateral (REP)
+    ext 0.000000000000000000 External account balance (REP))
 
 ----------
 
-**2. Lock your COL1 collateral tokens and then draw 1 dai from VAT. Again, please don’t forget to change the below value of 60 to your own value.**  
+**2. Lock your REP collateral tokens and then draw 1 dai from VAT. Again, please don’t forget to change the below value of 40 to your own value.**  
 
 **Run:**
 
-`$ mcd --ilk=COL1-A frob 60 1`
+`$ mcd --ilk=REP-A frob 40 1`
 
 **Example Output:**  
 
-    ilk COL1-A Collateral type
-    
-    urn 16Fb96a5fa0427Af0C8F7cF1eB4870231c8154B6000000000000000000000000 Urn index
-    
-    ink 60.000000000000000000 Locked collateral (COL1)
-    
-    art 1.000000000000000000 Outstanding debt (Dai)
-    
-    printf: ‘58234907888888888888888889’: Numerical result out of range
-    
-    spot 0.000000009223372036854775807 Price with safety mat (USD)
-    
-    rate 1.000000000000000000000000000 COL1 DAI exchange rate
-    
-    fill 0 Collateralization Ratio (%)
-    
-    rap 0.000000000000000000 Accumulated stability fee (Dai)
-    
-    dai 1.000000000000000000000000000000000000000000000 Vat Dai
-    
-    gem 0.000000000000000000
+    ilk  REP-A                                      Collateral type
+    urn  0x16Fb96a5fa0427Af0C8F7cF1eB4870231c8154B6 Urn handler
+    ink  40.000000000000000000                      Locked collateral (REP)
+    art  1.000000000000000000                       Issued debt (Dai)
+    tab  1.000000000000000000000000000              Outstanding debt (Dai)
+    rap  0.000000000000000000000000000              Accumulated stability fee (Dai)
+    -->  329.39                                     Collateralization ratio
+
+    spot 8.234955555555555555555555555              REP price with safety mat (USD)
+    rate 1.000000000000000000000000000              REP DAI exchange rate
 
 
 
 ----------
 
 **3. Withdraw Dai and send it to your ETH personal account.**  
-**Run:**
+**Run:**    
 `$ mcd dai exit 1`
 
 **Example Output:**
 
-    vat 0.000000000000000000000000000000000000000000000 Vat balance
-    
-    ext 1.000000000000000000 ERC20 balance  
+    vat 0.000000000000000000000000000000000000000000000 Vat Dai balance
+    ext 1.000000000000000000 ERC20 Dai balance
 
 **Note:** When you want to pay back your debt and unlock your collateral, follow these steps again.  
 
 ----------
-**4. Add your Dai back into the urn.**  
-**Run:**
+**4. Add your Dai back into the urn.**    
+
+**Run:**   
 `$ mcd dai join 1`  
 
-**Example Output:**
-    vat 1.000000000000000000000000000000000000000000000 Vat balance
-    
-    ext 0.000000000000000000 ERC20 balance  
+**Example Output:**  
+
+    vat 1.000000000000000000000000000000000000000000000 Vat Dai balance
+    ext 0.000000000000000000 ERC20 Dai balance  
 
 ----------
 
-**5. Remove your Dai debt and unlock your COL1 collateral from internal system (vat).**  
+**5. Remove your Dai debt and unlock your REP collateral from the internal system (vat).**  
 
 **Run:**
 
-`$ mcd --ilk=COL1-A frob -- -60 -1`
+`$ mcd --ilk=REP-A frob -- -40 -1`
 
 **Example Output:**
 
-    ilk COL1-A Collateral type
-    
-    urn 16Fb96a5fa0427Af0C8F7cF1eB4870231c8154B6000000000000000000000000 Urn index
-    
-    ink 0.000000000000000000 Locked collateral (COL1)
-    
-    art 0.000000000000000000 Outstanding debt (Dai)
-    
-    printf: ‘58234907888888888888888889’: Numerical result out of range
-    
-    spot 0.000000009223372036854775807 Price with safety mat (USD)
-    
-    rate 1.000000000000000000000000000 COL1 DAI exchange rate
-    
-    fill 0 Collateralization Ratio (%)
-    
-    rap 0 Accumulated stability fee (Dai)
-    
-    dai 0.000000000000000000000000000000000000000000000 Vat Dai
-    
-    gem 60.000000000000000000 Unlocked collateral (COL1)  
+    ilk  REP-A                                      Collateral type
+    urn  0x16Fb96a5fa0427Af0C8F7cF1eB4870231c8154B6 Urn handler
+    ink  0.000000000000000000                       Locked collateral (REP)
+    art  0.000000000000000000                       Issued debt (Dai)
+    tab  0                                          Outstanding debt (Dai)
+    rap  0                                          Accumulated stability fee (Dai)
+    -->  0                                          Collateralization ratio
+
+    spot 8.234955555555555555555555555              REP price with safety mat (USD)
+    rate 1.000000000000000000000000000              REP DAI exchange rate
 
 ----------
 
-**6. Finally, remove your collateral COL1 token from the COL1 adapter.**  
+**6. Finally, remove your collateral REP token from the REP adapter.**  
 
 **Run:**
 
-`$ mcd --ilk=COL1-A gem exit 60` 
+`$ mcd --ilk=REP-A gem exit 40` 
 
 **Example Output**
 
-    vat 0.000000000000000000 Unlocked collateral (COL1)
-    
-    ink 0.000000000000000000 Locked collateral (COL1)
-    
-    ext 60.000000000000000000 External account balance (COL1)  
+    vat 0.000000000000000000 Unlocked collateral (REP)
+    ink 0.000000000000000000 Locked collateral (REP)
+    ext 40.000000000000000000 External account balance (REP)
 
-After running the above commands, please confirm that you have your initial collateral (COL1) back in your wallet.  
+After running the above commands, please confirm that you have your initial collateral (REP) back in your wallet.  
 
 This concludes the CDP Lifecycle Walkthrough Guide!
 
@@ -234,7 +208,8 @@ This concludes the CDP Lifecycle Walkthrough Guide!
 If you have any questions, don't hesitate to reach out on chat.makerdao.com in the #help channel.
 
 ## Additional resources
-- MCD CLI: [https://github.com/makerdao/mcd-cli](https://github.com/makerdao/mcd-cli)
+- [mcd-cli](https://github.com/makerdao/mcd-cli)
+- [MCD 101](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-101/mcd-101.md)
 - Multi Collateral Dai source code: [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
 - Multi Colalteral Dai documentation: [https://github.com/makerdao/dss/blob/master/DEVELOPING.md](https://github.com/makerdao/dss/blob/master/DEVELOPING.md) & [https://github.com/makerdao/dss/wiki](https://github.com/makerdao/dss/wiki)
- - Whitepaper: [https://makerdao.com/whitepaper/](https://makerdao.com/whitepaper/)
+ - [Whitepaper](https://makerdao.com/whitepaper/)
