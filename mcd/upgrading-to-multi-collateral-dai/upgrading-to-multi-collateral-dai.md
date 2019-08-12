@@ -99,7 +99,7 @@ If you encounter any issues with your upgrade process, don’t hesitate to conta
 
 ## Next Steps     
 After finishing this guide we think you’ll enjoy these next guides:
-- Learn about our progress towards the launch of [MCD](https://blog.makerdao.com/the-road-to-mainnet-release).
+- Learn about our progress towards the launch of [MCD](https://blog.makerdao.com/multi-collateral-dai-milestones-roadmap/).
 
 ## Resources
 - https://blog.makerdao.com/the-road-to-mainnet-release/ 
