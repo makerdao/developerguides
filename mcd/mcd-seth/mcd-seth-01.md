@@ -1,4 +1,5 @@
 # Drawing Dai from the Kovan MCD deployment using Seth
+**This guide works under the [0.2.10 Release](https://changelog.makerdao.com/releases/0.2.10/index.html) of the system.** 
 
 This tutorial will cover how to use the tool `seth` to deposit REP tokens to draw DAI from the Kovan deployment of MCD as an example, since the process is the same for any other ERC-20 token. You can use the same methodology for any supported token in MCD, by changing the contract addresses to the specific token you want to use.
 
