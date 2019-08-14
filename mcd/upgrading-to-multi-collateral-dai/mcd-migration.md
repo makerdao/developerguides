@@ -13,6 +13,7 @@ Since this guide will utilize `seth` and `mcd-cli`, we highly recommend you to g
 Make sure you have installed [seth](http://dapp.tools/seth/) and [mcd-cli](https://github.com/makerdao/mcd-cli#installation) before starting this guide. See the links and guides above for guidance. Since we are using the Kovan testnet for this guide, ensure that your seth and mcd-cli variables are set to interact with the Kovan network. You can do this by putting the following lines:
 
 `export SETH_CHAIN=kovan`
+
 `export MCD_CHAIN=kovan`
 
 in your local `.sethrc` file, or by pasting it in a terminal window.
@@ -44,6 +45,7 @@ First, check that you have a SAI balance by executing the following command:
 `seth --from-wei $(seth --to-dec $(seth call $SAI_SAI 'balanceOf(address)' $ETH_FROM)) eth`
 
 Example output:
+
 `$ 5.000000000000000000`
 
 In this case, we have 5 SAI.
@@ -61,6 +63,7 @@ Once the transaction has gone through, check your DAI balance to verify that the
 `seth --from-wei $(seth --to-dec $(seth call $MCD_DAI 'balanceOf(address)' $ETH_FROM)) eth`
 
 Example output:
+
 `$ 5.000000000000000000`
 
 The migration contract also allows users to reverse the migration by swapping DAI for SAI. This function call however relies on SAI liquidity in the migration contract, why this can only be done if there’s enough surplus of SAI in the contract to cover the amount of DAI you want to swap.
@@ -78,6 +81,7 @@ When the transaction has been mined, you can verify your SAI balance using this 
 `seth --from-wei $(seth --to-dec $(seth call $SAI_SAI 'balanceOf(address)' $ETH_FROM)) eth`
 
 Example output:
+
 `$ 5.000000000000000000`
 
 If everything went to plan, congratulations, you have successfully swapped Sai to Dai and back again.
@@ -87,11 +91,17 @@ If everything went to plan, congratulations, you have successfully swapped Sai t
 The following section will cover how you use the migration contract to migrate a Single Collateral Dai CDP (SCDCDP) to a Multi Collateral Dai CDP (MCDCDP). Again, we are going to save a bunch of smart contract addresses in variables. Paste the following lines into your terminal window:
 
 `export MIGRATION=0x25601b0f6ba68197de2a7ae3c11ab2c965221e44`
+
 `export PROXY_LIB=0x36370426f47028621edc2203dcae6c1431b679b0`
+
 `export PROXY_REGISTRY=0x64a436ae831c1672ae81f674cab8b6775df3475c`
+
 `export MCD_JOIN_SAI=0xe4164871f8366527d492ec52889c89343db48b69`
+
 `export SAI_SAI=0xc4375b7de8af5a38a93548eb8453a498222c4ff2`
+
 `export MCD_DAI=0x5944413037920674d39049ec4844117a031eaa74`
+
 `export MCD_GOV=0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd`
 
 The migration, SAI and DAI contracts remain the same as before. `PROXY_LIB` is a proxy smart contract that will execute the CDP migration on the migration contract, by bundling a bunch of function calls into one, making migration a lot simpler. `PROXY_REGISTRY` is a smart contract that keeps track of users and their corresponding proxy contract addresses. When a user creates a CDP at [cdp.makerdao.com](https://cdp.makerdao.com/), a proxy contract is created for the user to bundle function calls, again to make interactions a lot simpler for the user. The `PROXY_REGISTRY` keeps track of these deployed contracts.
@@ -115,6 +125,7 @@ We need to turn this CDP id into a bytes32 string to pass it onto the smart cont
 `export CDPID=$(mcd --to-hex cdp-id)`
 
 In this case for example, that would be:
+
 `export CDPID=$(mcd --to-hex 6613)`
 
 Because we are using the `PROXY_LIB` contract to execute the CDP migration for us, we need to encode the smart contract call data for the migration call and save it in a variable as well. We do this by executing:
@@ -132,6 +143,7 @@ Now that we have saved a bunch of variables, we are ready to begin the migration
 `seth --from-wei $(seth --to-dec $(seth call $SAI_SAI 'balanceOf(address)' "$MCD_JOIN_SAI")) eth`
 
 Example output: 
+
 `$ 998.000000000000000000`
 
 In this case, the contract has 998 SAI, so that’s plenty of leeway for us to migrate a CDP with a debt of 2 SAI.
