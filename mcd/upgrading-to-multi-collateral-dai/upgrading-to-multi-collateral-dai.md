@@ -160,7 +160,7 @@ With MCD you can deposit your Dai into a Savings Dai smart contract that will gi
 
 As a SCD CDP owner you can move your CDP to the MCD CDP through the migration portal at migrate.makerdao.com at launch. The following diagram shows the flow for CDP migration.
 
-![](https://lh3.googleusercontent.com/d_oq0anvtS6LC2At7p8H2cD9KCyIhR1l0HyAEUMqzT-6gAOwdKMkmgZxIXazlZykU41Sp1bBm6c1XJp03DoHDaLrNczSEgJSsv1Dojfb-yW2q5M-PrtFNA1aiz_2ES6z1BsTiOGg)
+![](https://lh4.googleusercontent.com/UoGY78h_TPxeM8h2q2aoJhbwKU2KA9MYHew6L9yC2GfHkmfLm9yRUkFNprxwKfxvaJAISfQDrcUIUWdrBhiRQy7d3NWVpW9QsAWI8CpmhJahRPYP08oLPXeWfwRonAbCdTl93ros)
 
 You can also choose to close your CDP by paying back your debt and redeeming your Ether, and use your redeemed collateral to open a new MCD CDP.
 
