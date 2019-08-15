@@ -37,13 +37,13 @@ The steps necessary to migrate from Single-Collateral Dai (SCD) to Multi-Collate
 
 	-   [Functionality](#functionality)
     
-	-   [Upgrading Sai to Dai](#upgrading-sai-to-dai)
+	-   [Upgrading Sai to Dai](#upgrading-dai)
     
-	-   [Swapping Dai for Sai](#swapping-dai-for-sai)
+	-   [Swapping Dai for Sai](#swapping-back-to-sai)
     
-	-   [Migrating CDPs](#migrating-cdps)
+	-   [Migrating CDPs](#migration-of-cdp)
     
-	-   [CLI Tools for Migration](#cli-tools-for-migration)
+	-   [CLI Tools for Migration](#migration-via-cli)
     
 
 -   [Partner Migration Scenarios](#partner-migration-scenarios)
