@@ -68,7 +68,7 @@ The steps necessary to migrate from Single-Collateral Dai (SCD) to Multi-Collate
 
 ## Migration Portal
 
-Upon release of MCD, the Migration Portal at migrate.makerdao.com will allow you to carry out Dai and CDP migration through an intuitive web UI in just a few clicks. By logging in with your favourite wallet solution, the portal will scan your wallet for any recommended migrations and showcase them in the UI (seen in picture below). This migration scan feature will be continually supported going forward, ensuring that users are always using an up-to-date version of the Maker platform.
+Upon release of MCD, the Migration Portal at [migrate.makerdao.com](https://migrate.makerdao.com/) will allow you to carry out Dai and CDP migration through an intuitive web UI in just a few clicks. By logging in with your favourite wallet solution, the portal will scan your wallet for any recommended migrations and showcase them in the UI (seen in picture below). This migration scan feature will be continually supported going forward, ensuring that users are always using an up-to-date version of the Maker platform.
 
 ## ![](https://lh4.googleusercontent.com/4lDcE3D49XKtlrLS-aACDK0s0v83m4G4zwpZrmWZL6LS2k8DrjDpYFE-yW1nx4-rd8qaXxPJhLZncjmNlzeCk1odtpJynNRzH3eyCO1jmfP3V69bLDNaQyMK4LtxoIM07Bfdk24e)
 
