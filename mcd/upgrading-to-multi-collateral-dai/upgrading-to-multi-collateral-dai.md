@@ -1,5 +1,5 @@
 # Upgrading to Multi-Collateral Dai
-
+**DISCLAIMER! This guide is a work in progress and might contain errors/wrong or outdated information**
 Level: Intermediate
 
 Estimated Time: 60 minutes
