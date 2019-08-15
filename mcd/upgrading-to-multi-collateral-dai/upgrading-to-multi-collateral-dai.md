@@ -226,14 +226,14 @@ We recommend you take the following steps for upgrading to MCD:
 	-   Optional: Link users to a page on makerdao.com to activating savings, which will be announced at launch.
     
 
-## As a relayer
+### As a relayer
 
 -   Follow the updates from the exchanges that you’re relaying.
     
 -   Update the contract addresses to the new MCD DAI, which will be announced at launch.
     
 
-## As a non-custodial wallet
+### As a non-custodial wallet
 
 If you are a creator of a wallet that allows users to be in control of their private keys we recommend you do the following:
 
@@ -249,23 +249,23 @@ If you are a creator of a wallet that allows users to be in control of their pri
 -   Optional: Link users to a page on makerdao.com for activating savings, which will be announced at launch.
     
 
-## As a Keeper
+### As a Keeper
 
 -   Get acquainted with the updates to Keepers in MCD with [this guide](https://github.com/makerdao/developerguides/blob/master/keepers/auctions/auctions-101.md).
     
 -   Refactor your codebase to point to the MCD contract addresses, which will be announced at launch.
     
 
-## As a Market Maker
+### As a Market Maker
 
 -   As a market maker you should update the Dai currency pairs according to the instructions given by the exchange.
     
 
-# Summary
+## Summary
 
 In this guide, we introduced you to the steps of how to upgrade to the Multi-Collateral Dai. We have provided you with explanations for the different platforms that you may be relying upon, be it an exchange or a simple Dai holder. As we approach the launch of Multi-Collateral Dai, more details will be made available.
 
-# Troubleshooting
+### Troubleshooting
 
 If you encounter any issues with your upgrade process, don’t hesitate to contact us.
 
@@ -274,22 +274,22 @@ If you encounter any issues with your upgrade process, don’t hesitate to conta
 -   Rocket chat - #dev channel
     
 
-# Next Steps
+### Next Steps
 
 After finishing this guide we think you’ll enjoy these next guides:
 
 -   Learn about our progress towards the launch of [MCD](https://blog.makerdao.com/multi-collateral-dai-milestones-roadmap/).
     
 
-# Resources
+### Resources
 
-Info:
+**Info:**
 
 -   [Blog post: The Road To Mainnet Release](https://blog.makerdao.com/the-road-to-mainnet-release/)   
 
   
 
-Guides:
+**Guides:**
 
 -   [Introduction and Overview of Multi-Collateral Dai: MCD101](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-101/mcd-101.md)
     
@@ -302,6 +302,6 @@ Guides:
 -   [Add a new collateral type to DCS - Kovan](https://github.com/makerdao/developerguides/blob/master/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
     
 
-Source code/wiki:
+**Source code/wiki:**
 
 -   [Multi Collateral Dai code + wiki](https://github.com/makerdao/dss)
