@@ -30,7 +30,7 @@ The steps necessary to migrate from Single-Collateral Dai (SCD) to Multi-Collate
 
 ### Sections
 
--   Migration Portal
+-   [Migration Portal](#migration-portal)
     
 -   Migration Contract
     
