@@ -32,38 +32,38 @@ The steps necessary to migrate from Single-Collateral Dai (SCD) to Multi-Collate
 
 -   [Migration Portal](#migration-portal)
     
--   Migration Contract
+-   [Migration Contract](#migration-contract)
     
 
-	-   Functionality
+	-   [Functionality](#functionality)
     
-	-   Upgrading Sai to Dai
+	-   [Upgrading Sai to Dai](#upgrading-sai-to-dai)
     
-	-   Swapping Dai for Sai
+	-   [Swapping Dai for Sai](#swapping-dai-for-sai)
     
-	-   Migrating CDPs
+	-   [Migrating CDPs](#migrating-cdps)
     
-	-   CLI Tools for Migration
-    
-
--   Partner Migration Scenarios
+	-   [CLI Tools for Migration](#cli-tools-for-migration)
     
 
-	-   As a Dai Holder
+-   [Partner Migration Scenarios](#partner-migration-scenarios)
     
-	-   As a SCD CDP Owner
+
+	-   [As a Dai Holder](#as-a-dai-holder)
     
-	-   As a Centralized Exchange
+	-   [As a SCD CDP Owner](#as-a-scdp-cdp-holder)
     
-	-   As a Decentralized Exchange
+	-   [As a Centralized Exchange or Custodial Wallet](#as-a-centralized-exchange-or-custodial-wallet)
     
-	-   As a Wallet Creator
+	-   [As a Decentralized Exchange](#as-a-decentralized-exchange)
     
-	-   As a Relayer
+	-   [As a Relayer](#as-a-relayer)
+	
+	-   [As a Non-custodial wallet](#as-a-non-custodial-wallet)
     
-	-   As a Keeper
+	-   [As a Keeper](#as-a-keeper)
     
-	-   As a Market Maker
+	-   [As a Market Maker](#as-a-market-maker)
     
 
 ## Migration Portal
