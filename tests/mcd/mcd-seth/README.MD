@@ -1,4 +1,4 @@
-## MCD-CLI Test    
+## MCD-SETH Test    
 *Version: [0.2.10](https://changelog.makerdao.com/releases/0.2.10/index.html) kovan deployment*    
 
 This test checks the [mcd-seth guide](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md) against the 0.2.10 mcd realease to see if there's any breaking changes.     
