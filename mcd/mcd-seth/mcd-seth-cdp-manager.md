@@ -218,6 +218,6 @@ To see if you got your collateral back in your wallet, just check your `REP` bal
 Congrats! You have issued and payed back DAI through the CDP Manager.
 
 ## Help
----
+
 - Contact Integrations team - integrate@makerdao.com
 - Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel 
