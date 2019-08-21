@@ -1,5 +1,5 @@
 # Drawing Dai from the Kovan MCD deployment using Seth
-**This guide works under the [0.2.10 Release](https://changelog.makerdao.com/releases/0.2.10/index.html) of the system.** 
+**This guide works under the [0.2.11 Release](https://changelog.makerdao.com/releases/0.2.11/index.html) of the system.** 
 
 This tutorial will cover how to use the tool `seth` to deposit REP tokens to draw DAI from the Kovan deployment of MCD as an example, since the process is the same for any other ERC-20 token. You can use the same methodology for any supported token in MCD, by changing the contract addresses to the specific token you want to use.
 
@@ -18,7 +18,7 @@ For this guide, we are going to use the tool `seth`, to send transactions and in
 ## Getting tokens
 Even though we are not using it as collateral, you will need Kovan ETH for gas. You can get some by following the guide here: [https://github.com/Kovan-testnet/faucet](https://github.com/kovan-testnet/faucet)
 
-Next, we are going to need some test collateral tokens (REP) on the Kovan network to draw DAI from them. Luckily, there is a faucet set up just for this. It gives the caller 50 REP Kovan tokens. You can also use the same faucet for the other supported MCD tokens for the test deployment (BAT, GNT, ZRX, DGD, WETH). Find the latest contracts here, and substitute for the REP equivalent below: [https://changelog.makerdao.com/releases/0.2.10/index.html](https://changelog.makerdao.com/releases/0.2.10/index.html).
+Next, we are going to need some test collateral tokens (REP) on the Kovan network to draw DAI from them. Luckily, there is a faucet set up just for this. It gives the caller 50 REP Kovan tokens. You can also use the same faucet for the other supported MCD tokens for the test deployment (BAT, GNT, ZRX, DGD, WETH). Find the latest contracts here, and substitute for the REP equivalent below: [https://changelog.makerdao.com/releases/0.2.11/index.html](https://changelog.makerdao.com/releases/0.2.11/index.html).
 
 You can only call the faucet once per account address, so if you mess something up in the future or you need more for any reason, you are going to need to create a new account. This is how you can call the faucet with seth:
 
@@ -47,25 +47,32 @@ If everything went according to plan, the output should be this:
 ## Saving contract addresses
 For better readability, we are going to save a bunch of contract addresses in variables belonging to the related smart contracts deployed to Kovan. In a terminal, carry out the following commands (in grey):
 
+**Set the gas quantity**     
+`export ETH_GAS=2000000`
+
 **REP ERC-20 token contract**
 
 `export REP=0xc7aa227823789e363f29679f23f7e8f6d9904a9b`
 
 **DAI ERC-20 token contract**
 
-`export DAI_TOKEN=0x5944413037920674d39049ec4844117a031eaa74`
+`export DAI_TOKEN=0xdb6a55a94e0dd324292f3d05cf504c751b31cee2`
 
 **REP-A token join adapter**
 
-`export MCD_JOIN_REP_A=0x7d9d701e87920a1a7396438769b571fb55b6ffdc`
+`export MCD_JOIN_REP_A=0x91f4e07be74445a3897b6d4e70393b5ad7b8e4b0`
 
 **Vat contract - Central state storage for MCD**
 
-`export MCD_VAT=0x5ce1e3c8ba1363c7a87f5e9118aac0db4b0f0691`
+`export MCD_VAT=0x04c67ea772ebb467383772cb1b64c7a9b1e02bca`
 
 **DAI token join adapter**
 
-`export MCD_JOIN_DAI=0xe70a5307f5132ee3a6a056c5efb7d5a53f3cdbd7`
+`export MCD_JOIN_DAI=0xcf20652c7e9ff777fcb3772b594e852d1154174d`
+
+**CDP Manager Contract**   
+
+`export CDP_MANAGER=0x7a4991c6bd1053c31f1678955ce839999d9841b1`
 
 ## Token approval
 You do not transfer ERC-20 tokens manually to the MCD adapters - instead you give approval for the adapters to using some of your ERC-20 tokens. The following section will take you through how to do that.
@@ -95,33 +102,40 @@ In order to better understand the MCD contracts, the following provides a brief 
 -   `lad`: CDP owner
 -   `rat`: collateralization ratio
 
-After giving permission to the REP adapter of MCD to take some of our tokens, it’s time to finally start using the MCD contracts. First we are going to make a transaction to the REP adapter to actually take 10 of our tokens with the join contract function.
+After giving permission to the REP adapter of MCD to take some of our tokens, it’s time to finally start using the MCD contracts.    
+We'll be using the [CDP Manager](https://github.com/makerdao/dss-cdp-manager) as the prefered interface to interact with MCD contracts.     
+
+First let's open a cdp so we can use it to lock collateral into. For this we need to define the type of collateral(REP-A) we want to lock in this CDP.   
+`export ilk=$(seth --to-bytes32 $(seth --from-ascii "REP-A"))`     
+Now let's open the CDP   
+`seth send $CDP_MANAGER 'open(bytes32)' $ilk`    
+
+We need the `cdpId` of our open cdp so we can interact with the system.  
+`export cdpId=$(seth --to-dec $(seth call $CDP_MANAGER 'last(address)' $ETH_FROM))`    
+In this case `cdpId` is `8`
+
+Now, we need to get the `urn` address of our CDP.   
+`export urn=$(seth call $CDP_MANAGER 'urns(uint)(address)' $cdpId)`    
+
+After acquiring `cdpId` and `urn` address, we can move to the next step. Locking our tokens into the system. 
+First we are going to make a transaction to the REP adapter to actually take 10 of our tokens with the join contract function.
 
 The contract function looks like the following: `join(bytes32 urn, uint wad)`
 
-The first parameter is the `urn`, which is going to be our account address.
+The first parameter is the `urn`.
 
 The second parameter is the token amount in `wad`.
 
-First, let’s set up the `urn` and `wad` parameters in variables for the sake of readability:
-
-`export urn=$ETH_FROM`
+First, let’s set up the `wad` parameter in variable for the sake of readability:
 
 `export wad=$(seth --to-uint256 $(seth --to-wei 10 eth))`
 
-Then use the following command to use the join function, thus taking 10 REP from our account.
+Then use the following command to use the join function, thus taking 10 REP from our account and sending to `urn` address.
 
-`seth send $MCD_JOIN_REP_A "join(address, uint)" $ETH_FROM $wad`
+`seth send $MCD_JOIN_REP_A "join(address, uint)" $urn $wad`
 
-You can check the results with the contract function: `gem(bytes32 ilk,address urn)(uint256)`
-
-In order to do so, we first must define the ilk variable - the CDP type - to be `"REP-A"`:
-
-`export ilk=$(seth --to-bytes32 $(seth --from-ascii "REP-A"))`
-
-And then execute: 
-
-`seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'gem(bytes32,address)(uint256)' $ilk $ETH_FROM)) eth`
+You can check the results with the contract function: `gem(bytes32 ilk,address urn)(uint256)` with    
+`seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'gem(bytes32,address)(uint256)' $ilk $urn)) eth`
 
 The output should look like this:
 
@@ -129,11 +143,9 @@ The output should look like this:
 
 The reason for the size of the number, even when converting it from wei values, is that these numbers are stored with a pretty big resolution for precision.
 
-The next step is adding the collateral into an urn. This is done through the contract `vat`.
+The next step is adding the collateral into an urn. This is done through the `CDP Manager` contract. 
+The function is called `frob`, which receives couple of parameters: `uint` - the `cdpId`, `address` - the destination address to send dai(`ETH_FROM` and not `urn`), `int` - delta ink and `int` - delta art. If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. Let’s add our 10 REP to the urn, and draw 35 DAI ensuring that the position is overcollateralized.
 
-The contract function looks like the following: `frob(bytes32 ilk, address u, address, v, address w, int dink, int dart)`
-
-The function is called `frob`, which receives two parameters: delta ink and delta art. If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. Let’s add our 10 REP to the urn, and draw 35 DAI ensuring that the position is overcollateralized.
 
 We already set up `ilk` before, so we only need to set up `dink` (REP deposit) and `dart` (DAI to be drawn):
 
@@ -143,7 +155,7 @@ We already set up `ilk` before, so we only need to set up `dink` (REP deposit) a
 
 And execute:
 
-`seth send $MCD_VAT "frob(bytes32,address,address,address,int256,int256)" $ilk $ETH_FROM $ETH_FROM $ETH_FROM $dink $dart`
+`seth send $CDP_MANAGER 'frob(uint,address,int,int)' $cdpId $ETH_FROM $dink $dart`
 
 Now, let's check out our DAI balance in MCD to see if we have succeeded. We are going to use the following `vat` function: `dai(bytes32 urn)(uint256)`
 
@@ -157,13 +169,13 @@ The output should look like this:
 
 It shows the DAI amount in wei, so the actual amount is 35. Now this DAI is minted, but the balance is still technically owned by the DAI adapter of MCD. If you actually want to use it, you have to transfer it to your account. Here is the function for it: `exit(address guy, uint256 wad)`
 
-Let’s execute:
+Let’s execute:   
 
-`export wad=$(seth --to-word $(seth --to-wei 35 eth))`
+Permitting Dai adapter to move Dai from VAT to your address.   
+`seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI`    
 
-`seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI`
-
-`seth send $MCD_JOIN_DAI "exit(address, uint256)" $ETH_FROM $wad`
+Exiting Dai:   
+`seth send $MCD_JOIN_DAI "exit(address, uint256)" $ETH_FROM $dart`
 
 And to check the DAI balance of your account:
 
@@ -190,23 +202,21 @@ Output:
 
 `35.000000000000000000`
 
-Now to actually join the DAI Dai to the adapter:
+Now to actually join the Dai to the adapter:
 
-`export wad=$(seth --to-word $(seth --to-wei 35 eth))`
-
-`seth send $MCD_JOIN_DAI "join(address,uint)" $ETH_FROM $wad`
+`seth send $MCD_JOIN_DAI "join(address,uint)" $urn $dart`
 
 To make sure it all worked:
 
-`seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'dai(address)(uint256)' $ETH_FROM)) eth`
+`seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'dai(address)(uint256)' $urn)) eth`
 
 Output:
 
 `35000000000000000000000000000.000000000000000000`
 
-Now, onto actually getting our collateral back. `dart` and `dink`, as the d in their abbreviation stands for delta, are inputs for changing a value, and thus they can be negative. When we want to lower the amount of DAI drawn from the `urn`, we lower the art parameter of the `urn`. Again, we need to use the `frob` operation to change these parameters: `frob(bytes32 ilk, int dink, int dart)`
+Now, onto actually getting our collateral back. `dart` and `dink`, as the d in their abbreviation stands for delta, are inputs for changing a value, and thus they can be negative. When we want to lower the amount of DAI drawn from the `urn`, we lower the art parameter of the `urn`. Again, we need to use the `frob` operation to change these parameters: `frob(uint cdpId, address ETH_FROM, int dink, int dart)`
 
-We already set up `ilk` before, so we only need to set up the `dink` and `dart` variables.
+We only need to set up the `dink` and `dart` variables.
 
 Now, here is a little problem: `seth`’s `--to-hex` option is unable to deal with negative numbers, we have two ways to deal with this, just blindly believe me and accept that these values are the following in 32 bit long hexadecimals:  
 
@@ -232,7 +242,7 @@ Then set up the actual `dink` and `dart` parameters:
 
 And execute:
 
-`seth send $MCD_VAT "frob(bytes32,address,address,address,int256,int256)" $ilk $ETH_FROM $ETH_FROM $ETH_FROM $dink $dart`
+`seth send $CDP_MANAGER 'frob(uint,address,int,int)' $cdpId $ETH_FROM $dink $dart`
 
 This doesn’t mean you have already got back your tokens yet. If you check, your account’s REP balance is not yet back to the original amount.
 
