@@ -54,6 +54,11 @@ You will need a good understanding of these concepts to be able to work through 
 
 The guide below is updated for the [0.2.10](https://changelog.makerdao.com/releases/0.2.10/index.html) release of DCS on Kovan.
 
+For this tutorial you will want to set the gas limit to 3,000,000
+```bash
+export ETH_GAS=3000000
+```
+
 ### Setup
 
 Execute these commands to initialize environment variables with addresses of the core DCS contracts.
@@ -67,6 +72,7 @@ export MCD_PAUSE=0x8fe4f004ed32c0d11d00de9f7aa65a37815211ae
 export MCD_PAUSE_PROXY=0xd8439f40a308964666800c03fb746e32901eb0e8
 export MCD_ADM=0x03358a3959247ae8de50a52c7919b88ab5989b85
 export MCD_END=0xc6cd35939523d258d5c28febf6017635a4ea858d
+export MCD_JOIN_DAI=0xe70a5307f5132ee3a6a056c5efb7d5a53f3cdbd7
 ```
 
 Set a variable with the address of the token going to be used for the collateral type. This guide will use the Kovan MKR token as an example.
@@ -168,7 +174,7 @@ A liquidation penalty is imposed on a CDP by increasing it's debt by a percentag
 Calculate the uint256 value using the first command to initialize the CHOP variable with `10%`.
 
 ```bash
-seth --to-uint256 $(echo "110"*10^25 | bc)
+seth --to-uint256 $(echo "10"*10^25 | bc)
 export CHOP=0000000000000000000000000000000000000000038de60f7c988d0fcc000000
 ```
 
@@ -274,6 +280,7 @@ Execute the command below to withdraw 10 Dai from the internal balance in Vat an
 
 ```bash
 export wad=$(seth --to-word $(seth --to-wei 10 eth))
+seth send $MCD_VAT "hope(address)" $MCD_JOIN_DAI
 seth send $MCD_JOIN_DAI "exit(address, uint256)" $ETH_FROM $wad
 ```
 
