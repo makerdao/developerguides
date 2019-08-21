@@ -82,19 +82,14 @@ Now let's call the `open` function.
 
 To get the `cdpId`, execute:
 
-    seth call $CDP_MANAGER 'last(address)' $ETH_FROM
+    export cdpId=$(seth --to-dec $(seth call $CDP_MANAGER 'last(address)' $ETH_FROM)) 
 
-Output:
 
-`0x0000000000000000000000000000000000000000000000000000000000000005`
-
-So, the `cdpId` is `5`. 
 
 Besides the `cdpId`, we need to get the `urn` address as well. That's where  `ink`(collateral balance) and `art`(outstanding stablecoin debt) is registered. 
+ 
 
-Keep in mind to change `5` to your `cdpId`. 
-
-    export urn=$(seth call $CDP_MANAGER 'urns(uint)(address)' 5)
+    export urn=$(seth call $CDP_MANAGER 'urns(uint)(address)' $cdpId)
 
 ---
 
@@ -116,9 +111,9 @@ Sending `dink` amount of `REP` to the `urn`.
 
     seth send $MCD_JOIN_REP_A 'join(address,uint)' $urn $dink
 
-Now we can lock our `REP` into the system and draw `Dai` against it. We can do it all in one function. Keep in mind to change `5` to your `cdpId`.
+Now we can lock our `REP` into the system and draw `Dai` against it. We can do it all in one function.
 
-    seth send $CDP_MANAGER 'frob(uint,int,int)' 5 $dink $dart
+    seth send $CDP_MANAGER 'frob(uint,int,int)' $cdpId $dink $dart
 
 **NOTE:**
 You can use the other `frob(uint, address, int, int)` function with the extra `address` parameter. With this function, you will send the newly created `DAI` to your `ETH_FROM` address and not the `urn`. Skipping the `CDP_MANAGER.move()` function. 
@@ -154,7 +149,7 @@ Moving `DAI` from `urn` to `ETH_FROM`(your address).
 Defining `rad`, a high precision number. In `VAT` the debt balance is registered with a higher precision number than on your wallet. 
 
     export rad=$(seth --to-uint256 $(echo "5"*10^45 | bc))
-    seth send $CDP_MANAGER 'move(uint,address,uint)' 5 $ETH_FROM $rad
+    seth send $CDP_MANAGER 'move(uint,address,uint)' $cdpId $ETH_FROM $rad
 
 Approving `MCD_JOIN_DAI` to `exit` in `MCD_VAT`.
 
@@ -194,7 +189,7 @@ Paying back `DAI` involves calling the `CDP_MANAGER.frob()` function with negati
 
     export nDink=$(seth --to-uint256 $(mcd --to-hex $(seth --to-wei -20 eth)))
     export nDart=$(seth --to-uint256 $(mcd --to-hex $(seth --to-wei -5 eth)))
-    seth send $CDP_MANAGER 'frob(uint,int,int)' 5 $nDink $nDart
+    seth send $CDP_MANAGER 'frob(uint,int,int)' $cdpId $nDink $nDart
 
 ---
 
@@ -202,7 +197,7 @@ Paying back `DAI` involves calling the `CDP_MANAGER.frob()` function with negati
 
 Now we need to take the collateral from the `urn` and have it sent back to your address. `5` being your `cdpId`, `ETH_FROM` your address and `dink` the amount of collateral locked into the system. 
 
-    seth send $CDP_MANAGER 'flux(uint,address,uint)' 5 $ETH_FROM $dink
+    seth send $CDP_MANAGER 'flux(uint,address,uint)' $cdpId $ETH_FROM $dink
 
 **NOTE:** 
 You could skip the above step if you called the `CDP_MANAGER.frob(uint, address, int, int)` function. As you can see this function has an extra parameter, `address`. If you call this function instead, the locked collateral is sent directly to your address and not to the `urn`. After this, you just have to call the `MCD_JOIN_REP_A.exit(address, uint)` function to get your collateral. 
