@@ -171,10 +171,10 @@ export DUTY=0000000000000000000000000000000000000000033b2e3ca43176a9d2dfd0a5
 *Note: We'll cover how the number `1000000000315522921573372069` corresponds to a `1%` annual rate in a future guide and link it here.*
 
 A liquidation penalty is imposed on a CDP by increasing it's debt by a percentage before a collateral aucion is kicked off. This penalty is imposed to prevent [Auction Grinding Attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf).
-Calculate the uint256 value using the first command to initialize the CHOP variable with `10%`.
+Calculate the uint256 value using the first command to initialize the CHOP variable with an additional `10%`.  We pass `110%` here because when we start an auction we want it to be for the amount of the outstanding debt plus `10%`.
 
 ```bash
-seth --to-uint256 $(echo "10"*10^25 | bc)
+seth --to-uint256 $(echo "110"*10^25 | bc)
 export CHOP=0000000000000000000000000000000000000000038de60f7c988d0fcc000000
 ```
 
