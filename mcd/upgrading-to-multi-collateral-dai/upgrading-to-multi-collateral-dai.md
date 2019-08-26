@@ -220,7 +220,7 @@ Inform your users as soon as possible about the timeline for your own upgrade to
 	
 	- Add support for Savings Dai.
 
-### Direct integration with smart contracts
+#### Direct integration with smart contracts
 
 - If you have integrated directly with the smart contracts, you must add support for the new Maker core. Since the smart contracts have been completely rewritten, most function calls have been changed.
 
