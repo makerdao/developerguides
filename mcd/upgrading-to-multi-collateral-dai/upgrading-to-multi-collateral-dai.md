@@ -46,6 +46,8 @@ The steps necessary to migrate from Single-Collateral Dai (SCD) to Multi-Collate
 	-   [As a Keeper](#as-a-keeper)
     
 	-   [As a Market Maker](#as-a-market-maker)
+	
+	-   [As a CDP Integrator](#as-a-cdp-integrator)
 
 -   [Migration Portal](#migration-portal)
     
