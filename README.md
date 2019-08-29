@@ -4,20 +4,20 @@ Developers can build a variety of experiences using one or more components of th
 
 All guides are organized in sections and by proficiency levels within each section.
 
-## [Dai](dai/)
+## Dai
 
 - [Dai Token](/dai/dai-token/dai-token.md)
 - [Dai in Smart Contracts](/dai/dai-in-smart-contracts/README.md)
 
-## [Governance](governance/)
+## Governance
 
 - [Vote Proxy Setup: Air-gapped Machine](/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
 
-## [Keepers](keepers/) (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
+## Keepers (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
 
 - [Auctions 101](/keepers/auctions/auctions-101.md)
 
-## [MCD](mcd/)
+## MCD
 
 - [Introduction and Overview of Multi-Collateral Dai: MCD101](/mcd/mcd-101/mcd-101.md)
 - [Using MCD-CLI to create and close a MCD CDP on Kovan](/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)
@@ -25,11 +25,11 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Upgrading to MCD - overview for different partners](/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
 - [Add a new collateral type to DCS - Kovan](/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
 
-## [Partners](partners/)
+## Partners
 
 - [Setting up real money transfers using Wyre API](/partners/wyre-guide-01/wyre-guide-01.md)
 
-## [Development Tools](devtools/)
+## Developer Tools
 
 - [Test Chain Guide](/devtools/test-chain-guide/test-chain-guide.md)
 - [Introduction to Seth](/devtools/seth/seth-guide-01/seth-guide-01.md)
