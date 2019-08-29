@@ -7,6 +7,7 @@ This folder contains guides for integration with Maker Governance systems, which
 ## Beginner
 
 ## Intermediate
+
 [Vote Proxy Setup: Air-gapped Machine](/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
 
 ## Advanced

@@ -4,34 +4,54 @@ Developers can build a variety of experiences using one or more components of th
 
 All guides are organized in sections and by proficiency levels within each section.
 
-* CDP
-* [Dai](dai/)
-* [Governance](governance/)
-* [Keepers](keepers/) (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
-* [MCD](mcd/)
-* OTC Exchange Service
-* Oracles (Data Feeds)
-* [Partners](partners/)
-* Risk
-* [Development Tools](devtools/)
+## [Dai](dai/)
+
+- [Dai Token](/dai/dai-token/dai-token.md)
+- [Dai in Smart Contracts](/dai/dai-in-smart-contracts/README.md)
+
+## [Governance](governance/)
+
+- [Vote Proxy Setup: Air-gapped Machine](/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
+
+## [Keepers](keepers/) (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
+
+- [Auctions 101](/keepers/auctions/auctions-101.md)
+
+## [MCD](mcd/)
+
+- [Introduction and Overview of Multi-Collateral Dai: MCD101](/mcd/mcd-101/mcd-101.md)
+- [Using MCD-CLI to create and close a MCD CDP on Kovan](/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)
+- [Using Seth to create and close a MCD CDP on Kovan](/mcd/mcd-seth/mcd-seth-01.md)
+- [Upgrading to MCD - overview for different partners](/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
+- [Add a new collateral type to DCS - Kovan](/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
+
+## [Partners](partners/)
+
+- [Setting up real money transfers using Wyre API](/partners/wyre-guide-01/wyre-guide-01.md)
+
+## [Development Tools](devtools/)
+
+- [Test Chain Guide](/devtools/test-chain-guide/test-chain-guide.md)
+- [Introduction to Seth](/devtools/seth/seth-guide-01/seth-guide-01.md)
+- [Working with DSProxy](/devtools/working-with-dsproxy/working-with-dsproxy.md)
 
 ## Partner compilations
 
 In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
 
-* [Upgrading to Multi-Collateral Dai](mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
-* [Exchanges](exchanges/)
-* [Wallets](wallets/)
-* [Remittance services](remittance/)
-* [Market Makers](market-makers/)
+- [Upgrading to Multi-Collateral Dai](mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
+- [Exchanges](exchanges/)
+- [Wallets](wallets/)
+- [Remittance services](remittance/)
+- [Market Makers](market-makers/)
 
 ## Contribution guidelines
 
 We welcome submissions of guides and tutorials that cover new types of integrations! Following these guidelines will help us maintain consistency,
 
-* Include all the sections present in this [sample guide](/sample/sample-guide-01/sample-guide-01.md)  
-* Create a folder with one markdown file using the same name
-* Append a number if a guide needs to be split into multiple parts
+- Include all the sections present in this [sample guide](/sample/sample-guide-01/sample-guide-01.md)  
+- Create a folder with one markdown file using the same name
+- Append a number if a guide needs to be split into multiple parts
 
 ## License
 
