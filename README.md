@@ -9,6 +9,12 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Dai Token](/dai/dai-token/dai-token.md)
 - [Dai in Smart Contracts](/dai/dai-in-smart-contracts/README.md)
 
+## Developer Tools
+
+- [Test Chain Guide](/devtools/test-chain-guide/test-chain-guide.md)
+- [Introduction to Seth](/devtools/seth/seth-guide-01/seth-guide-01.md)
+- [Working with DSProxy](/devtools/working-with-dsproxy/working-with-dsproxy.md)
+
 ## Governance
 
 - [Vote Proxy Setup: Air-gapped Machine](/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
@@ -28,12 +34,6 @@ All guides are organized in sections and by proficiency levels within each secti
 ## Partners
 
 - [Setting up real money transfers using Wyre API](/partners/wyre-guide-01/wyre-guide-01.md)
-
-## Developer Tools
-
-- [Test Chain Guide](/devtools/test-chain-guide/test-chain-guide.md)
-- [Introduction to Seth](/devtools/seth/seth-guide-01/seth-guide-01.md)
-- [Working with DSProxy](/devtools/working-with-dsproxy/working-with-dsproxy.md)
 
 ## Partner compilations
 
