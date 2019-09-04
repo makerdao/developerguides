@@ -113,13 +113,13 @@ We recommend you take the following steps for upgrading to MCD:
 
 - On the chosen date:
 
-	- Freeze Sai trading/transfers
+	- Freeze Sai (SCD) deposits/withdrawals
 	
 	- Use migration portal/contract to upgrade all user holdings of SCD (Sai) to MCD (Dai).
 	
 	- Point codebase to new Dai token contract address, which will be announced at launch.
 	
-	- Unfreeze Dai trading/transfers.
+	- Unfreeze Dai (MCD) deposits/withdrawals.
 	
 - Inform users about Savings Dai, which allows Dai holders to earn savings.
 
