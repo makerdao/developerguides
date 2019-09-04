@@ -1,5 +1,5 @@
 # Drawing Dai from the Kovan MCD deployment using Seth
-**This guide works under the [0.2.11 Release](https://changelog.makerdao.com/releases/0.2.11/index.html) of the system.** 
+**This guide works under the [0.2.12 Release](https://changelog.makerdao.com/releases/0.2.12/index.html) of the system.** 
 
 This tutorial will cover how to use the tool `seth` to deposit REP tokens to draw DAI from the Kovan deployment of MCD as an example, since the process is the same for any other ERC-20 token. You can use the same methodology for any supported token in MCD, by changing the contract addresses to the specific token you want to use.
 
@@ -56,23 +56,23 @@ For better readability, we are going to save a bunch of contract addresses in va
 
 **DAI ERC-20 token contract**
 
-`export DAI_TOKEN=0xdb6a55a94e0dd324292f3d05cf504c751b31cee2`
+`export DAI_TOKEN=0xb64964e9c0b658aa7b448cdbddfcdccab26cc584`
 
 **REP-A token join adapter**
 
-`export MCD_JOIN_REP_A=0x91f4e07be74445a3897b6d4e70393b5ad7b8e4b0`
+`export MCD_JOIN_REP_A=0x2c205dd1a49b17d24062e72b2fd4585c643359fb`
 
 **Vat contract - Central state storage for MCD**
 
-`export MCD_VAT=0x04c67ea772ebb467383772cb1b64c7a9b1e02bca`
+`export MCD_VAT=0xdf69460542dbdcf2f1e77941f53cfd4113a06183`
 
 **DAI token join adapter**
 
-`export MCD_JOIN_DAI=0xcf20652c7e9ff777fcb3772b594e852d1154174d`
+`export MCD_JOIN_DAI=0x922253e8bb9905ae4d37bc9bd512db5c91b5ee6c`
 
 **CDP Manager Contract**   
 
-`export CDP_MANAGER=0x7a4991c6bd1053c31f1678955ce839999d9841b1`
+`export CDP_MANAGER=0x093a6036114813f951c82929c171c2e415539ffa`
 
 ## Token approval
 You do not transfer ERC-20 tokens manually to the MCD adapters - instead you give approval for the adapters to using some of your ERC-20 tokens. The following section will take you through how to do that.
