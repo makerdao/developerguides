@@ -39,7 +39,7 @@ All guides are organized in sections and by proficiency levels within each secti
 
 In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
 
-- [Upgrading to Multi-Collateral Dai](mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
+- [Upgrading to Multi-Collateral Dai](mcd/upgrading-to-multi-collateral-dai/cli-mcd-migration.md)
 - [Exchanges](exchanges/)
 - [Wallets](wallets/)
 - [Remittance services](remittance/)
