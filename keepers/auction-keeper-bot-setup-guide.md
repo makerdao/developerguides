@@ -14,6 +14,9 @@ This guide will show how to use the auction-keeper to interact with the Kovan de
 4. Running your Keeper Bot (Usage)
     - Keeper Limitations
 5. Accounting
+    - Getting MCD K-DAI 
+    - Getting MCD K-MKR
+    - Getting MCD Collateral Tokens
 6. Testing
 7. Support
 
@@ -164,7 +167,7 @@ Once you have created your bidding model, save it as `model-eth.sh` (or whatever
 
 Collateral Auctions will be the most common type of auction that the community will want to create and operate Auction keepers for. This is due to the fact that Collateral auctions will occur much more frequently than Flap and Flop auctions. 
 
-### **Example (Flip Auction Keeper):**
+**Example (Flip Auction Keeper):**
 
 - This example/process assumes that the user has an already existing shell script that manages their environment and connects to the Ethereum blockchain.
 ```
@@ -241,6 +244,72 @@ When running multiple Auction Keepers using the same account, the balance of DAI
 **Note:**
 
 MKR used to bid on `flap` auctions is directly withdrawn from your token balance. The MKR won at `flop` auctions is directly deposited to your token balance.
+
+## Getting Kovan MCD DAI, MKR and other Collateral tokens
+
+### 1. Getting MCD K-DAI (K-MCD 0.2.12 Release)
+
+**Contract address**: `0xb64964e9c0b658aa7b448cdbddfcdccab26cc584`
+
+1.  Log into your MetaMask account from the browser extension. Add or confirm that the custom MCD K-DAI token is added to your list of tokens. 
+	- This done by selecting "Add Token" and then by adding in the details under the "Custom token" option.
+    
+2.  Head to the MCD CDP Portal [here](https://mcd-cdp-portal.mkr-js-prod.now.sh/?network=kovan). 
+	- Confirm that you are in fact on the Kovan Network before proceeding.
+    
+3.  Select the "Borrow" option.
+    
+4.  Connect your MetaMask account to the CDP portal.
+    
+5.  Approve the MetaMask connection.
+    
+6.  Below the "Overview" button, find and select the plus sign button to start setting up your CDP.
+    
+7.  Select the collateral type you want to proceed with and click "Continue".
+	-  e.g. ETH-A
+8.  Deposit your K-ETH and generate K-DAI by selecting and inputing an amount of K-ETH and the amount of K-DAI you would like to generate. To proceed, click "Continue".
+	-   e.g. Deposit 0.5 K-ETH and generate 100 DAI.
+
+9.  Click on the checkbox to confirm that you have read and accepted the **Terms of Service** then click the "Create CDP" button.
+ 
+10.  Approve the transaction in your MetaMask extension.
+
+11.  Click the "Exit" button and wait for your CDP to be created.
+
+After all of these steps have been completed, you will have the generated MCD K-DAI  and it will be present within your wallet. You can easily payback your DAI or generate more.
+
+### 2. Getting MCD K-MKR (K-MCD 0.2.12 Release)
+
+**Contract address:** `0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd`
+
+This requires familiarity with Seth as well as having the tool set up on your local machine. If unfamiliar, use [this](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md) guide to install and set it up.
+
+**Run the following command in Seth:**
+
+```
+seth send 0xcbd3e165ce589657fefd2d38ad6b6596a1f734f6 'gulp(address)' 0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd
+```
+
+**Address information:**
+
+-   The `0x94598157fcf0715c3bc9b4a35450cce82ac57b20` address is the faucet that issues 1 MKR per request.
+-   The `0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd` address is that of the MCD K-MKR token. It will issue 1 MKR.
+
+**Important Note:** The faucet address and token addresses often change with each dss deployment. The current addresses displayed above are from the **0.2.12 Release**. Please visit [https://changelog.makerdao.com/](https://changelog.makerdao.com/) for the most updated release version.
+
+### 3. Getting MCD Collateral Tokens
+
+There is a  [shell script](https://gist.github.com/sirromdev/cea6a16e686ac65ecfd4c5fa0fcb65f1) which automates the calling of faucets for several tokens which are candidates for MCD collateral types. In order to use this script, read the following instructions:
+
+1.  Save raw content from the gist to a file, and `chmod +x` it to make it executable.
+2.  Install and configure `seth` [as instructed above](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md).
+3.  Ensure environment variables at the top of the script are set appropriately, or uncomment them and set them within the script.
+4.  Update the `MOCKY` URI on line 13 to the `contracts.json` for the desired release version.
+5.  Execute the script, which will perform the following actions:
+    1.  Print the current token balances.
+    2.  Execute transactions to call the faucet for each token type.
+    3.  Print (hopefully) the updated token balances.
+    
 
 # 6. Testing your Keeper
 **Required for testing:** 
