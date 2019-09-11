@@ -92,7 +92,7 @@ The following section will cover how you use the migration contract to migrate a
 
 `export MIGRATION=0x25601b0f6ba68197de2a7ae3c11ab2c965221e44`
 
-`export PROXY_LIB=0x36370426f47028621edc2203dcae6c1431b679b0`
+`export MIGRATION_PROXY_ACTIONS=0x36370426f47028621edc2203dcae6c1431b679b0`
 
 `export PROXY_REGISTRY=0x64a436ae831c1672ae81f674cab8b6775df3475c`
 
@@ -104,7 +104,7 @@ The following section will cover how you use the migration contract to migrate a
 
 `export MCD_GOV=0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd`
 
-The migration, SAI and DAI contracts remain the same as before. `PROXY_LIB` is a proxy smart contract that will execute the CDP migration on the migration contract, by bundling a bunch of function calls into one, making migration a lot simpler. `PROXY_REGISTRY` is a smart contract that keeps track of users and their corresponding proxy contract addresses. When a user creates a CDP at [cdp.makerdao.com](https://cdp.makerdao.com/), a proxy contract is created for the user to bundle function calls, again to make interactions a lot simpler for the user. The `PROXY_REGISTRY` keeps track of these deployed contracts.
+The migration, SAI and DAI contracts remain the same as before. `MIGRATION_PROXY_ACTIONS` is a proxy smart contract that will execute the CDP migration on the migration contract, by bundling a bunch of function calls into one, making migration a lot safer and simpler. `PROXY_REGISTRY` is a smart contract that keeps track of users and their corresponding proxy contract addresses. When a user creates a CDP at [cdp.makerdao.com](https://cdp.makerdao.com/), a proxy contract is created for the user to bundle function calls, again to make interactions a lot simpler and safer for the user. The `PROXY_REGISTRY` keeps track of these deployed contracts.
 
 `MCD_JOIN_SAI` is the token adapter in MCD that allows us to deposit SAI to mint DAI against.
 
@@ -128,7 +128,7 @@ In this case for example, that would be:
 
 `export CDPID=$(mcd --to-hex 6613)`
 
-Because we are using the `PROXY_LIB` contract to execute the CDP migration for us, we need to encode the smart contract call data for the migration call and save it in a variable as well. We do this by executing:
+Because we are using the `MIGRATION_PROXY_ACTIONS` contract to execute the CDP migration for us, we need to encode the smart contract call data for the migration call and save it in a variable as well. We do this by executing:
 
 `export calldata="$(seth calldata 'migrate(address,bytes32)' "$MIGRATION" "$CDPID")"`
 
@@ -154,7 +154,7 @@ Since the migration contract will close our SCD CDP for us, we will need to appr
 
 Once the transaction is mined, you are ready to migrate your CDP. Execute the following command to initiate your proxy contract to migrate the CDP:
 
-`seth send "$MYPROXY" 'execute(address,bytes memory)' "$PROXY_LIB" "$calldata" -G 5000000`
+`seth send "$MYPROXY" 'execute(address,bytes memory)' "$MIGRATION_PROXY_ACTIONS" "$calldata" -G 5000000`
 
 If the transaction fails, try increasing the gas limit with the -G modifier.
 
