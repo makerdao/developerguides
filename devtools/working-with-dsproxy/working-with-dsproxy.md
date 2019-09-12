@@ -392,7 +392,7 @@ Before we begin, ensure you have some Kovan ETH to pay gas for transactions and 
 Build the `wipe-proxy` project
 
 ```bash
-dapp build
+dapp build --extract
 ```
 
 Deploy the WipeProxy contract
