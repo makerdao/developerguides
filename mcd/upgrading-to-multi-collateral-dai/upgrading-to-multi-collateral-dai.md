@@ -44,7 +44,7 @@ In this guide we refer to the Single Collateral Dai system as **SCD**, and the M
     
 	-   [As a Sai Holder](#as-a-sai-holder)
     
-	-   [As a SCD CDP Owner](#as-a-scd-cdp-holder)
+	-   [As a SCD CDP Owner](#as-a-scd-cdp-owner)
     
 	-   [As a Centralized Exchange or Custodial Wallet](#as-a-centralized-exchange-or-custodial-wallet)
     
