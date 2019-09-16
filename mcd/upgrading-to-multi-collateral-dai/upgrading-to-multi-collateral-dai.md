@@ -72,8 +72,7 @@ In this guide we refer to the Single Collateral Dai system as **SCD**, and the M
 	-   [Swapping Dai for Sai](#swapping-back-to-sai)
     
 	-   [Migrating CDPs](#migration-of-cdp)
-    
-	-   [CLI Tools for Migration](#migration-via-cli)
+
     
 ## User and Partner Migration Scenarios
 
