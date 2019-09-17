@@ -78,7 +78,7 @@ In this guide we refer to the Single Collateral Dai system as **SCD**, and the M
 
 The following section will outline a recommended migration process for different actors in the Maker ecosystem.
 
-### As a Sai holder
+### As a Sai Holder
 
 #### You control your private key
 
@@ -94,7 +94,7 @@ If your Sai is deposited in an exchange or centralized wallet or locked in a dAp
 
 With MCD you can deposit your Dai into the Dai Savings Rate smart contract which will earn you accrued annual savings. Find more info at makerdao.com at launch.
 
-### As a SCD CDP owner
+### As a SCD CDP Owner
 
 As a SCD CDP owner you can move your CDP to the MCD CDP core through the Migration App at [migrate.makerdao.com](https://migrate.makerdao.com) at launch. The following diagram shows the flow for CDP migration.
 
@@ -186,7 +186,7 @@ We recommend you take the following steps for upgrading to MCD:
 	-   Optional: Link users to a page on makerdao.com to activating savings, which will be announced at launch.
     
 
-### As a non-custodial wallet
+### As a Non-Custodial Wallet
 
 If you are a creator of a wallet that allows users to be in control of their private keys we recommend you do the following:
 
