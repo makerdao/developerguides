@@ -50,7 +50,7 @@ In this guide we refer to the Single Collateral Dai system as **SCD**, and the M
     
 	-   [As a Decentralized Exchange](#as-a-decentralized-exchange)
 	
-	-   [As a Non-Custodial wallet](#as-a-non-custodial-wallet)
+	-   [As a Non-Custodial Wallet](#as-a-non-custodial-wallet)
     
 	-   [As a Keeper](#as-a-keeper)
     
