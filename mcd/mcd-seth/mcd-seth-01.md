@@ -18,7 +18,7 @@ For this guide, we are going to use the tool `seth`, to send transactions and in
 ## Getting tokens
 Even though we are not using it as collateral, you will need Kovan ETH for gas. You can get some by following the guide here: [https://github.com/Kovan-testnet/faucet](https://github.com/kovan-testnet/faucet)
 
-Next, we are going to need some test collateral tokens (REP) on the Kovan network to draw DAI from them. Luckily, there is a faucet set up just for this. It gives the caller 50 REP Kovan tokens. You can also use the same faucet for the other supported MCD tokens for the test deployment (BAT, GNT, ZRX, DGD, WETH). Find the latest contracts here, and substitute for the REP equivalent below: [https://changelog.makerdao.com/releases/0.2.11/index.html](https://changelog.makerdao.com/releases/0.2.11/index.html).
+Next, we are going to need some test collateral tokens (REP) on the Kovan network to draw DAI from them. Luckily, there is a faucet set up just for this. It gives the caller 50 REP Kovan tokens. You can also use the same faucet for the other supported MCD tokens for the test deployment (BAT, GNT, ZRX, DGD, WETH). Find the latest contracts here, and substitute for the REP equivalent below: [https://changelog.makerdao.com/releases/0.2.12/index.html](https://changelog.makerdao.com/releases/0.2.12/index.html).
 
 You can only call the faucet once per account address, so if you mess something up in the future or you need more for any reason, you are going to need to create a new account. This is how you can call the faucet with seth:
 
