@@ -15,6 +15,10 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Introduction to Seth](/devtools/seth/seth-guide-01/seth-guide-01.md)
 - [Working with DSProxy](/devtools/working-with-dsproxy/working-with-dsproxy.md)
 
+## Oasis Exchange
+
+- [Intro to Oasis Maker OTC Guide](/Oasis/intro-to-oasis/intro-to-oasis-maker-otc.md)
+
 ## Governance
 
 - [Vote Proxy Setup: Air-gapped Machine](/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
