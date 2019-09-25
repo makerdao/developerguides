@@ -7,7 +7,7 @@ This guide is based on the [Kovan deployed](https://kovan.etherscan.io/address/0
 
 ## Overview
 
-The OasisDEX Protocol enables you to trade in a completely decentralised manner. The entire trading process does not require an operator and is non-custodial. Besides the [eth2dai](https://eth2dai.com/) implementation by Maker Foundation, there are other third party Dapps using the maker-otc market contracts, such as:
+The OasisDEX Protocol enables you to trade in a completely decentralised manner. The entire trading process does not require an operator and is non-custodial. Besides the [eth2dai](https://eth2dai.com/) implementation by Maker Foundation, there are other third party Dapps using the OasisDEX protocol contracts, such as:
 
 - https://dydx.exchange/
 - https://dex.ag/
