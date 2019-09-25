@@ -1,4 +1,4 @@
-# Intro to OasisDEX Maker OTC Guide   
+# Intro to the OasisDEX Protocol   
 
 **Level**: Beginner    
 **Estimated Time**: 45 - 60 minutes
@@ -7,7 +7,7 @@ This guide is based on the [Kovan deployed](https://kovan.etherscan.io/address/0
 
 ## Overview
 
-The OasisDEX Maker OTC smart contracts enables you to trade in a completely decentralised manner. The entire trading process does not require an operator and is non-custodial. Besides the [eth2dai](https://eth2dai.com/) implementation by Maker Foundation, there are other third party Dapps using the maker-otc market contracts, such as:
+The OasisDEX Protocol enables you to trade in a completely decentralised manner. The entire trading process does not require an operator and is non-custodial. Besides the [eth2dai](https://eth2dai.com/) implementation by Maker Foundation, there are other third party Dapps using the maker-otc market contracts, such as:
 
 - https://dydx.exchange/
 - https://dex.ag/
@@ -16,11 +16,11 @@ The OasisDEX Maker OTC smart contracts enables you to trade in a completely dece
 - https://forkoasisdex.com/direct/
 - https://kyberswap.com/swap
 
-This guide will introduce you to the maker-otc smart contract structure and show you how you can make trades through the command line.
+This guide will introduce you to the structure of the maker-otc smart contract that powers the OasisDEX Protocol and show you how you can make trades through the command line.
 
 ## Learning Objectives
 
-In this guide, you'll learn the basics of the maker-otc trading engine and trade ETH and DAI through the command line. In addition, this will give you an understanding on how to implement the function calls into your own app or custom smart contract.
+In this guide, you'll learn the basics of the OasisDEX protocol and trade ETH and DAI through the command line. In addition, this will give you an understanding on how to implement the function calls into your own app or custom smart contract.
 
 ## Pre-requisites
 
@@ -233,7 +233,7 @@ If you look at the order book and your transaction on kovan.etherscan.io, you'll
 
 ## Summary
 
-In this guide we have introduced you to the OasisDEX trading contract (maker-otc) that is live on [eth2dai](https://eth2dai.com/) dex. You have been shown commonly used functions within maker-otc, and we walked through examples by making some trades.
+In this guide we have introduced you to the OasisDEX Protocol (maker-otc contract) that is live on [eth2dai](https://eth2dai.com/) dex. You have been shown commonly used functions within maker-otc contract, and we walked through examples by making some trades.
 
 ## Troubleshooting
 
