@@ -1,4 +1,4 @@
-# Intro to Oasis Maker OTC Guide   
+# Intro to OasisDEX Maker OTC Guide   
 
 **Level**: Beginner    
 **Estimated Time**: 45 - 60 minutes
@@ -7,7 +7,7 @@ This guide is based on the [Kovan deployed](https://kovan.etherscan.io/address/0
 
 ## Overview
 
-The Oasis Maker OTC smart contracts enables you to trade in a completely decentralised manner. The entire trading process does not require an operator and is non-custodial. Besides the [eth2dai](https://eth2dai.com/) implementation by Maker Foundation, there are other third party Dapps using the maker-otc market contracts, such as:
+The OasisDEX Maker OTC smart contracts enables you to trade in a completely decentralised manner. The entire trading process does not require an operator and is non-custodial. Besides the [eth2dai](https://eth2dai.com/) implementation by Maker Foundation, there are other third party Dapps using the maker-otc market contracts, such as:
 
 - https://dydx.exchange/
 - https://dex.ag/
@@ -31,13 +31,13 @@ You'll need to know these concepts in order to continue with this guide:
 - [What defines a Decentralised Exchange](https://hackernoon.com/the-world-of-decentralised-exchanges-on-the-ethereum-network-an-overview-ee25fc5f9f)
 - [OTC Market](https://www.investopedia.com/terms/o/over-the-countermarket.asp)
 
-## Oasis Protocol
+## OasisDEX Protocol
 
 *Before starting this guide please install [dapptools](https://dapp.tools/) and [setup seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md) for use with the Kovan testnet.*
 
 ### **High Level Overview**
 
-The Oasis protocol uses an on-chain order book and a matching engine. The main advantage to this design is that liquidity is available for other smart contracts to access in one atomic transaction. 
+The OasisDEX protocol uses an on-chain order book and a matching engine. The main advantage to this design is that liquidity is available for other smart contracts to access in one atomic transaction. 
 
 An order book for each market is implemented as two double-linked sorted lists, one list for each side of the market (buy and sell). An important feature of the design is that at any point in time, the lists should be sorted accordingly. The second most important design consideration when building the protocol was the use of an Escrow model for Makers. The Escrow model simply means that a given asset is locked within the contract when a new order is placed. Although such an approach locks down the liquidity, it guarantees a zero counterparty risk and instantaneous settlement.   
 
@@ -67,7 +67,7 @@ To find all the functions available for this contract, check the source code on 
 
 ### **Making your first order**    
 
-Before starting with the orders, let's setup the necessary env variables in your terminal. You'll need the main [maker-otc](https://kovan.etherscan.io/address/0x4a6bc4e803c62081ffebcc8d227b5a87a58f1f8f#code) (OASIS) contract address, the [DAI](https://kovan.etherscan.io/address/0xC4375B7De8af5a38a93548eb8453a498222C4fF2#code) token and the [WETH](https://kovan.etherscan.io/address/0xd0a1e359811322d97991e03f863a0c30c2cf029c#code) token address: 
+Before starting with the orders, let's setup the necessary env variables in your terminal. You'll need the main [maker-otc](https://kovan.etherscan.io/address/0x4a6bc4e803c62081ffebcc8d227b5a87a58f1f8f#code) (OASISDEX) contract address, the [DAI](https://kovan.etherscan.io/address/0xC4375B7De8af5a38a93548eb8453a498222C4fF2#code) token and the [WETH](https://kovan.etherscan.io/address/0xd0a1e359811322d97991e03f863a0c30c2cf029c#code) token address: 
 
 ```
 export OASIS=0x4A6bC4e803c62081ffEbCc8d227B5a87a58f1F8F 
@@ -76,29 +76,29 @@ export WETH=0xd0A1E359811322d97991E03f863a0C30C2cF029C
 export ETH_GAS=3000000
 ```
 
-#### Approve Oasis in DAI & WETH
+#### Approve OasisDEX in DAI & WETH
 
-Now we need to approve the OASIS contract to take funds from your wallet, DAI and WETH respectively. This is due to the fact of how OASIS is built, you need to allow the OASIS contract to take funds from your wallet in order to use the market functions (offer(), buy()...)
+Now we need to approve the OASISDEX contract to take funds from your wallet, DAI and WETH respectively. This is due to the fact of how OASISDEX is built, you need to allow the OASISDEX contract to take funds from your wallet in order to use the market functions (offer(), buy()...)
 
-Let's define the amount we want to allow OASIS to withdraw. We'll set an equal amount for both tokens of 100,000. If you want to trade with higher units, just update the `$ALLOWANCE` to your preferred value.
+Let's define the amount we want to allow OASISDEX to withdraw. We'll set an equal amount for both tokens of 100,000. If you want to trade with higher units, just update the `$ALLOWANCE` to your preferred value.
 
 ```
 export ALLOWANCE=$(seth --to-uint256 $(seth --to-wei 100000 eth))
 ```
 
-To approve OASIS in DAI, execute the below command:
+To approve OASISDEX in DAI, execute the below command:
 ```
 seth send $DAI 'approve(address,uint256)' $OASIS $ALLOWANCE
 ```
 
-To approve OASIS in WETH, execute the below command:
+To approve OASISDEX in WETH, execute the below command:
 ```
 seth send $WETH 'approve(address,uint256)' $OASIS $ALLOWANCE
 ```
 
 #### Reading the market
 
-In order to make an order on the market, you need to inform yourself of the current market prices. There are 2 ways to do this. One is to go to the [eth2dai](https://eth2dai.com/) interface, make sure you're on Kovan, and see the order book. Or, call the OASIS contract functions to read the order book. 
+In order to make an order on the market, you need to inform yourself of the current market prices. There are 2 ways to do this. One is to go to the [eth2dai](https://eth2dai.com/) interface, make sure you're on Kovan, and see the order book. Or, call the OASISDEX contract functions to read the order book. 
 
 <img align="right" alt='order boook' width='300px' src="./assets/order-book-1.png"/>
 
@@ -108,7 +108,7 @@ The best bid price to buy WETH is 100 DAI per WETH. The best ask price to buy DA
 
 Depending on the urgency of your order, you could fill these available orders or create a new order yourself and add it to the order book waiting for it to be filled.   
 
-Now, if you'd like to get the same information as from the interface, we need to read the Oasis contract directly.
+Now, if you'd like to get the same information as from the interface, we need to read the OasisDEX contract directly.
 
 Say we want to find the best offer on the WETH/DAI market, i.e. we want to purchase WETH with Dai and I want to know the best offer available. We can do this with the **getBestOffer(ERC20 sell_gem, ERC20 buy_gem)** function. This function returns you the best offer available on the order book for your specified market. The return value of this function is an id.
 
@@ -145,7 +145,7 @@ If you'd like to know the best offer for the WETH/DAI market, follow the above i
 
 Now that you have the right information, you can start making an order. Say you want to buy WETH with DAI at a price of 177 WETH/DAI. Let's say, 15 DAI worth of WETH: `15/177 = 0.084745`. You'll make an order for `15 DAI for 0.084745 WETH`.    
 
-To make an order of Oasis, we need to call the offer() function. 
+To make an order on OasisDEX, we need to call the offer() function. 
 
 Let's set the necessary parameters for the offer() function. Besides the pay and buy amounts that we need to define, we also need to add the pos parameter to the function. Position parameter is a number that represents an order id. We use this parameter to tell the trading engine where to place the order. If we know where our order should be placed, then we take the closest order id and use that as as a pos parameter.      
 
@@ -196,7 +196,7 @@ We can see that our order has appeared on the order book.
 
 ### **Cherry-picking an offer from the order book**
 
-Making a limit order and letting the contract match you with existing orders as described above is the recommended way of trading on the Oasis contract. However, sometimes, you might find a specific offer in the order book that you would like to trade on. A good example is if you want to build a trading bot. When this is the case, you could use the buy(uint id, uint amount) function. The first parameter is the id of the offer, which you can get with getBestOffer() function, and the second parameter is the amount you'd like to buy.  
+Making a limit order and letting the contract match you with existing orders as described above is the recommended way of trading on the OasisDEX contract. However, sometimes, you might find a specific offer in the order book that you would like to trade on. A good example is if you want to build a trading bot. When this is the case, you could use the buy(uint id, uint amount) function. The first parameter is the id of the offer, which you can get with getBestOffer() function, and the second parameter is the amount you'd like to buy.  
 
 Let's buy some DAI that is being sold at 177 DAI/WETH.    
 First, let's get the order id of this offer:   
@@ -233,7 +233,7 @@ If you look at the order book and your transaction on kovan.etherscan.io, you'll
 
 ## Summary
 
-In this guide we have introduced you to the Oasis trading contract (maker-otc) that is live on [eth2dai](https://eth2dai.com/) dex. You have been shown commonly used functions within maker-otc, and we walked through examples by making some trades.
+In this guide we have introduced you to the OasisDEX trading contract (maker-otc) that is live on [eth2dai](https://eth2dai.com/) dex. You have been shown commonly used functions within maker-otc, and we walked through examples by making some trades.
 
 ## Troubleshooting
 
