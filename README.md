@@ -17,7 +17,7 @@ All guides are organized in sections and by proficiency levels within each secti
 
 ## Oasis Exchange
 
-- [Intro to Oasis Maker OTC Guide](/Oasis/intro-to-oasis/intro-to-oasis-maker-otc.md)
+- [Intro to OasisDEX Protocol](/Oasis/intro-to-oasis/intro-to-oasis-maker-otc.md)
 
 ## Governance
 
