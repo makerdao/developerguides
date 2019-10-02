@@ -27,11 +27,9 @@
       - [Monitoring](#monitoring)
       - [Liquidation Support](#liquidation-support)
     - [CDP Packaging](#cdp-packaging)
-    - [Examples](#examples)
-      - [Dai Loan](#dai-loan)
-      - [Margin Trading](#margin-trading)
-      - [Lending Pilots](#lending-pilots)
-      - [Fixed fee CDPs](#fixed-fee-cdps)
+      - [Components](#components)
+        - [Exchanges](#exchanges)
+        - [Lending protocols](#lending-protocols)
   - [Troubleshooting](#troubleshooting)
   - [Summary](#summary)
   - [Additional resources](#additional-resources)
@@ -40,7 +38,7 @@
 
 ## Overview
 
-Collateralized Debt Positions(CDPs) can accept tokenized collateral representing both crypto and real world assets to give users seeking credit a wide variety of options to generate Dai with. Custom CDP portals can leverage this versatility along with the open developer platform to make it easier for users better manage their CDPs and can also go further to package CDPs with other financial components to build products tailored for their needs.
+Collateralized Debt Positions(CDPs) can accept tokenized collateral representing both crypto and real world assets to give users seeking credit a wide variety of options to generate Dai with. Custom CDP portals can leverage this versatility along with the open developer platform to make it easier for users better manage their CDPs and can also go further and package CDPs with other financial components to build products tailored for their needs.
 
 ## Learning Objectives
 
@@ -60,7 +58,7 @@ You will need a good understanding of these concepts to be able to work through 
 
 ## Guide
 
-CDPs are designed to give users easy and permissionless access to generate their own Dai with features such as no fixed term limits, per second interest compounding, and up to 45 decimals of precision when accounting for debt. As a developer building a custom CDP integration, you can go beyond building a simple CDP portal that exposes basic CDP options to users and differentiate your custom portal by offering additional features around two dimensions- CDP management and packaging.
+CDPs are designed to give users easy and permissionless access to generate their own Dai with features such as no fixed term limits, per second interest compounding, and up to 45 decimals of precision when accounting for debt. As a developer building a custom CDP integration, you can go beyond building a simple CDP portal that exposes basic CDP options to users and differentiate your offering with additional features around two dimensions- CDP management and packaging.
 
 Some examples of portals that have built custom CDP integrations,
 
@@ -245,21 +243,27 @@ As a part of CDP management, a portal can also help the user avoid a hard liquid
 
 ### CDP Packaging
 
-### Examples
+Generating Dai from a CDP is the just the first step that creates debt which needs to be used elsewhere. Packaging other products that accept Dai as components of your integration to put the generated Dai to immediate use will make it a seamless experience for the user.
 
-#### Dai Loan
+For example, using a decentralized protocol to create a margin long position on an asset is very attractive due to vastly reduced counter-party risk that centralized exchanges have. Creating such a position on Ether using a CDP would involve a series of steps that first generate Dai, move it to an exchange to buy more Ether, lock the newly bought Ether again in the CDP, and repeat the process manually until the desired leverage is reached. A custom CDP portal can make this experience seamless by turning it into a one step process that is user friendly by combining liquidity available on exchanges and removing the need to sign multiple transactions.
 
-#### Margin Trading
+#### Components
 
-#### Lending Pilots
+Examples of components that can be packaged with a CDP are,
 
-#### Fixed fee CDPs
+##### Exchanges
+
+Exchanges can supply liquidity to the custom CDP portal for all the asset trades that happen across various stages of a CDP lifecycle. A user may need to exchange tokens for collateral that is accepted by the Maker protocol to open a CDP. Exchanges are also required when the user wants to swap Dai for a target asset to make a speculative long trade. The ability to source liquidity with low slippage on trades could be a great competitive advantage for the custom CDP portal.
+
+##### Lending protocols
+
+Lending protocols match lenders and borrowers that suppy assets to the protocol. Users can lock the Dai generated from a CDP as a lender on the lending protocol to borrow other assets from it. Selling the borrowed asset typically creates a speculative short trade for the user.
 
 ## Troubleshooting
 
 ## Summary
 
-In this guide we looked at setting up a new collateral type for a token and opened a CDP to generate Dai from it.
+Debt expands possibilities for users on what they can achieve with the assets they hold in their wallet without having to sell them. In this guide we discussed how you as a custom CDP portal developer can turn these possibilities into great user experiences by providing users with the tools they need to manage CDPs  and also create channels for collateral and Dai to seamlessly move in and out of a CDP through packaging with other products.
 
 ## Additional resources
 
