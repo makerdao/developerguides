@@ -1,6 +1,6 @@
 # How to use mcd-cli to interact with Kovan deployment of MCD
 
-**This guide works under the [0.2.10 Release](https://changelog.makerdao.com/releases/0.2.10/index.html) of the system.** 
+**This guide works under the [0.2.14 Release](https://changelog.makerdao.com/releases/0.2.14/index.html) of the system.** 
 
 This guide will show how to use the [mcd-cli](https://github.com/makerdao/mcd-cli) to interact with the Kovan deployment of the MCD smart contracts. The guide will showcase how to go through the following stages of the lifecycle of a collateralized debt position (CDP):
 
@@ -200,7 +200,123 @@ For this example, we are going to use the REP token as the first type of collate
     ink 0.000000000000000000 Locked collateral (REP)
     ext 40.000000000000000000 External account balance (REP)
 
-After running the above commands, please confirm that you have your initial collateral (REP) back in your wallet.  
+After running the above commands, please confirm that you have your initial collateral (REP) back in your wallet.
+
+## Using CDP Manager
+The `cdp` command provides compatability with CDPs managed via the CDP Portal and uses the same proxy contract and CDP Manager font-end. This allows CDPs to be managed via a unique integer identifier rather than the I, --ilk and U, --urn options.
+
+To open a `REP-A` type CDP managed by the CDP Manager, execute the following command:
+
+```
+$ mcd --ilk=REP-A cdp open
+```
+
+Example output:
+
+```
+mcd-cdp-open: Waiting for transaction receipt....
+0xae32e035d927cbb4d54eb0936808d66592b09f75cd11ce5a16df39b2d41a8bcc
+Opened: cdp 109
+```
+
+In our case, the CDP id is `109`, so we will use that as the example id in the following commands. You will have a different id, so you should substitute `109` with your cdp id.
+
+To lock 30 REP tokens into the CDP, execute:
+
+```
+$ mcd --ilk=REP-A cdp 109 lock 30
+```
+
+Example output:
+
+```
+ilk  REP-A                                            Collateral type
+urn  0x918E6BE35e2F6A91dEa7d1131B875Daa68C47b5F       Urn handler
+ink  30.000000000000000000                            Locked collateral (REP)
+art  0.000000000000000000                             Issued debt (Dai)
+dai  0.000000000000000000000000000000000000000000000  Free Dai (in Vat)
+tab  0                                                Outstanding debt (Dai)
+rap  0                                                Accumulated stability fee (Dai)
+-->  0                                                Collateralization ratio
+
+spot 8.234955555555555555555555555                    REP price with safety mat (USD)
+rate 1.002606904973849955810390711                    REP DAI exchange rate
+```
+
+To draw 1 Dai, execute:
+
+```
+$ mcd --ilk=REP-A cdp 109 draw 1
+```
+
+Example output:
+
+```
+ilk  REP-A                                            Collateral type
+urn  0x918E6BE35e2F6A91dEa7d1131B875Daa68C47b5F       Urn handler
+ink  30.000000000000000000                            Locked collateral (REP)
+art  0.994825352635888385                             Issued debt (Dai)
+dai  0.000000000000000000405995433304836217156675125  Free Dai (in Vat)
+tab  0                                                Outstanding debt (Dai)
+rap  0                                                Accumulated stability fee (Dai)
+-->  0                                                Collateralization ratio
+
+spot 8.234955555555555555555555555                    REP price with safety mat (USD)
+rate 1.005201563621595362715670325                    REP DAI exchange rate
+```
+
+You have now succesfully drawn 1 Dai against your 30 REP collateral.
+To pay back the Dai execute this command:
+
+```
+$ mcd --ilk=REP-A cdp 109 wipe 1
+```
+
+Example output:
+
+```
+ilk  REP-A                                            Collateral type
+urn  0x918E6BE35e2F6A91dEa7d1131B875Daa68C47b5F       Urn handler
+ink  30.000000000000000000                            Locked collateral (REP)
+art  0.000000000000000000                             Issued debt (Dai)
+dai  0.000000000000000000000000000000000000000000000  Free Dai (in Vat)
+tab  0                                                Outstanding debt (Dai)
+rap  0                                                Accumulated stability fee (Dai)
+-->  0                                                Collateralization ratio
+
+spot 8.234955555555555555555555555                    REP price with safety mat (USD)
+rate 1.005201563621595362715670325                    REP DAI exchange rate
+```
+
+Execute the following command to retrieve the 30 REP tokens:
+
+```
+$ mcd --ilk=REP-A cdp 109 free 30
+```
+
+Example output:
+```
+ilk  REP-A                                            Collateral type
+urn  0x918E6BE35e2F6A91dEa7d1131B875Daa68C47b5F       Urn handler
+ink  0.000000000000000000                             Locked collateral (REP)
+art  0.000000000000000000                             Issued debt (Dai)
+dai  0.000000000000000000000000000000000000000000000  Free Dai (in Vat)
+tab  0                                                Outstanding debt (Dai)
+rap  0                                                Accumulated stability fee (Dai)
+-->  0                                                Collateralization ratio
+
+spot 8.234955555555555555555555555                    REP price with safety mat (USD)
+rate 1.005201563621595362715670325                    REP DAI exchange rate
+```
+
+If your transaction went through, congratulations, you got back your 30 REP!
+If the above command failed, it's because your debt has increased due to the stability fee. Therefore, try to lower the amount of REP you want to retrieve (i.e. 29.5: `$ mcd --ilk=REP-A cdp 109 free 30`), or if you have excess Dai, you can utilize the following command to pay down the full debt:
+
+`mcd --ilk=REP-A cdp 109 wipe-all`
+
+After this command have been executed, you should be able to free all the collateral.
+
+For more commands, simply type `mcd cdp`
 
 This concludes the CDP Lifecycle Walkthrough Guide!
 
