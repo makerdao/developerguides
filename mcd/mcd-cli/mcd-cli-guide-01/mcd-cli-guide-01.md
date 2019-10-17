@@ -203,7 +203,7 @@ For this example, we are going to use the REP token as the first type of collate
 After running the above commands, please confirm that you have your initial collateral (REP) back in your wallet.
 
 ## Using CDP Manager
-The `cdp` command provides compatability with CDPs managed via the CDP Portal and uses the same proxy contract and CDP Manager font-end. This allows CDPs to be managed via a unique integer identifier rather than the I, --ilk and U, --urn options.
+The `cdp` command provides compatibility with CDPs managed via the CDP Portal as it uses the same proxy contract. This allows CDPs to be managed via a unique integer identifier rather than the I, --ilk and U, --urn options.
 
 To open a `REP-A` type CDP managed by the CDP Manager, execute the following command:
 
