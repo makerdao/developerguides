@@ -38,7 +38,7 @@
 
 ## Overview
 
-Collateralized Debt Positions(CDPs) can accept tokenized collateral representing both crypto and real world assets to give users seeking to borrow against collateral a wide variety of options to generate Dai with. Custom CDP portals can leverage this versatility along with the open developer platform to make it easier for users to better manage their CDPs and can also go further and package CDPs with other financial components to build products tailored for their needs.
+Collateralized Debt Positions(CDPs) can accept a wide variety of tokenized collateral, representing both crypto and real world assets, and give users the ability to borrow Dai against this pledged collateral. Custom CDP portals can leverage this versatility along with the open developer platform to make it easier for users to better manage their CDPs and can also go further and package CDPs with other financial components to build products tailored for their needs.
 
 ## Learning Objectives
 
@@ -58,7 +58,7 @@ You will need a good understanding of these concepts to be able to work through 
 
 ## Guide
 
-CDPs are designed to give users easy and permissionless access to generate their own Dai with features such as no fixed term limits, per second interest compounding, and up to 45 decimals of precision when accounting for debt. As a developer building a custom CDP integration, you can go beyond building a simple CDP portal that exposes basic CDP options to users and differentiate your offering with additional features around two dimensions- CDP management and packaging.
+CDPs are designed to give users easy and permissionless access to generate their own Dai with features such as no fixed term limits, per second interest compounding, and up to 45 decimals of precision when accounting for debt. As a developer building a custom CDP integration, you can go beyond building a simple CDP portal that exposes basic CDP options to users and differentiate your offering with additional features around two dimensions--- CDP management and packaging.
 
 Some examples of portals that have built custom CDP integrations,
 
@@ -68,6 +68,7 @@ Some examples of portals that have built custom CDP integrations,
 - Tinlake allows users to borrow Dai by locking NFTs on their lending platform which packages CDPs on their backend.
 
 ![Package](img/cdpguide-package.png)
+*Illustration of a CDP packaged with various components*
 
 The possibilities to both differentiate and serve users are endless, and we will outline some general principles to help you architect and develop your custom CDP integration in the following sections of this guide,
 
@@ -84,21 +85,21 @@ Every CDP in the system goes through these stages in its lifecycle.
 
 ##### Open
 
-Users lock the tokens they own from any of the accepted collateral types into a CDP. A CDP will stay safe as long as its Dai debt remains below the limit set in the system through the minimum collateralization ratio. Ex: Ether's collateralization ratio is 150% and currently trades at 100 USD. A user is allowed to generate a maximum of 66.66 DAI for every ETH locked. Users continue to own the collateral they have locked in a CDP and accrue gains or losses by staying invested in the asset. They are also able to use the generated Dai to purchase other assets they desire from various exchanges or merchants.
+Users lock the tokens they own from any of the accepted collateral types into a CDP. A CDP will stay safe as long as its Dai debt remains below the limit set in the system through the liquidation ratio. Ex: Ether's collateralization ratio is 150% and currently trades at 100 USD. A user is allowed to generate a maximum of 66.66 DAI for every ETH locked. Users continue to own the collateral they have locked in a CDP and accrue gains or losses by staying invested in the asset. They are also able to use the generated Dai to purchase other assets they desire from various exchanges or merchants.
 
 ##### Manage
 
-Once it is open, it is now the user's responsibility to ensure the CDP remains safe even when the price of the locked underlying collateral fluctuates. Users will know the future price that will be used to revalue their CDP up to an hour in advance. If the value of the collateral goes down, users can take action by either locking additional collateral or reducing debt to keep the CDP safe.
+Once it is open, it is now the user's responsibility to ensure the CDP remains safe even when the price of the locked underlying collateral fluctuates. Users will know the future price that will be used to revalue their CDP up to an hour in advance. If the value of the collateral goes down, users can take action by either locking additional collateral or reducing debt (by paying back) to keep the CDP safe.
 
 ##### Close
 
 Users can close their own CDPs anytime by paying off the debt recorded in it with Dai which is a sum of Dai directly borrowed by the user and accrued stability fees that the system increases continuously as additional debt on the CDP.
 
-A CDP becomes unsafe when its total debt becomes greater than the required minimum collalteralization ratio. When this happens, the system cancels the accrued debt and liquidates the CDP. It adds a liquidation penalty on the CDP and then auctions the locked collateral to raise the Dai required to cancel the debt and sends the remaining collateral back to the CDP owner.
+A CDP becomes unsafe when its total debt becomes greater than the required minimum collalteralization ratio. When this happens, the system cancels the accrued debt and liquidates the CDP. It adds a liquidation penalty on the CDP and then auctions the locked collateral to raise the Dai required to cancel the debt before returning any remaining collateral back to the CDP owner.
 
 #### Integration Tools
 
-There are two ways to integrate with the Maker products. One is to use our in house Dai.js library. Other is to use our contracts directly. The choice of which tool to choose relies mostly on your in house design philosophy, software architecture and tools arsenal.
+There are multiple ways to integrate with the Maker products: Smart contracts, Dai.js JavaScript SDK, and the [pymaker](https://github.com/makerdao/pymaker) Python SDK. The choice of which tool to choose relies mostly on your in house design philosophy, software architecture and tools arsenal.
 
 We can recommend one tool over another according to our experience, however you or your software architect would have a better understanding of what could be used in your system.
 
@@ -170,11 +171,9 @@ Another way to interact with CDPs is through the Maker contracts.
 
 CDP Manager is our public facing interface contract that allows anyone to easily interact with the MCD system. This is the recommended way to interact with the Maker protocol. You can find some examples that show a simple CDP lifecycle with CDP Manager [here](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md).
 
-If you want to abstract many individual contract calls into one, then you can use our [proxy contract](https://github.com/makerdao/dss-proxy-actions) that uses the CDP Manager to interact with the system. In the proxy contract, the owner of the CDP is the proxy address and not the user's address. Clearly, the user's address is the owner of the proxy, so there's a link between the two addresses.  
+If you want to abstract many individual contract calls into one, then you can use our [proxy contract](https://github.com/makerdao/dss-proxy-actions) that uses the CDP Manager to interact with the system. In the proxy contract, the owner of the CDP is the proxy address and not the user's address. Clearly, the user's address is the owner of the proxy, so there's a link between the two addresses. Please refer to the [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) guide to understand proxy contracts are used interact with the core system.
 
-Going this route, you'll use your in-house tools that will communicate with the Maker contracts. As you have already built an intricate system that can communicate with the web3.
-
-In the example of a custodial exchange, using the CDP Manager could bring more options to operate with the MCD system on the exchange. As this allows to easily control every step of the CDP lifecycle. The exchange can open CDP's for the users and link the CDP Id to the user Id, hence having a link to the user for accountability.
+In the example of a custodial exchange, using the CDP Manager could bring more options to operate with the MCD system on the exchange, as this allows easy control of the CDP lifecycle. The exchange can open CDP's for the users and link the CDP Id to the user Id, hence having a link to the user for accountability.
 
 ### CDP Management
 
@@ -237,7 +236,7 @@ Portals can notify users about various topics to help them better manage their C
 
 #### Liquidation Support
 
-Unsafe CDPs that breach their collateralization ratio are liquidated by the Maker protocol as a last resort to reduce overall risk in the system and to keep it well collateralized. To prevent CDP owners from misusing this mechanism through [auction grinding attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf) a liquidation penalty is also tacked.
+Unsafe CDPs that breach their collateralization ratio are liquidated by the Maker protocol as a last resort to reduce overall risk in the system and to keep it well collateralized. To prevent CDP owners from misusing this mechanism through [auction grinding attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf), a liquidation penalty is also tacked.
 
 As a part of CDP management, a portal can also help the user avoid a hard liquidation by the protocol. It can source liquidity from either centralized or decentralized exchanges to exchange the locked collateral for Dai to payback either a portion of the debt or fully to unwind the CDP. In a custodial setup, a portal can even do this without the user having to perform any action.
 
