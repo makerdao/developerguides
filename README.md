@@ -4,6 +4,10 @@ Developers can build a variety of experiences using one or more components of th
 
 All guides are organized in sections and by proficiency levels within each section.
 
+## Collateralized Debt Positions(CDP)
+
+- [CDP Integration Guide](/cdp/cdp-integration-guide/cdp-integration-guide.md)
+
 ## Dai
 
 - [Dai Token](/dai/dai-token/dai-token.md)
