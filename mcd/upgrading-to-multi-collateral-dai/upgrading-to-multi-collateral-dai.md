@@ -183,12 +183,14 @@ We recommend you take the following steps for upgrading to MCD:
 
 	-   Optional: Build a UI that facilitates the usage of the Dai Savings Rate service for your users in your exchange, where users will keep the accrued savings themselves.
     
-	-   Optional: Link users to a page on makerdao.com to activating savings, which will be announced at launch.
+	-   Optional: Link users to a page on [oasis.app](https://oasis.app) to activating savings, which will be announced at launch.
     
 
 ### As a non-custodial wallet
 
 If you are a creator of a wallet that allows users to be in control of their private keys we recommend you do the following:
+
+-   Select a future date between November 18-25 to execute the upgrade.
 
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
@@ -207,7 +209,7 @@ If you are a creator of a wallet that allows users to be in control of their pri
 
 	-   Optional: Create a UI where users can activate Dai Savings Rate.
     
-	-   Optional: Link users to a page on makerdao.com for activating savings, which will be announced at launch.
+	-   Optional: Link users to a page on [oasis.app](https://oasis.app) to activate savings, which will be announced at launch.
 
 - Optional: Implement paying the gas cost of Dai transactions on behalf of your users.
 
@@ -240,7 +242,7 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 #### Custodial CDP service
 
--   Select a future date to execute the upgrade.
+-   Select a future date between November 18-25 to execute the upgrade.
     
 -   Inform your users as soon as possible about the date.
     
@@ -267,10 +269,12 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 -   If it is relevant to your service, inform users about Dai Savings Rate
     
 
-	-   Optional: Implement UI for locking Dai in the Dai Savings Rate smart contract.
+	-   Optional: Implement UI for earning the Dai Savings Rate.
     
 
 #### Non-Custodial CDP service
+
+-   Select a future date between November 18-25 to execute the upgrade.
 
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
@@ -343,7 +347,7 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 #### Custodial Service
 
--   Select a future date to execute the upgrade.
+-   Select a future date between November 18-25 to execute the upgrade.
     
 -   Inform your users as soon as possible about the date.
     
@@ -364,6 +368,8 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 		-   Inform your users that you can no longer pay back Sai, but that they should migrate their Sai to Dai through migrate.makerdao.com before paying back a loan.
 
 #### Non-Custodial Service
+
+-   Select a future date between November 18-25 to execute the upgrade.
 
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
@@ -387,6 +393,8 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 	-   Create a UI for users to migrate their balances from Sai to Dai.
 
 ### As a Dapp
+
+-   Select a future date between November 18-25 to execute the upgrade.
 
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
