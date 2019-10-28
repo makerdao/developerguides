@@ -120,14 +120,14 @@ seth send $PIP 'poke(bytes32)' $(seth --to-uint256 "$(seth --to-wei 9000 ETH)")
 
 Vat does not make calls to any external contracts, including tokens. Instead it maintains internal `gem` balances of users for each collateral type. Users deposit tokens into the corresponding adapter contract using `join()` to get this internal `gem` balance.
 
-You can use the `GemJoin1` adapter contract without making any modifications if it conforms to the ERC20 token standard, has simple transfer mechanics, and no known issues. Consider making changes to this contract if you need to perform additional checks to validate the token transfers a user makes to the adapter contract. 
+You can use the `GemJoin` adapter contract without making any modifications if it conforms to the ERC20 token standard, has simple transfer mechanics, and no known issues. Consider making changes to this contract if you need to perform additional checks to validate the token transfers a user makes to the adapter contract. 
 
-Examples of some non-standard adapters are available [here](https://github.com/makerdao/dss-deploy/blob/master/src/join.sol) for your reference.
+Examples of some non-standard adapters are available in [`dss`](https://github.com/makerdao/dss/blob/master/src/join.sol) and [`dss-deploy`](https://github.com/makerdao/dss-deploy/blob/master/src/join.sol) for your reference.
 
-Execute this command to create a new `GemJoin1` contract and initialize a variable with it's address.
+Execute this command to create a new `GemJoin` contract and initialize a variable with it's address.
 
 ```bash
-export JOIN=$(dapp create GemJoin1 "$MCD_VAT" "$ILK" "$TOKEN")
+export JOIN=$(dapp create GemJoin "$MCD_VAT" "$ILK" "$TOKEN")
 ```
 
 ### Deploy Collateral Auction contract
