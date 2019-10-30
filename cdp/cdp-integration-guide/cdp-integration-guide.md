@@ -1,6 +1,6 @@
 # CDP Integration Guide
 
-**Level**: Beginner
+**Level**: Intermediate
 
 **Estimated Time**: 90 - 120 minutes
 
