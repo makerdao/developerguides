@@ -120,7 +120,9 @@ Once upgraded, you can start using Dai Savings Rate by locking your Dai into the
 
 We recommend you take the following steps for upgrading to MCD:
 
--   Select a future date to execute the upgrade.
+-   On November 18: Rename Single-Collateral Dai to “Sai”
+
+-   Select a future date to execute your own upgrade to Multi-Collateral Dai.
     
 
 	-   To minimize user confusion in having different Dai tokens trading on different exchanges, the Maker Foundation will propose a short timespan within which we encourage all exchanges to perform the upgrade. Please e-mail [integrate@makerdao.com](mailto:integrate@makerdao.com) to subscribe to this announcement.
@@ -162,6 +164,8 @@ This approach will result in the following user journey for the exchange/wallet 
 
 We recommend you take the following steps for upgrading to MCD:
 
+-   On November 18: Rename Single-Collateral Dai to “Sai”
+
 -   Inform your users as soon as possible about the timeline for your own integration of supporting the new (MCD) Dai token.
     
 
@@ -190,11 +194,13 @@ We recommend you take the following steps for upgrading to MCD:
 
 If you are a creator of a wallet that allows users to be in control of their private keys we recommend you do the following:
 
+-   On November 18: Rename Single-Collateral Dai to “Sai”
+
+-   Select a future date between November 18-25 to execute the upgrade to support Multi-Collateral Dai, which should be listed as "Dai".
+
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
 -   Support balances of both Sai and Dai for a period until Sai demand diminishes.
-    
--   After the launch of MCD, the new Dai token should be named Dai on your platform. Single Collateral Dai (SCD - the old token) should be named Sai.
     
 -   Inform your users that they will be able to swap Sai for Dai at [migrate.makerdao.com](https://migrate.makerdao.com/).
     
@@ -240,7 +246,9 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 #### Custodial CDP service
 
--   Select a future date to execute the upgrade.
+-   On November 18: Rename Single-Collateral Dai to “Sai”
+
+-   Select a future date between November 18-25 to execute the upgrade to MCD.
     
 -   Inform your users as soon as possible about the date.
     
@@ -258,6 +266,8 @@ Alternatively, if you’re willing to do some additional work and work with a lo
     
 
 	-   Migrate all CDPs to MCD. See “Migration App” section below.
+	
+	-   List the Multi-Collateral Dai token as "Dai"
     
 	-   Unfreeze access to CDP service
     
@@ -272,6 +282,10 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 #### Non-Custodial CDP service
 
+-   On November 18: Rename Single-Collateral Dai to “Sai”
+
+-   Select a future date between November 18-25 to execute the upgrade to MCD.
+
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
 -   Inform your users about MCD and the migration process of CDPs.
@@ -285,6 +299,8 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 		-   If you are using Dai.js for your CDP integration, see “[Using Dai.js](#using-dai.js)” below for how to upgrade your implementation to MCD.
     
 		-   If you have integrated directly with the CDP smart contracts, see “[Direct integration with smart contracts](#direct-integration-with-smart-contracts)” below for how to upgrade your implementation to MCD.
+	
+	-   List the Multi-Collateral Dai token as "Dai"
     
 
 -   Choose one of the following:
@@ -343,7 +359,9 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 #### Custodial Service
 
--   Select a future date to execute the upgrade.
+-   On November 18: Rename Single-Collateral Dai to “Sai”
+
+-   Select a future date between November 18-25 to execute the upgrade to MCD.
     
 -   Inform your users as soon as possible about the date.
     
@@ -351,6 +369,8 @@ Alternatively, if you’re willing to do some additional work and work with a lo
     
 
 	-   Stop lending (deposits) and borrowing (withdrawals) of Sai
+	
+	-   List the Multi-Collateral Dai token as "Dai"
     
 	-   Open for lending (deposits) and borrowing (withdrawals) of Dai
     
@@ -365,6 +385,10 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 #### Non-Custodial Service
 
+-   On November 18: Rename Single-Collateral Dai to “Sai”
+
+-   Select a future date between November 18-25 to execute the upgrade to MCD.
+
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
 -   Inform users about potential cutoff dates for shutdown of SCD.
@@ -372,6 +396,8 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 -   At launch:
     
 
+	-   List the Multi-Collateral Dai token as "Dai"
+	
 	-   Launch support for Dai loans.
     
 	-   Stop creation of loans in Sai
@@ -388,11 +414,18 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 ### As a Dapp
 
+-   On November 18: Rename Single-Collateral Dai to “Sai”
+
+-   Select a future date between November 18-25 to execute the upgrade to MCD.
+
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
--   Update code base to support the use of the new Dai token at launch.
-    
+-   On the chosen date:
 
+	-   List the Multi-Collateral Dai token as "Dai"
+	
+	-   Update code base to support the use of the new Dai token at launch.
+    
 	-   Optional: Implement paying gas cost of Dai transactions in Dai.
     
 
