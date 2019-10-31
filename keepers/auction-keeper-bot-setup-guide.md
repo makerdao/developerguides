@@ -169,7 +169,7 @@ Collateral Auctions will be the most common type of auction that the community w
 
 **Example (Flip Auction Keeper):**
 
-- This example/process assumes that the user has an already existing shell script that manages their environment and connects to the Ethereum blockchain.    
+- This example/process assumes that the user has an already existing shell script that manages their environment and connects to the Ethereum blockchain and that you have some Dai and Kovan ETH in your wallet. If you don't have any balance, check the section below on how to get some. 
 
 An example on how to set up your environment: as `my_environment.sh`
 ```
