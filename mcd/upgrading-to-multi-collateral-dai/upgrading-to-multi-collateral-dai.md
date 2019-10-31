@@ -179,7 +179,7 @@ We recommend you take the following steps for upgrading to MCD:
 
 	-   Optional: Build a UI that facilitates the usage of the Dai Savings Rate service for your users in your exchange, where users will keep the accrued savings themselves.
     
-	-   Optional: Link users to a page on makerdao.com to activating savings, which will be announced at launch.
+	-   Optional: Link users to [oasis.app](https://oasis.app) to activate Dai Savings Rate.
     
 
 ### As a Non-Custodial Wallet
