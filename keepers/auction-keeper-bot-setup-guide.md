@@ -169,7 +169,18 @@ Collateral Auctions will be the most common type of auction that the community w
 
 **Example (Flip Auction Keeper):**
 
-- This example/process assumes that the user has an already existing shell script that manages their environment and connects to the Ethereum blockchain.
+- This example/process assumes that the user has an already existing shell script that manages their environment and connects to the Ethereum blockchain.    
+
+An example on how to set up your environment: as `my_environment.sh`
+```
+SERVER_ETH_RPC_HOST=https://your-ethereum-node
+SERVER_ETH_RPC_PORT=8545
+ACCOUNT_ADDRESS=0x16Fb96a5f-your-eth-address-70231c8154saf
+ACCOUNT_KEY="key_file=/Users/username/Documents/Keeper/accounts/keystore,pass_file=/Users/username/Documents/keeper/accounts/pass"
+```
+`SERVER_ETH_RPC_HOST` - Should not be an infura node, as it doesn't provide all the functionality that the python script needs    
+`ACCOUNT_KEY` - Should have the absolute path to the keystore and password file. Define the path as shown above, as the python script will parse through both the keystore and password files.  
+
 ```
 #!/bin/bash
 dir="$(dirname "$0")"
@@ -186,14 +197,15 @@ bin/auction-keeper \
     --rpc-timeout 30 \
     --eth-from ${ACCOUNT_ADDRESS?:} \
     --eth-key ${ACCOUNT_KEY?:} \
-    --type flip \ # type of auction the keeper will be working with
+    --type flip \
     --ilk ETH-A \
     --network kovan \
     --vat-dai-target 1000 \
     --model ${dir}/${MODEL} \
-    2> >(tee -a ${LOGS_DIR?:}/auction-keeper-flip-ETH-A.log >&2)
+    2> >(tee -a -i auction-keeper-flip-ETH-A.log >&2)
 ```
 Once finalized, you should save your script to run your Auction Keeper as `flip-eth-a.sh ` (or something similar to identify that this Auction Keeper is for a Flip Auction). 
+In addition, make sure to verify the above copy+pasted script doesn't create extra spaces or characters on pasting+saving in your editor. You will notice an error when running it later below otherwise. 
 
 **Notes:**
 
@@ -206,6 +218,24 @@ Once finalized, you should save your script to run your Auction Keeper as `flip-
 1. Confirm that both your bidding model (model-eth.sh) and your script (flip-eth-a.sh) to run your Auction Keeper are saved.
 2. The next step is to `chmod +x` both of them.
 3. Lastly, run `flip-eth-a.sh model-eth.sh` to pass your bidding model into your Auction Keeper script. 
+
+Example of a working keeper:   
+After running the `./flip-eth-a.sh model-eth.sh` command you will see an output like this:
+```
+019-10-31 13:33:08,703 INFO     Keeper connected to RPC connection https://parity0.kovan.makerfoundation.com:8545
+2019-10-31 13:33:08,703 INFO     Keeper operating as 0x16Fb96a5fa0427Af0C8F7cF1eB4870231c8154B6
+2019-10-31 13:33:09,044 INFO     Executing keeper startup logic
+2019-10-31 13:33:09,923 INFO     Sent transaction DSToken('0x1D7e3a1A65a367db1D1D3F51A54aC01a2c4C92ff').approve(address,uint256)('0x9E0d5a6a836a6C323Cf45Eb07Cb40CFc81664eec', 115792089237316195423570985008687907853269984665640564039457584007913129639935) with nonce=1257, gas=125158, gas_price=default (tx_hash=0xc935e3a95e5d0839e703dd69b6cb2d8f9a9d3d5cd34571259e36e771ce2201b7)
+2019-10-31 13:33:12,964 INFO     Transaction DSToken('0x1D7e3a1A65a367db1D1D3F51A54aC01a2c4C92ff').approve(address,uint256)('0x9E0d5a6a836a6C323Cf45Eb07Cb40CFc81664eec', 115792089237316195423570985008687907853269984665640564039457584007913129639935) was successful (tx_hash=0xc935e3a95e5d0839e703dd69b6cb2d8f9a9d3d5cd34571259e36e771ce2201b7)
+2019-10-31 13:33:13,152 WARNING  Insufficient balance to maintain Dai target; joining 91.319080635247876480 Dai to the Vat
+2019-10-31 13:33:13,751 INFO     Sent transaction <pymaker.dss.DaiJoin object at 0x7fa6e91baf28>.join('0x16Fb96a5fa0427Af0C8F7cF1eB4870231c8154B6', 91319080635247876480) with nonce=1258, gas=165404, gas_price=default (tx_hash=0xcce12af8d27f9d6185db4b359b8f3216ee783250a1f3b3921256efabb63e22b0)
+2019-10-31 13:33:16,491 INFO     Transaction <pymaker.dss.DaiJoin object at 0x7fa6e91baf28>.join('0x16Fb96a5fa0427Af0C8F7cF1eB4870231c8154B6', 91319080635247876480) was successful (tx_hash=0xcce12af8d27f9d6185db4b359b8f3216ee783250a1f3b3921256efabb63e22b0)
+2019-10-31 13:33:16,585 INFO     Dai token balance: 0.000000000000000000, Vat balance: 91.319080635247876480133691494546726938904901298
+2019-10-31 13:33:16,586 INFO     Watching for new blocks
+2019-10-31 13:33:16,587 INFO     Started 1 timer(s)
+```
+
+Now the keeper is actively listening for any action. If it sees an undercollateralized position, then it will try to bid for it. 
 
 ### Auction Keeper Arguments Explained
 
