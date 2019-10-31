@@ -205,7 +205,7 @@ If you are a creator of a wallet that allows users to be in control of their pri
 
 	-   Optional: Create a UI where users can activate Dai Savings Rate.
     
-	-   Optional: Link users to a page on makerdao.com for activating savings, which will be announced at launch.
+	-   Optional: Link users to [oasis.app](https://oasis.app) to activate Dai Savings Rate.
 
 - Optional: Implement paying the gas cost of Dai transactions on behalf of your users.
 
