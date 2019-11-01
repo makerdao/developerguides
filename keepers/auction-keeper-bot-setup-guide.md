@@ -342,73 +342,8 @@ There is a  [shell script](https://gist.github.com/sirromdev/cea6a16e686ac65ecfd
     
 
 # 6. Testing your Keeper
-**Required for testing:** 
 
-  - docker-compose
-  - This project uses [pytest](https://docs.pytest.org/en/latest/) for unit testing. Testing depends upon on a Dockerized local testchain that is included in `lib\pymaker\tests\config`.
-
-
-1. In order to be able to run tests, please install development dependencies first by executing:
-```
-    pip3 install -r requirements-dev.txt
-```
-2. You can then run all the unit tests by running the following script:
-```
-    ./test.sh
-```
-**Example Output**
-```
-    ============================= test session starts ==============================
-    platform darwin -- Python 3.6.6, pytest-3.3.0, py-1.8.0, pluggy-0.6.0
-    rootdir: /Users/CP/auction-keeper, inifile:
-    plugins: timeout-1.2.1, mock-1.6.3, cov-2.5.1, asyncio-0.8.0
-    collected 94 items                                                             
-    
-    tests/test_accounting.py .........                                       [  9%]
-    tests/test_bite.py .                                                     [ 10%]
-    tests/test_config.py ......                                              [ 17%]
-    tests/test_flap.py ....................                                  [ 38%]
-    tests/test_flip.py .........................                             [ 64%]
-    tests/test_flop.py ....................                                  [ 86%]
-    tests/test_process.py .............                                      [100%]
-    
-    ---------- coverage: platform darwin, python 3.6.6-final-0 -----------
-    
-    Name                         Stmts   Miss  Cover
-    ------------------------------------------------
-    auction_keeper/__init__.py       0      0   100%
-    auction_keeper/gas.py           11      0   100%
-    auction_keeper/logic.py         52      0   100%
-    auction_keeper/main.py         328      0   100%
-    auction_keeper/model.py        135      0   100%
-    auction_keeper/process.py       87      0   100%
-    auction_keeper/strategy.py      94      0   100%
-    ------------------------------------------------
-    TOTAL                          707      0   100%
-```
-## Manual Testing
-
-Within `tests/manual` resides a collection of python and shell scripts that may be used to test auction-keeper, pymaker's auction facilities, and relevant smart contracts in [dss.](https://github.com/makerdao/dss/tree/master/src)
-
-### Testing Scenarios
-
-- `create_unsafe_cdp.py`
-    - Creates a single CDP close to the liquidation ratio, and then slightly drops the price of ETH such that the CDP becomes undercollateralized. If this test is run on an already-undercollateralized CDP, it will submit no transaction. In either case, it prints a message stating whether an action was performed. This may be used to test `flip` auctions as well as build debt for `flop` auctions.
-- `create_surplus.py`
-    - Creates a CDP and then calls `jug.drip` to establish a surplus. The age of the test chain and the amount of collateral placed in this CDP determines how much surplus is generated.
-- `print.py`
-
-    Provides status information based on the parameter passed:
-
-    - `--auctions` prints the most recent bid for each active auction.
-    - `--balances` shows the balance of surplus and debt.
-- `purchase_dai.py`
-    - Creates a CDP using another address and transfers DAI to the keeper account for bidding on `flip` and `flop` auctions. The amount of DAI to purchase is passed as the only argument.
-
-- `mint_mkr.py`
-    - Generates MKR tokens for bidding on `flap` auctions. The amount of MKR to mint is passed as the only argument.
-
-For more information on how to perform manual testing on your keeper manually, click [here.](https://github.com/makerdao/auction-keeper/tree/master/tests/manual#auction-keeper-manual-testing)
+To help with the testing of your Auction Keeper, we have created a collection of python and shell scripts herein that may be used to test `auction-keeper`, `pymaker`'s auction facilities, and relevant smart contracts in `dss`. For more information about testing your Auction Keeper with your own testchain visit [tests/manual/README](https://github.com/makerdao/auction-keeper/blob/master/tests/manual/README.md).
 
 # 7. Support
 
