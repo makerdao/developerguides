@@ -164,7 +164,7 @@ We recommend you take the following steps for upgrading to MCD:
 
 -   On November 18: Rename Single-Collateral Dai to “Sai”. This is being coordinated with all Maker partners and serves to avoid users attempting to deposit the wrong token into your system.
 
--   Select a date between November 18-December 2 to list Multi-Collateral Dai.
+-   Select a date between November 18-25 to list Multi-Collateral Dai.
 
 -   On the date of your own Dai listing: Add support for the new Dai token on your platform. The new Dai token should be named Dai. Deactivate Sai trading in your frontend UI, but allow users to cancel orders and withdraw balances.
     
