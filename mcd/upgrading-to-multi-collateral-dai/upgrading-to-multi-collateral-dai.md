@@ -120,17 +120,13 @@ Once upgraded, you can start using Dai Savings Rate by locking your Dai into the
 
 We recommend you take the following steps for upgrading to MCD:
 
--   On November 18: Rename Single-Collateral Dai to “Sai”
+-   On November 18: Rename Single-Collateral Dai to “Sai”. This is being coordinated with all Maker partners and serves to avoid users depositing the wrong token into your system.
 
--   Select a future date to execute your own upgrade to Multi-Collateral Dai.
-    
+- On December 2: Perform upgrade of user balances.    
 
-	-   To minimize user confusion in having different Dai tokens trading on different exchanges, the Maker Foundation will propose a short timespan within which we encourage all exchanges to perform the upgrade. Please e-mail [integrate@makerdao.com](mailto:integrate@makerdao.com) to subscribe to this announcement.
+-   Inform your users as soon as possible about the dates. For users wanting to delay their upgrade, this allows them to opt-out by withdrawing Sai from your exchange before the date.
     
-
--   Inform your users as soon as possible about the date. For users wanting to delay their upgrade, this allows them to opt-out by withdrawing Sai from your exchange before the date.
-    
--   On the chosen date:
+-   Proposed process for the December 2 upgrade:
     
 
 	-   Freeze Sai deposits/withdrawals
@@ -138,11 +134,13 @@ We recommend you take the following steps for upgrading to MCD:
 	-   Use the Migration App/contract to upgrade all user holdings of Sai to Dai. (See more details in the Migration App/contract sections below.)
     
 	-   Point codebase to new Dai token contract address which will be announced at launch.
+	
+	-   Rename listing/token to "Dai"
     
 	-   Unfreeze Dai deposits/withdrawals.
     
 
--   Inform users about Dai Savings Rate, which allows Dai holders to earn savings.
+-   Inform users about [Dai Savings Rate](https://blog.makerdao.com/an-update-on-the-dai-savings-rate-in-multi-collateral-dai/), which allows Dai holders to earn savings.
     
 
 	-   Optional: Choose one of the following:
@@ -164,17 +162,11 @@ This approach will result in the following user journey for the exchange/wallet 
 
 We recommend you take the following steps for upgrading to MCD:
 
--   On November 18: Rename Single-Collateral Dai to “Sai”
+-   On November 18: Rename Single-Collateral Dai to “Sai”. This is being coordinated with all Maker partners and serves to avoid users attempting to deposit the wrong token into your system.
 
--   Inform your users as soon as possible about the timeline for your own integration of supporting the new (MCD) Dai token.
-    
+-   Select a date between November 18-25 to list Multi-Collateral Dai.
 
-	-   To minimize user confusion in having different Dai tokens trading on different exchanges, the Maker Foundation will propose a short timespan within which we encourage all exchanges to perform the upgrade. Please e-mail [integrate@makerdao.com](mailto:integrate@makerdao.com) to subscribe to this announcement.
-    
-
--   Add support for the new Dai token on your platform concurrently with your Sai listing. The new Dai token should be named Dai, Single Collateral Dai (the old token) should be named Sai.
-    
--   When a user initiates a trade of Sai or Dai, request user to confirm he is trading the intended token.
+-   On the date of your own Dai listing: Add support for the new Dai token on your platform. The new Dai token should be named Dai. Deactivate Sai trading in your frontend UI, but allow users to cancel orders and withdraw balances.
     
 -   Inform users that they can redeem Sai for Dai at migrate.makerdao.com
     
@@ -187,7 +179,7 @@ We recommend you take the following steps for upgrading to MCD:
 
 	-   Optional: Build a UI that facilitates the usage of the Dai Savings Rate service for your users in your exchange, where users will keep the accrued savings themselves.
     
-	-   Optional: Link users to a page on makerdao.com to activating savings, which will be announced at launch.
+	-   Optional: Link users to [oasis.app](https://oasis.app) to activate Dai Savings Rate.
     
 
 ### As a Non-Custodial Wallet
@@ -213,7 +205,7 @@ If you are a creator of a wallet that allows users to be in control of their pri
 
 	-   Optional: Create a UI where users can activate Dai Savings Rate.
     
-	-   Optional: Link users to a page on makerdao.com for activating savings, which will be announced at launch.
+	-   Optional: Link users to [oasis.app](https://oasis.app) to activate Dai Savings Rate.
 
 - Optional: Implement paying the gas cost of Dai transactions on behalf of your users.
 
