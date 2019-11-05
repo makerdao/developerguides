@@ -28,7 +28,7 @@
 
 ## Overview
 
-MKR Governance votes on stability fee changes using annual rates, ex: `5.5%`, but the rate mechanism doesn't rely on annual rates in any form to track the interest accrued in Maker Vaults. As a dapp developer you won't be able to find this number stored in the smart contracts but instead you will run into a number like `1000000001697766583380253701`. In this guide, we'll help you understand how the stored rate value corresponds to the annual number, how multiple changes in both rates and debt levels over the lifetime of a Vault are accounted for in the Maker protocol, and how the rate mechanism is used for tracking both stability fees and the Dai Savings Rate.
+Maker governance votes on stability fee changes using annual rates, ex: `5.5%`, but the rate mechanism doesn't rely on annual rates in any form to track the interest accrued in Maker Vaults. As a dapp developer you won't be able to find this number stored in the smart contracts but instead you will run into a number like `1000000001697766583380253701`. In this guide, we'll help you understand how the stored rate value corresponds to the annual number, how multiple changes in both rates and debt levels over the lifetime of a Vault are accounted for in the Maker protocol, and how the rate mechanism is used for tracking both stability fees and the Dai Savings Rate.
 
 ## Learning Objectives
 
@@ -85,7 +85,7 @@ This issue is illustrated very clearly in the documentation of the [DSMath](http
 wmul(1.1 ether, 2.2 ether) == 2.42 ether
 ```
 
-You also have to be careful when using external SafeMath libraries whose math functions cannot deal with these number types correctly. All the Maker protocol smart contracts that use these number types have special math functions (usually the multiplication operation) to calculate the correct result.
+You also have to be careful when using external safe math libraries whose functions may not deal with these number types correctly. All the Maker protocol smart contracts that use these number types have special math functions (usually the multiplication operation) to calculate the correct result.
 
 #### Exponentiation
 
@@ -167,7 +167,7 @@ Stability fees are accounted for in dai but collected in MKR when a CDP owner pa
 
 The `drip` call is added to functions that CDP owners execute periodically in SCD to update everyones' stability fees, while in MCD, Maker governance is responsible for executing drip periodically to update the stability fee owed by Vaults instead of Vault owners themselves.
 
-PETH holders receive their compensation through liquidation penalties levied on under collateralized CDPs which is a completely different mechanism.
+PETH holders receive their compensation through liquidation penalties levied on unsafe CDPs which is a completely different mechanism.
 
 ## Troubleshooting
 
