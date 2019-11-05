@@ -1,10 +1,10 @@
-# Add a new collateral type to DCS - Kovan
+# Intro to the Rate mechanism
 
 **Level**: Intermediate
 
 **Estimated Time**: 45 - 60 minutes
 
-- [Add a new collateral type to DCS - Kovan](#add-a-new-collateral-type-to-dcs---kovan)
+- [Intro to the Rate mechanism](#intro-to-the-rate-mechanism)
   - [Overview](#overview)
   - [Learning Objectives](#learning-objectives)
   - [Pre-requisites](#pre-requisites)
