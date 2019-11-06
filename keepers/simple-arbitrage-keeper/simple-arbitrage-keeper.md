@@ -62,7 +62,7 @@ General high level information and comments for each class/method are in the [si
 ### Startup on Kovan
 The usage of the bot can be found in the [Usage section](https://github.com/makerdao/simple-arbitrage-keeper#usage) of the README. Here are some preparation steps in running on Kovan:
 
-To operate the keeper, call the /bin/simple-arbitrage-keeper script with the required arguments. This adds the pyexchange and pymaker modules to the python path and initializes the SimpleArbitrageKeeper class. It's convenient to write a shell script that can be easily rerun after argument changes, but before we begin, let's prepare our Keeper ethereum address, deploy our TxManager, find the Uniswap exchange addresses and MatchingMarket address.
+To operate the keeper, call the `/bin/simple-arbitrage-keeper` script with the required arguments. This adds the pyexchange and pymaker modules to the python path and initializes the SimpleArbitrageKeeper class. It's convenient to write a shell script that can be easily rerun after argument changes, but before we begin, let's prepare our Keeper ethereum address, deploy our TxManager, find the Uniswap exchange addresses and MatchingMarket address.
 
 #### Keeper Installation
 This project uses Python 3.6.2.
