@@ -131,7 +131,7 @@ We recommend you take the following steps for upgrading to MCD:
 
 	-   Freeze Sai deposits/withdrawals
     
-	-   Use the Migration App/contract to upgrade all user holdings of Sai to Dai. (See more details in the Migration App/contract sections below.)
+	-   Use the Migration App/contract to upgrade all user holdings of Sai to Dai. (See more details in the [Migration App](#migration-app)/[contract](#migration-contract) sections below.)
     
 	-   Point codebase to new Dai token contract address which will be announced at launch.
 	
