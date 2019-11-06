@@ -30,7 +30,7 @@ All guides are organized in sections and by proficiency levels within each secti
 ## Keepers (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
 
 - [Auctions 101](/keepers/auctions/auctions-101.md)
-- [Simple Arbitrage Keeper](/keeper/simple-arbitrage-keeper/simple-arbitrage-keeper.md)
+- [Simple Arbitrage Keeper](/keepers/simple-arbitrage-keeper/simple-arbitrage-keeper.md)
 
 ## MCD
 
