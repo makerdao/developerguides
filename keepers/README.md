@@ -36,46 +36,52 @@ The Arbitrage Keeper monitors arbitrage opportunities in the Dai Credit System b
 The CDP Keeper can be used to automatically manage CDPs. Features include:
 
 -   Automatic top up of collateral, if collateral value decreases, and the CDP approaches the liquidation ratio
-    
+
 -   Wiping debt instead of top-up
-    
+
 -   Managing Dai volume
-    
+
+## OasisDex Keepers
+
+### [Simple Arbitrage Keeper](https://github.com/makerdao/simple-arbitrage-keeper)
+
+The Simple Arbitrage Keeper profits from executing atomic multi-trade transactions between OasisDex and Uniswap.
+
 
 ## Additional source code and developer docs
 
 **Running a keeper node**
 
 -   [https://github.com/makerdao/keeper-node](https://github.com/makerdao/keeper-node)
-    
+
 
 **Multi Collateral Dai**
 
 -   Docs: [https://github.com/makerdao/dss/blob/master/DEVELOPING.md](https://github.com/makerdao/dss/blob/master/DEVELOPING.md)
-    
+
 -   Wiki: [https://github.com/makerdao/dss/wiki](https://github.com/makerdao/dss/wiki)
-    
+
 -   Source: [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
-    
+
 
 **Current Dai credit system implementation (Single Collateral Dai)**
 
 -   Docs: [https://developer.makerdao.com/dai/1/api/](https://developer.makerdao.com/dai/1/api/)
-    
+
 -   Docs: [https://github.com/makerdao/sai/blob/master/DEVELOPING.md](https://github.com/makerdao/sai/blob/master/DEVELOPING.md)
-    
+
 -   Source: [https://github.com/makerdao/sai](https://github.com/makerdao/sai)
-    
+
 
 **Python API**
 
 -   Docs/source: [https://github.com/makerdao/pymaker](https://github.com/makerdao/pymaker)
-    
+
 
 **Maker platform in general**
 
 -   [Whitepaper](https://makerdao.com/whitepaper/)
-    
+
 
 ## Need help?
 
