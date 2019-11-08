@@ -152,7 +152,7 @@ For other known Ubuntu and macOS issues please visit the [pymaker](https://githu
 # 4. Running your Keeper Bot
 
 ### The Kovan version runs on the [Kovan Release 0.2.12](https://changelog.makerdao.com/releases/kovan/0.2.12/index.html)    
-To change to the version of the kovan release, copy/paste your preffered contract addresses in `kovan-addresses.json` in `/lib/pymaker/config/kovan-addresses.json`
+To change to your chosen version of the kovan release, copy/paste your preffered contract addresses in `kovan-addresses.json` in `/lib/pymaker/config/kovan-addresses.json`
 
 ### 1. Creating your bidding model (an example detailing the simplest possible bidding model)
 
