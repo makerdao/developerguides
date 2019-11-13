@@ -380,6 +380,8 @@ Below, we list some of the existing public feeds. You can also use web sockets i
 -   `dai_btc` - inverse of the `btc_dai` price feed.
 -   `ws://...` or `wss://...` - uses a price feed advertised over a WebSocket connection (custom protocol).
 
+Additionally, we have a Uniswap price feed that can be used by Market Maker Keepers: [https://github.com/makerdao/uniswap-price-feed ](https://github.com/makerdao/uniswap-price-feed). 
+
 **Note:** The `--price-feed` command line argument can also contain a comma-separated list of several different price feeds. In this case, if one of them becomes unavailable, the next one in the list will be used instead. All listed price feeds will be constantly running in the background, the second one and following ones ready to take over when the first one becomes unavailable. **In the example below (in the Running Keepers section), you can see an example of how to use a fixed price amount.**
 
 # 9. Running Market Maker Keepers
