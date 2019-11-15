@@ -8,8 +8,7 @@ Audience: Technical and commercial teams with partners and Dai holders
 
 ## Introduction
 
-The upcoming version of the Maker system, Multi-Collateral Dai, brings a lot of new and exciting features, such as support for new CDP collateral types and Dai Savings Rate. In order to support the new functionality, the whole Maker core of smart contracts has been rewritten.
-
+The upcoming version of the Maker system, Multi-Collateral Dai, brings a lot of new and exciting features, such as support for new CDP collateral types and Dai Savings Rate. In order to support the new functionality, the whole Maker core of smart contracts has been rewritten. The new smart contracts addresses and ABIs can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.0/](https://changelog.makerdao.com/releases/mainnet/1.0.0/)
   
 
 Therefore, users and partners interacting with Single-Collateral Dai (SCD) must migrate their existing Single Collateral Dai tokens (Sai) to Multi Collateral Dai tokens (Dai) and CDPs to the new system. Additionally, companies or projects integrated with Sai and CDPs must update their codebases to point to the new smart contracts, and refactor their code to support the updated functions.
@@ -133,7 +132,7 @@ We recommend you take the following steps for upgrading to MCD:
     
 	-   Use the Migration App/contract to upgrade all user holdings of Sai to Dai. (See more details in the [Migration App](#migration-app)/[contract](#migration-contract) sections below.)
     
-	-   Point codebase to new Dai token contract address which will be announced at launch.
+	-   Point codebase to new Dai token contract address. The new token is deployed at [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f) - use the [updated logos found here](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4) for the new Dai token.
 	
 	-   Rename listing/token to "Dai"
     
@@ -162,11 +161,11 @@ This approach will result in the following user journey for the exchange/wallet 
 
 We recommend you take the following steps for upgrading to MCD:
 
--   On November 18: Rename Single-Collateral Dai to “Sai”. This is being coordinated with all Maker partners and serves to avoid users attempting to deposit the wrong token into your system.
+-   On November 18: Rename Single-Collateral Dai to “Sai” and ticker "SAI". This is being coordinated with all Maker partners and serves to avoid users attempting to deposit the wrong token into your system.
 
--   Select a date between November 18-25 to list Multi-Collateral Dai.
+-   Select a date between November 18-25 to list Multi-Collateral Dai. The new token is deployed at [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f) - use the [updated logos found here](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4) for the new Dai token. Logo for Sai should remain the yellow diamond.
 
--   On the date of your own Dai listing: Add support for the new Dai token on your platform. The new Dai token should be named Dai. Deactivate Sai trading in your frontend UI, but allow users to cancel orders and withdraw balances.
+-   On the date of your own Dai listing: Add support for the new Dai token on your platform. The new Dai token should be named Dai and have the ticker "DAI". Deactivate Sai trading in your frontend UI, but allow users to cancel orders and withdraw balances.
     
 -   Inform users that they can redeem Sai for Dai at migrate.makerdao.com
     
@@ -188,7 +187,7 @@ If you are a creator of a wallet that allows users to be in control of their pri
 
 -   On November 18: Rename Single-Collateral Dai to “Sai”
 
--   Select a future date between November 18-25 to execute the upgrade to support Multi-Collateral Dai, which should be listed as "Dai".
+-   Select a future date between November 18-25 to execute the upgrade to support Multi-Collateral Dai, which should be listed as "Dai". The new token is deployed at [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f) - use the [updated logos found here](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4) for the new Dai token. Logo for Sai should remain the yellow diamond.
 
 -   Inform your users as soon as possible about the timeline for your own upgrade to MCD.
     
@@ -249,7 +248,7 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 	-   Freeze access to CDP service for your users
     
-	-   Launch upgrade to your service that supports the new CDP core.
+	-   Launch upgrade to your service that supports the new CDP core. [The smart contract addresses and ABIs can be found here.](https://changelog.makerdao.com/releases/mainnet/1.0.0/)
     
 
 		-   If you are using Dai.js for your CDP integration, see “[Using Dai.js](#using-dai.js)” below for how to upgrade your implementation to MCD.
@@ -362,7 +361,7 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 
 	-   Stop lending (deposits) and borrowing (withdrawals) of Sai
 	
-	-   List the Multi-Collateral Dai token as "Dai"
+	-   List the Multi-Collateral Dai token as "Dai". The new token is deployed at [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f) - use the [updated logos found here](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4) for the new Dai token.
     
 	-   Open for lending (deposits) and borrowing (withdrawals) of Dai
     
@@ -388,7 +387,7 @@ Alternatively, if you’re willing to do some additional work and work with a lo
 -   At launch:
     
 
-	-   List the Multi-Collateral Dai token as "Dai"
+	-   List the Multi-Collateral Dai token as "Dai". The new token is deployed at [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f) - use the [updated logos found here](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4) for the new Dai token.
 	
 	-   Launch support for Dai loans.
     
@@ -414,7 +413,7 @@ Alternatively, if you’re willing to do some additional work and work with a lo
     
 -   On the chosen date:
 
-	-   List the Multi-Collateral Dai token as "Dai"
+	-   List the Multi-Collateral Dai token as "Dai". The new token is deployed at [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f) - use the [updated logos found here](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4) for the new Dai token.
 	
 	-   Update code base to support the use of the new Dai token at launch.
     
