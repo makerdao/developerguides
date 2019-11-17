@@ -8,7 +8,7 @@
 
 Emergency Shutdown (ES) is the last resort to protect the MakerDAO system against a serious threat, such as but not limited to governance attacks, long-term market irrationality, hacks and security breaches. The Emergency Shutdown Module (ESM) is responsible for coordinating emergency shutdown, the process used to gracefully shutdown the Maker Protocol and properly allocate collateral to both Vault users and Dai holders. This guide outlines the steps and procedures necessary to check, interact with and trigger the ESM.
 
-### **Learning Objectives:** To be able to Check, Deposit and Trigger Emergency Shutdown
+### **Learning Objectives:** To Check, Deposit and Trigger Emergency Shutdown
 
 ### Table of Contents
 
@@ -25,14 +25,13 @@ Emergency Shutdown (ES) is the last resort to protect the MakerDAO system agains
     * Checking whether the ESM has been triggered
     * Triggering the ESM
 
-### 1. Installation
+## 1. Installation
 
 In order to interface with the Ethereum blockchain, the user needs to install seth, a command line tool as part of the [Dapp.Tools](https://dapp.tools/) toolset. We also provide further [installation information here](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md). Once the user has installed and configured [`seth`](https://dapp.tools/) correctly to use the main Ethereum network and the address which holds their MKR they can query contract balances, approvals and transfers.
 
-### 2. Contract Address Setup
+## 2. Contract Address Setup
 
-    * The user will require the following contract addresses; MCD_END and MCD_ESM accessible at [Changelog.makerdao.com](https://changelog.makerdao.com) as well as the Maker contract address, to be added in place of MKR_ADR below, which can be verified on [Etherscan](https://etherscan.io/token/0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2).
-    * These should be setup in the following manner:
+The user will require the following contract addresses; MCD_END and MCD_ESM accessible at [Changelog.makerdao.com](https://changelog.makerdao.com) as well as the Maker contract address, to be added in place of MKR_ADR below, which can be verified on [Etherscan](https://etherscan.io/token/0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2). These should be setup in the following manner:
 
 ```javascript
 export MCD_END=0xab14d3ce3f733cacb76ec2abe7d2fcb00c99f3d5
@@ -158,5 +157,5 @@ seth send $MCD_ESM "fire()"
 ### Links
 
 - [ESM.sol](https://github.com/makerdao/esm/blob/master/src/ESM.sol)
-- [Further Documentation](https://www.notion.so/makerdao/Emergency-Shutdown-Module-3073acf244404f7f98b5e47d2efc7ba9)
-- [End Documentation](https://www.notion.so/makerdao/End-Detailed-Documentation-1874a49064644c51aa34fb9c303eda90)
+- [Further Documentation](https://docs.makerdao.com/smart-contract-modules/emergency-shutdown-module)
+- [End Documentation](https://docs.makerdao.com/smart-contract-modules/shutdown/end-detailed-documentation)
