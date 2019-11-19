@@ -523,7 +523,7 @@ However, in order to close down the CDP, a stability fee in MKR must be paid, so
 
   
 
-The migration contract uses a proxy contract to carry out all the above steps in one go. Consequently, the contract can also only be used for CDPs that have been created through a Maker proxy contract. This happens automatically if you have opened your CDP at [cdp.makerdao.com](https://cdp.makerdao.com/). Therefore, you must utilize the [MigrationProxyActions.sol](https://github.com/makerdao/scd-mcd-migration/blob/master/src/MigrationProxyActions.sol) contract to carry out the [migrate function call](https://github.com/makerdao/scd-mcd-migration/blob/master/src/ProxyLib.sol).
+The migration contract uses a proxy contract to carry out all the above steps in one go. Consequently, the contract can also only be used for CDPs that have been created through a Maker proxy contract. This happens automatically if you have opened your CDP at [cdp.makerdao.com](https://cdp.makerdao.com/). Therefore, you must utilize the [MigrationProxyActions.sol](https://github.com/makerdao/scd-mcd-migration/blob/master/src/MigrationProxyActions.sol) contract to carry out the [migrate function call](https://github.com/makerdao/scd-mcd-migration/blob/master/src/MigrationProxyActions.sol#L38).
 
   
 
