@@ -312,27 +312,25 @@ MKR used to bid on `flap` auctions is directly withdrawn from your token balance
 1.  Log into your MetaMask account from the browser extension. Add or confirm that the custom MCD K-DAI token is added to your list of tokens. 
 	- This done by selecting "Add Token" and then by adding in the details under the "Custom token" option.
     
-2.  Head to the MCD CDP Portal [here](https://mcd-cdp-portal.mkr-js-prod.now.sh/?network=kovan). 
+2.  Head to Oasis Borrow [here](https://oasis.app/borrow/?network=kovan). 
 	- Confirm that you are in fact on the Kovan Network before proceeding.
     
-3.  Select the "Borrow" option.
+3.  Connect your MetaMask account.
     
-4.  Connect your MetaMask account to the CDP portal.
+4.  Approve the MetaMask connection.
     
-5.  Approve the MetaMask connection.
+5.  Below the "Overview" button, find and select the plus sign button to start setting up your CDP.
     
-6.  Below the "Overview" button, find and select the plus sign button to start setting up your CDP.
-    
-7.  Select the collateral type you want to proceed with and click "Continue".
+6.  Select the collateral type you want to proceed with and click "Continue".
 	-  e.g. ETH-A
-8.  Deposit your K-ETH and generate K-DAI by selecting and inputing an amount of K-ETH and the amount of K-DAI you would like to generate. To proceed, click "Continue".
+7.  Deposit your K-ETH and generate K-DAI by selecting and inputing an amount of K-ETH and the amount of K-DAI you would like to generate. To proceed, click "Continue".
 	-   e.g. Deposit 0.5 K-ETH and generate 100 DAI.
 
-9.  Click on the checkbox to confirm that you have read and accepted the **Terms of Service** then click the "Create CDP" button.
+8.  Click on the checkbox to confirm that you have read and accepted the **Terms of Service** then click the "Create CDP" button.
  
-10.  Approve the transaction in your MetaMask extension.
+9.  Approve the transaction in your MetaMask extension.
 
-11.  Click the "Exit" button and wait for your CDP to be created.
+10.  Click the "Exit" button and wait for your CDP to be created.
 
 After all of these steps have been completed, you will have the generated MCD K-DAI  and it will be present within your wallet. You can easily payback your DAI or generate more.
 
