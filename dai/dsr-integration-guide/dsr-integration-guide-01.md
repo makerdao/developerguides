@@ -20,18 +20,18 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 
 ### Contents of this guide
 
--   What is DSR?    
+-   [What is DSR?](#what-is-dsr)    
 
-	-   How to activate DSR
+	-   [How to activate DSR](#how-to-activate-dsr)
     
--   How to integrate DSR    
+-   [How to integrate DSR](#how-to-integrate-dsr)    
 
-	-   How to integrate DSR through the core
+	-   [How to integrate DSR through the core](#how-to-integrate-dsr-through-the-core)
     
-	-   How to integrate with proxy contracts
+	-   [How to integrate with proxy contracts](#how-to-integrate-with-proxy-contracts)
     
-	-   How to integrate with Dai.js
-    
+	-   [How to integrate with Dai.js](#how-to-integrate-with-daijs)
+	
 
 ### Pre-requisites
 -   [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md)
@@ -62,7 +62,7 @@ There are different ways to integrate the DSR, the three main ones being either 
 ### Smart contract addresses and ABIs
 The contract addresses and ABIs of the Maker Protocol can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.0/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.0/index.html)
 
-The contracts you need to work with are (if you want to integrate with smart contract directly):
+The contracts you need to work with are:
 
 -   [Dai](https://github.com/makerdao/dss/blob/master/src/dai.sol) - [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code)
     
