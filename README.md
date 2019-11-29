@@ -12,6 +12,7 @@ All guides are organized in sections and by proficiency levels within each secti
 
 - [Dai Token](/dai/dai-token/dai-token.md)
 - [Dai in Smart Contracts](/dai/dai-in-smart-contracts/README.md)
+- [Dai Savings Rate integration guide](/dai/dsr-integration-guide/dsr-integration-guide-01.md)
 
 ## Developer Tools
 
