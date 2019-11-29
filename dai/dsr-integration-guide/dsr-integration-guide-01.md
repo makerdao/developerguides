@@ -95,7 +95,7 @@ The Maker Protocol has been developed with formal verification in mind. Therefor
 
 In the case of a DSR integration, we want to interact with the core DSR contract called `pot` ([detailed documentation here](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation)) by executing function calls on a proxy contract called `dss-proxy-actions-dsr` using the [ds-proxy](https://github.com/dapphub/ds-proxy) contract.
 
-IMPORTANT! You should be familiar with working with ds-proxy before you attempt this integration, so it is very important that you are [well acquainted with the concepts in this guide](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) before you proceed to ensure that you do not risk funds.
+**IMPORTANT! You should be familiar with working with ds-proxy before you attempt this integration, so it is very important that you are [well acquainted with the concepts in this guide](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) before you proceed to ensure that you do not risk funds.**
 
 The main idea is that you use the [execute(address _target, bytes memory _data)](https://github.com/dapphub/ds-proxy/blob/master/src/proxy.sol#L53) function of `ds-proxy` by using the `dss-proxy-actions-dsr` contract address and the ABI encoded call data of the function you want to execute in that specific contract.
 
