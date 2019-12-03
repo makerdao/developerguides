@@ -1,12 +1,12 @@
 # Developer Guides and Tutorials
 
-Developers can build a variety of experiences using one or more components of the Dai Credit System. This repo contains guides and tutorials to help you understand various approaches to integrate with MakerDAO and our partners by interfacing with smart contracts, SDKs, APIs, and products.
+Developers can build a variety of experiences using one or more components of the Maker Protocol. This repo contains guides and tutorials to help you understand various approaches to integrate with the Maker Protocol and our partners by interfacing with smart contracts, SDKs, APIs, and products.
 
 All guides are organized in sections and by proficiency levels within each section.
 
-## Collateralized Debt Positions(CDP)
+## Vaults
 
-- [CDP Integration Guide](/cdp/cdp-integration-guide/cdp-integration-guide.md)
+- [Maker Vault Integration Guide](/vault/vault-integration-guide/cdp-integration-guide.md)
 
 ## Dai
 
