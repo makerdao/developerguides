@@ -23,6 +23,7 @@ All guides are organized in sections and by proficiency levels within each secti
 ## Oasis Exchange
 
 - [Intro to OasisDEX Protocol](/Oasis/intro-to-oasis/intro-to-oasis-maker-otc.md)
+- [How to use Oasis Direct Proxy on OasisDEX Protocol](/Oasis/oasis-direct-proxy.md)
 
 ## Governance
 
