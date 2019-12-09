@@ -207,7 +207,8 @@ In this guide, we showcased how you can integrate the Dai token in a smart contr
 
 ## Additional resources
 
-* Knowledge of the [Dai Token](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md)
+1. Knowledge of the [Dai Token](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md)
+2. [Integrating Dai Savings Rate](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr-integration-guide-01.md)
 
 ## Help
 
