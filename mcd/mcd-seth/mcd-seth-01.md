@@ -1,4 +1,4 @@
-# Drawing Dai from the Kovan MCD deployment using Seth
+# Drawing Dai from the Kovan Maker Protocol deployment using Seth
 **This guide works under the [0.2.12 Release](https://changelog.makerdao.com/releases/0.2.12/index.html) of the system.** 
 
 This tutorial will cover how to use the tool `seth` to deposit REP tokens to draw DAI from the Kovan deployment of MCD as an example, since the process is the same for any other ERC-20 token. You can use the same methodology for any supported token in MCD, by changing the contract addresses to the specific token you want to use.
@@ -77,7 +77,7 @@ For better readability, we are going to save a bunch of contract addresses in va
 ## Token approval
 You do not transfer ERC-20 tokens manually to the MCD adapters - instead you give approval for the adapters to using some of your ERC-20 tokens. The following section will take you through how to do that.
 
-In this example, we are going to use 10 REP tokens to draw 35 DAI. You can of course use different amounts (i.e. divide all amounts by 10), just remember to change it accordingly in the function calls of this guide, while ensuring that you are within the accepted collateralization ratio of REP CDPs. Let’s approve the use of 10 REP tokens for the adapter, and then call the approve function of the REP token contract with the right parameters. Again, we have to do some conversions, namely from `eth` unit to `wei`, then from decimal to hexadecimal (the `eth` keyword can be a bit confusing, but we are still dealing with REP tokens. REP has similar fraction values to ETH, so the keyword just means conversion to the whole token denomination):
+In this example, we are going to use 10 REP tokens to draw 35 DAI. You can of course use different amounts (i.e. divide all amounts by 10), just remember to change it accordingly in the function calls of this guide, while ensuring that you are within the accepted collateralization ratio of REPs Vault. Let’s approve the use of 10 REP tokens for the adapter, and then call the approve function of the REP token contract with the right parameters. Again, we have to do some conversions, namely from `eth` unit to `wei`, then from decimal to hexadecimal (the `eth` keyword can be a bit confusing, but we are still dealing with REP tokens. REP has similar fraction values to ETH, so the keyword just means conversion to the whole token denomination):
 
 `seth send $REP 'approve(address,uint256)' $MCD_JOIN_REP_A $(seth --to-uint256 $(seth --to-wei 10 eth))`
 
@@ -89,7 +89,7 @@ Output:
 
 `10.000000000000000000`
 
-## Finally interacting with the MCD contracts
+## Finally interacting with the Maker Protocol contracts
 In order to better understand the MCD contracts, the following provides a brief explanation of relevant terms.
 -   `wad`: token unit amount 
 -   `gem`: collateral token adapter
@@ -105,16 +105,16 @@ In order to better understand the MCD contracts, the following provides a brief 
 After giving permission to the REP adapter of MCD to take some of our tokens, it’s time to finally start using the MCD contracts.    
 We'll be using the [CDP Manager](https://github.com/makerdao/dss-cdp-manager) as the prefered interface to interact with MCD contracts.     
 
-First let's open a cdp so we can use it to lock collateral into. For this we need to define the type of collateral(REP-A) we want to lock in this CDP.   
+First let's open a Vault so we can use it to lock collateral into. For this we need to define the type of collateral(REP-A) we want to lock in this Vault.   
 `export ilk=$(seth --to-bytes32 $(seth --from-ascii "REP-A"))`     
-Now let's open the CDP   
+Now let's open the Vault   
 `seth send $CDP_MANAGER 'open(bytes32)' $ilk`    
 
-We need the `cdpId` of our open cdp so we can interact with the system.  
+We need the `cdpId` of our open Vault so we can interact with the system.  
 `export cdpId=$(seth --to-dec $(seth call $CDP_MANAGER 'last(address)' $ETH_FROM))`    
 In this case `cdpId` is `8`
 
-Now, we need to get the `urn` address of our CDP.   
+Now, we need to get the `urn` address of our Vault.   
 `export urn=$(seth call $CDP_MANAGER 'urns(uint)(address)' $cdpId)`    
 
 After acquiring `cdpId` and `urn` address, we can move to the next step. Locking our tokens into the system. 
@@ -144,7 +144,7 @@ The output should look like this:
 The reason for the size of the number, even when converting it from wei values, is that these numbers are stored with a pretty big resolution for precision.
 
 The next step is adding the collateral into an urn. This is done through the `CDP Manager` contract. 
-The function is called `frob`, which receives couple of parameters: `uint` - the `cdpId`, `address` - the destination address to send dai(`ETH_FROM` and not `urn`), `int` - delta ink and `int` - delta art. If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. Let’s add our 10 REP to the urn, and draw 35 DAI ensuring that the position is overcollateralized.
+The function is called `frob`, which receives couple of parameters: `uint` - the `cdpId`, `address` - the destination address to send dai(`ETH_FROM` and not `urn`), `uint` - delta ink and `uint` - delta art. If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. Let’s add our 10 REP to the urn, and draw 35 DAI ensuring that the position is overcollateralized.
 
 
 We already set up `ilk` before, so we only need to set up `dink` (REP deposit) and `dart` (DAI to be drawn):
@@ -268,4 +268,4 @@ Output:
 
 `50.000000000000000000`
 
-Yay, you got back your tokens! If you have come this far, congratulations, you have finished paying back the debt of your CDP in Multi-Collateral Dai and getting back the collateral. Spend those freshly regained test REP tokens wisely!
+Yay, you got back your tokens! If you have come this far, congratulations, you have finished paying back the debt of your Vault in Multi-Collateral Dai and getting back the collateral. Spend those freshly regained test REP tokens wisely!

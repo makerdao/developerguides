@@ -37,10 +37,10 @@ All guides are organized in sections and by proficiency levels within each secti
 ## MCD
 
 - [Introduction and Overview of Multi-Collateral Dai: MCD101](/mcd/mcd-101/mcd-101.md)
-- [Using MCD-CLI to create and close a MCD CDP on Kovan](/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)
-- [Using Seth to create and close a MCD CDP on Kovan](/mcd/mcd-seth/mcd-seth-01.md)
+- [Using MCD-CLI to create and close a Vault on Kovan](/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)
+- [Using Seth to create and close a Vault on Kovan](/mcd/mcd-seth/mcd-seth-01.md)
 - [Upgrading to MCD - overview for different partners](/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
-- [Add a new collateral type to DCS - Kovan](/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
+- [Add a new collateral type to Maker Protocol - Kovan](/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
 - [Intro to the Rate mechanism](/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 
 ## Partners
@@ -52,10 +52,10 @@ All guides are organized in sections and by proficiency levels within each secti
 In order to ensure that integration partners can get up and running quickly, relevant documentation for specific partner types have been compiled in a series of guides.
 
 - [Upgrading to Multi-Collateral Dai](mcd/upgrading-to-multi-collateral-dai/cli-mcd-migration.md)
-- [Exchanges](exchanges/)
-- [Wallets](wallets/)
-- [Remittance services](remittance/)
-- [Market Makers](market-makers/)
+- [Exchanges](exchanges/README.md)
+- [Wallets](wallets/README.md)
+- [Remittance services](remittance/README.md)
+- [Market Makers](market-makers/README.md)
 
 ## Contribution guidelines
 

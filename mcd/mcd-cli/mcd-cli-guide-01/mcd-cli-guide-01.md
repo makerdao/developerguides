@@ -2,16 +2,16 @@
 
 **This guide works under the [0.2.14 Release](https://changelog.makerdao.com/releases/0.2.14/index.html) of the system.** 
 
-This guide will show how to use the [mcd-cli](https://github.com/makerdao/mcd-cli) to interact with the Kovan deployment of the MCD smart contracts. The guide will showcase how to go through the following stages of the lifecycle of a collateralized debt position (CDP):
+This guide will show how to use the [mcd-cli](https://github.com/makerdao/mcd-cli) to interact with the Kovan deployment of the MCD smart contracts. The guide will showcase how to go through the following stages of the lifecycle of a Vault position:
 
- - Opening CDP
+ - Opening Vault
  - Depositing collateral tokens (REP, OMG, ZRX, BAT, DGD, GNT)
  - Drawing Dai
  - Paying back Dai
  - Unlocking collateral
- - Closing CDP
 
-The command-line interface mcd-cli will enable you to easily interact with the Multi-Collateral Dai contracts. In the CLI, you can lock assets such as ETH and many other collateral tokens we have added (REP, OMG, ZRX, BAT, DGD, GNT)), draw Dai against them, check your CDP position, and much more.  
+
+The command-line interface mcd-cli will enable you to easily interact with the Multi-Collateral Dai contracts. In the CLI, you can lock assets such as ETH and many other collateral tokens we have added (REP, OMG, ZRX, BAT, DGD, GNT)), draw Dai against them, check your Vault position, and much more.  
 
 ## Installing mcd-cli and seth
 **The following link provides you with the necessary instructions to get started with the MCD CLI:**  [https://github.com/makerdao/mcd-cli](https://github.com/makerdao/mcd-cli)  
@@ -42,7 +42,7 @@ Then you have to set up account variables:
 
 ## Acquiring test tokens
 
-To start using and interacting with the MCD contracts, you will need to get some Kovan ETH, REP, OMG, ZRX, BAT, DGD and MKR. Please note that MKR holders will eventually confirm the final collateral types through a proposed vote from the Maker Risk Team. Once you have the respective Kovan tokens, you can proceed to the guide below to go through the processes of a CDP lifecycle. This includes locking in some collateral, drawing Dai, paying back the Dai, and then unlocking the collateral.  
+To start using and interacting with the MCD contracts, you will need to get some Kovan ETH, REP, OMG, ZRX, BAT, DGD and MKR. Please note that MKR holders will eventually confirm the final collateral types through a proposed vote from the Maker Risk Team. Once you have the respective Kovan tokens, you can proceed to the guide below to go through the processes of a Vault lifecycle. This includes locking in some collateral, drawing Dai, paying back the Dai, and then unlocking the collateral.  
 
 In the guide below, everything described above will be performed using the MCD-CLI.
 
@@ -97,13 +97,13 @@ or
 
 After you have successfully received the Kovan collateral tokens, you can continue on and explore the MCD-CLI.
 
-## CDP Lifecycle Walkthrough
+## Vault Lifecycle Walkthrough
 
-The following instructions will guide you through an example of a CDP’s lifecycle. We will be creating a loan with the REP token and will then pay it back. Make sure you have set up the env variables outlined above in **Setting up variables in seth** since we will be using those in the following.
+The following instructions will guide you through an example of a Vault's lifecycle. We will be creating a loan with the REP token and will then pay it back. Make sure you have set up the env variables outlined above in **Setting up variables in seth** since we will be using those in the following.
 
-**Once set up, you can begin to run through the CDP lifecycle using the commands noted below.**  
+**Once set up, you can begin to run through the Vault lifecycle using the commands noted below.**  
 
-For this example, we are going to use the REP token as the first type of collateral in our CDP. Before proceeding, please check that you have already received some REP from the faucet. If you haven’t, please visit the  **‘Getting K Collateral tokens’** section above.  
+For this example, we are going to use the REP token as the first type of collateral in our Vault. Before proceeding, please check that you have already received some REP from the faucet. If you haven’t, please visit the  **‘Getting K Collateral tokens’** section above.  
 
 **Instructions**  
 
@@ -203,9 +203,9 @@ For this example, we are going to use the REP token as the first type of collate
 After running the above commands, please confirm that you have your initial collateral (REP) back in your wallet.
 
 ## Using CDP Manager
-The `cdp` command provides compatibility with CDPs managed via the CDP Portal as it uses the same proxy contract. This allows CDPs to be managed via a unique integer identifier rather than the I, --ilk and U, --urn options.
+The `cdp` command provides compatibility with Vaults managed via the CDP Portal as it uses the same proxy contract. This allows Vaults to be managed via a unique integer identifier rather than the I, --ilk and U, --urn options.
 
-To open a `REP-A` type CDP managed by the CDP Manager, execute the following command:
+To open a `REP-A` type Vault managed by the CDP Manager, execute the following command:
 
 ```
 $ mcd --ilk=REP-A cdp open
@@ -318,7 +318,7 @@ After this command have been executed, you should be able to free all the collat
 
 For more commands, simply type `mcd cdp`
 
-This concludes the CDP Lifecycle Walkthrough Guide!
+This concludes the Vault Lifecycle Walkthrough Guide!
 
 ## Help
 If you have any questions, don't hesitate to reach out on chat.makerdao.com in the #help channel.

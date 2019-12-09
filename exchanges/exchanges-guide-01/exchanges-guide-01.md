@@ -10,20 +10,19 @@ The tokens follow the [ERC20 token standard](https://github.com/ethereum/EIPs/bl
 
 **Ethereum Mainnet**\
 Live Ethereum mainnet deployments:
-* DAI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359](https://etherscan.io/address/0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359#code)
+* DAI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code)
 * MKR:&nbsp;&nbsp;&nbsp;&nbsp;[0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2](https://etherscan.io/address/0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2#code)
 
 **Kovan Testnet**\
 For testing, token contracts on the Kovan testnet can be found here:
-* DAI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0xC4375B7De8af5a38a93548eb8453a498222C4fF2](https://kovan.etherscan.io/address/0xC4375B7De8af5a38a93548eb8453a498222C4fF2#code)
+* DAI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa](https://kovan.etherscan.io/address/0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa#code)
 * MKR:&nbsp;&nbsp;&nbsp;&nbsp;[0xAaF64BFCC32d0F15873a02163e7E500671a4ffcD](https://kovan.etherscan.io/address/0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd#code)
 
 **Listing symbols**\
 When listing Dai or Maker tokens on exchanges or in wallets, you should use the following currency notations.
-* DAI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Icon source](https://github.com/makerdao/Overview-of-MakerDAO-design/tree/master/DAI)
-* MKR&nbsp;&nbsp;&nbsp;&nbsp;[Icon source](https://github.com/makerdao/Overview-of-MakerDAO-design/tree/master/MKR)
+* DAI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Icon source](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4)
+* MKR&nbsp;&nbsp;&nbsp;&nbsp;[Icon source](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4)
 
-A style guide and additional logos can [be found here](https://github.com/makerdao/Overview-of-MakerDAO-design#style-guide).
 
 ## Additional source code and developer docs
 **DSToken (token standard for Maker tokens)**
@@ -31,14 +30,14 @@ A style guide and additional logos can [be found here](https://github.com/makerd
 * Source: https://github.com/dapphub/ds-token
 
 **Current Dai credit system implementation**
-* Docs: https://developer.makerdao.com/dai/1/api/
-* Docs: https://github.com/makerdao/sai/blob/master/DEVELOPING.md
-* Source: https://github.com/makerdao/sai
+* Addresses: https://changelog.makerdao.com/
+* Docs: https://docs.makerdao.com/
+* Source: https://github.com/makerdao/dss
 
 ### Token libraries
 **Javascript Library**\
-[Dai.js](https://makerdao.com/documentation/) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
-* Docs: https://makerdao.com/documentation/
+[Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
+* Docs: https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js
 * Source: https://github.com/makerdao/dai.js
 
 **Python API**\

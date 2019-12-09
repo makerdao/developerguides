@@ -38,7 +38,7 @@ Pymaker is a Python API which provides endpoints to interact with the Maker smar
 -   [https://github.com/makerdao/keeper-node](https://github.com/makerdao/keeper-node)
     
 
-**Multi Collateral Dai**
+**Current live Multi Collateral Dai**
 
 -   Docs: [https://github.com/makerdao/dss/blob/master/DEVELOPING.md](https://github.com/makerdao/dss/blob/master/DEVELOPING.md)
     
@@ -46,7 +46,7 @@ Pymaker is a Python API which provides endpoints to interact with the Maker smar
     
 -   Source: [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
     
-**Current Dai credit system implementation**
+**Single Collateral Dai credit system implementation**
 
 -   Docs: [https://developer.makerdao.com/dai/1/api/](https://developer.makerdao.com/dai/1/api/)
     
@@ -60,7 +60,7 @@ Pymaker is a Python API which provides endpoints to interact with the Maker smar
     
 -   Source: [https://github.com/dapphub/ds-token](https://github.com/dapphub/ds-token)
 
-**Maker platform in general**
+**Maker Protocol in general**
 -   [Whitepaper](https://makerdao.com/whitepaper/)
 
 ## Need help?

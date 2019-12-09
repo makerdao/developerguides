@@ -1,11 +1,11 @@
 # How to use Oasis Direct Proxy on OasisDEX Protocol
 
-**Level:** Intermediate
+**Level:** Intermediate    
 **Estimated Time:** 30 minutes
   
 # Overview
 
-Trading on decentralized exchanges involves signing multiple transactions with your wallet. This leads to having higher chances of having failed transactions. Using a proxy simplifies this process by combining many transactions into one.
+Trading on decentralized marketplaces involves signing multiple transactions with your wallet. This leads to having higher chances of having failed transactions. Using a proxy simplifies this process by combining many transactions into one.
 
   
 
@@ -121,7 +121,7 @@ Now to see your proxy contract address, execute the above command that verifies 
 
 ## Oasis Direct Proxy Functions
 
-These functions are used to make instant market orders on the exchange. If you want to see a frontend example, check out the instant page on [oasis.app/trade/instant](https://oasis.app/trade/instant). If you want to make a simple limit order, then check the OasisDEX protocol [contract](https://github.com/makerdao/maker-otc).
+These functions are used to make instant market orders on the marketplace. If you want to see a frontend example, check out the instant page on [oasis.app/trade/instant](https://oasis.app/trade/instant). If you want to make a simple limit order, then check the OasisDEX protocol [contract](https://github.com/makerdao/maker-otc).
 
   
 
@@ -150,7 +150,7 @@ These functions will wrap/unwrap ETH (if necessary), check the on-chain liquidit
 
   
 
-In addition, you will have to give allowance to the tokens you want to trade to the DS-Proxy contract in order for the trades to succeed. This is due to the majority of functions having a `pull` of funds method from your wallet in order to carry the exchange.
+In addition, you will have to give allowance to the tokens you want to trade to the DS-Proxy contract in order for the trades to succeed. This is due to the majority of functions having a `pull` of funds method from your wallet in order to carry the trade.
 
   
 
@@ -175,7 +175,7 @@ With DS-Proxy you only have to approve the token contracts once in order to carr
 
 ## Making an exchange
 
-Note: Check the liquidity on the [exchange](https://oasis.app/trade) on the Kovan network before doing any function calls. If there is no liquidity, then you will have failed transactions.
+Note: Check the liquidity on the [marketplace](https://oasis.app/trade) on the Kovan network before doing any function calls. If there is no liquidity, then you will have failed transactions.
 
   
 
@@ -221,7 +221,7 @@ To execute the **buyAllAmountPayEth** function, you need to send a transaction t
   
 
 [This](https://kovan.etherscan.io/tx/0xd24d388f61b86d3a726df99231d71fae94e0b7c711a43b5f963ada5ba73cba6b) is an example of a successful transaction.  
-If you look closely, you’ll notice that that the user sent more ETH than was necessary to the exchange. For getting 3 Dai he paid 0.037974683544303797 ETH and the rest was returned back to his wallet. This is special to this exchange function. You define the exact number of Dai you want to receive. Depending on the market liquidity, you might spend more or less ETH for the Dai. So, in your case he bought Dai at the ~ 79 ETH/DAI price.
+If you look closely, you’ll notice that that the user sent more ETH than was necessary to the exchange. For getting 3 Dai he paid 0.037974683544303797 ETH and the rest was returned back to his wallet. This is special to this marketplace function. You define the exact number of Dai you want to receive. Depending on the market liquidity, you might spend more or less ETH for the Dai. So, in your case he bought Dai at the ~ 79 ETH/DAI price.
 
   
 

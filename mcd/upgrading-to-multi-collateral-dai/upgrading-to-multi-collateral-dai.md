@@ -8,7 +8,7 @@ Audience: Technical and commercial teams with partners and Dai holders
 
 ## Introduction
 
-The upcoming version of the Maker system, Multi-Collateral Dai, brings a lot of new and exciting features, such as support for new CDP collateral types and Dai Savings Rate. In order to support the new functionality, the whole Maker core of smart contracts has been rewritten. The new smart contracts addresses and ABIs can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.0/](https://changelog.makerdao.com/releases/mainnet/1.0.0/)
+The upcoming version of the Maker system, Multi-Collateral Dai, brings a lot of new and exciting features, such as support for new Vault collateral types and Dai Savings Rate. In order to support the new functionality, the whole Maker core of smart contracts has been rewritten. The new smart contracts addresses and ABIs can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.0/](https://changelog.makerdao.com/releases/mainnet/1.0.0/)
   
 
 Therefore, users and partners interacting with Single-Collateral Dai (SCD) must migrate their existing Single Collateral Dai tokens (Sai) to Multi Collateral Dai tokens (Dai) and CDPs to the new system. Additionally, companies or projects integrated with Sai and CDPs must update their codebases to point to the new smart contracts, and refactor their code to support the updated functions.
@@ -35,7 +35,7 @@ In this guide we refer to the Single Collateral Dai system as **SCD**, and the M
 
 ### Pre-requisites
 
--   Basic knowledge of the MakerDAO: Dai and/or CDP system.  [See the MCD 101 guide, especially sections 1 and 2.](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-101)
+-   Basic knowledge of the MakerDAO: Dai and/or Vault system.  [See the MCD 101 guide, especially sections 1 and 2.](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-101)
     
 
 ### Sections

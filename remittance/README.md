@@ -12,7 +12,7 @@ The Maker platform consist of various products that are relevant for remittance 
    
 ### Dai Stablecoin
 
-One of the main features of the Maker platform is the asset-backed cryptocurrency called [Dai](https://makerdao.com/dai) - a cryptocurrency soft-pegged to the USD at a 1:1 ratio. The Maker system ensures that Dai is price stable compared to the USD, therefore it is also known as a “stablecoin”. Consequently, 1 Dai is equal to 1 USD.
+One of the main features of the Maker Protocol is the asset-backed cryptocurrency called [Dai](https://makerdao.com/dai) - a cryptocurrency soft-pegged to the USD at a 1:1 ratio. The Maker system ensures that Dai is price stable compared to the USD, therefore it is also known as a “stablecoin”. Consequently, 1 Dai is equal to 1 USD.
 
 For users Dai is valuable, as it provides the same features as other cryptocurrencies, by being easy and cheap to transfer globally, while keeping a stable price to the USD. This is often useful in countries where fiat currencies are inflationary. In the future, users will be able to earn dividends by holding Dai as an interest rate will be introduced. It also provides an opportunity for crypto-speculators to hedge their positions. Therefore it can be valuable for remittance services to integrate Dai, as users are seeking ways to easily transfer globally, and hold a stable currency.
 
@@ -21,18 +21,18 @@ In order to interact directly with the DAI token, you can find the deployed smar
 The DAI token follows the [ERC20 token standard](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md), and thus should be interoperable with contracts that implement this standard interface.
 
 ##### Live Dai token smart contract deployments
-* Ethereum Mainnet DAI: [0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359](https://etherscan.io/address/0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359#code)
-* Kovan Testnet DAI: [0xC4375B7De8af5a38a93548eb8453a498222C4fF2](https://kovan.etherscan.io/address/0xC4375B7De8af5a38a93548eb8453a498222C4fF2#code)
+* Ethereum Mainnet DAI: [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code)
+* Kovan Testnet DAI: [0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa](https://kovan.etherscan.io/address/0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa#code)
 
 ##### Listing symbols
 When listing DAI in your implementation, you should use the following currency notations.
-* DAI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Icon source](https://github.com/makerdao/Overview-of-MakerDAO-design/tree/master/DAI)
+* DAI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Icon source](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4)
 
-A style guide and additional logos can [be found here](https://github.com/makerdao/Overview-of-MakerDAO-design#style-guide).
+A style guide and additional logos can [be found here](https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4).
 
 ### Token libraries
 #### Javascript Library
-[Dai.js](https://makerdao.com/documentation/) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage), and [OTC exchange services](https://makerdao.com/documentation/#exchange-service) to obtain DAI liquidity, in return for other ERC20 tokens.
+[Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
 
 #### Python API
 Similarly to the library above, the [Python API](https://github.com/makerdao/pymaker) provides endpoints to interact with the smart contracts in a Python environment, such as [endpoints for token transfers](https://github.com/makerdao/pymaker#token-transfer).
@@ -61,13 +61,13 @@ Countries: Mexico, Chile
 - Docs: https://dapp.tools/dappsys/ds-token.html
 - Source: https://github.com/dapphub/ds-token
 
-**Current Dai credit system implementation**
-- Docs: https://developer.makerdao.com/dai/1/api/
-- Docs: https://github.com/makerdao/sai/blob/master/DEVELOPING.md
-- Source: https://github.com/makerdao/sai
+**Current Maker Protocol implementation**
+- Addresses: https://changelog.makerdao.com/
+- Docs: https://docs.makerdao.com/
+- Source: https://github.com/makerdao/dss
 
 **Dai.js Javascript Library**
-- Docs: https://makerdao.com/documentation/
+- Docs: https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js
 - Source: https://github.com/makerdao/dai.js
 
 **Python API**

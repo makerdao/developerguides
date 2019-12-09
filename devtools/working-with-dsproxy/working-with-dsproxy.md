@@ -6,7 +6,7 @@
 
 ## Overview
 
-Whether you are a Keeper looking to integrate the Dai Credit System with a new source of liquidity, or an interface developer looking to cut down the number of transactions an end user has to sign, you can now implement your ideas by creating simple scripts that can atomically perform transactions across multiple contracts through DSProxy.
+Whether you are a Keeper looking to integrate the Maker Protocol with a new source of liquidity, or an interface developer looking to cut down the number of transactions an end user has to sign, you can now implement your ideas by creating simple scripts that can atomically perform transactions across multiple contracts through DSProxy.
 
 Maker's approach to modularizing smart contracts and splitting logic into numerous tiny functions are great for security, but interface developers and end users interacting with them have to execute multiple transactions now to achieve a single goal. Instead of imposing the design constraints of good end-user ergonomics on the core smart contracts, we move it to an additional compositional layer of smart contracts built with DSProxy and stateless scripts.
 
@@ -26,7 +26,7 @@ In this guide we will,
 
 ## Pre-requisites
 
-* Understanding of the functions used to interact with CDPs
+* Understanding of the functions used to interact with Vaults
 * Solidity development experience
 
 ## Guide
@@ -39,7 +39,8 @@ In this guide we will,
 
 ### Examples
 
-#### Opening a CDP
+#### Opening a CDP    
+**Note:** Below instructions are for the Sai(Legacy Dai - Single Collateral Dai) token
 
 Opening a CDP to draw Dai is a common action performed by users within the Dai Credit System(DCS) and they perform multiple transactions on the [WETH](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2) and [Tub](https://etherscan.io/address/0x448a5065aebb8e423f0896e6c5d525c040f59af3) contracts to complete it.
 

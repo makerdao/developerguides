@@ -1,10 +1,10 @@
-# Add a new collateral type to DCS - Kovan
+# Add a new collateral type to Maker Protocol - Kovan
 
 **Level**: Advanced
 
 **Estimated Time**: 90 - 120 minutes
 
-- [Add a new collateral type to DCS - Kovan](#add-a-new-collateral-type-to-dcs---kovan)
+- [Add a new collateral type to Maker Protocol - Kovan](#add-a-new-collateral-type-to-dcs---kovan)
   - [Overview](#overview)
   - [Learning Objectives](#learning-objectives)
   - [Pre-requisites](#pre-requisites)
@@ -28,13 +28,13 @@
 
 ## Overview
 
-Dai Credit System(DCS) deployed to the Kovan testnet now supports multiple collateral types. You can now add a new token as a collateral type, and allow users and developers to test various aspects of this integration. This guide covers the steps involved in setting up various contracts to initialize a new collateral type on the testnet. Adding it to the mainnet deployment will be handled by risk teams and those steps won't be covered in this guide.
+Maker Protocol deployed to the Kovan testnet now supports multiple collateral types. You can now add a new token as a collateral type, and allow users and developers to test various aspects of this integration. This guide covers the steps involved in setting up various contracts to initialize a new collateral type on the testnet. Adding it to the mainnet deployment will be handled by risk teams and those steps won't be covered in this guide.
 
 ## Learning Objectives
 
 After going through this guide you will get a better understanding of,
 
-- Configuring core DCS contracts
+- Configuring core Maker Protocol contracts
 - Additional contracts required: Price Feed, Auction, Adapter.
 - Governance steps to initialize the new collateral type.
 
@@ -43,7 +43,7 @@ After going through this guide you will get a better understanding of,
 You will need a good understanding of these concepts to be able to work through this guide,
 
 - [MCD 101](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-101/mcd-101.md).
-- Collateralized Debt Positions(CDP).
+- Vault Positions.
 - Risk parameters of a collateral type.
 - Solidity.
 - Dapptools - Dapp, Seth.
@@ -61,7 +61,7 @@ export ETH_GAS=3000000
 
 ### Setup
 
-Execute these commands to initialize environment variables with addresses of the core DCS contracts.
+Execute these commands to initialize environment variables with addresses of the core Maker Protocol contracts.
 
 ```bash
 export MCD_VAT=0x5ce1e3c8ba1363c7a87f5e9118aac0db4b0f0691
@@ -83,7 +83,7 @@ export TOKEN=0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd
 
 ### Collateral Type
 
-Set the `ILK` variable with a name for the collateral type. Each ethereum token in DCS can have multiple collateral types and each one can be initialized with a different set of risk parameters. Affixing an alphabetical letter to the token symbol will help users differentiate these collateral types.
+Set the `ILK` variable with a name for the collateral type. Each ethereum token in Maker Protocol can have multiple collateral types and each one can be initialized with a different set of risk parameters. Affixing an alphabetical letter to the token symbol will help users differentiate these collateral types.
 
 ```bash
 export ILK="$(seth --to-bytes32 "$(seth --from-ascii "MKR-A")")"
@@ -91,7 +91,7 @@ export ILK="$(seth --to-bytes32 "$(seth --from-ascii "MKR-A")")"
 
 ### Setup Spell
 
-Initializing a collateral type involves making changes to various core DCS contracts using `file()` functions, and updating authorization permissions among contracts using `rely()`. A set of changes to be made at a time are captured in a `Spell` smart contract. Once a Spell is deployed, governance can elect its address as an authority which then lets it execute the changes in DCS. Although it is strictly not required, spells currently are designed to be used once and will lock up after they are executed.
+Initializing a collateral type involves making changes to various core Maker Protocol contracts using `file()` functions, and updating authorization permissions among contracts using `rely()`. A set of changes to be made at a time are captured in a `Spell` smart contract. Once a Spell is deployed, governance can elect its address as an authority which then lets it execute the changes in Maker Protocol. Although it is strictly not required, spells currently are designed to be used once and will lock up after they are executed.
 
 Spell contracts can be built for various purposes, we will use an existing spell template to create a new collateral type.
 
@@ -106,7 +106,7 @@ dapp build --extract
 
 ### Price Feeds
 
-Off-chain oracles get the pricing data of a token from various exchange APIs and they then submit these updates to an on-chain median contract which computes a median value. The Oracle Security Module(OSM) introduces a delay before the system accepts the newly reported price to give users a chance to add more collateral if their CDP is about to become unsafe, and also for governance to trigger emergency shutdown if compromised oracles have input a malicious price value.
+Off-chain oracles get the pricing data of a token from various exchange APIs and they then submit these updates to an on-chain median contract which computes a median value. The Oracle Security Module(OSM) introduces a delay before the system accepts the newly reported price to give users a chance to add more collateral if their Vault is about to become unsafe, and also for governance to trigger emergency shutdown if compromised oracles have input a malicious price value.
 
 Instead of deploying the full set of these contracts, we will only deploy a single `DSValue` contract without a price feed delay for our testing purposes. You can retain admin permissions over it to update the price value manually using a seth command. For example, the command below sets the price of each token to 9000 USD.
 
@@ -145,7 +145,7 @@ seth send "$FLIP" 'deny(address)' "$ETH_FROM"
 
 All collateral types need risk parameters to set bounds for issuing Dai debt. We'll set the new collateral type with some starting parameters and they can also be updated later by governance through executive votes.
 
-Debt ceiling sets the maximum amount of Dai that can be issued against CDPs of this collateral type. Calculate the uint256 value using the first command to initialize the LINE variable with `5 Million`.
+Debt ceiling sets the maximum amount of Dai that can be issued against Vaults of this collateral type. Calculate the uint256 value using the first command to initialize the LINE variable with `5 Million`.
 
 ```bash
 seth --to-uint256 $(echo "5000000"*10^45 | bc)
@@ -170,7 +170,7 @@ export DUTY=0000000000000000000000000000000000000000033b2e3ca43176a9d2dfd0a5
 
 *Note: We'll cover how the number `1000000000315522921573372069` corresponds to a `1%` annual rate in a future guide and link it here.*
 
-A liquidation penalty is imposed on a CDP by increasing it's debt by a percentage before a collateral aucion is kicked off. This penalty is imposed to prevent [Auction Grinding Attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf).
+A liquidation penalty is imposed on a Vault by increasing it's debt by a percentage before a collateral aucion is kicked off. This penalty is imposed to prevent [Auction Grinding Attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf).
 Calculate the uint256 value using the first command to initialize the CHOP variable with an additional `10%`.  We pass `110%` here because when we start an auction we want it to be for the amount of the outstanding debt plus `10%`.
 
 ```bash
@@ -178,7 +178,7 @@ seth --to-uint256 $(echo "110"*10^25 | bc)
 export CHOP=0000000000000000000000000000000000000000038de60f7c988d0fcc000000
 ```
 
-Since the size of CDPs of a collateral type can vary wildly, collateral auctions can be inefficient if even large CDPs are auctioned off with a single Flip auction. CDPs with locked collateral amounts greater than liquidation quantity of their collateral type are processed with multiple collateral auctions. Only one collateral auction is required if the amount of collateral locked in a CDP is below the liquidation quantity.
+Since the size of Vaults of a collateral type can vary wildly, collateral auctions can be inefficient if even large Vaults are auctioned off with a single Flip auction. Vaults with locked collateral amounts greater than liquidation quantity of their collateral type are processed with multiple collateral auctions. Only one collateral auction is required if the amount of collateral locked in a Vault is below the liquidation quantity.
 
 Calculate and initialize the LUMP variable with `1000`.
 
@@ -233,7 +233,7 @@ seth send "$SPELL" 'cast()'
 
 ### Test Collateral Type
 
-A collateral type is now initialized and ready for users to open CDPs. Let's test this process to ensure everything was setup correctly.
+A collateral type is now initialized and ready for users to open Vaults. Let's test this process to ensure everything was setup correctly.
 
 Deposit tokens into the adapter to receive an internal `gem` balance, and verify this balance.
 
@@ -242,7 +242,7 @@ seth send $TOKEN 'approve(address,uint256)' $JOIN $(seth --to-uint256 $(seth --t
 seth --from-wei $(seth --to-dec $(seth call $TOKEN 'allowance(address, address)' $ETH_FROM $JOIN)) eth
 ```
 
-CDPs of a collateral type are identified by the address of the owner itself. Set the `urn` variable to your ethereum address.
+Vaults of a collateral type are identified by the address of the owner itself. Set the `urn` variable to your ethereum address.
 
 ```bash
 export urn=$ETH_FROM
@@ -263,14 +263,14 @@ export ilk=$(seth --to-bytes32 $(seth --from-ascii "MKR-A"))
 seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'gem(bytes32,address)(uint256)' $ilk $ETH_FROM)) eth
 ```
 
-Calculate and set the `dink` variable to lock up 18 tokens in the CDP, and set the `dart` variable to generate 35 Dai from it.
+Calculate and set the `dink` variable to lock up 18 tokens in the Vault, and set the `dart` variable to generate 35 Dai from it.
 
 ```bash
 export dink=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 18 eth)))
 export dart=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 35 eth)))
 ```
 
-Call `frob()` directly on Vat to open a CDP by locking up collateral and generating Dai.
+Call `frob()` directly on Vat to open a Vault by locking up collateral and generating Dai.
 
 ```bash
 seth send $MCD_VAT "frob(bytes32,address,address,address,int256,int256)" $ilk $ETH_FROM $ETH_FROM $ETH_FROM $dink $dart
@@ -290,7 +290,7 @@ You've now successfully generated Dai with the new collateral type.
 
 ## Summary
 
-In this guide we looked at setting up a new collateral type for a token and opened a CDP to generate Dai from it.
+In this guide we looked at setting up a new collateral type for a token and opened a Vault to generate Dai from it.
 
 ## Additional resources
 

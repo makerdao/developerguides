@@ -43,6 +43,9 @@ At the time of writing, seth 0.7.0 is thus the latest version, however in the fu
 
 If the above command does not work, or you had trouble installing it may be due to Mac OSX Mojave, as we have experienced various issues with the tools nix and cachix not working correctly on this OS, specifically due to a multi-user bug. If you happen to have more user accounts on your Mac, and experience errors running this guide, [this document](#) might help you resolve the issue. If this does not resolve the issue, you are more than welcome to ask for help on [chat.makerdao.com](https://chat.makerdao.com/) in the #help channel.
 
+### Errors and a note on macOSX Catalina
+Nix wouln't be able to be installed on the Catalina OS due to it being stricted to be installed on the maid disk. [This](https://github.com/NixOS/nix/issues/2925) issue guides you trough the process of getting around this error. Also, you can run [this](https://gist.github.com/charles-dyfis-net/22c4337d2b59a2ac4b3d8debced70d5c) script to help you install.
+
 ## Set up and configuring variables
 Configuring Seth can be done with environment variables or command line options. Environment variables can be generally used in two ways: you can save them in a configuration file named .sethrc in specific locations, like your home folder, or just set them only for the current terminal session. In this guide we will use environment variables with the latter approach for simplicity’s sake, however for ease-of-use in the future, we strongly encourage to save the variables in your project folder. Follow [this example](https://github.com/dapphub/dapptools/tree/master/src/seth#example-sethrc-file) to do so.
 
@@ -109,15 +112,15 @@ Upon execution you should see something like the following:
 This indicates that the transaction was successful.
 
 ### seth call - Reading contract storage
-Since we don't have any contracts deployed to our private network, **let's use Kovan from now on**. Let’s use one of the simplest contracts possible: an ERC-20 token contract. In this example, we are going to use a test collateral token (COL1). You can save its address in a variable with the following command:
+Since we don't have any contracts deployed to our private network, **let's use Kovan from now on**. Let’s use one of the simplest contracts possible: an ERC-20 token contract. In this example, we are going to use a test collateral token (BAT). You can save its address in a variable with the following command:
 
-`$ export COL1=0x911eb92e02477a4e0698790f4d858e09dc39468a`
+`$ export BAT=0x9f8cfb61d3b2af62864408dd703f9c3beb55dff7`
 
 You can read the output of a public function of a contract using the call subcommand, the contract’s address, and the name of the function.
 
 Let's check out the number of decimals of this token:
 
-`seth call $COL1 'decimals()'`
+`seth call $BAT 'decimals()'`
 
 The output is:
 
@@ -125,7 +128,7 @@ The output is:
 
 Now don't let this fool you. Seth queries contract data in a low level manner, and returns the value in hexadecimal, as it is represented in the contract, but you can convert it using:
 
-`$ seth --to-dec $(seth call $COL1 'decimals()')`
+`$ seth --to-dec $(seth call $BAT 'decimals()')`
 
 The output is:
 
@@ -135,23 +138,23 @@ The output is:
 
 You can send a transaction to a contract with the same send command, by adding a couple of extra parameters. Just like with call, you need to specify the contract address and the function we are calling. Let’s get some COL1 tokens from a previously set up faucet:
 
-`$ export FAUCET=0xe8121d250973229e7988ffa1e9330b420666113a`
+`$ export FAUCET=0x94598157fcf0715c3bc9b4a35450cce82ac57b20`
 
-`$ seth send $FAUCET ‘gulp(address)’ $COL1`
+`$ seth send $FAUCET ‘gulp(address)’ $BAT`
 
 ### Using function parameters
 
 Now you can check your COL1 balance. This time you will need to present a parameter for the ‘balanceOf’ method of the ERC-20 contract. You can do this by first defining the type, the function takes in its parentheses, and then putting the input parameter after the method:
 
-`$ seth --to-dec $(seth call $COL1 'balanceOf(address)' $ETH_FROM)`
+`$ seth --to-dec $(seth call $BAT 'balanceOf(address)' $ETH_FROM)`
 
 The output is:
 
 `500000000000000000000`
 
-Now, that's a rather large value we got. The reason for this is that the contract stores the balances in wei unit (10^-18), which is why we have to convert it to get the actual number of COL1 we own:
+Now, that's a rather large value we got. The reason for this is that the contract stores the balances in wei unit (10^-18), which is why we have to convert it to get the actual number of BAT we own:
 
-`$ seth --from-wei $(seth --to-dec $(seth call $COL1 'balanceOf(address)' $ETH_FROM)) eth`
+`$ seth --from-wei $(seth --to-dec $(seth call $BAT 'balanceOf(address)' $ETH_FROM)) eth`
 
 The output is:
 
@@ -187,7 +190,7 @@ The signature part that Seth needs from this is 'transfer(address, uint)'  and t
 
 Now, to estimate the gas usage of an ERC-20 token transfer let’s execute the following:
 
-`$ seth estimate $COL1 'transfer(address, uint)' 0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359 $(seth --to-uint256 $(seth --to-wei 0.1 ether))`
+`$ seth estimate $BAT 'transfer(address, uint)' 0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359 $(seth --to-uint256 $(seth --to-wei 0.1 ether))`
 
 Output:
 
@@ -198,7 +201,7 @@ With seth receipt and seth tx, we can query every single detail imaginable about
 
 You can try them for example by first executing a transaction to have a transaction hash:
 
-`$ seth send $COL1 'transfer(address, uint)' 0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359 $(seth --to-uint256 $(seth --to-wei 0.1 ether))`
+`$ seth send $BAT 'transfer(address, uint)' 0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359 $(seth --to-uint256 $(seth --to-wei 0.1 ether))`
 
 Output:
 
@@ -228,4 +231,4 @@ This guide was written based on the official documentation in the Github reposit
 
 ## Known Issues
 
-- Issues with MacOS Mojave
+- Issues with MacOS Mojave & Catalina

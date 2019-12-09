@@ -6,7 +6,7 @@
 
 ## Overview
 
-This guide is intended to give an introduction on how to use Maker’s custom test chain. This test chain has all of Maker’s smart contracts deployed on it, so you as a developer can start building your dApps on top of Maker’s system. In addition, you can also use our [dai.js](https://makerdao.com/documentation/) library with this test chain.
+This guide is intended to give an introduction on how to use Maker’s custom test chain. This test chain has all of Maker’s smart contracts deployed on it, so you as a developer can start building your dApps on top of Maker’s system. In addition, you can also use our [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) library with this test chain.
 
 ## Learning Objectives
 
@@ -24,8 +24,8 @@ You need to have [dapp.tools](https://dapp.tools/), [NodeJs](https://nodejs.org/
 - Getting Started
 - Options
 - Interacting with MakerDAO contracts
-    - Open a CDP with dai.js
-    - Use MCD contracts to draw some Dai with seth
+    - Open a Vault with dai.js
+    - Use Maker Protocol contracts to draw some Dai with seth
 
 ## Note on Windows Subsystem for Linux
 
@@ -63,7 +63,7 @@ yarn install
 
 To launch the chain
 ```bash
-scripts/launch
+scripts/launch -s default --fast --verbose
 ```
 
 In your terminal, after some time you'll see this text:
@@ -84,19 +84,20 @@ If you want to run the test chain with verbose option, you run the bellow script
 
 This will show you the chain logs in the terminal
 ```bash
-scripts/launch --verbose
+scripts/launch -s default --fast --verbose
 ```
 Here you change your port and add verbose option
 ```bash
-scripts/launch -p 2001 --verbose
+scripts/launch -s default --fast --verbose
+ -p 2001 
 ```
 
 For more options check out our [repo](https://github.com/makerdao/testchain#options).
 
-## Interacting with MakerDAO contracts
-You’ll find all the necessary Maker contract addresses in the `out/addresses.json` or `out/addresses-mcd.json` file in the testchain folder. You can use these addresses to develop your own tools that interact with Maker contracts. Use our own [dai.js](https://makerdao.com/documentation/) library or interact through the command line with [seth](https://dapp.tools/seth/). We will go through both of these methods now.
+## Interacting with Maker Protocol contracts
+You’ll find all the necessary Maker contract addresses in the `out/addresses.json` or `out/addresses-mcd.json` file in the testchain folder. You can use these addresses to develop your own tools that interact with Maker contracts. Use our own [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) library or interact through the command line with [seth](https://dapp.tools/seth/). We will go through both of these methods now.
 
-#### Open a CDP with [dai.js](https://makerdao.com/documentation/)
+#### Open a Vault with [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js)
 
 So, to start from scratch:
 - Start the testchain in another terminal, as you’ll be connecting to it when running the js file.
@@ -106,7 +107,7 @@ So, to start from scratch:
 - Copy the below example in your js file
 - Run the file with `node cdp.js`
 
-Below is an example that shows the process of opening a CDP, locking some Eth and drawing some Dai:
+Below is an example that shows the process of opening a CDP in the Single Collateral Dai system, locking some Eth and drawing some Dai:
 
 ```javascript
 const Maker = require('@makerdao/dai');

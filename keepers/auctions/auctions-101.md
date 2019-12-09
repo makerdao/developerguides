@@ -1,23 +1,23 @@
 # Auctions and Keepers in Multi-Collateral Dai Explained
 
-The Multi-Collateral Dai (MCD) system within the MakerDAO Protocol is a smart contract platform on Ethereum that backs and stabilizes the value of our stablecoin, Dai. It does this through a dynamic system of Collateralized Debt Positions (CDPs), autonomous feedback mechanisms, and appropriately incentivized external actors.
+The Maker Protocol is a smart contract platform on Ethereum that backs and stabilizes the value of our stablecoin, Dai. It does this through a dynamic system of Vault Positions, autonomous feedback mechanisms, and appropriately incentivized external actors.
 
 In this document, we explain the auction mechanisms within the system, as well as particular types of external actors, called Keepers, that bid on the Auctions.
 
 ## Auctions
 
-When everything in the system is going well, Dai accrues through [stability fees](https://github.com/makerdao/community/blob/master/faqs/stability-fee.md) collected from CDPs. Whenever the net surplus from stability fees reaches a certain limit, that surplus in Dai is auctioned off to external actors for MKR which subsequently is burnt, thereby reducing the amount of MKR in circulation. This is done through a **Surplus Auction**.
+When everything in the system is going well, Dai accrues through [stability fees](https://github.com/makerdao/community/blob/master/faqs/stability-fee.md) collected from Vaults. Whenever the net surplus from stability fees reaches a certain limit, that surplus in Dai is auctioned off to external actors for MKR which subsequently is burnt, thereby reducing the amount of MKR in circulation. This is done through a **Surplus Auction**.
 
-The system protects against debt creation by overcollateralization. Under ideal circumstances and with the right risk parameters, the debt for an individual CDP can be covered by the collateral deposited in that CDP. If the price of that collateral drops to the point where a CDP no longer sustains the required collateralization ratio, then the system automatically liquidates the CDP and sells off the collateral until the outstanding debt in the CDP (and a liquidation penalty), is covered. This is done through a **Collateral Auction**.
+The system protects against debt creation by overcollateralization. Under ideal circumstances and with the right risk parameters, the debt for an individual Vault can be covered by the collateral deposited in that Vault. If the price of that collateral drops to the point where a Vault no longer sustains the required collateralization ratio, then the system automatically liquidates the Vault and sells off the collateral until the outstanding debt in the Vault (and a liquidation penalty), is covered. This is done through a **Collateral Auction**.
 
-Further, if, for example, the collateral price drops sharply or no one wants to buy the collateral, there may be debt in the liquidated CDP that cannot be repaid through a collateral auction and must be addressed by the system. The first course of action is to cover this debt using surplus from stability fees, if there is any surplus to cover it. If there is not, then the system initiates a **Debt Auction**, whereby the winning bidder pays Dai to cover the outstanding debt and in return receives an amount of newly minted MKR, increasing the amount of MKR in circulation.
+Further, if, for example, the collateral price drops sharply or no one wants to buy the collateral, there may be debt in the liquidated Vault that cannot be repaid through a collateral auction and must be addressed by the system. The first course of action is to cover this debt using surplus from stability fees, if there is any surplus to cover it. If there is not, then the system initiates a **Debt Auction**, whereby the winning bidder pays Dai to cover the outstanding debt and in return receives an amount of newly minted MKR, increasing the amount of MKR in circulation.
 
 
 To **summarize**, we have three types of Auctions:
 
 -   **Surplus Auction**: The winning bidder pays MKR for surplus Dai from stability fees. The MKR received is burnt, thereby reducing the amount of MKR in circulation.
     
--   **Collateral Auction**: The winning bidder pays Dai for collateral from a liquidated CDP. The Dai received is used to cover the outstanding debt in the liquidated CDP
+-   **Collateral Auction**: The winning bidder pays Dai for collateral from a liquidated Vault. The Dai received is used to cover the outstanding debt in the liquidated Vault
     
 -   **Debt Auction**: The winning bidder pays Dai for MKR to cover outstanding debt that Collateral Auctions haven’t been able to cover. MKR is minted by the system, thereby increasing the amount of MKR in circulation.
     
@@ -26,7 +26,7 @@ The actors that bid on these Auctions are called **Keepers**.
 
 ## Keepers
 
-With all information published on the Ethereum blockchain, anyone can access or monitor price feeds and data on individual CDPs, thereby determining whether certain CDPs are in breach of the Liquidation Ratio. The system incentivizes these market participants (which can be human or automated bot), known as “keepers,” to monitor the MCD System and trigger liquidation when the Liquidation Ratio is breached.
+With all information published on the Ethereum blockchain, anyone can access or monitor price feeds and data on individual Vaults, thereby determining whether certain Vaults are in breach of the Liquidation Ratio. The system incentivizes these market participants (which can be human or automated bot), known as “keepers,” to monitor the MCD System and trigger liquidation when the Liquidation Ratio is breached.
 
 In the context of Multi-Collateral Dai, Keepers may participate in auctions as a result of liquidation events and thereby acquire collateral at attractive prices. Keepers can also perform other functions, including trading Dai motivated by the expected long-term convergence toward the Target Price.
 
@@ -90,19 +90,19 @@ Bidders send DAI or MKR tokens from their addresses to the system/specific aucti
 
 ## Collateral Auction (Collateral Sale)
 
-**Summary**: Collateral Auctions serve as a means to recover debt in liquidated CDPs. Those CDPs are being liquidated because the value of the CDP collateral has fallen below a certain limit determined by the Maker Governance voters.
+**Summary**: Collateral Auctions serve as a means to recover debt in liquidated Vaults. Those Vaults are being liquidated because the value of the Vault collateral has fallen below a certain limit determined by the Maker Governance voters.
 
 **High-level Mechanism Process**:
 
-For each type of collateral, MKR holders approve a specific risk parameter called the liquidation ratio. This ratio determines the amount of overcollaterization a CDP requires to avoid liquidation. For example, if the liquidation ratio is 150%, then the value of the collateral must always be one and a half times the value of the Dai generated. If the value of the collateral falls below the liquidation ratio, then the CDP becomes unsafe and is liquidated by the system. The system then takes over the collateral and auctions it off to cover both the debt in the CDP and an applied liquidation penalty.
+For each type of collateral, MKR holders approve a specific risk parameter called the liquidation ratio. This ratio determines the amount of overcollaterization a Vault requires to avoid liquidation. For example, if the liquidation ratio is 150%, then the value of the collateral must always be one and a half times the value of the Dai generated. If the value of the collateral falls below the liquidation ratio, then the Vault becomes unsafe and is liquidated by the system. The system then takes over the collateral and auctions it off to cover both the debt in the Vault and an applied liquidation penalty.
 
--   The Collateral Auction is triggered when a CDP is liquidated.
+-   The Collateral Auction is triggered when a Vault is liquidated.
     
-	-   Any user can liquidate a CDP that is unsafe by sending the bite transaction identifying the CDP. This will launch a collateral auction.
+	-   Any user can liquidate a Vault that is unsafe by sending the bite transaction identifying the Vault. This will launch a collateral auction.
     
-	-   If the amount of collateral in the CDP being “bitten” is less than the lot size for the auction, then there will be one auction for all collateral in the CDP.
+	-   If the amount of collateral in the Vault being “bitten” is less than the lot size for the auction, then there will be one auction for all collateral in the Vault.
     
-	-   If the amount of collateral in the CDP being “bitten” is larger than the lot size for the auction, then an auction will launch with the full lot size of collateral, and the CDP can be “bitten” again to launch another auction until all collateral in the CDP is up for bidding in Collateral Auctions.
+	-   If the amount of collateral in the Vault being “bitten” is larger than the lot size for the auction, then an auction will launch with the full lot size of collateral, and the Vault can be “bitten” again to launch another auction until all collateral in the Vault is up for bidding in Collateral Auctions.
     
 An important aspect of a Collateral Auction is that the auction expiration and bid expiration parameters are dependent on the specific type of collateral, where more liquid collateral types have shorter expiration times and vice-versa.
 
