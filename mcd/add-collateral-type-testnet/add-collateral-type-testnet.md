@@ -52,7 +52,7 @@ You will need a good understanding of these concepts to be able to work through 
 
 *Before starting this guide please install [dapptools](https://dapp.tools) and [setup seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md) for use with the Kovan testnet.*
 
-The guide below is updated for the [0.2.10](https://changelog.makerdao.com/releases/0.2.10/index.html) release of DCS on Kovan.
+The guide below is updated for the [0.2.17](https://changelog.makerdao.com/releases/kovan/0.2.17/index.html) release of DCS on Kovan.
 
 For this tutorial you will want to set the gas limit to 3,000,000
 ```bash
@@ -64,15 +64,15 @@ export ETH_GAS=3000000
 Execute these commands to initialize environment variables with addresses of the core Maker Protocol contracts.
 
 ```bash
-export MCD_VAT=0x5ce1e3c8ba1363c7a87f5e9118aac0db4b0f0691
-export MCD_CAT=0xfd5db7bd95c6a53f805dc2c631e62803e17de609
-export MCD_JUG=0x1ff7cb4126d7690daaa1c0f1ba58bab06d53d4b8
-export MCD_SPOT=0xcf68a9dc1e17a0d56ffedfb7e96ed6bf7e84458a
-export MCD_PAUSE=0x8fe4f004ed32c0d11d00de9f7aa65a37815211ae
-export MCD_PAUSE_PROXY=0xd8439f40a308964666800c03fb746e32901eb0e8
-export MCD_ADM=0x03358a3959247ae8de50a52c7919b88ab5989b85
-export MCD_END=0xc6cd35939523d258d5c28febf6017635a4ea858d
-export MCD_JOIN_DAI=0xe70a5307f5132ee3a6a056c5efb7d5a53f3cdbd7
+export MCD_VAT=0xba987bdb501d131f766fee8180da5d81b34b69d9
+export MCD_CAT=0x0511674a67192fe51e86fe55ed660eb4f995bdd6
+export MCD_JUG=0xcbb7718c9f39d05aeede1c472ca8bf804b2f1ead
+export MCD_SPOT=0x3a042de6413edb15f2784f2f97cc68c7e9750b2d
+export MCD_PAUSE=0x8754e6ecb4fe68daa5132c2886ab39297a5c7189
+export MCD_PAUSE_PROXY=0x0e4725db88bb038bba4c4723e91ba183be11edf3
+export MCD_ADM=0xbbffc76e94b34f72d96d054b31f6424249c1337d
+export MCD_END=0x24728acf2e2c403f5d2db4df6834b8998e56aa5f
+export MCD_JOIN_DAI=0x5aa71a3ae1c0bd6ac27a1f28e1415fffb6f15b8c
 ```
 
 Set a variable with the address of the token going to be used for the collateral type. This guide will use the Kovan MKR token as an example.
@@ -111,16 +111,21 @@ Off-chain oracles get the pricing data of a token from various exchange APIs and
 Instead of deploying the full set of these contracts, we will only deploy a single `DSValue` contract without a price feed delay for our testing purposes. You can retain admin permissions over it to update the price value manually using a seth command. For example, the command below sets the price of each token to 9000 USD.
 
 ```bash
-dapp create DSValue
-export PIP=0xf7cea7c74b42eb97f0a57503f5f0713ef6aed2fc
+export PIP=$(dapp create DSValue)
 seth send $PIP 'poke(bytes32)' $(seth --to-uint256 "$(seth --to-wei 9000 ETH)")
+```
+
+You can verify that the value has been set.
+
+```bash
+seth call $PIP 'read()'
 ```
 
 ### Deploy Adapter
 
 Vat does not make calls to any external contracts, including tokens. Instead it maintains internal `gem` balances of users for each collateral type. Users deposit tokens into the corresponding adapter contract using `join()` to get this internal `gem` balance.
 
-You can use the `GemJoin` adapter contract without making any modifications if it conforms to the ERC20 token standard, has simple transfer mechanics, and no known issues. Consider making changes to this contract if you need to perform additional checks to validate the token transfers a user makes to the adapter contract. 
+You can use the `GemJoin` adapter contract without making any modifications if it conforms to the ERC20 token standard, has simple transfer mechanics, and no known issues. Consider making changes to this contract if you need to perform additional checks to validate the token transfers a user makes to the adapter contract.
 
 Examples of some non-standard adapters are available in [`dss`](https://github.com/makerdao/dss/blob/master/src/join.sol) and [`dss-deploy`](https://github.com/makerdao/dss-deploy/blob/master/src/join.sol) for your reference.
 
