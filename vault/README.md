@@ -1,6 +1,6 @@
-# CDP
+# Vault
 
-Collateralized Debt Positions(CDPs) allow users to lock collateral and generate Dai.
+Maker Vaults allow users to lock collateral and generate Dai.
 
 ## Getting Started
 
@@ -8,6 +8,6 @@ Collateralized Debt Positions(CDPs) allow users to lock collateral and generate 
 
 ## Intermediate
 
-- [CDP Integration Guide](/cdp/cdp-integration-guide/cdp-integration-guide.md)
+- [Vault Integration Guide](/vault/vault-integration-guide/cdp-integration-guide.md)
 
 ## Advanced

@@ -133,9 +133,11 @@ In this guide, we briefly discussed the technical details of the Dai token contr
 
 1. [https://github.com/makerdao/sai](https://github.com/makerdao/sai)
 
-2. [https://dapp.tools/dappsys/ds-auth.html](https://dapp.tools/dappsys/ds-auth.html)
+2. [Using Dai in smart contracts](https://github.com/makerdao/developerguides/blob/master/dai/dai-in-smart-contracts/README.md)
 
-3. [https://hackernoon.com/how-one-hacker-stole-thousands-of-dollars-worth-of-cryptocurrency-with-a-classic-code-injection-a3aba5d2bff0](https://hackernoon.com/how-one-hacker-stole-thousands-of-dollars-worth-of-cryptocurrency-with-a-classic-code-injection-a3aba5d2bff0)
+3. [https://dapp.tools/dappsys/ds-auth.html](https://dapp.tools/dappsys/ds-auth.html)
+
+4. [https://hackernoon.com/how-one-hacker-stole-thousands-of-dollars-worth-of-cryptocurrency-with-a-classic-code-injection-a3aba5d2bff0](https://hackernoon.com/how-one-hacker-stole-thousands-of-dollars-worth-of-cryptocurrency-with-a-classic-code-injection-a3aba5d2bff0)
 
 ## Help
 
