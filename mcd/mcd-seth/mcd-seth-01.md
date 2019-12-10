@@ -93,13 +93,13 @@ Output:
 In order to better understand the MCD contracts, the following provides a brief explanation of relevant terms.
 -   `wad`: token unit amount 
 -   `gem`: collateral token adapter
--   `ilk`: CDP type
--   `urn`: CDP record - keeps track of a CDP
+-   `ilk`: Vault type
+-   `urn`: Vault record - keeps track of a Vault
 -   `ink`: rate * wad represented in collateral  
 -   `dink`: delta ink - a signed difference value to the current value
 -   `art`: rate * wad represented in DAI   
 -   `dart`: delta art - a signed difference value to the current value 
--   `lad`: CDP owner
+-   `lad`: Vault owner
 -   `rat`: collateralization ratio
 
 After giving permission to the REP adapter of MCD to take some of our tokens, it’s time to finally start using the MCD contracts.    

@@ -42,7 +42,7 @@ In this guide we will,
 #### Opening a CDP    
 **Note:** Below instructions are for the Sai(Legacy Dai - Single Collateral Dai) token
 
-Opening a CDP to draw Dai is a common action performed by users within the Dai Credit System(DCS) and they perform multiple transactions on the [WETH](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2) and [Tub](https://etherscan.io/address/0x448a5065aebb8e423f0896e6c5d525c040f59af3) contracts to complete it.
+Opening a CDP to draw Sai is a common action performed by users within the Maker Platform and they perform multiple transactions on the [WETH](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2) and [Tub](https://etherscan.io/address/0x448a5065aebb8e423f0896e6c5d525c040f59af3) contracts to complete it.
 
 Transactions to execute on the WETH token contract are,
 
@@ -54,33 +54,33 @@ Transactions to execute on the Tub contract are,
 * Convert WETH to PETH using the `join` function.
 * Open a new CDP using the `open` function.
 * Add PETH collateral to the new CDP using the `lock` function.
-* Draw DAI from the CDP using the `draw` function.
+* Draw Sai from the CDP using the `draw` function.
 
-[CDP portal](https://cdp.makerdao.com) uses a [script](https://github.com/makerdao/sai-proxy/blob/094de960782c5a8df2dae9fc2783b6366dc1c417/src/SaiProxy.sol#L149) to improve the user experience by executing the above steps atomically within a single transaction. For comparison, you can check early interfaces like [dai.makerdao.com](https://dai.makerdao.com) which made users execute these steps separately.
+[CDP portal](https://cdp.makerdao.com) uses a [script](https://github.com/makerdao/sai-proxy/blob/094de960782c5a8df2dae9fc2783b6366dc1c417/src/SaiProxy.sol#L149) to improve the user experience by executing the above steps atomically within a single transaction. For comparison, you can check early interfaces like [sai.makerdao.com](https://sai.makerdao.com) which made users execute these steps separately.
 
 #### Bust Arbitrage with DEXes
 
-A CDP liquidation creates bad debt which needs to be erased from the system by selling a portion of the collateral locked in a CDP to raise the same amount of Dai from Keepers. Keepers monitor the Tub contract and execute the following transactions when they find an unsafe CDP to complete a successful arbitrage and realize a profit in Dai.
+A CDP liquidation creates bad debt which needs to be erased from the system by selling a portion of the collateral locked in a CDP to raise the same amount of Sai from Keepers. Keepers monitor the Tub contract and execute the following transactions when they find an unsafe CDP to complete a successful arbitrage and realize a profit in Sai.
 
-* `bite` an unsafe CDP on Tub. This clears the outstanding Dai debt of the CDP and transfers a portion of its locked collateral to the liquidator contract.
-* Approve Tap contract address to spend the keeper's DAI balance using the `approve` function.
-* Transfer Dai using `bust` on [Tap](https://etherscan.io/address/0xbda109309f9fafa6dd6a9cb9f1df4085b27ee8ef) liquidator contract to purchase PETH at a discount.
+* `bite` an unsafe CDP on Tub. This clears the outstanding Sai debt of the CDP and transfers a portion of its locked collateral to the liquidator contract.
+* Approve Tap contract address to spend the keeper's Sai balance using the `approve` function.
+* Transfer Sai using `bust` on [Tap](https://etherscan.io/address/0xbda109309f9fafa6dd6a9cb9f1df4085b27ee8ef) liquidator contract to purchase PETH at a discount.
 * `exit` on Tub to convert PETH back to WETH.
-* Trade WETH for Dai on a DEX that offers the best price using its trade functions.
+* Trade WETH for Sai on a DEX that offers the best price using its trade functions.
 * `require` check to stop the entire sequence of actions if it results in a loss for the Keeper.
 
-Keepers calling `bite` do not get a preference and anyone can call `bust` to buy the collateral at a discount. A successful arbitrage trade for the Keeper also means that they are able to sell WETH back on other markets to realize the discount offered by Tap as profit in Dai. To avoid these issues, Keepers having been using scripts to execute the above transactions atomically and avoid losses especially in an environment when the price of collateral is rapidly declining.
+Keepers calling `bite` do not get a preference and anyone can call `bust` to buy the collateral at a discount. A successful arbitrage trade for the Keeper also means that they are able to sell WETH back on other markets to realize the discount offered by Tap as profit in Sai. To avoid these issues, Keepers having been using scripts to execute the above transactions atomically and avoid losses especially in an environment when the price of collateral is rapidly declining.
 
-#### Pay stability fees with Dai
+#### Pay stability fees with Sai
 
-In Single Collateral Dai, CDP owners have to use MKR to pay stability fees when they close a CDP. Most of them are forced to buy a tiny amount of MKR from an exchange since not all of them are MKR holders. The sequence of transactions they have to execute when closing a CDP are,
+In Single Collateral Dai(Sai), CDP owners have to use MKR to pay stability fees when they close a CDP. Most of them are forced to buy a tiny amount of MKR from an exchange since not all of them are MKR holders. The sequence of transactions they have to execute when closing a CDP are,
 
-* Trade DAI for the required amount of MKR on an exchange.
-* Approve Tub contract address to spend the user's DAI balance using the `approve` function.
+* Trade Sai for the required amount of MKR on an exchange.
+* Approve Tub contract address to spend the user's Sai balance using the `approve` function.
 * Approve Tub contract address to spend the user's MKR balance using the `approve` function.
-* `wipe` or `shut` on the Tub contract to pay back borrowed Dai.
+* `wipe` or `shut` on the Tub contract to pay back borrowed Sai.
 
-The CDP portal uses a [script](https://github.com/makerdao/sai-proxy/blob/094de960782c5a8df2dae9fc2783b6366dc1c417/src/SaiProxy.sol#L159) to make the entire process seamless for CDP owners who do not hold MKR to buy the exact amount of MKR they need on the Eth2Dai exchange MKR/DAI market, and also pay back Dai to close the CDP in the same transaction.
+The CDP portal uses a [script](https://github.com/makerdao/sai-proxy/blob/094de960782c5a8df2dae9fc2783b6366dc1c417/src/SaiProxy.sol#L159) to make the entire process seamless for CDP owners who do not hold MKR to buy the exact amount of MKR they need on the Eth2Dai exchange MKR/SAI market, and also pay back Sai to close the CDP in the same transaction.
 
 ### DSProxy
 
@@ -115,7 +115,7 @@ The function  `build` in the DSProxyFactory contract is used to deploy a persona
 
 ### Create a script
 
-We've seen an example earlier of how a script can help CDP owners pay back their Dai debt by purchasing the required amount of MKR from an exchange within the same transaction. Uniswap exchange contracts are a good source of liquidity especially for buying small amounts of MKR. In this section, we will create a script that will allow users to buy MKR with DAI from Uniswap and wipe debt from a CDP.
+We've seen an example earlier of how a script can help CDP owners pay back their Sai debt by purchasing the required amount of MKR from an exchange within the same transaction. Uniswap exchange contracts are a good source of liquidity especially for buying small amounts of MKR. In this section, we will create a script that will allow users to buy MKR with Sai from Uniswap and wipe debt from a CDP.
 
 #### Environment Setup
 
@@ -173,7 +173,7 @@ interface TubLike {
 }
 ```
 
-Add the `TokenLike` interface to interact with functions on DAI and MKR tokens
+Add the `TokenLike` interface to interact with functions on Sai and MKR tokens
 
 ```text
 interface TokenLike {
@@ -193,7 +193,7 @@ interface PepLike {
 }
 ```
 
-Add the `UniswapExchangeLike` interface to be able to retrieve output prices of token swaps and execute them on the Uniswap exchange contracts setup for both DAI and MKR tokens
+Add the `UniswapExchangeLike` interface to be able to retrieve output prices of token swaps and execute them on the Uniswap exchange contracts setup for both SAI and MKR tokens
 
 ```text
 interface UniswapExchangeLike {
@@ -216,10 +216,10 @@ contract WipeProxy is DSMath {
 Add a new function `wipeWithDai` which takes in the following inputs,
 
 * Address of the Tub contract
-* Address of the Uniswap DAI exchange contract
+* Address of the Uniswap SAI exchange contract
 * Address of the Uniswap MKR exchange contract
 * Id of the CDP in decimals. Ex: 44
-* Amount of Dai debt to pay back on the CDP
+* Amount of Sai debt to pay back on the CDP
 
 ```text
 function wipeWithDai(
@@ -237,7 +237,7 @@ function wipeWithDai(
 
 #### Checks
 
-Within the function body, ensure at least some Dai debt is being wiped in the transaction using a require statement
+Within the function body, ensure at least some Sai debt is being wiped in the transaction using a require statement
 
 ```text
 require(wad > 0);
@@ -277,9 +277,9 @@ function setAllowance(TokenLike token_, address spender_) private {
 
 In the `wipeWithDai` function, we can now set the required allowances using the `setAllowance` function.
 
-* Allow the Tub contract to debit DAI from the DSProxy contract
+* Allow the Tub contract to debit SAI from the DSProxy contract
 * Allow the Tub contract to debit MKR from the DSProxy contract
-* Allow the Uniswap DAI Exchange contract to debit DAI from the DSProxy contract
+* Allow the Uniswap SAI Exchange contract to debit SAI from the DSProxy contract
 
 ```text
 setAllowance(dai, _tub);
@@ -287,7 +287,7 @@ setAllowance(mkr, _tub);
 setAllowance(dai, _DAIExchange);
 ```
 
-#### Transfer Dai to the DSProxy contract
+#### Transfer Sai to the DSProxy contract
 
 Read the current MKRUSD price
 
@@ -295,29 +295,29 @@ Read the current MKRUSD price
 (bytes32 val, bool ok) = pep.peek();
 ```
 
-Calculate the amount of MKR needed for successfully executing wipe by dividing the stability fee amount accrued in Dai with the current value reported by the MKRUSD price oracle contract
+Calculate the amount of MKR needed for successfully executing wipe by dividing the stability fee amount accrued in Sai with the current value reported by the MKRUSD price oracle contract
 
 ```text
 uint mkrFee = wdiv(rmul(wad, rdiv(tub.rap(cup), tub.tab(cup))), uint(val));
 ```
 
-Calculate the additional Dai needed to buy MKR from Uniswap. This is done by first calculating the amount of ETH needed to buy the required MKR, and then the amount of Dai needed to buy the required ETH
+Calculate the additional Sai needed to buy MKR from Uniswap. This is done by first calculating the amount of ETH needed to buy the required MKR, and then the amount of Sai needed to buy the required ETH
 
 ```text
 uint ethAmt = mkrEx.getEthToTokenOutputPrice(mkrFee);
 uint daiAmt = daiEx.getTokenToEthOutputPrice(ethAmt);
 ```
 
-We can now calculate the total amount of Dai and transfer it from the user's address to their DSProxy contract
+We can now calculate the total amount of Sai and transfer it from the user's address to their DSProxy contract
 
 ```text
 daiAmt = add(wad, daiAmt);
 require(dai.transferFrom(msg.sender, address(this), daiAmt));
 ```
 
-#### Exchange Dai for MKR on Uniswap
+#### Exchange Sai for MKR on Uniswap
 
-The `tokenToTokenSwapOutput` function exchanges Dai for the required amount of MKR specified in the input as `mkrFee`. The remaining inputs set the maximum amount of DAI and ETH used for the transaction, and deadline set for the transaction to be valid. Paying stability fees can be skipped if the MKRUSD oracles are not valid.
+The `tokenToTokenSwapOutput` function exchanges Sai for the required amount of MKR specified in the input as `mkrFee`. The remaining inputs set the maximum amount of Sai and ETH used for the transaction, and deadline set for the transaction to be valid. Paying stability fees can be skipped if the MKRUSD oracles are not valid.
 
 ```text
 if(ok && val != 0) {
@@ -325,9 +325,9 @@ if(ok && val != 0) {
 }
 ```
 
-#### Wipe Dai debt from the CDP
+#### Wipe Sai debt from the CDP
 
-Wipe debt of the CDP with DAI and pay the stability fee with MKR available on the DSProxy contract.
+Wipe debt of the CDP with Sai and pay the stability fee with MKR available on the DSProxy contract.
 
 ```text
 tub.wipe(cup, wad);
@@ -388,7 +388,7 @@ contract WipeProxy is DSMath {
 
 ### Deployment and Execution
 
-Before we begin, ensure you have some Kovan ETH to pay gas for transactions and Kovan Dai on the address by following instructions on this [guide](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md#testnet)
+Before we begin, ensure you have some Kovan ETH to pay gas for transactions and Kovan Sai on the address by following instructions on this [guide](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md#testnet)
 
 Build the `wipe-proxy` project
 
@@ -427,20 +427,20 @@ Make a note of the returned DSProxy contract address and store it as a variable.
 export MYPROXY=0xYourDSProxyAddress
 ```
 
-Set allowance for your DSProxy contract address to spend from the Dai token balance on your own address
+Set allowance for your DSProxy contract address to spend from the Sai token balance on your own address
 
 ```bash
 export DAITOKEN=0xc4375b7de8af5a38a93548eb8453a498222c4ff2
 seth send $DAITOKEN 'approve(address)' $MYPROXY
 ```
 
-We can prepare calldata to wipe 1 DAI in debt from CDP #44 on Kovan using this command with the following inputs,
+We can prepare calldata to wipe 1 SAI in debt from CDP #44 on Kovan using this command with the following inputs,
 
 * Address of the Tub contract on Kovan
-* Address of the Uniswap DAI Exchange
+* Address of the Uniswap SAI Exchange
 * Address of the Uniswap MKR Exchange
 * CDP #44 in bytes32 format
-* 1 Dai to wipe
+* 1 Sai to wipe
 
 ```bash
 seth calldata 'wipeWithDai(address,address,address,uint,uint)' 0xa71937147b55deb8a530c7229c442fd3f31b7db2 0x47D4Af3BBaEC0dE4dba5F44ae8Ed2761977D32d6 0x88f55896d822E2355760648731778f21952693AB $(seth --to-hexdata $(seth --to-uint256 44)) $(seth --to-uint256 $(seth --to-wei 1 eth))

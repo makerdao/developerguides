@@ -235,7 +235,7 @@ export MCD_SPOT=0x….
 ```
 export MCD_VAT=0x….
 ```
-- `MCD_VAT` is a contract for the CDP core engine, keeps track of DAI credit system accounting.
+- `MCD_VAT` is a contract for the Vault core engine, keeps track of DAI credit system accounting.
 
 ```
 export MCD_JOIN_DAI=0x….
@@ -274,8 +274,8 @@ export ilk=$(seth --to-bytes32 "$(seth --from-ascii "ETH-A")")
 ```
 export urn=$(seth --to-bytes32 $ETH_FROM)
 ```
-- `urn` - a specific CDP
-- Setting the `urn` variable to your ethereum address. Urn being the specific CDP that you’ll create
+- `urn` - a specific Vault
+- Setting the `urn` variable to your ethereum address. Urn being the specific Vault that you’ll create
 
 ```
 export mat=1500000000
@@ -349,7 +349,7 @@ Checking if `MCD_JOIN_ETH` got the collateral:
 seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'gem(bytes32,bytes32)(uint256)' $ilk $urn)) eth
 ```
 
-Finally, we can lock up collateral in the Vat and generate Dai. The parameters `$dink` and `$dart` that we defined earlier represent how much ether we want to lock in our ether CDP and how much Dai we want to generate, respectively. This being 5 ether and 20 Dai. We can deposit the ether and generate Dai all in one transaction, as shown below:
+Finally, we can lock up collateral in the Vat and generate Dai. The parameters `$dink` and `$dart` that we defined earlier represent how much ether we want to lock in our ether Vault and how much Dai we want to generate, respectively. This being 5 ether and 20 Dai. We can deposit the ether and generate Dai all in one transaction, as shown below:
 ```
 seth send $MCD_VAT "frob(bytes32,bytes32,bytes32,bytes32,int256,int256)" $ilk $urn $urn $urn $dink $dart
 ```
@@ -378,9 +378,9 @@ Output:
 20.000000000000000000
 ```
 
-If all went right, you should see your balance of Dai in your account. Congratulations, you’ve successfully created an ETH CDP in the MCD system and drawn some fresh Dai. 
+If all went right, you should see your balance of Dai in your account. Congratulations, you’ve successfully created an ETH Vault in the MCD system and drawn some fresh Dai. 
 
-Note, if you want to create a CDP with other tokens, like `COL1`, you need to request some from the `FAUCET` contract. You'll find the `FAUCET` contract address in the `out/addresses-mcd.json` file.
+Note, if you want to create a Vault with other tokens, like `COL1`, you need to request some from the `FAUCET` contract. You'll find the `FAUCET` contract address in the `out/addresses-mcd.json` file.
 
 Add the `FAUCET` address to the env variable:
 ```
@@ -447,7 +447,7 @@ seth balance $ETH_FROM
 ```
 
 ## Summary
-In this guide, you have been introduced to Maker’s test chain and its benefits. You’ve learned how to deploy your own test chain with your preferred configuration options. You have interacted with the Maker system through the dai.js and seth tools by creating a CDP and drawing some Dai. 
+In this guide, you have been introduced to Maker’s test chain and its benefits. You’ve learned how to deploy your own test chain with your preferred configuration options. You have interacted with the Maker system through the dai.js and seth tools by creating a Vault and drawing some Dai. 
 
 ## Troubleshooting
 Feel free to create an [issue](https://github.com/makerdao/testchain/issues) if you run into trouble. We are here to help you. 
