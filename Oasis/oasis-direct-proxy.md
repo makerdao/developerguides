@@ -9,7 +9,7 @@ Trading on decentralized marketplaces involves signing multiple transactions wit
 
   
 
-This guide will show you how to make trades on the OasisDEX Protocol through the [Oasis Direct Proxy](https://github.com/makerdao/oasis-direct-proxy). The Oasis Direct Proxy allows you to bundle together many function calls into a single transaction. So, when you have to swap some ERC-20 tokens, you will be able to do it all in one transaction.
+This guide will show you how to make trades on the OasisDEX Protocol through the [Oasis Direct Proxy](https://github.com/makerdao/oasis-direct-proxy). The Oasis Direct Proxy allows you to bundle together many function calls into a single transaction. So, when you have to trade some ERC-20 tokens, you will be able to do it all in one transaction.
 
   
 
@@ -129,17 +129,17 @@ The Oasis Direct Proxy covers 6 functions that you could use. These are:
 
   
 
--   [sellAllAmount](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L27) - Triggering an ERC-20 for ERC-20 exchange
+-   [sellAllAmount](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L27) - Triggering an ERC-20 for ERC-20 trade
     
--   [sellAllAmountPayEth](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L36) - Triggering an ETH for ERC-20 token exchange
+-   [sellAllAmountPayEth](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L36) - Triggering an ETH for ERC-20 token trade
     
--   [sellAllAmountBuyEth](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L45) - Triggering an ERC-20 for ETH exchange
+-   [sellAllAmountBuyEth](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L45) - Triggering an ERC-20 for ETH trade
     
--   [buyAllAmount](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L54) - Triggering an ERC-20 for ERC-20 exchange
+-   [buyAllAmount](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L54) - Triggering an ERC-20 for ERC-20 trade
     
--   [buyAllAmountPayEth](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L65) - Triggering an ETH for ERC-20 token exchange
+-   [buyAllAmountPayEth](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L65) - Triggering an ETH for ERC-20 token trade
     
--   [buyAllAmountBuyEth](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L76) - Triggering an ERC-20 for ETH exchange
+-   [buyAllAmountBuyEth](https://github.com/makerdao/oasis-direct-proxy/blob/321f63bb33fb534c490e8c56680daeab10608bc1/src/OasisDirectProxy.sol#L76) - Triggering an ERC-20 for ETH trade
     
 
 If you want to understand each function in more detail, please do read the provided [README](https://github.com/makerdao/oasis-direct-proxy). For example, if you want to sell exactly 10 BAT for some amount of ETH, you can use sellAllAmountBuyEth(). If you want to sell at least 10 ZRX for some specified amount of DAI, you can use buyAllAmount() as you will be buying specific amount of DAI, paying for it with ZRX.
@@ -171,15 +171,15 @@ Below is an example of how to do it:
 
   
 
-With DS-Proxy you only have to approve the token contracts once in order to carry as many exchanges as you want. This is the benefit of using such contract.
+With DS-Proxy you only have to approve the token contracts once in order to carry as many trades as you want. This is the benefit of using such contract.
 
-## Making an exchange
+## Making a trade
 
 Note: Check the liquidity on the [marketplace](https://oasis.app/trade) on the Kovan network before doing any function calls. If there is no liquidity, then you will have failed transactions.
 
   
 
-Let’s assume we want to buy exactly 3 Dai on the Oasis protocol. In order to process this exchange, we can use the buyAllAmountPayEth function. In this function, we specify the exact amount of Dai we want to receive and send an approximate amount of ETH. Given that this function does not “pull” any tokens from your wallet, no additional token approval is necessary.
+Let’s assume we want to buy exactly 3 Dai on the Oasis protocol. In order to process this trade, we can use the buyAllAmountPayEth function. In this function, we specify the exact amount of Dai we want to receive and send an approximate amount of ETH. Given that this function does not “pull” any tokens from your wallet, no additional token approval is necessary.
 
   
 
@@ -221,7 +221,7 @@ To execute the **buyAllAmountPayEth** function, you need to send a transaction t
   
 
 [This](https://kovan.etherscan.io/tx/0xd24d388f61b86d3a726df99231d71fae94e0b7c711a43b5f963ada5ba73cba6b) is an example of a successful transaction.  
-If you look closely, you’ll notice that that the user sent more ETH than was necessary to the exchange. For getting 3 Dai he paid 0.037974683544303797 ETH and the rest was returned back to his wallet. This is special to this marketplace function. You define the exact number of Dai you want to receive. Depending on the market liquidity, you might spend more or less ETH for the Dai. So, in your case he bought Dai at the ~ 79 ETH/DAI price.
+If you look closely, you’ll notice that that the user sent more ETH than was necessary to the marketplace. For getting 3 Dai he paid 0.037974683544303797 ETH and the rest was returned back to his wallet. This is special to this marketplace function. You define the exact number of Dai you want to receive. Depending on the market liquidity, you might spend more or less ETH for the Dai. So, in your case he bought Dai at the ~ 79 ETH/DAI price.
 
   
 
