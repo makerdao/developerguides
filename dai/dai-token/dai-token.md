@@ -127,7 +127,7 @@ This command will deploy a new DSToken with your address set as the owner.
 
 ## Summary
 
-In this guide, we briefly discussed the technical details of the Dai token contract as well as a quick summary of its role in the Dai Credit System. Please refer to the links embedded in the document as well as the additional resources section for more information. We also urge you to explore the various tools and services built on top of Dai by our partner ecosystem.
+In this guide, we briefly discussed the technical details of the Dai token contract as well as a quick summary of its role in the Maker Protocol. Please refer to the links embedded in the document as well as the additional resources section for more information. We also urge you to explore the various tools and services built on top of Dai by our partner ecosystem.
 
 ## Additional resources
 
