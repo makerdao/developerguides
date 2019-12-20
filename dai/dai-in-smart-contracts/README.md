@@ -75,7 +75,7 @@ contract owned {
 
 	constructor() public{
 		owner = msg.sender;
-		daitoken = DaiToken(0xC4375B7De8af5a38a93548eb8453a498222C4fF2);
+		daitoken = DaiToken(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
 	}
 	
 	modifier onlyOwner {
