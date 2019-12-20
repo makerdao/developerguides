@@ -31,7 +31,7 @@ Knowledge in:
     
 -   Javascript
     
--   [Dai.js](hhttps://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
+-   [Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
     
 
 # Sections
