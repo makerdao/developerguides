@@ -103,9 +103,9 @@ There are multiple ways to integrate with the Maker products: Smart contracts, D
 
 We can recommend one tool over another according to our experience, however you or your software architect would have a better understanding of what could be used in your system.
 
-##### [Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js)
+##### [Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
 
-Link to documentation: [Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js)
+Link to documentation: [Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
 
 By opting the Dai.js route, you will have a library full of ready to use features that can be plugged into your own infrastructure. This library supports both frontend and backend applications and is also used in products delivered by the Maker Foundation. It allows you to focus mostly on your product design and not much on the internal plumbing on managing a web3 instance with contract ABIs.
 

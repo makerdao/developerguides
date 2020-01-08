@@ -32,7 +32,7 @@ A style guide and additional logos can [be found here](https://www.notion.so/mak
 
 ### Token libraries
 #### Javascript Library
-[Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
+[Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
 
 #### Python API
 Similarly to the library above, the [Python API](https://github.com/makerdao/pymaker) provides endpoints to interact with the smart contracts in a Python environment, such as [endpoints for token transfers](https://github.com/makerdao/pymaker#token-transfer).
@@ -67,7 +67,7 @@ Countries: Mexico, Chile
 - Source: https://github.com/makerdao/dss
 
 **Dai.js Javascript Library**
-- Docs: https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js
+- Docs: https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki
 - Source: https://github.com/makerdao/dai.js
 
 **Python API**
