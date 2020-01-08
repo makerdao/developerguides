@@ -36,7 +36,7 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 ### Pre-requisites
 -   [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md)
     
--   [Working with Dai.js SDK](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js)
+-   [Working with Dai.js SDK](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
     
 -   [Working seth](https://docs.makerdao.com/clis/seth)
     
