@@ -46,7 +46,7 @@ Fiat on-off ramps are services that exchanges fiat currencies to Dai, bridging t
 Maker has partnerships with the following on-off ramps for Dai liquidity and easy Dai to fiat currency conversion, proving a useful resource for remittance services.
 * [Wyre](https://www.sendwyre.com/)\
 The [Wyre API](https://www.sendwyre.com/docs/) allows for easy exchange between a number of fiat currencies and Dai.\
-Checkout [this guide](/partners/wyre/wyre-guide-01/wyre-guide-01.md) to see how to implement their API for cross/border transactions.\
+Checkout [this guide](/partners/wyre-guide-01/wyre-guide-01.md) to see how to implement their API for cross/border transactions.\
 Not supported in [these countries](https://support.sendwyre.com/security/non-operational-states-in-us-and-countries).
 * [Ripio](https://www.ripio.com/en/)\
 Countries: Argentina, Brazil, (Mexico soon)
