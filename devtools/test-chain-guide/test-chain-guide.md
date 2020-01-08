@@ -95,14 +95,14 @@ scripts/launch -s default --fast --verbose
 For more options check out our [repo](https://github.com/makerdao/testchain#options).
 
 ## Interacting with Maker Protocol contracts
-You’ll find all the necessary Maker contract addresses in the `out/addresses.json` or `out/addresses-mcd.json` file in the testchain folder. You can use these addresses to develop your own tools that interact with Maker contracts. Use our own [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) library or interact through the command line with [seth](https://dapp.tools/seth/). We will go through both of these methods now.
+You’ll find all the necessary Maker contract addresses in the `out/addresses-mcd.json` file in the testchain folder. You can use these addresses to develop your own tools that interact with Maker contracts. Use our own [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) library or interact through the command line with [seth](https://dapp.tools/seth/). We will go through both of these methods now.
 
 #### Open a Vault with [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js)
 
 So, to start from scratch:
 - Start the testchain in another terminal, as you’ll be connecting to it when running the js file.
 - In a directory of your choice, in another terminal, initiate an empty project with `npm init -y`
-- Add the `@makerdao/dai` package: `npm i --save @makerdao/dai`
+- Add the `@makerdao/dai` and the `@makerdao/dai-plugin-mcd` packages: `npm i --save @makerdao/dai @makerdao/dai-plugin-mcd`
 - Create a `cdp.js` file where you’ll write your script.
 - Copy the below example in your js file
 - Run the file with `node cdp.js`
@@ -111,55 +111,56 @@ Below is an example that shows the process of opening a CDP in the Single Collat
 
 ```javascript
 const Maker = require('@makerdao/dai');
-
+const McdPlugin = require('@makerdao/dai-plugin-mcd').default;
+const ETH = require('@makerdao/dai-plugin-mcd').ETH;
+const MDAI = require('@makerdao/dai-plugin-mcd').MDAI;
 
 async function start() {
-	try {
-		const maker = await Maker.create('test');
-		await maker.authenticate();
+  try {
+    const maker = await Maker.create('test', {
+      plugins: [
+        [McdPlugin, {}]
+      ]
+    });
+    await maker.authenticate();
 
+    const balance = await maker
+      .service('token')
+      .getToken('ETH')
+      .balance();
+    console.log('Account: ', maker.currentAddress());
+    console.log('Balance', balance.toString());
 
-		// Get account and balance
-		const balance = await maker.getToken('ETH').balanceOf(maker.currentAddress());
-		console.log('Account: ', maker.currentAddress());
-		console.log('Balance', balance.toString());
+    const cdp = await maker
+      .service('mcd:cdpManager')
+      .openLockAndDraw('ETH-A', ETH(1), MDAI(20));
 
-		// Open CDP, lock ETH and Draw DAI
-		const cdp = await maker.openCdp();
-		console.log('Opened CDP with ID: ', cdp.id)
+    console.log('Opened CDP #'+cdp.id);
+    console.log('Collateral amount:'+cdp.collateralAmount.toString());
+    console.log('Debt Value:'+cdp.debtValue.toString());
 
-		await cdp.lockEth(0.1)
-		console.log('Locked ETH')
-		await cdp.drawDai(5)
-		console.log('Draw DAI');
-
-		const debt = await cdp.getDebtValue();
-		console.log(debt.toString());
-
-	} catch (error) {
-		console.log('error', error)
-	}
+  } catch (error) {
+    console.log('error', error);
+  }
 }
 
-start()
-
+start();
 ```
 
 So, if everything went according to plan, you should see an output like the one below:
 ```
 Web3 is initializing...
 Web3 is connecting...
-Web3 version:  1.0.0-beta.34
+Web3 version:  1.2.1
 Web3 is authenticating...
 Account:  0x16fb96a5fa0427af0c8f7cf1eb4870231c8154b6
-Balance 96.68 ETH
-Opened CDP with ID:  1
-Locked ETH
-Draw DAI
-5.00 DAI
+Balance 70.85 ETH
+Opened CDP #6
+Collateral amount:1.00 ETH
+Debt Value:20.00 MDAI
 ```
 
-#### Use MCD contracts to draw Dai with [seth](https://dapp.tools/seth/)
+#### Interact with contracts directly with [seth](https://dapp.tools/seth/)
 
 In this example, we will draw Dai by depositing ETH into the MCD contracts that are deployed on our testchain. We will interact with the smart contracts directly, so there’s more steps involved.   
 
