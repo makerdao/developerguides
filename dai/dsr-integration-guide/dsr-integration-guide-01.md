@@ -77,9 +77,7 @@ The contracts you need to work with are:
 -   [Vat](https://github.com/makerdao/dss/blob/master/src/vat.sol) - [0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b](https://etherscan.io/address/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b#code)
     
 -   [DssProxyActionsDsr](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L891) - [0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26](https://etherscan.io/address/0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26#code)
-    
 
-  
 
 You can find ABIs here: [https://changelog.makerdao.com/releases/mainnet/1.0.0/abi/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.0/abi/index.html)
 
@@ -265,34 +263,34 @@ You can read more about rates here:
 ### Calculating user earnings on a pool of Dai in DSR
 If you are an exchange or some other type of custodian that holds funds on behalf of users, and you want to manage a pool of Dai with DSR activated, rather than a stack for each user, you need to do some internal accounting to keep track of how much Dai each user has earned and are allowed to withdraw from the pool.
 In order to do this, any time a user activates DSR on an amount of Dai, you need to calculate a normalized balance, to calculate the compounding rate for each user.
-The normalized balance is a balance that does not change, but resembles a fraction of Dai in the DSR. It is calculated by taking the amount of Dai a user wants to add to the DSR contract, and dividing it by the variable chi, which is the “rate accumulator” in the system. Chi is a variable that increases in value at the rate of the DSR. So if the DSR is set to 4% APR, the chi value will grow 4% in a year. The rate is accumulated every second and is updated almost every block, why the number chi is a small number that grows slowly. The variable chi can be read directly from the DSR smart contract pot, or retrieved from the integration libraries.
+The normalized balance is a balance that does not change, but resembles a fraction of Dai in the DSR. It is calculated by taking the amount of Dai a user wants to add to the DSR contract, and dividing it by the variable `chi`, which is the “rate accumulator” in the system. `chi` is a variable that increases in value at the rate of the DSR. So if the DSR is set to 4% APR, the chi value will grow 4% in a year. The rate is accumulated every second and is updated almost every block, why the number `chi` is a small number that grows slowly. The variable `chi` can be read from the Oasis API at https://api.oasis.app/v1/save/info, directly from the DSR smart contract [pot](https://github.com/makerdao/dss/blob/master/src/pot.sol#L61), or retrieved from the [integration libraries](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js).
 
 Therefore, when an amount of Dai of a user is added to the DSR contract, you simply need to store how much Dai they are supplying, and calculate and store what the normalized balance is at that time. So if Alice adds 10 Dai to your pool of Dai in DSR, you would record the following:
 
 `Deposit 2020-01-08:    User: Alice,   Dai: 10,   Chi: 1.0002345,   Normalized Balance (Dai/Chi): 9.9976555`
 
-In this case, at the time of deposit, Chi is 1.0002345, which evaluates to a normalized balance of 9.9976555. In reality chi has 18 decimals, and in a production scenario it is beneficial to use all the decimals in order to achieve maximum precision, since chi accumulates the savings rate every second, and thus the number only grows a tiny bit every block.
+In this case, at the time of deposit, `chi` is 1.0002345, which evaluates to a normalized balance of 9.9976555. In reality `chi` has 18 decimals, and in a production scenario it is beneficial to use all the decimals in order to achieve maximum precision, since `chi` accumulates the savings rate every second, and thus the number only grows a tiny bit every block.
 
-3 days go by, and the chi value grows according to the DSR. Now chi is 1.0006789. Alice wants to know how much her savings has increased in value. To calculate her stack, you simply take
+3 days go by, and the `chi` value grows according to the DSR. Now `chi` is 1.0006789. Alice wants to know how much her savings has increased in value. To calculate her stack, you simply take
 
-`Normalized Balance_Alice * chi
-= 9.9976555 * 1.0006789 = 10.0044429 Dai`
+`Normalized Balance_Alice * chi`
+`= 9.9976555 * 1.0006789 = 10.0044429 Dai`
 
-Alice has thus earned 0.0044 Dai in 3 days, and can withdraw this amount + her original 10 Dai from the Dai pool in DSR. However Alice decides to add 10 Dai extra to the pool. Again, you simply need to record the amount she deposits, and the current chi value to calculate the normalized balance.
+Alice has thus earned 0.0044 Dai in 3 days, and can withdraw this amount + her original 10 Dai from the Dai pool in DSR. However Alice decides to add 10 Dai extra to the pool. Again, you simply need to record the amount she deposits, and the current `chi` value to calculate the normalized balance.
 
 `Deposit 2020-01-11:    User: Alice,   Dai: 10,   Chi: 1.0006789,   Normalized Balance (Dai/Chi): 9.9932156`
 
-Notice that since chi has gone up since the first deposit, this time Alice’s normalized balance is lower. This is how we can keep track on how much Dai deposits on different days have earned from the DSR.
+Notice that since `chi` has gone up since the first deposit, this time Alice’s normalized balance is lower. This is how we can keep track on how much Dai deposits on different days have earned from the DSR.
 
-3 days more go by, and now Alice wants to calculate how much her total amount of Dai in DSR is worth. Now chi is: 1.0011233.
-This time, you must add the two normalized balances, and multiply it with chi. So the equation is: 
+3 days more go by, and now Alice wants to calculate how much her total amount of Dai in DSR is worth. Now `chi` is: 1.0011233.
+This time, you must add the two normalized balances, and multiply it with `chi`. So the equation is: 
 
-`SUM(Normalized Balances)*chi
-= (9.997655+9.9932156)*1.0011233 = 20.0133263 Dai`
+`SUM(Normalized Balances)*chi`
+`= (9.997655+9.9932156)*1.0011233 = 20.0133263 Dai`
 
 Alice’s Dai holdings in DSR is now 20.0133 Dai, so she has in total earned 0.0133 Dai over the 6 days.
 
-To sum up, in order to keep track of user holdings of Dai in a DSR pool, you must simply calculate and store the normalized balance of their Dai at that point in time their Dai is added to the pool, by dividing their Dai contribution with chi. When the user wants to retrieve all their Dai, you simply take their entire normalized balance and multiply it with chi, to calculate how much Dai he can retrieve.
+To sum up, in order to keep track of user holdings of Dai in a DSR pool, you must simply calculate and store the normalized balance of their Dai at that point in time their Dai is added to the pool, by dividing their Dai contribution with `chi`. When the user wants to retrieve all their Dai, you simply take their entire normalized balance and multiply it with `chi`, to calculate how much Dai he can retrieve.
 
 ## Summary
 
