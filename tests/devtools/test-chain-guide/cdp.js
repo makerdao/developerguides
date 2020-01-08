@@ -1,30 +1,35 @@
 const Maker = require('@makerdao/dai');
+const McdPlugin = require('@makerdao/dai-plugin-mcd').default;
+const ETH = require('@makerdao/dai-plugin-mcd').ETH;
+const MDAI = require('@makerdao/dai-plugin-mcd').MDAI;
 
 async function start() {
 	try {
-		const maker = await Maker.create('test');
+		const maker = await Maker.create('test', {
+			plugins: [
+				[McdPlugin, {}]
+			]
+		});
 		await maker.authenticate();
 
-		// Get account and balance
-		const balance = await maker.getToken('ETH').balanceOf(maker.currentAddress());
+		const balance = await maker
+			.service('token')
+			.getToken('ETH')
+			.balance();
 		console.log('Account: ', maker.currentAddress());
 		console.log('Balance', balance.toString());
 
-		// Open CDP, lock ETH and Draw DAI
-		const cdp = await maker.openCdp();
-		console.log('Opened CDP with ID: ', cdp.id)
+		const cdp = await maker
+			.service('mcd:cdpManager')
+			.openLockAndDraw('ETH-A', ETH(1), MDAI(20));
 
-		await cdp.lockEth(0.1)
-		console.log('Locked ETH')
-		await cdp.drawDai(5)
-		console.log('Draw DAI');
+		console.log('Opened CDP #'+cdp.id);
+		console.log('Collateral amount:'+cdp.collateralAmount.toString());
+		console.log('Debt Value:'+cdp.debtValue.toString());
 
-		const debt = await cdp.getDebtValue();
-		console.log(debt.toString());
-		return debt.toString()
-
+		return(cdp.debtValue.toString());
 	} catch (error) {
-		console.log('error', error)
+		console.log('error', error);
 	}
 }
-module.exports = start
+module.exports = start;
