@@ -86,9 +86,9 @@ Let's define the amount we want to allow OASISDEX to withdraw. We'll set an equa
 export ALLOWANCE=$(seth --to-uint256 $(seth --to-wei 100000 eth))
 ```
 
-To approve OASISDEX in SAO, execute the below command:
+To approve OASISDEX in SAI, execute the below command:
 ```
-seth send $SAO 'approve(address,uint256)' $OASIS $ALLOWANCE
+seth send $SAI 'approve(address,uint256)' $OASIS $ALLOWANCE
 ```
 
 To approve OASISDEX in WETH, execute the below command:
@@ -110,7 +110,7 @@ Depending on the urgency of your order, you could fill these available orders or
 
 Now, if you'd like to get the same information as from the interface, we need to read the OasisDEX contract directly.
 
-Say we want to find the best offer on the WETH/SAO market, i.e. we want to purchase WETH with SAI and I want to know the best offer available. We can do this with the **getBestOffer(ERC20 sell_gem, ERC20 buy_gem)** function. This function returns you the best offer available on the order book for your specified market. The return value of this function is an id.
+Say we want to find the best offer on the WETH/SAI market, i.e. we want to purchase WETH with SAI and I want to know the best offer available. We can do this with the **getBestOffer(ERC20 sell_gem, ERC20 buy_gem)** function. This function returns you the best offer available on the order book for your specified market. The return value of this function is an id.
 
 Let's get the id of the best offer of the WETH/SAI market. The command below gets the id of the best offer and converts it to a decimal number. 
 ```
