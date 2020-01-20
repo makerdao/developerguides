@@ -1,12 +1,29 @@
 # Activating Dai Savings Rate on Dai stored in Gnosis Multisig Wallet
 
+**Level:** Beginner
+**Estimated Time:** 30 minutes
+
+
+## Overview
 In this guide, we will cover how you can add Dai from the old version of the Gnosis Multisig Wallet, to the DSR, and retrieve it again.
+
+## Learning Objectives
+-   Learn how to safely move funds from Gnosis Multisig Wallet into the DSR contract of the Maker Protocol.
+
+-   Learn how to retrieve Dai and accrued savings back into Gnosis Multisig Wallet.
+
+## Pre-requisites
+
+-   Basic knowledge of how to execute multisig transactions in the Gnosis Multisig UI.
+
+-   Knowledge of [Seth - an Ethereum CLI tool](#https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md)
+
+
+## Step 1: Building a DS-Proxy contract for the Multisig
 
 Go to [https://wallet.gnosis.pm/](https://wallet.gnosis.pm/) and login with your wallet. This is the old version of Gnosis Multisig.
 
 Navigate to the “Wallets” page, and click on the specific multisig wallet name, to enter the user interface for the specific multisig wallet.
-
-## Step 1: Building a DS-Proxy contract for the Multisig
 
 In order to be able to add Dai to DSR, we must first have a DS-Proxy contract created for the multisig wallet to allow us to interact with the Maker Protocol.  
 
@@ -46,9 +63,6 @@ Once the transaction has been mined, you should be able to retrieve the DS-Proxy
     
 -   Press “Send multisig transaction.”
     
-
-  
-
 Other key holders must now approve this transaction - once it has been approved by they keyholders, a keyholder must execute the function by pressing “Execute” next to the transaction. It can be a gas heavy transaction to build a proxy, so make sure you pass on a gas limit of 400000.
 
   
@@ -202,3 +216,12 @@ You can verify by inserting the address of the multisig wallet into the search b
 You can also verify by navigating to the DSR contract on Etherscan here: [https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#readContract](https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#readContract)
 
 Under “Read Contract”, function 5. “Pie” you can insert the DS-Proxy contract address from step 1. It will return a number a little lower than what you should have left or 0 if you retrieved it all, since this is the normalized internal balance of DSR. To get your Dai balance you must multiply this number with Chi. As long as this is a number close to what you would expect you should be good to go.
+
+## Additional resources
+
+-  [DSR integration guide]([https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr-integration-guide-01.md](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr-integration-guide-01.md))
+
+## Help
+
+-   Contact Integrations team -  [integrate@makerdao.com](mailto:integrate@makerdao.com)
+-   Rocket chat - #dev channel
