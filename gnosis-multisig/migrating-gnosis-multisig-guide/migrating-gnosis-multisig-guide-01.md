@@ -1,6 +1,7 @@
 # Migrating from Sai to Dai through Gnosis Multisig
 
 **Level:** Intermediary
+
 **Estimated Time:** 30 minutes
 
 ## Overview
@@ -23,12 +24,9 @@ In this guide, we will cover how you can migrate from Sai to Dai using the old v
     
 -   In the “ABI string” window copy and insert the entire ABI text string from the link below: [http://api.etherscan.io/api?module=contract&action=getabi&address=0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359&format=raw](http://api.etherscan.io/api?module=contract&action=getabi&address=0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359&format=raw)
     
--   In the “Method” dropdown select the “approve” method.
+-   In the “Method” dropdown select the “approve” method that will generate two input fields, "guy" and "wad".
     
-
--   This will generate two input fields below: “usr” and “wad”
-    
--   In “usr” you copy/paste the address of the migration contract:
+-   In “guy” you copy/paste the address of the migration contract:
 
 0xc73e0383f3aff3215e6f04b0331d58cecf0ab849
 
@@ -80,4 +78,4 @@ In this guide, we will cover how you can migrate from Sai to Dai using the old v
 ## Help
 
 -   Contact Integrations team -  [integrate@makerdao.com](mailto:integrate@makerdao.com)
--   Rocket chat - #dev channel
+-   chat.makerdao.com - #dev channel
