@@ -225,4 +225,4 @@ Under “Read Contract”, function 5. “Pie” you can insert the DS-Proxy con
 ## Help
 
 -   Contact Integrations team -  [integrate@makerdao.com](mailto:integrate@makerdao.com)
--   Rocket chat - #dev channel
+-   chat.makerdao.com - #dev channel
