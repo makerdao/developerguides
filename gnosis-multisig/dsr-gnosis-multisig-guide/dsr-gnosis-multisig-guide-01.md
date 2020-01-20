@@ -1,6 +1,7 @@
 # Activating Dai Savings Rate on Dai stored in Gnosis Multisig Wallet
 
 **Level:** Beginner
+
 **Estimated Time:** 30 minutes
 
 
@@ -219,7 +220,7 @@ Under “Read Contract”, function 5. “Pie” you can insert the DS-Proxy con
 
 ## Additional resources
 
--  [DSR integration guide]([https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr-integration-guide-01.md](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr-integration-guide-01.md))
+-  [DSR Integration Guide](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr-integration-guide-01.md)
 
 ## Help
 
