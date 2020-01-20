@@ -14,6 +14,15 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Dai in Smart Contracts](https://github.com/makerdao/developerguides/tree/master/dai/dai-in-smart-contracts/README.md)
 - [Dai Savings Rate integration guide](https://github.com/makerdao/developerguides/tree/master/dai/dsr-integration-guide/dsr-integration-guide-01.md)
 
+## Maker Protocol / Multi-Collateral Dai
+
+- [Introduction and Overview of Multi-Collateral Dai: MCD101](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-101/mcd-101.md)
+- [Using MCD-CLI to create and close a Vault on Kovan](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)
+- [Using Seth to create and close a Vault on Kovan](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-seth/mcd-seth-01.md)
+- [Upgrading to MCD - overview for different partners](https://github.com/makerdao/developerguides/tree/master/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
+- [Add a new collateral type to Maker Protocol - Kovan](https://github.com/makerdao/developerguides/tree/master/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
+- [Intro to the Rate mechanism](https://github.com/makerdao/developerguides/tree/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
+
 ## Developer Tools
 
 - [Test Chain Guide](https://github.com/makerdao/developerguides/tree/master/devtools/test-chain-guide/test-chain-guide.md)
@@ -39,15 +48,6 @@ All guides are organized in sections and by proficiency levels within each secti
 
 - [Auctions 101](https://github.com/makerdao/developerguides/tree/master/keepers/auctions/auctions-101.md)
 - [Simple Arbitrage Keeper](https://github.com/makerdao/developerguides/tree/master/keepers/simple-arbitrage-keeper/simple-arbitrage-keeper.md)
-
-## Multi-Collateral Dai
-
-- [Introduction and Overview of Multi-Collateral Dai: MCD101](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-101/mcd-101.md)
-- [Using MCD-CLI to create and close a Vault on Kovan](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)
-- [Using Seth to create and close a Vault on Kovan](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-seth/mcd-seth-01.md)
-- [Upgrading to MCD - overview for different partners](https://github.com/makerdao/developerguides/tree/master/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
-- [Add a new collateral type to Maker Protocol - Kovan](https://github.com/makerdao/developerguides/tree/master/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
-- [Intro to the Rate mechanism](https://github.com/makerdao/developerguides/tree/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 
 ## Partners
 
