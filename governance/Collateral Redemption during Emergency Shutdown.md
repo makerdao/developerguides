@@ -1,3 +1,4 @@
+# Collateral Redemption during Emergency Shutdown Guide
 
 **Level**: Intermediate
 
@@ -202,8 +203,6 @@ Finally, executing the `cashBATcalldata` in the `execute` function of the user's
 ```
 ## Vault Owners to Redeem Excess Collateral
 
----
-
 Likewise, a vault owner can use the `freeETH` or `freeGEM` proxy actions function to retrieve any excess collateral they may have locked in the system. 
 
 ### 1. Vault Holder State
@@ -273,5 +272,3 @@ The above outlines how to redeem Dai and excess Vault collateral using the comma
 In summary, we showed how to check your Dai holdings, how to approve a proxy to withdraw Dai from your wallet and then to use `cashETH/GEM` functions to withdraw collateral into the user’s ETH wallet using the `MYPROXY` contract . For Vault owners, we showed how to redeem collateral by using the `MYPROXY` contract and the `freeGEM` function.
 
 In the event of emergency shutdown we envision that it will still be possible to sell Dai on the open market as well as by making use of economically incentivised redemption keepers to meet market needs for both Dai owners and Vaults holders.
-
----
