@@ -87,6 +87,8 @@ The following figure outlines the migration flow:
 
 ![](https://lh6.googleusercontent.com/M406Z_MlqABR2Ry9m5_gwK8PWNPx9sUAs3NbazwH7pvvWh8gSIPxhzGlMXxvCk17voxByaRB-cQeKZfJ3DvD8_O4biGrZL7eA8LyJB7rH1ZkqaulxJXijjNOGCtMwVsAWIxoujUZ)
 
+If you hold Sai in a Gnosis Multisig wallet at wallet.gnosis.pm [follow this guide to upgrade your Sai.](https://github.com/makerdao/developerguides/blob/master/gnosis-multisig/migrating-gnosis-multisig-guide/migrating-gnosis-multisig-guide-01.md)
+
 #### You don’t control your private key
 
 If your Sai is deposited in an exchange or centralized wallet or locked in a dApp smart contract, you can follow the instructions these platforms are providing or withdraw the Sai and complete the upgrade yourself at [migrate.makerdao.com](https://migrate.makerdao.com/)

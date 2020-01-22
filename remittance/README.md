@@ -32,7 +32,7 @@ A style guide and additional logos can [be found here](https://www.notion.so/mak
 
 ### Token libraries
 #### Javascript Library
-[Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
+[Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
 
 #### Python API
 Similarly to the library above, the [Python API](https://github.com/makerdao/pymaker) provides endpoints to interact with the smart contracts in a Python environment, such as [endpoints for token transfers](https://github.com/makerdao/pymaker#token-transfer).
@@ -46,7 +46,7 @@ Fiat on-off ramps are services that exchanges fiat currencies to Dai, bridging t
 Maker has partnerships with the following on-off ramps for Dai liquidity and easy Dai to fiat currency conversion, proving a useful resource for remittance services.
 * [Wyre](https://www.sendwyre.com/)\
 The [Wyre API](https://www.sendwyre.com/docs/) allows for easy exchange between a number of fiat currencies and Dai.\
-Checkout [this guide](/partners/wyre/wyre-guide-01/wyre-guide-01.md) to see how to implement their API for cross/border transactions.\
+Checkout [this guide](/partners/wyre-guide-01/wyre-guide-01.md) to see how to implement their API for cross/border transactions.\
 Not supported in [these countries](https://support.sendwyre.com/security/non-operational-states-in-us-and-countries).
 * [Ripio](https://www.ripio.com/en/)\
 Countries: Argentina, Brazil, (Mexico soon)
@@ -67,7 +67,7 @@ Countries: Mexico, Chile
 - Source: https://github.com/makerdao/dss
 
 **Dai.js Javascript Library**
-- Docs: https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js
+- Docs: https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki
 - Source: https://github.com/makerdao/dai.js
 
 **Python API**

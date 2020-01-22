@@ -36,8 +36,8 @@ When listing Dai or Maker tokens on exchanges or in wallets, you should use the 
 
 ### Token libraries
 **Javascript Library**\
-[Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
-* Docs: https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js
+[Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
+* Docs: https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki
 * Source: https://github.com/makerdao/dai.js
 
 **Python API**\
