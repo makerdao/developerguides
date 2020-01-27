@@ -1,0 +1,20 @@
+{
+  "name": "test-chain-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node cdp.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@makerdao/dai": "^0.23.0-rc.5",
+    "@makerdao/dai-plugin-mcd": "^1.0.5"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
