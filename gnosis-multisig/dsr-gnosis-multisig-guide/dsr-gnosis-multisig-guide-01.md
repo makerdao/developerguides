@@ -119,6 +119,8 @@ Save this DS-Proxy contract address as we will need it later.
 
 ## Step 3: Adding Dai to DSR
 
+-   NOTE: In order for the DS-Proxy contract to add Dai to the DSR on your behalf the contract must have ETH in order to execute the transaction (pay for gas).
+
 -   Under “Multisig transactions” press “Add”
     
 -   In the “Destination” field input the address of the DS-Proxy contract we created at the end of step 1.
