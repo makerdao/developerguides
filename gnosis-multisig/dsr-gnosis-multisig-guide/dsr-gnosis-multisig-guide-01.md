@@ -1,6 +1,6 @@
 # Activating Dai Savings Rate on Dai stored in Gnosis Multisig Wallet
 
-**Level:** Beginner
+**Level:** Advanced
 
 **Estimated Time:** 30 minutes
 
