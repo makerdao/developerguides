@@ -7,7 +7,7 @@
 pragma solidity >=0.5.11;
 
 contract PotLike {
-    function chi() external returns (uint256);
+    function chi() external view returns (uint256);
     function rho() external returns (uint256);
     function drip() external returns (uint256);
     function join(uint256) external;
@@ -94,5 +94,11 @@ contract DSR {
         if (now > pot.rho()) pot.drip();
         pot.exit(pot.pie(address(this)));
         daiJoin.exit(msg.sender, daiJoin.vat().dai(address(this)) / RAY);
+    }
+
+    function balance() public view returns (uint256) {
+       uint256 pie = pot.pie(address(this)); 
+       uint256 chi = pot.chi();
+       return pie * chi / RAY;
     }
 }
