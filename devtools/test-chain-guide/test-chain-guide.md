@@ -232,7 +232,7 @@ Then we deposit 5 eth into the `WETH` adapter:
 seth send $ETH 'deposit()' --value $(seth --to-wei 5 ETH)
 ```
 
-And we approve `MCD_JOIN_ETH` to withdraw some `WETH`:
+And we approve `MCD_JOIN_ETH_A` to withdraw some `WETH`:
 ```
 seth send $ETH 'approve(address,uint256)' $MCD_JOIN_ETH_A $(seth --to-uint256 $(seth --to-wei 5 ETH))
 ```
