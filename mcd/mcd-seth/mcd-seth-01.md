@@ -20,11 +20,11 @@ For this guide, we are going to use the tool `seth`, to send transactions and in
 - `bc` ([Arbitrary Precision Calculator](https://www.gnu.org/software/bc/))
 
 ## Getting tokens
-Even though we are not using it as collateral, you will need Kovan ETH for gas. You can get some by following the guide here: [https://github.com/Kovan-testnet/faucet](https://github.com/kovan-testnet/faucet)
+Even though we are not using it as collateral, we will need Kovan ETH for gas. We can get some by following the guide here: [https://github.com/Kovan-testnet/faucet](https://github.com/kovan-testnet/faucet)
 
 Next, we are going to need some test collateral tokens (BAT) on the Kovan network to draw DAI from them. Luckily, there is a faucet set up just for this. It gives the caller 50 BAT Kovan tokens. 
 
-You can only call the faucet once per account address, so if you mess something up in the future or you need more for any reason, you are going to need to create a new account. This is how you can call the faucet with seth:
+We can only call the faucet once per account address, so if you mess something up in the future or you need more for any reason, you are going to need to create a new account. This is how we can call the faucet with seth:
 
 **BAT ERC-20 token contract**
 
@@ -48,7 +48,7 @@ If everything went according to plan, the output should be this:
 
 `50.000000000000000000`
 
-Note: You will need more than 50 BAT to be able to open a Vault large enough to generate the 20 minimum DAI required. The faucet won't provide more than 50 BAT per address but you may create additional addresses to accumulate the 130-150 BAT necessary. 
+Note: We will need more than 50 BAT to be able to open a Vault large enough to generate the 20 minimum DAI required. The faucet won't provide more than 50 BAT per address but you may create additional addresses to accumulate the 130-150 BAT necessary. 
 
 ## Saving contract addresses
 For better readability, we are going to save a bunch of contract addresses in variables belonging to the related smart contracts deployed to Kovan. In a terminal, carry out the following commands (in grey):
@@ -81,13 +81,13 @@ For better readability, we are going to save a bunch of contract addresses in va
 `export CDP_MANAGER=0x1476483dD8C35F25e568113C5f70249D3976ba21`
 
 ## Token approval
-You do not transfer ERC-20 tokens manually to the MCD adapters - instead you give approval for the adapters to using some of your ERC-20 tokens. The following section will take you through how to do that.
+We do not transfer ERC-20 tokens manually to the MCD adapters - instead we give approval for the adapters to using some of our ERC-20 tokens. The following section will take us through the necessary steps.
 
-In this example, we are going to use 150 BAT tokens to draw 20 DAI. You can of course use different amounts, just remember to change it accordingly in the function calls of this guide, while ensuring that you are within the accepted collateralization ratio of BAT Vault (150%) and the minimum vault debt (20 DAI). Let’s approve the use of 150 BAT tokens for the adapter, and then call the approve function of the BAT token contract with the right parameters. Again, we have to do some conversions, namely from `eth` unit to `wei`, then from decimal to hexadecimal (the `eth` keyword can be a bit confusing, but we are still dealing with BAT tokens. BAT has similar fraction values to ETH, so the keyword just means conversion to the whole token denomination):
+In this example, we are going to use 150 BAT tokens to draw 20 DAI. You may of course use different amounts, just remember to change it accordingly in the function calls of this guide, while ensuring that you are within the accepted collateralization ratio of BAT Vault (150%) and the minimum vault debt (20 DAI). Let’s approve the use of 150 BAT tokens for the adapter, and then call the approve function of the BAT token contract with the right parameters. Again, we have to do some conversions, namely from `eth` unit to `wei`, then from decimal to hexadecimal (the `eth` keyword can be a bit confusing, but we are still dealing with BAT tokens. BAT has similar fraction values to ETH, so the keyword just means conversion to the whole token denomination):
 
 `seth send $BAT 'approve(address,uint256)' $MCD_JOIN_BAT_A $(seth --to-uint256 $(seth --to-wei 150 eth))`
 
-If you want to be sure that your approve transaction succeeded, you can check the results with this command:
+If we want to be sure that our approve transaction succeeded, we can check the results with this command:
 
 ```seth --from-wei $(seth --to-dec $(seth call $BAT 'allowance(address, address)' $ETH_FROM $MCD_JOIN_BAT_A)) eth```
 
@@ -111,7 +111,7 @@ In order to better understand the MCD contracts, the following provides a brief 
 After giving permission to the BAT adapter of MCD to take some of our tokens, it’s time to finally start using the MCD contracts.    
 We'll be using the [CDP Manager](https://github.com/makerdao/dss-cdp-manager) as the preferred interface to interact with MCD contracts.     
 
-First let's open a Vault so we can use it to lock collateral into. For this we need to define the type of collateral (BAT-A) we want to lock in this Vault.   
+We begin by opening an empty Vault so we can use it to lock collateral into. For this we need to define the type of collateral (BAT-A) we want to lock in this Vault.   
 `export ilk=$(seth --to-bytes32 $(seth --from-ascii "BAT-A"))`     
 Now let's open the Vault   
 `seth send $CDP_MANAGER 'open(bytes32,address)' $ilk $ETH_FROM`    
@@ -137,7 +137,8 @@ Then use the following command to use the join function, thus taking 150 BAT fro
 
 `seth send $MCD_JOIN_BAT_A "join(address, uint)" $urn $wadC`
 
-You can check the results with the contract function: `gem(bytes32 ilk,address urn)(uint256)` with    
+We can check the results with the contract function: `gem(bytes32 ilk,address urn)(uint256)` with.
+
 `seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'gem(bytes32,address)(uint256)' $ilk $urn)) eth`
 
 The output should look like this:
@@ -176,7 +177,7 @@ The output should look like this (The result isn't exactly 20 Dai because of num
 
 `20.000000000000000000989957880534621130774523011`
 
- Now this DAI is minted, but the balance is still technically owned by the DAI adapter of MCD. If you actually want to use it, you have to transfer it to your account:
+ Now this DAI is minted, but the balance is still technically owned by the DAI adapter of MCD. If we actually want to use it, we have to transfer it to our account:
 ```
 export rad=$(seth --to-dec $(seth call $MCD_VAT 'dai(address)(uint256)' $urn))
 seth send $CDP_MANAGER 'move(uint256,address,uint256)' $cdpId $ETH_FROM $(seth --to-uint256 $rad)
@@ -189,7 +190,7 @@ We then permitting the Dai adapter to move Dai from VAT to our address:
 An finally we exit the internal dai to the ERC-20 DAI:   
 `seth send $MCD_JOIN_DAI "exit(address,uint256)" $ETH_FROM $(seth --to-uint256 $(seth --to-wei 20 eth))`
 
-And to check the DAI balance of your account:
+And to check the DAI balance of our account:
 
 `seth --from-wei $(seth --to-dec $(seth call $DAI_TOKEN 'balanceOf(address)' $ETH_FROM)) eth`
 
@@ -221,7 +222,7 @@ Then we need to approve the transfer of DAI tokens to the adapter. Call the appr
 
 `seth send $DAI_TOKEN 'approve(address,uint256)' $MCD_JOIN_DAI $debtWadRound`
 
-If you want to be sure that your approve transaction succeeded, you can check the results with this command:
+If we want to be sure that our approve transaction succeeded, we can check the results with this command:
 
 `seth --from-wei $(seth --to-dec $(seth call $DAI_TOKEN 'allowance(address, address)' $ETH_FROM $MCD_JOIN_DAI)) eth`
 
@@ -256,7 +257,7 @@ And execute:
 `seth send $CDP_MANAGER "frob(uint256,int256,int256)" $cdpId $dink $dart
 `
 
-This doesn’t mean you have already got back your tokens yet. If you check, your account’s BAT balance is not yet back to the original amount:
+This doesn’t mean we have already got back your tokens yet. Our account’s BAT balance is not yet back to the original amount:
 
 `seth --from-wei $(seth --to-dec $(seth call $BAT 'balanceOf(address)' $ETH_FROM)) eth`
 
@@ -271,7 +272,7 @@ And from there exit the BAT adapter to get back our tokens:
 
 `seth send $MCD_JOIN_BAT_A "exit(address, uint)" $ETH_FROM $wadC`
 
-If you check the balance again:
+If we check the balance again:
 
 `seth --from-wei $(seth --to-dec $(seth call $BAT 'balanceOf(address)' $ETH_FROM)) eth`
 
