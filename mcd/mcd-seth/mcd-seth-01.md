@@ -14,6 +14,10 @@ For this guide, we are going to use the tool `seth`, to send transactions and in
 **Note: Complete the above guide to setup your Seth environment variables and getting familiar with the tool before continuing. For this guide, we are using the Kovan Testnet. Ensure that Seth is configured to connect to Kovan by setting the network parameter accordingly in a terminal or config file:**
 
 `export SETH_CHAIN=kovan`
+### Other tools
+
+- [mcd-cli](https://github.com/makerdao/mcd-cli#installation)
+- `bc` ([Arbitrary Precision Calculator](https://www.gnu.org/software/bc/))
 
 ## Getting tokens
 Even though we are not using it as collateral, you will need Kovan ETH for gas. You can get some by following the guide here: [https://github.com/Kovan-testnet/faucet](https://github.com/kovan-testnet/faucet)
@@ -107,28 +111,25 @@ In order to better understand the MCD contracts, the following provides a brief 
 After giving permission to the BAT adapter of MCD to take some of our tokens, it’s time to finally start using the MCD contracts.    
 We'll be using the [CDP Manager](https://github.com/makerdao/dss-cdp-manager) as the preferred interface to interact with MCD contracts.     
 
-First let's open a Vault so we can use it to lock collateral into. For this we need to define the type of collateral(BAT-A) we want to lock in this Vault.   
+First let's open a Vault so we can use it to lock collateral into. For this we need to define the type of collateral (BAT-A) we want to lock in this Vault.   
 `export ilk=$(seth --to-bytes32 $(seth --from-ascii "BAT-A"))`     
 Now let's open the Vault   
 `seth send $CDP_MANAGER 'open(bytes32,address)' $ilk $ETH_FROM`    
 
-We need the `cdpId` of our open Vault so we can interact with the system.  
-`export cdpId=$(seth --to-dec $(seth call $CDP_MANAGER 'last(address)' $ETH_FROM))`    
-When we tested this procedure, `cdpId` was `726`
-
-Now, we need to get the `urn` address of our Vault.   
-`export urn=$(seth call $CDP_MANAGER 'urns(uint)(address)' $cdpId)`    
+We need the `cdpId` and `urn` address of our open Vault so we can interact with the system.  
+```
+export cdpId=$(seth --to-dec $(seth call $CDP_MANAGER 'last(address)' $ETH_FROM))
+export urn=$(seth call $CDP_MANAGER 'urns(uint)(address)' $cdpId)
+```    
 
 After acquiring `cdpId` and `urn` address, we can move to the next step. Locking our tokens into the system. 
 First we are going to make a transaction to the BAT adapter to actually take 10 of our tokens with the join contract function.
 
 The contract function looks like the following: `join(address urn, uint wad)`
+- The first parameter is the `urn`, our vault address.
+- The second parameter is the token amount in `wad`.
 
-The first parameter is the `urn`.
-
-The second parameter is the token amount in `wad`.
-
-First, let’s set up the `wadC` parameter in variable for the sake of readability:
+For the sake of readability, we up the `wadC` parameter representing the amount of collateral:
 
 `export wadC=$(seth --to-uint256 $(seth --to-wei 150 eth))`
 
@@ -143,48 +144,46 @@ The output should look like this:
 
 `150.000000000000000000`
 
-The reason for the size of the number, even when converting it from wei values, is that these numbers are stored with a pretty big resolution for precision.
-
 An optional, but recommended step is to invoke `jug.drip(ilk)` to make we are not paying undue stability fees. For more detail, please read the guide [Intro to the Rate mechanism](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 
 `seth send $MCD_JUG 'drip(bytes32)' $ilk`
 
 The next step is adding the collateral into an urn. This is done through the `CDP Manager` contract. 
-The function is called `frob`, which receives couple of parameters: `uint` - the `cdpId`, `address` - the destination address to send dai(`ETH_FROM` and not `urn`), `uint` - delta ink and `uint` - delta art. If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. Let’s add our 150 BAT to the urn, and draw 20 DAI ensuring that the position is overcollateralized.
+The function is called `frob(uint256,uint256,uint256)`, which receives couple of parameters: 
+- `uint256 cdp` - the `cdpId`
+- `int256 dink` - delta ink (collateral)
+- `int256 dart` - delta art (Dai).
+
+If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. Let’s add our 150 BAT to the urn, and draw 20 DAI ensuring that the position is overcollateralized.
 
 
-We already set up `ilk` before, so we only need to set up `dink` (BAT deposit) and `dart` (DAI to be drawn):
+We already set up `cdp` before, so we only need to set up `dink` (BAT deposit) and `dart` (DAI to be drawn):
 ```
- dink=$(seth --to-uint256 $(seth --to-wei 150 eth))
+dink=$(seth --to-uint256 $(seth --to-wei 150 eth))
 rate=$(seth --to-fix 27 $(seth --to-dec $(seth call $MCD_VAT 'ilks(bytes32)(uint256,uint256,uint256,uint256,uint256)' $ilk | sed -n 2p)))
 dart=$(seth --to-uint256 $(bc<<<"scale=18; art=(20/$rate*10^18+1); scale=0; art/1"))
 ```
-- The `vat` is using an internal dai representation called "normalised art" that is useful to calcultate accrued stability fees. To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`.
+- The `vat` is using an internal dai representation called "normalised art" that is useful to calculate accrued stability fees. To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`.
 
-And execute:
+With the variables set, we can call `frob`:
 `seth send $CDP_MANAGER 'frob(uint256,int256,int256)' $cdpId $dink $dart`
 
-Now, let's check out our DAI balance in MCD to see if we have succeeded. We are going to use the following `vat` function: `dai(address urn)(uint256)`
+Now, let's check out our internal DAI balance to see if we have succeeded. We are going to use the following `vat` function: `dai(address urn)(uint256)`:
 
-Let’s execute it:
 `seth --to-fix 45 $(seth --to-dec $(seth call $MCD_VAT 'dai(address)(uint256)' $urn))`
 
-The output should look like this:
+The output should look like this (The result isn't exactly 20 Dai because of number precision):
 
 `20.000000000000000000989957880534621130774523011`
 
-The result isn't exactly 20 Dai because of number precision issues.
-
- Now this DAI is minted, but the balance is still technically owned by the DAI adapter of MCD. If you actually want to use it, you have to transfer it to your account. 
-
-First me move the vat dai to our account:
+ Now this DAI is minted, but the balance is still technically owned by the DAI adapter of MCD. If you actually want to use it, you have to transfer it to your account:
 ```
 export rad=$(seth --to-dec $(seth call $MCD_VAT 'dai(address)(uint256)' $urn))
 seth send $CDP_MANAGER 'move(uint256,address,uint256)' $cdpId $ETH_FROM $(seth --to-uint256 $rad)
 ```
 - Here, `rad`, is the total amount of DAI available in the `urn`. We are reading this number to get all the DAI possible.
 
-We then permitting the Dai adapter to move Dai from VAT to your address.   
+We then permitting the Dai adapter to move Dai from VAT to our address:   
 `seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI`    
 
 An finally we exit the internal dai to the ERC-20 DAI:   
@@ -202,7 +201,7 @@ If everything checks out, congratulations: you have just acquired some multi-col
 
 ## Paying back DAI debt to release collateral
 
-To pay back your DAI and release the locked collateral, follow the following steps. Please make sure to obtain some additional Dai (from another account or from another vault) because chances are interest will have accumulated in the meantime. To force stability fee accumulation, anyone can invoke `jug.drip(ilk)`.
+To pay back your DAI and release the locked collateral, follow the following steps. Please make sure to obtain some additional Dai (from another account or from another vault) because chances are interest will have accumulated in the meantime. To force stability fee accumulation, anyone can invoke `jug.drip(ilk)`:
 
 `seth send $MCD_JUG 'drip(bytes32)' $ilk`
 
@@ -213,6 +212,10 @@ rate=$(seth --to-fix 27 $(seth --to-dec $(seth call $MCD_VAT 'ilks(bytes32)(uint
 debt=$(bc<<<"$art*$rate")
 debtWadRound=$(seth --to-uint256 $(bc<<<"$art*$rate*10^18/1+1"))
 ```
+- `art`: internal vault debt representation
+- `rate`: accumulated stability fee from the system
+- `debt`: vault debt in Dai
+- `debtWadRound`: vault debt in wad (i.e. multiplied by 10^18), added by 1 wad to avoid rounding issues.
 
 Then we need to approve the transfer of DAI tokens to the adapter. Call the approve function of the DAI ERC-20 token contract with the right parameters:
 
@@ -253,9 +256,7 @@ And execute:
 `seth send $CDP_MANAGER "frob(uint256,int256,int256)" $cdpId $dink $dart
 `
 
-This doesn’t mean you have already got back your tokens yet. If you check, your account’s BAT balance is not yet back to the original amount.
-
-To check the balance, execute:
+This doesn’t mean you have already got back your tokens yet. If you check, your account’s BAT balance is not yet back to the original amount:
 
 `seth --from-wei $(seth --to-dec $(seth call $BAT 'balanceOf(address)' $ETH_FROM)) eth`
 
