@@ -15,7 +15,7 @@ Learn how to deploy and interact with the test chain for your development purpos
 ## Pre-requisites
 
 You can run the testchain on MacOS/Linux systems and also on the [Windows Subsystem For Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
-You need to have [dapp.tools](https://dapp.tools/), [NodeJs](https://nodejs.org/en/) and bash installed on your machine.
+You need to have [dapp.tools](https://dapp.tools/), [NodeJs](https://nodejs.org/en/), [jq](https://stedolan.github.io/jq/download/) and bash installed on your machine.
 
 ## Sections
 
@@ -23,7 +23,7 @@ You need to have [dapp.tools](https://dapp.tools/), [NodeJs](https://nodejs.org/
 - Benefits of using the test chain
 - Getting Started
 - Options
-- Interacting with MakerDAO contracts
+- Interacting with Maker Protocol contracts
     - Open a Vault with dai.js
     - Use Maker Protocol contracts to draw some Dai with seth
 
@@ -102,11 +102,11 @@ To start from scratch:
 - Start the testchain in another terminal, as you’ll be connecting to it when running the js file.
 - In a directory of your choice, in another terminal, initiate an empty project with `npm init -y`
 - Add the `@makerdao/dai` and the `@makerdao/dai-plugin-mcd` packages: `npm i --save @makerdao/dai @makerdao/dai-plugin-mcd`
-- Create a `cdp.js` file where you’ll write your script.
+- Create a `vault.js` file where you’ll write your script.
 - Copy the below example in your js file
 - Run the file with `node cdp.js`
 
-Below is an example that shows the process of opening a CDP in the Single Collateral Dai system, locking some Eth and drawing some Dai:
+Below is an example that shows the process of opening a Vault in the Multi Collateral Dai system, locking some Eth and drawing some Dai:
 
 ```javascript
 const Maker = require('@makerdao/dai');
@@ -195,7 +195,7 @@ If connection is right, you’ll see this (your values might differ):
 94829630380000000000
 ```
 
-Next, we can start adding the MCD contract addresses. You’ll find these addresses in the file `testchain/out/addresses-mcd.json`. The following command will parse the json file and store the addresses as environment variables:
+Next, we can start adding the MCD contract addresses. You’ll find these addresses in the file `testchain/out/addresses-mcd.json`. Make sure to be in the testchain directory. The following command will parse the json file and store the addresses as environment variables:
 ```
 eval $(jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' out/addresses-mcd.json)
 ```
