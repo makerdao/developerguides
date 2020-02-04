@@ -80,6 +80,10 @@ For better readability, we are going to save a bunch of contract addresses in va
 
 `export CDP_MANAGER=0x1476483dD8C35F25e568113C5f70249D3976ba21`
 
+**MCD JUG Contract**   
+
+`export MCD_JUG=0xcbB7718c9F39d05aEEDE1c472ca8Bf804b2f1EaD`
+
 ## Token approval
 We do not transfer ERC-20 tokens manually to the MCD adapters - instead we give approval for the adapters to using some of our ERC-20 tokens. The following section will take us through the necessary steps.
 
@@ -166,7 +170,7 @@ dart=$(seth --to-uint256 $(bc<<<"scale=18; art=(20/$rate*10^18+1); scale=0; art/
 ```
 - The `vat` is using an internal dai representation called "normalised art" that is useful to calculate accrued stability fees. To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`.
 
-With the variables set, we can call `frob`:
+With the variables set, we can call `frob`:    
 `seth send $CDP_MANAGER 'frob(uint256,int256,int256)' $cdpId $dink $dart`
 
 Now, let's check out our internal DAI balance to see if we have succeeded. We are going to use the following `vat` function: `dai(address urn)(uint256)`:
