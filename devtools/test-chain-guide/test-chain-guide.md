@@ -104,7 +104,7 @@ To start from scratch:
 - Add the `@makerdao/dai` and the `@makerdao/dai-plugin-mcd` packages: `npm i --save @makerdao/dai @makerdao/dai-plugin-mcd`
 - Create a `vault.js` file where you’ll write your script.
 - Copy the below example in your js file
-- Run the file with `node cdp.js`
+- Run the file with `node vault.js`
 
 Below is an example that shows the process of opening a Vault in the Multi Collateral Dai system, locking some Eth and drawing some Dai:
 
