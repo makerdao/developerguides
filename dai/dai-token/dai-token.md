@@ -113,7 +113,7 @@ You will need to install dapptools to finish this section. Installation instruct
 
 Clone a local copy of the DSToken repo from this link, [https://github.com/dapphub/ds-token.git](https://github.com/dapphub/ds-token.git)
 
-Run `dapp update` to initialize all the git submodules present in the repo. Run `dapp build` to build the codebase and generate the files required to deploy the token contract.
+Run `dapp update` to initialize all the git submodules present in the repo. Run `dapp build --extract` to build the codebase and generate the files required to deploy the token contract.
 
 Run `dapp create DSTokenFactory` to deploy the DSTokenFactory contract, which we'll use to deploy a new token contract next. Copy the address of the factory to use in our next command.
 
