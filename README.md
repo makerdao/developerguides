@@ -13,7 +13,7 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Dai Token](https://github.com/makerdao/developerguides/tree/master/dai/dai-token/dai-token.md)
 - [Dai in Smart Contracts](https://github.com/makerdao/developerguides/tree/master/dai/dai-in-smart-contracts/README.md)
 - [Dai Savings Rate integration guide](https://github.com/makerdao/developerguides/tree/master/dai/dsr-integration-guide/dsr-integration-guide-01.md)
-
+- [Tracking Dai Supply](https://github.com/makerdao/developerguides/tree/master/dai/dai-supply/dai-supply.md)
 ## Maker Protocol / Multi-Collateral Dai
 
 - [Introduction and Overview of Multi-Collateral Dai: MCD101](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-101/mcd-101.md)
