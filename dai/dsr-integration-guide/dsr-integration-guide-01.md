@@ -269,7 +269,7 @@ Therefore, when an amount of Dai of a user is added to the DSR contract, you sim
 
 `Deposit 2020-01-08:    User: Alice,   Dai: 10,   Chi: 1.0002345,   Normalized Balance (Dai/Chi): 9.9976555`
 
-In this case, at the time of deposit, `chi` is 1.0002345, which evaluates to a normalized balance of 9.9976555. In reality `chi` has 18 decimals, and in a production scenario it is beneficial to use all the decimals in order to achieve maximum precision, since `chi` accumulates the savings rate every second, and thus the number only grows a tiny bit every block.
+In this case, at the time of deposit, `chi` is 1.0002345, which evaluates to a normalized balance of 9.9976555. In reality `chi` has 27 decimals, and in a production scenario it is beneficial to use all the decimals in order to achieve maximum precision, since `chi` accumulates the savings rate every second, and thus the number only grows a tiny bit every block.
 
 3 days go by, and the `chi` value grows according to the DSR. Now `chi` is 1.0006789. Alice wants to know how much her savings has increased in value. To calculate her stack, you simply take
 
