@@ -244,7 +244,7 @@ To calculate the normalized balance stored in pie you simply do the following eq
 
 `Normalized Balance = Deposited Dai / chi`
 
-Everytime the system is updated by calling drip() the number `chi` grows according to the savings rate `dsr`. However the normalized balances in `pie` remain unchanged.
+Everytime the system is updated by calling `drip()` the number `chi` grows according to the savings rate `dsr`. However the normalized balances in `pie` remain unchanged.
 
 To retrieve current balance of a user in Dai, and therefore also accrued savings, you must retrieve the normalized balance and and multiply it with the number `chi` to calculate the amount of Dai the user can retrieve from the contract. This is thus the reverse calculation of the earlier deposit function.
 
