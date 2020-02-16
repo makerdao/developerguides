@@ -12,26 +12,26 @@ contract PotLike {
     function drip() external returns (uint256);
     function join(uint256) external;
     function exit(uint256) external;
-    function pie(address) public view returns (uint);
+    function pie(address) public view returns (uint256);
 
 }
 
 contract JoinLike {
-    function join(address, uint) external;
-    function exit(address, uint) external;
+    function join(address, uint256) external;
+    function exit(address, uint256) external;
     function vat() public returns (VatLike);
     function dai() public returns (GemLike);
 
 }
 
 contract GemLike {
-    function transferFrom(address,address,uint) external returns (bool);
-    function approve(address,uint) external returns (bool);
+    function transferFrom(address,address,uint256) external returns (bool);
+    function approve(address,uint256) external returns (bool);
 }
 
 contract VatLike {
     function hope(address) external;
-    function dai(address) public view returns (uint);
+    function dai(address) public view returns (uint256);
 
 }
 
@@ -47,14 +47,14 @@ contract DSR {
 
 
     // Supporting Math functions
-    uint constant RAY = 10 ** 27;
-    function add(uint x, uint y) internal pure returns (uint z) {
+    uint256 constant RAY = 10 ** 27;
+    function add(uint256 x, uint256 y) internal pure returns (uint256 z) {
         require((z = x + y) >= x);
     }
-    function sub(uint x, uint y) internal pure returns (uint z) {
+    function sub(uint256 x, uint256 y) internal pure returns (uint256 z) {
         require((z = x - y) <= x);
     }
-    function mul(uint x, uint y) internal pure returns (uint z) {
+    function mul(uint256 x, uint256 y) internal pure returns (uint256 z) {
         require(y == 0 || (z = x * y) / y == x);
     }
 
@@ -68,7 +68,7 @@ contract DSR {
         vat.hope(join_);
         vat.hope(pot_);
 
-        daiToken.approve(join_, uint(-1));
+        daiToken.approve(join_, uint256(-1));
     }
 
     modifier onlyOwner {
@@ -77,15 +77,15 @@ contract DSR {
         _;
     }
 
-    function join(uint wad) public onlyOwner {
-        uint chi = (now > pot.rho()) ? pot.drip() : pot.chi();
+    function join(uint256 wad) public onlyOwner {
+        uint256 chi = (now > pot.rho()) ? pot.drip() : pot.chi();
         daiToken.transferFrom(msg.sender, address(this), wad);
         daiJoin.join(address(this), wad);
         pot.join(mul(wad, RAY) / chi);
     }
 
-    function exit(uint wad) public onlyOwner {
-        uint chi = (now > pot.rho()) ? pot.drip() : pot.chi();
+    function exit(uint256 wad) public onlyOwner {
+        uint256 chi = (now > pot.rho()) ? pot.drip() : pot.chi();
         pot.exit(mul(wad, RAY) / chi);
         daiJoin.exit(msg.sender, daiJoin.vat().dai(address(this)) / RAY);
     }
