@@ -4,7 +4,7 @@
  THIS CODE HAS NOT BEEN TESTED
 */
 
-pragma solidity >=0.5.11;
+pragma solidity >=0.5.12;
 
 contract PotLike {
     function chi() external view returns (uint256);
@@ -97,7 +97,7 @@ contract DSR {
     }
 
     function balance() public view returns (uint256) {
-       uint256 pie = pot.pie(address(this)); 
+       uint256 pie = pot.pie(address(this));
        uint256 chi = pot.chi();
        return pie * chi / RAY;
     }
