@@ -59,7 +59,7 @@ contract DSR {
     }
 
     constructor(address pot_, address join_, address dai_, address vat_) public {
-        owner = msg.sender;
+        owner    = msg.sender;
         pot      = PotLike(pot_);
         daiJoin  = JoinLike(join_);
         daiToken = GemLike(dai_);
