@@ -76,7 +76,7 @@ The contracts you need to work with are:
 
 -   [Vat](https://github.com/makerdao/dss/blob/master/src/vat.sol) - [0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b](https://etherscan.io/address/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b#code)
 
--   [DssProxyActionsDsr](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L891) - [0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26](https://etherscan.io/address/ o0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26#code)
+-   [DssProxyActionsDsr](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L891) - [0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26](https://etherscan.io/address/0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26#code)
 
 
 You can find ABIs here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html)
