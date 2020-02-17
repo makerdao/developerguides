@@ -12,38 +12,38 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 ### Learning Objectives
 
 -   Understand the concept of DSR
-    
+
 -   Understand the functionality of the DSR contract
-    
+
 -   How to best integrate DSR
-    
+
 
 ### Contents of this guide
 
--   [What is DSR?](#what-is-dsr)    
+-   [What is DSR?](#what-is-dsr)
 
 	-   [How to activate DSR](#how-to-activate-dsr)
-    
--   [How to integrate DSR](#how-to-integrate-dsr)    
+
+-   [How to integrate DSR](#how-to-integrate-dsr)
 
 	-   [How to integrate DSR through the core](#how-to-integrate-dsr-through-the-core)
-    
+
 	-   [How to integrate with proxy contracts](#how-to-integrate-with-proxy-contracts)
-    
+
 	-   [How to integrate with Dai.js](#how-to-integrate-with-daijs)
-	
+
 -   [How to calculate rates and savings](#how-to-calculate-rates-and-savings)
 
 	-   [Calculating user earnings on a pool of Dai in DSR](#calculating-user-earnings-on-a-pool-of-dai-in-dsr)
-	
+
 
 ### Pre-requisites
 -   [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md)
-    
+
 -   [Working with Dai.js SDK](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
-    
+
 -   [Working seth](https://docs.makerdao.com/clis/seth)
-    
+
 ## What is DSR?
 Dai Savings Rate (DSR) is an addition to the Maker Protocol that allows any Dai holder to earn risk-free savings in Dai. The savings paid out to Dai holders are financed by a fraction of the stability fee that Vault owners pay for borrowing Dai. The DSR is adjustable by MKR holders, and acts as a tool to manipulate demand of Dai, and thus ensuring the peg. At the time of writing the DSR is set to 7.75 % APY, but will change over time depending on MKR governance, just like the stability fee on borrowing Dai.
 
@@ -55,39 +55,39 @@ Therefore any centralized exchange or custodian of Dai should integrate function
 ## How to integrate DSR
 There are different ways to integrate the DSR, the three main ones being either to integrate directly with the core smart contracts of the Maker Protocol, integrate through proxy smart contracts, or to use the Dai.js library - the Maker Javascript library.
 
--   If you are running a smart contract system, or are already integrated with other protocols at a smart contract level, then it makes sense to interact directly with the Maker smart contracts, either by interacting directly with the core or through proxy contracts depending on the use case.  
+-   If you are running a smart contract system, or are already integrated with other protocols at a smart contract level, then it makes sense to interact directly with the Maker smart contracts, either by interacting directly with the core or through proxy contracts depending on the use case.
 
 	-   If you just need to enable DSR on a pool of Dai, then it makes sense to integrate with the core.
-	
+
 	-   If you need to integrate with multiple features of the Maker protocol, and want to carry over the proxy identity of users that are reflected in Maker front ends (i.e. be able to automatically show vaults, earned savings etc. in a UI), then it makes sense to integrate with the proxy contracts that the Maker Foundation uses.
 
 -   If you custody Dai, but are not otherwise integrated directly with the smart contract layer of Ethereum, then it makes sense to use Dai.js, as the heavy plumbing of calling the smart contracts have been done for you. In the following, both approaches will be detailed.
 
 ### Smart contract addresses and ABIs
-The contract addresses and ABIs of the Maker Protocol can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.0/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.0/index.html)
+The contract addresses and ABIs of the Maker Protocol can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/index.html)
 
 The contracts you need to work with are:
 
 -   [Dai](https://github.com/makerdao/dss/blob/master/src/dai.sol) - [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code)
-    
+
 -   [DaiJoin](https://github.com/makerdao/dss/blob/master/src/join.sol) - [0x9759a6ac90977b93b58547b4a71c78317f391a28](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code)
-    
+
 -   [Pot](https://github.com/makerdao/dss/blob/master/src/pot.sol) - [0x197e90f9fad81970ba7976f33cbd77088e5d7cf7](https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#code)
-    
+
 -   [Vat](https://github.com/makerdao/dss/blob/master/src/vat.sol) - [0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b](https://etherscan.io/address/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b#code)
-    
+
 -   [DssProxyActionsDsr](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L891) - [0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26](https://etherscan.io/address/0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26#code)
 
 
-You can find ABIs here: [https://changelog.makerdao.com/releases/mainnet/1.0.0/abi/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.0/abi/index.html)
+You can find ABIs here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html)
 
 ### How to integrate DSR through the core
 
 In order to integrate DSR by interacting directly with the core, you need to implement a smart contract that invokes functions in the `pot` contract.
 
-`pot` is the Dai Savings Rate contract, and you can read [detailed documentation of the contract here](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation). In order to accrue savings on Dai, you must call the function [join](https://github.com/makerdao/dss/blob/master/src/pot.sol#L150) with the amount of Dai you want to accrue savings on. However, in order for this function call to succeed you must first call [drip](https://github.com/makerdao/dss/blob/master/src/pot.sol#L140) to update the state of the system, to ensure internal balances are calculated correctly. Therefore to activate savings on x amount of Dai, you must call `pot.drip()` and then `pot.join(x)`, where x is a `uint256` in the same transaction. In order to do this atomically you need to implement these calls in a smart contract that can carry out both function calls in a single transaction. If you use a smart contract to carry out these function calls, since the DSR contract uses msg.sender as the depositor, msg.sender will be the only one able to retrieve Dai from DSR. So, ensure that only you have access to withdraw Dai from the DSR contract by implementing the necessary access mappings.  
+`pot` is the Dai Savings Rate contract, and you can read [detailed documentation of the contract here](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation). In order to accrue savings on Dai, you must call the function [join](https://github.com/makerdao/dss/blob/master/src/pot.sol#L150) with the amount of Dai you want to accrue savings on. However, in order for this function call to succeed you must first call [drip](https://github.com/makerdao/dss/blob/master/src/pot.sol#L140) to update the state of the system, to ensure internal balances are calculated correctly. Therefore to activate savings on x amount of Dai, you must call `pot.drip()` and then `pot.join(x)`, where x is a `uint256` in the same transaction. In order to do this atomically you need to implement these calls in a smart contract that can carry out both function calls in a single transaction. If you use a smart contract to carry out these function calls, since the DSR contract uses msg.sender as the depositor, msg.sender will be the only one able to retrieve Dai from DSR. So, ensure that only you have access to withdraw Dai from the DSR contract by implementing the necessary access mappings.
 
-A simple DSR example of how to interact with the Maker core can be found [here](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr.sol). **NOTE: Make sure to not use this code in production, as it has not been audited**. In this example, you can see how to properly call the `pot.join(x)`, `pot.exit(x)` and `pot.exitAll()` functions. Give close attention to the helper math functions, as they convert the Dai ERC-20 token 18 decimal into the internal accounting 27 decimal numbers. This could be used as inspiration for services that have a pool of Dai interacting with the Dai Savings Rate. Again, it is important to note that **the former example is not production ready code, but only for inspiration**.  
+A simple DSR example of how to interact with the Maker core can be found [here](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr.sol). **NOTE: Make sure to not use this code in production, as it has not been audited**. In this example, you can see how to properly call the `pot.join(x)`, `pot.exit(x)` and `pot.exitAll()` functions. Give close attention to the helper math functions, as they convert the Dai ERC-20 token 18 decimal into the internal accounting 27 decimal numbers. This could be used as inspiration for services that have a pool of Dai interacting with the Dai Savings Rate. Again, it is important to note that **the former example is not production ready code, but only for inspiration**.
 
 ### How to integrate with proxy contracts
 
@@ -126,11 +126,11 @@ export ETH_GAS=4000000
 
 Next step is to verify if your address has a proxy contract already deployed. If you have used [oasis.app](http://oasis.app) before, you should already have one.
 
-Execute the command below to verify if you have a proxy contract: 
+Execute the command below to verify if you have a proxy contract:
 
 `seth call $PROXY_REGISTRY 'proxies(address)(address)' $ETH_FROM`
 
-If your output is: `0000000000000000000000000000000000000000`, then you don’t have a DS-Proxy contract.  
+If your output is: `0000000000000000000000000000000000000000`, then you don’t have a DS-Proxy contract.
 Execute the command below to build a DS-Proxy contract for your address:
 
 `seth send $PROXY_REGISTRY 'build()'`
@@ -201,7 +201,7 @@ Call the `execute` function in your proxy contract to withdraw the remaining Dai
 `seth send $MYPROXY 'execute(address,bytes memory)' $PROXY_ACTIONS_DSR $exitAllCalldata`
 
 [Here is](https://kovan.etherscan.io/tx/0xcc4c7b3735a09b5430f0fd655913cc50d3ab563ca51944cab7ef18e6cd1856c9) an example of a successful transaction.
-    
+
 ### How to integrate with Dai.js
 
 Dai.js is a Javascript library that makes implementing the functionality of the Maker protocol into any application easy, enabling you to build powerful DeFi applications using just a few simple functions.
@@ -222,7 +222,7 @@ To automatically earn savings on any Dai holdings is also a very simple integrat
 
 In order to see the balance of a user’s Dai holdings in the savings contract, and thus how much savings he has earned, the function [balance](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L53) can be used.
 The function [getYearlyRate](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L81) can be used to get the current savings rate.
-User’s Dai balance with the exchange can be updated continuously by the exchange or in specified intervals.  
+User’s Dai balance with the exchange can be updated continuously by the exchange or in specified intervals.
 
 #### Retrieve Accrued Savings
 
@@ -244,7 +244,7 @@ To calculate the normalized balance stored in pie you simply do the following eq
 
 `Normalized Balance = Deposited Dai / chi`
 
-Everytime the system is updated by calling drip() the number `chi` grows according to the savings rate `dsr`. However the normalized balances in `pie` remain unchanged.
+Everytime the system is updated by calling `drip()` the number `chi` grows according to the savings rate `dsr`. However the normalized balances in `pie` remain unchanged.
 
 To retrieve current balance of a user in Dai, and therefore also accrued savings, you must retrieve the normalized balance and and multiply it with the number `chi` to calculate the amount of Dai the user can retrieve from the contract. This is thus the reverse calculation of the earlier deposit function.
 
@@ -257,7 +257,7 @@ The above equation makes it trivial to see that when `chi` grows, Dai balance of
 You can read more about rates here:
 
 -   [https://docs.makerdao.com/smart-contract-modules/rates-module#dai-savings-rate-accumulation](https://docs.makerdao.com/smart-contract-modules/rates-module#dai-savings-rate-accumulation)
-    
+
 -   [https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 
 ### Calculating user earnings on a pool of Dai in DSR
@@ -283,7 +283,7 @@ Alice has thus earned 0.0044 Dai in 3 days, and can withdraw this amount + her o
 Notice that since `chi` has gone up since the first deposit, this time Alice’s normalized balance is lower. This is how we can keep track on how much Dai deposits on different days have earned from the DSR.
 
 3 days more go by, and now Alice wants to calculate how much her total amount of Dai in DSR is worth. Now `chi` is: 1.0011233.
-This time, you must add the two normalized balances, and multiply it with `chi`. So the equation is: 
+This time, you must add the two normalized balances, and multiply it with `chi`. So the equation is:
 
 `SUM(Normalized Balances)*chi`
 `= (9.997655+9.9932156)*1.0011233 = 20.0133263 Dai`
@@ -299,12 +299,12 @@ In this guide, we covered the basics of DSR, and how to properly integrate DSR, 
 ## Additional Resources
 
 -   [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
-    
+
 -   [https://docs.makerdao.com/](https://docs.makerdao.com/)
-    
+
 
 ## Need help?
 
 -   Contact Integrations team - [integrate@makerdao.com](mailto:integrate@makerdao.com)
-    
+
 -   Rocket chat - #dev channel
