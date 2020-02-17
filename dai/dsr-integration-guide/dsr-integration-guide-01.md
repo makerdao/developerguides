@@ -49,7 +49,7 @@ Dai Savings Rate (DSR) is an addition to the Maker Protocol that allows any Dai 
 
 ### How to activate DSR
 Dai does not automatically earn savings, rather you must activate the DSR by interacting with the DSR contract [pot](https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#code) of the Maker Protocol. This means transferring Dai from your wallet to the Maker Protocol. It is important to note that the Dai is never locked and can always be redeemed immediately (within a block), as there are no liquidity constraints, and can ONLY be retrieved to the depositing account. Activating DSR is therefore completely safe and adds no further risk, than the risk of holding Dai in the first place. Consequently, you should ALWAYS activate Dai Savings Rate on any Dai that is being held in custody, and simply deactivate DSR (by effectively retrieving Dai to your wallet) when you need to transfer Dai, or use Dai in dapps.
-DSR
+
 Therefore any centralized exchange or custodian of Dai should integrate functionality to activate the DSR on Dai in their custody. Similarly, any decentralized exchange, wallet or dapp in general can enable anyone to earn the DSR by integrating the functionality as well, by exposing it as a simple “enable” button click.
 
 ## How to integrate DSR
