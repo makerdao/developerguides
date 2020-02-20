@@ -315,7 +315,7 @@ int dart = _getWipeDart(ManagerLike(manager).vat(), VatLike(ManagerLike(manager)
 ManagerLike(manager).frob(cdp, int(0), dart);
 ```
 
-Before we proceed to the next section of this guide, please ensure your code matches the `WipeProxy` contract below
+Before we proceed to the next section of this guide, please ensure your code matches the `Delev` contract below
 
 ```text
 contract Delev {
