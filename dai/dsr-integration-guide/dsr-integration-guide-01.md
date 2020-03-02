@@ -1,4 +1,5 @@
 # DSR Integration Guide
+
 Level: Intermediate
 
 Intended Audience: Developers/Technical teams
@@ -11,73 +12,75 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 
 ### Learning Objectives
 
--   Understand the concept of DSR
+- Understand the concept of DSR
 
--   Understand the functionality of the DSR contract
+- Understand the functionality of the DSR contract
 
--   How to best integrate DSR
-
+- How to best integrate DSR
 
 ### Contents of this guide
 
--   [What is DSR?](#what-is-dsr)
+- [What is DSR?](#what-is-dsr)
 
-	-   [How to activate DSR](#how-to-activate-dsr)
+  - [How to activate DSR](#how-to-activate-dsr)
 
--   [How to integrate DSR](#how-to-integrate-dsr)
+- [How to integrate DSR](#how-to-integrate-dsr)
 
-	-   [How to integrate DSR through the core](#how-to-integrate-dsr-through-the-core)
+  - [How to integrate DSR through the core](#how-to-integrate-dsr-through-the-core)
 
-	-   [How to integrate with proxy contracts](#how-to-integrate-with-proxy-contracts)
+  - [How to integrate with proxy contracts](#how-to-integrate-with-proxy-contracts)
 
-	-   [How to integrate with Dai.js](#how-to-integrate-with-daijs)
+  - [How to integrate with Dai.js](#how-to-integrate-with-daijs)
 
--   [How to calculate rates and savings](#how-to-calculate-rates-and-savings)
+- [How to calculate rates and savings](#how-to-calculate-rates-and-savings)
 
-	-   [Calculating user earnings on a pool of Dai in DSR](#calculating-user-earnings-on-a-pool-of-dai-in-dsr)
-
+  - [Calculating user earnings on a pool of Dai in DSR](#calculating-user-earnings-on-a-pool-of-dai-in-dsr)
 
 ### Pre-requisites
--   [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md)
 
--   [Working with Dai.js SDK](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
+- [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md)
 
--   [Working seth](https://docs.makerdao.com/clis/seth)
+- [Working with Dai.js SDK](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
 
-## What is DSR?
+- [Working seth](https://docs.makerdao.com/clis/seth)
+
+## What is DSR
+
 Dai Savings Rate (DSR) is an addition to the Maker Protocol that allows any Dai holder to earn risk-free savings in Dai. The savings paid out to Dai holders are financed by a fraction of the stability fee that Vault owners pay for borrowing Dai. The DSR is adjustable by MKR holders, and acts as a tool to manipulate demand of Dai, and thus ensuring the peg. At the time of writing the DSR is set to 7.75 % APY, but will change over time depending on MKR governance, just like the stability fee on borrowing Dai.
 
 ### How to activate DSR
+
 Dai does not automatically earn savings, rather you must activate the DSR by interacting with the DSR contract [pot](https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#code) of the Maker Protocol. This means transferring Dai from your wallet to the Maker Protocol. It is important to note that the Dai is never locked and can always be redeemed immediately (within a block), as there are no liquidity constraints, and can ONLY be retrieved to the depositing account. Activating DSR is therefore completely safe and adds no further risk, than the risk of holding Dai in the first place. Consequently, you should ALWAYS activate Dai Savings Rate on any Dai that is being held in custody, and simply deactivate DSR (by effectively retrieving Dai to your wallet) when you need to transfer Dai, or use Dai in dapps.
 
 Therefore any centralized exchange or custodian of Dai should integrate functionality to activate the DSR on Dai in their custody. Similarly, any decentralized exchange, wallet or dapp in general can enable anyone to earn the DSR by integrating the functionality as well, by exposing it as a simple “enable” button click.
 
 ## How to integrate DSR
+
 There are different ways to integrate the DSR, the three main ones being either to integrate directly with the core smart contracts of the Maker Protocol, integrate through proxy smart contracts, or to use the Dai.js library - the Maker Javascript library.
 
--   If you are running a smart contract system, or are already integrated with other protocols at a smart contract level, then it makes sense to interact directly with the Maker smart contracts, either by interacting directly with the core or through proxy contracts depending on the use case.
+- If you are running a smart contract system, or are already integrated with other protocols at a smart contract level, then it makes sense to interact directly with the Maker smart contracts, either by interacting directly with the core or through proxy contracts depending on the use case.
 
-	-   If you just need to enable DSR on a pool of Dai, then it makes sense to integrate with the core.
+  - If you just need to enable DSR on a pool of Dai, then it makes sense to integrate with the core.
 
-	-   If you need to integrate with multiple features of the Maker protocol, and want to carry over the proxy identity of users that are reflected in Maker front ends (i.e. be able to automatically show vaults, earned savings etc. in a UI), then it makes sense to integrate with the proxy contracts that the Maker Foundation uses.
+    - If you need to integrate with multiple features of the Maker protocol, and want to carry over the proxy identity of users that are reflected in Maker front ends (i.e. be able to automatically show vaults, earned savings etc. in a UI), then it makes sense to integrate with the proxy contracts that the Maker Foundation uses.
 
--   If you custody Dai, but are not otherwise integrated directly with the smart contract layer of Ethereum, then it makes sense to use Dai.js, as the heavy plumbing of calling the smart contracts have been done for you. In the following, both approaches will be detailed.
+- If you custody Dai, but are not otherwise integrated directly with the smart contract layer of Ethereum, then it makes sense to use Dai.js, as the heavy plumbing of calling the smart contracts have been done for you. In the following, both approaches will be detailed.
 
 ### Smart contract addresses and ABIs
+
 The contract addresses and ABIs of the Maker Protocol can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/index.html)
 
 The contracts you need to work with are:
 
--   [Dai](https://github.com/makerdao/dss/blob/master/src/dai.sol) - [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code)
+- [Dai](https://github.com/makerdao/dss/blob/master/src/dai.sol) - [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code)
 
--   [DaiJoin](https://github.com/makerdao/dss/blob/master/src/join.sol) - [0x9759a6ac90977b93b58547b4a71c78317f391a28](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code)
+- [DaiJoin](https://github.com/makerdao/dss/blob/master/src/join.sol) - [0x9759a6ac90977b93b58547b4a71c78317f391a28](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code)
 
--   [Pot](https://github.com/makerdao/dss/blob/master/src/pot.sol) - [0x197e90f9fad81970ba7976f33cbd77088e5d7cf7](https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#code)
+- [Pot](https://github.com/makerdao/dss/blob/master/src/pot.sol) - [0x197e90f9fad81970ba7976f33cbd77088e5d7cf7](https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#code)
 
--   [Vat](https://github.com/makerdao/dss/blob/master/src/vat.sol) - [0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b](https://etherscan.io/address/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b#code)
+- [Vat](https://github.com/makerdao/dss/blob/master/src/vat.sol) - [0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b](https://etherscan.io/address/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b#code)
 
--   [DssProxyActionsDsr](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L891) - [0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26](https://etherscan.io/address/0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26#code)
-
+- [DssProxyActionsDsr](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L891) - [0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26](https://etherscan.io/address/0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26#code)
 
 You can find ABIs here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html)
 
@@ -111,9 +114,11 @@ In order to retrieve Dai and savings from the `pot` there are two options - eith
 
 We’ll use the [0.2.17 MCD Kovan Deployment](https://changelog.makerdao.com/releases/kovan/0.2.17/index.html) to showcase how you could interact with DSR using the `seth` tool with the Proxy Actions DSR contract.
 
+**You can also use the Rinkey, Ropsten and Goerli deployments in this guide. Just make sure to change the contract addresses from the specific network from <https://changelog.makerdao.com>**
+
 Before starting, you need to set up the right variables in your terminal. Save the below variables:
 
-```
+```bash
 export PROXY_REGISTRY=0x64A436ae831C1672AE81F674CAb8B6775df3475C
 export PROXY_ACTIONS_DSR=0xc5cc1dfb64a62b9c7bb6cbf53c2a579e2856bf92
 export POT=0xea190dbdc7adf265260ec4da6e9675fd4f5a78bb
@@ -216,7 +221,7 @@ To install the library make sure to have [node.js](https://nodejs.org/en/) insta
 
 To automatically earn savings on any Dai holdings is also a very simple integration. Using Dai.js, you can utilize the [join](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L19) function to add a specified amount of Dai to the savings contract, which will instantly start earning savings. In the example of an exchange, any time Dai is deposited into the exchange, the `join` function should be called, so you will instantly start earning savings on the deposited Dai. The diagram below shows the flow for the user, having integrated DSR into the exchange. In this case, the flow of the user does not change, as he simply deposit Dai into the exchange and starts earning savings, while everything else is handled on the back end.
 
-![](https://lh5.googleusercontent.com/gGI5nxHNdMnqDT8YHtUneF6Y7qw72vpwqVa1okKTH_FnXBthg1UaXm8Pm4Fx8bQSRlv5-AWjvMRCMvtaIZN78XQunIWhV5HHRn5Qc0I_ESkC2EpYnNFBCRI2Q92eXVnpsAaNjY8l)
+![DSR Join](https://lh5.googleusercontent.com/gGI5nxHNdMnqDT8YHtUneF6Y7qw72vpwqVa1okKTH_FnXBthg1UaXm8Pm4Fx8bQSRlv5-AWjvMRCMvtaIZN78XQunIWhV5HHRn5Qc0I_ESkC2EpYnNFBCRI2Q92eXVnpsAaNjY8l)
 
 #### Monitor Savings
 
@@ -228,9 +233,9 @@ User’s Dai balance with the exchange can be updated continuously by the exchan
 
 When a user wants to withdraw Dai, the function [exit](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L31)  can be used to withdraw a specific amount of Dai from the savings contract. You can also invoke the [exitAll](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L43) function, to retrieve all Dai for a user including accrued savings. Afterwards, the Dai can be withdrawn from the exchange itself. Therefore, when a user wants to withdraw Dai from the exchange, these function calls can simply be invoked first in that process, resulting in a seamless experience for the user. The diagrams below show the flow for the user, when he wants to withdraw Dai from the exchange.
 
-![](https://lh4.googleusercontent.com/7ZbsR-yKqS6_eRyBuMs6QM7JR30jQ4vCQCI2RwptUQegF6xE0iS2BgUjNMhyRN2oVTisycBvCAM-43AQ0_-U4yINwfJbtqB_TC9tLDFkTFPBep771fR-nGMh7bQ-BGsJZRFw25oH)
+![DSR Exit](https://lh4.googleusercontent.com/7ZbsR-yKqS6_eRyBuMs6QM7JR30jQ4vCQCI2RwptUQegF6xE0iS2BgUjNMhyRN2oVTisycBvCAM-43AQ0_-U4yINwfJbtqB_TC9tLDFkTFPBep771fR-nGMh7bQ-BGsJZRFw25oH)
 
-![](https://lh3.googleusercontent.com/xDj03keC6jjql90Il4-mdFgN_ZXBO2F2HlR3X8rTSPKucXbPPPDTWL42_5JAsNPpYMtMp0MOZoG3ZPisI7h-Zs226-XbQuHiidR3aV6OQonDcofKodpyeheoQ5yOxZOTyuYeTUh_)
+![DSR ExitAll](https://lh3.googleusercontent.com/xDj03keC6jjql90Il4-mdFgN_ZXBO2F2HlR3X8rTSPKucXbPPPDTWL42_5JAsNPpYMtMp0MOZoG3ZPisI7h-Zs226-XbQuHiidR3aV6OQonDcofKodpyeheoQ5yOxZOTyuYeTUh_)
 
 ## How to calculate rates and savings
 
@@ -256,14 +261,15 @@ The above equation makes it trivial to see that when `chi` grows, Dai balance of
 
 You can read more about rates here:
 
--   [https://docs.makerdao.com/smart-contract-modules/rates-module#dai-savings-rate-accumulation](https://docs.makerdao.com/smart-contract-modules/rates-module#dai-savings-rate-accumulation)
+- [https://docs.makerdao.com/smart-contract-modules/rates-module#dai-savings-rate-accumulation](https://docs.makerdao.com/smart-contract-modules/rates-module#dai-savings-rate-accumulation)
 
--   [https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
+- [https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 
 ### Calculating user earnings on a pool of Dai in DSR
+
 If you are an exchange or some other type of custodian that holds funds on behalf of users, and you want to manage a pool of Dai with DSR activated, rather than a stack for each user, you need to do some internal accounting to keep track of how much Dai each user has earned and are allowed to withdraw from the pool.
 In order to do this, any time a user activates DSR on an amount of Dai, you need to calculate a normalized balance, to calculate the compounding rate for each user.
-The normalized balance is a balance that does not change, but resembles a fraction of Dai in the DSR. It is calculated by taking the amount of Dai a user wants to add to the DSR contract, and dividing it by the variable `chi`, which is the “rate accumulator” in the system. `chi` is a variable that increases in value at the rate of the DSR. So if the DSR is set to 4% APR, the chi value will grow 4% in a year. The rate is accumulated every second and is updated almost every block, why the number `chi` is a small number that grows slowly. The variable `chi` can be read from the Oasis API at https://api.oasis.app/v1/save/info, directly from the DSR smart contract [pot](https://github.com/makerdao/dss/blob/master/src/pot.sol#L61), or retrieved from the [integration libraries](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js).
+The normalized balance is a balance that does not change, but resembles a fraction of Dai in the DSR. It is calculated by taking the amount of Dai a user wants to add to the DSR contract, and dividing it by the variable `chi`, which is the “rate accumulator” in the system. `chi` is a variable that increases in value at the rate of the DSR. So if the DSR is set to 4% APR, the chi value will grow 4% in a year. The rate is accumulated every second and is updated almost every block, why the number `chi` is a small number that grows slowly. The variable `chi` can be read from the Oasis API at <https://api.oasis.app/v1/save/info>, directly from the DSR smart contract [pot](https://github.com/makerdao/dss/blob/master/src/pot.sol#L61), or retrieved from the [integration libraries](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js).
 
 Therefore, when an amount of Dai of a user is added to the DSR contract, you simply need to store how much Dai they are supplying, and calculate and store what the normalized balance is at that time. So if Alice adds 10 Dai to your pool of Dai in DSR, you would record the following:
 
@@ -298,13 +304,12 @@ In this guide, we covered the basics of DSR, and how to properly integrate DSR, 
 
 ## Additional Resources
 
--   [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
+- [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
 
--   [https://docs.makerdao.com/](https://docs.makerdao.com/)
+- [https://docs.makerdao.com/](https://docs.makerdao.com/)
 
+## Need help
 
-## Need help?
+- Contact Integrations team - [integrate@makerdao.com](mailto:integrate@makerdao.com)
 
--   Contact Integrations team - [integrate@makerdao.com](mailto:integrate@makerdao.com)
-
--   Rocket chat - #dev channel
+- Rocket chat - #dev channel
