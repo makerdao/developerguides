@@ -1,5 +1,7 @@
-# Drawing Dai from the Kovan Maker Protocol deployment using Seth
-**This guide works under the [1.0.2 Release](https://changelog.makerdao.com/releases/kovan/1.0.2/index.html) of the system.** 
+# Drawing Dai from the Kovan Maker Protocol deployment using Seth    
+
+**This guide works under the Kovan [1.0.2 Release](https://changelog.makerdao.com/releases/kovan/1.0.2/index.html) of the system.    
+You can also use the Rinkey, Ropsten and Goerli deployments in this guide. Just make sure to change the contract addresses from the specific network.** 
 
 This tutorial will cover how to use the tool `seth` to deposit BAT tokens to draw DAI from the Kovan deployment of MCD as an example, since the process is the same for any other ERC-20 token. You can use the same methodology for any supported token in MCD, by changing the contract addresses to the specific token you want to use.
 
@@ -11,7 +13,9 @@ For this guide, we are going to use the tool `seth`, to send transactions and in
 
 [Use this guide to install and set up Seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md).
 
-**Note: Complete the above guide to setup your Seth environment variables and getting familiar with the tool before continuing. For this guide, we are using the Kovan Testnet. Ensure that Seth is configured to connect to Kovan by setting the network parameter accordingly in a terminal or config file:**
+**Note: Complete the above guide to setup your Seth environment variables and getting familiar with the tool before continuing. For this guide, we are using the Kovan Testnet. Ensure that Seth is configured to connect to Kovan by setting the network parameter accordingly in a terminal or config file:**    
+
+**If using other networks, make sure to change the `SETH_CHAIN` and `ETH_RPC_URL` variables to your preferred network**
 
 `export SETH_CHAIN=kovan`
 ### Other tools
