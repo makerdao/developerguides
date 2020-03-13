@@ -10,7 +10,7 @@ This guide describes how users can interact with the Maker protocol through prox
 
 ## Learning Objectives:
 
-To redeem Dai and/or excess collateral in the event of Emergency Shutdown
+How to redeem Dai and/or excess collateral in the event of Emergency Shutdown
 
 ## Table of Contents
 
@@ -58,16 +58,16 @@ In order to interface with the Ethereum blockchain, the user needs to install se
 
 ### **2. Contract Address Setup**
 
-The user will require the following contract addresses, shown below as Kovan addresses. Mainnet addresses are accessible at [Changelog.makerdao.com](https://changelog.makerdao.com/) which can be verified on [Etherscan](https://etherscan.io/token/0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2). Similarly, additional information on the commands described below can be found in the [End contract](https://github.com/makerdao/dss/blob/master/src/end.sol) and the [Proxy_Actions_End contract](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L793). These should be setup in the following manner and pasted into the terminal line by line:
+The user will require the following contract addresses, shown below as Mainnet addresses. Rest of Mainnet or testnet addresses are accessible at [changelog.makerdao.com](https://changelog.makerdao.com/) which can be verified on [Etherscan](https://etherscan.io/token/0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2).Similarly, additional information on the commands described below can be found in the [End contract](https://github.com/makerdao/dss/blob/master/src/end.sol) and the [Proxy_Actions_End contract](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L793). These should be setup in the following manner and pasted into the terminal line by line:
 ```javascript
-    export DAI=0x5e007fb5f350c5f704b6181a5eef7ddfc2f237a9
-    export PROXY_ACTIONS_END=0xd2169318a93c9934007bc0407fe922cbf304555d
-    export MCD_END=0xd9026db5ca822d64a6ba18623d0ff2bb07ad162c
-    export CDP_MANAGER=0x07c4d2afaaa4c21269509f9151ea43776880f3c6 
-    export PROXY_REGISTRY=0x64A436ae831C1672AE81F674CAb8B6775df3475C
-    export MCD_JOIN_ETH=0x39e05f02eca57a9565674502e5027eda48c3fe4e
-    export MCD_JOIN_BAT=0x15835e2afe6a897906bb55374f5aa6185867d68e
-    export MCD_JOIN_DAI=0xfc0b3b61407cdf5f583b5b1e08514e68ecee4a73
+    export DAI=0x6B175474E89094C44Da98b954EedeAC495271d0F
+    export PROXY_ACTIONS_END=0x069B2fb501b6F16D1F5fE245B16F6993808f1008
+    export MCD_END=0xaB14d3CE3F733CACB76eC2AbE7d2fcb00c99F3d5
+    export CDP_MANAGER=0x5ef30b9986345249bc32d8928B7ee64DE9435E39 
+    export PROXY_REGISTRY=0x4678f0a6958e4D2Bc4F1BAF7Bc52E8F3564f3fE4
+    export MCD_JOIN_ETH=0x2F0b23f53734252Bda2277357e97e1517d6B042A
+    export MCD_JOIN_BAT=0x3D0B1912B66114d4096F48A8CEe3A56C231772cA
+    export MCD_JOIN_DAI=0x9759A6Ac90977b93B58547b4A71c78317f391A28
     
     export MYPROXY=$(seth call $PROXY_REGISTRY 'proxies(address)(address)' $ETH_FROM) 
     # This creates a unique proxy address by calling the proxy registry using the users Ethereum address.
