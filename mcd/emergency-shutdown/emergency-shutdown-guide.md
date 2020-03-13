@@ -64,6 +64,7 @@ In this guide you will learn what steps to take according to your user profile i
     -   [Market Makers](#Market-Makers)
 
  - [How to check if Emergency Shutdown has been triggered?](#How-to-check-if-Emergency-Shutdown-has-been-triggered?)
+ - [CLI guide on how to redeem your Dai or excess collateral after ES](#CLI-guide-on-how-to-redeem-your-Dai-or-excess-collateral-after-ES)
 
  - [Summary](#Summary)
     
@@ -439,7 +440,8 @@ If your implementation requires communicating directly with the smart contracts,
 
 When the system is running normally, the parameter [live is equal to one](https://etherscan.io/address/0xab14d3ce3f733cacb76ec2abe7d2fcb00c99f3d5#readContract), `live = 1`. In case of an Emergency Shutdown, the live parameter will equal to zero, as `live = 0`.
 
-  
+# CLI guide on how to redeem your Dai or excess collateral after ES
+Head over to [this guide](https://docs.makerdao.com/clis/dai-and-collateral-redemption-during-emergency-shutdown) to learn how to redeem your Dai or excess collateral in case of an ES event.
   
 
 # Summary
