@@ -452,7 +452,7 @@ In this guide you have learned how to act in case of an Emergency Shutdown event
 
 -   If you’re curious to understand in more detail how the ES module works, head towards [our documentation page](https://docs.makerdao.com/smart-contract-modules/emergency-shutdown-module).
     
--   [We also have a CLI guide](https://docs.makerdao.com/clis/emergency-shutdown-es-cli) on how to do the claiming of Dai equivalent collateral or claiming excess collateral from your vault.
+-   [We also have a CLI guide](https://docs.makerdao.com/clis/dai-and-collateral-redemption-during-emergency-shutdown) on how to do the claiming of Dai equivalent collateral or claiming excess collateral from your vault.
     
 
   
