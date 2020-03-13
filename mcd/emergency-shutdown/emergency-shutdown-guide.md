@@ -441,7 +441,7 @@ If your implementation requires communicating directly with the smart contracts,
 When the system is running normally, the parameter [live is equal to one](https://etherscan.io/address/0xab14d3ce3f733cacb76ec2abe7d2fcb00c99f3d5#readContract), `live = 1`. In case of an Emergency Shutdown, the live parameter will equal to zero, as `live = 0`.
 
 # CLI guide on how to redeem your Dai or excess collateral after ES
-Head over to [this guide](https://docs.makerdao.com/clis/dai-and-collateral-redemption-during-emergency-shutdown) to learn how to redeem your Dai or excess collateral in case of an ES event.
+Head over to [this guide](https://github.com/makerdao/developerguides/blob/master/governance/Collateral%20Redemption%20during%20Emergency%20Shutdown.md) to learn how to redeem your Dai or excess collateral in case of an ES event.
   
 
 # Summary
@@ -454,7 +454,7 @@ In this guide you have learned how to act in case of an Emergency Shutdown event
 
 -   If you’re curious to understand in more detail how the ES module works, head towards [our documentation page](https://docs.makerdao.com/smart-contract-modules/emergency-shutdown-module).
     
--   [We also have a CLI guide](https://docs.makerdao.com/clis/dai-and-collateral-redemption-during-emergency-shutdown) on how to do the claiming of Dai equivalent collateral or claiming excess collateral from your vault.
+-   [We also have a CLI guide](https://github.com/makerdao/developerguides/blob/master/governance/Collateral%20Redemption%20during%20Emergency%20Shutdown.md) on how to do the claiming of Dai equivalent collateral or claiming excess collateral from your vault.
     
 
   
