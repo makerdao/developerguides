@@ -176,8 +176,8 @@ For other known Ubuntu and macOS issues please visit the [pymaker](https://githu
 
 # 4. Running your Keeper Bot
 
-### The Kovan version runs on the [Kovan Release 0.2.12](https://changelog.makerdao.com/releases/kovan/0.2.12/index.html)    
-To change to your chosen version of the kovan release, copy/paste your preffered contract addresses in `kovan-addresses.json` in `lib/pymaker/config/kovan-addresses.json`
+### The Kovan version runs on the [Kovan Release 1.0.2](https://changelog.makerdao.com/releases/kovan/1.0.2/index.html)    
+To change to your chosen version of the kovan release, copy/paste your preferred contract addresses in `kovan-addresses.json` in `lib/pymaker/config/kovan-addresses.json`
 
 ### 1. Creating your bidding model (an example detailing the simplest possible bidding model)
 
@@ -227,7 +227,7 @@ bin/auction-keeper \
     --eth-key ${ACCOUNT_KEY?:} \
     --type flip \
     --ilk ETH-A \
-    --network kovan \
+    --from-block 14764534 \
     --vat-dai-target 1000 \
     --model ${dir}/${MODEL} \
     2> >(tee -a -i auction-keeper-flip-ETH-A.log >&2)
@@ -239,7 +239,6 @@ In addition, make sure to verify the above copy+pasted script doesn't create ext
 
 - All Collateral types (`ilk`'s) combine the name of the token and a letter corresponding to a set of risk parameters. For example, as you can see above, the example uses ETH-A. Note that ETH-A and ETH-B are two different collateral types for the same underlying token (WETH) but have different risk parameters.
 - For the MCD addresses, we simply pass `--network mainnet|kovan` in and it will load the required JSON files bundled within auction-keeper (or pymaker).
-    - If you pass in `mainnet` before MCD is released, it will fail with an appropriate error message.
 
 ### 3. Passing the bidding the model as an argument to the Keeper script
 
@@ -274,6 +273,7 @@ To participate in all auctions, a separate keeper must be configured for `flip` 
 3. `--addresses` - .json of all of the addresses of the MCD contracts as well as the collateral types allowed/used in the system.
 4. `--vat-dai-target` - the amount of DAI which the keeper will attempt to maintain in the Vat, to use for bidding. It will rebalance it upon keeper startup and upon `deal`ing an auction.
 5. `--model` - the bidding model that will be used for bidding.  
+6. `--from-block` to the block where the first urn was created to instruct the keeper to use logs published by the vat contract to bulid a list of urns, and then check the status of each urn.
 
 Call `bin/auction-keeper --help` for a complete list of arguments.
 
@@ -334,7 +334,7 @@ MKR used to bid on `flap` auctions is directly withdrawn from your token balance
 
 After all of these steps have been completed, you will have the generated MCD K-DAI  and it will be present within your wallet. You can easily payback your DAI or generate more.
 
-### 2. Getting MCD K-MKR (K-MCD 0.2.12 Release)
+### 2. Getting MCD K-MKR (K-MCD 1.0.2 Release)
 
 **Contract address:** `0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd`
 
@@ -353,18 +353,8 @@ seth send 0xcbd3e165ce589657fefd2d38ad6b6596a1f734f6 'gulp(address)' 0xaaf64bfcc
 
 **Important Note:** The faucet address and token addresses often change with each dss deployment. The current addresses displayed above are from the **0.2.12 Release**. Please visit [https://changelog.makerdao.com/](https://changelog.makerdao.com/) for the most updated release version.
 
+Please refer to this [guide](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md#getting-tokens) to obtain collateral test tokens for Kovan.
 ### 3. Getting MCD Collateral Tokens
-
-There is a  [shell script](https://gist.github.com/sirromdev/cea6a16e686ac65ecfd4c5fa0fcb65f1) which automates the calling of faucets for several tokens which are candidates for MCD collateral types. In order to use this script, read the following instructions:
-
-1.  Save raw content from the gist to a file, and `chmod +x` it to make it executable.
-2.  Install and configure `seth` [as instructed above](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md).
-3.  Ensure environment variables at the top of the script are set appropriately, or uncomment them and set them within the script.
-4.  Update the `MOCKY` URI on line 13 to the `contracts.json` for the desired release version.
-5.  Execute the script, which will perform the following actions:
-    1.  Print the current token balances.
-    2.  Execute transactions to call the faucet for each token type.
-    3.  Print (hopefully) the updated token balances.
     
 
 # 6. Testing your Keeper
