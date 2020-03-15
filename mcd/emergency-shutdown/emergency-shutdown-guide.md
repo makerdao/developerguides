@@ -95,7 +95,7 @@ In short, it allows Dai holders to directly claim an equivalent dollar-amount of
     
 -   Vault owners have priority over Dai holders for claiming a proportional amount of underlying collateral (currently ETH and BAT). After Emergency Shutdown has been triggered, Vault owners can free excess collateral from their vaults at [migrate.makerdao.com](https://migrate.makerdao.com/) or by using [command-line tools](https://docs.makerdao.com/clis/emergency-shutdown-es-cli).
     
--   Dai holders, will need to wait for a cool down period of approximately 73 hours for the above debt to be repaid. Once this is completed, the user will be able to, per one unit of Dai, claim a proportional amount of all underlying collateral at [migrate.makerdao.com](https://migrate.makerdao.com/). It is worth noting that the user will not be able to choose any particular collateral type over another and will instead receive an equal distribution of supported collateral per quantity of Dai that they hold.
+-   Dai holders, will need to wait for a cool down period of approximately 73 hours for the system to be settled. Once this is completed, the user will be able to, per one unit of Dai, claim a proportional amount of all underlying collateral at [migrate.makerdao.com](https://migrate.makerdao.com/). It is worth noting that the user will not be able to choose any particular collateral type over another and will instead receive an equal distribution of supported collateral per quantity of Dai that they hold.
     
 -   Dai holders always receive the same relative amount of collateral from the system, whether they are among the first or last people to process their claims. In other words, there is no race condition.
     
@@ -183,13 +183,13 @@ As a service provider you have to be up to date with the latest status from Make
 -   Follow communication for latest development updates
     
 
+    -   [Blog](https://blog.makerdao.com/)
+    
     -   [Forum](https://forum.makerdao.com/)
         
     -   [Reddit](https://www.reddit.com/r/makerDAO/)
         
     -   [Social media](https://twitter.com/MakerDAO)
-        
-    -   [Blog](https://blog.makerdao.com/)
 
 ### Procedure
 
@@ -221,7 +221,7 @@ As a service provider you have to be up to date with the latest status from Make
 
 	  -   Migrate Dai holdings to new Dai token on behalf of users using the [migration portal](https://migrate.makerdao.com/)
 
-	  -   Alternatively carry out migration by interacting directly with the migration contracts.
+	  -   Alternatively carry out migration by interacting directly with the migration contracts using CLI tools. See [this guide](https://github.com/makerdao/developerguides/blob/master/governance/Collateral%20Redemption%20during%20Emergency%20Shutdown.md).
 
 	  -   If applicable, migrate MKR token holdings on behalf of users using the [migration portal](https://migrate.makerdao.com/)
 
@@ -275,13 +275,13 @@ As a non-custodial wallet make sure to follow the latest updates from MakerDAO�
 -   Follow communication for latest development updates
     
 
+    -   [Blog](https://blog.makerdao.com/)
+    
     -   [Forum](https://forum.makerdao.com/)
         
     -   [Reddit](https://www.reddit.com/r/makerDAO/)
         
     -   [Social media](https://twitter.com/MakerDAO)
-        
-    -   [Blog](https://blog.makerdao.com/)
     
 
 ### Procedure
@@ -306,13 +306,13 @@ As a Dapp browser make sure to follow the latest updates from MakerDAO’s commu
 -   Follow communication for latest development updates
     
 
+    -   [Blog](https://blog.makerdao.com/)
+    
     -   [Forum](https://forum.makerdao.com/)
         
     -   [Reddit](https://www.reddit.com/r/makerDAO/)
         
     -   [Social media](https://twitter.com/MakerDAO)
-        
-    -   [Blog](https://blog.makerdao.com/)
     
 
 -   Alert users about ES and provide links (e.g. blog.makerdao.com or makerdao.com) for more information.
@@ -329,14 +329,13 @@ As a vault integrator it is very important that you have integrated with the Eme
 
 -   Follow communication for latest development updates
     
-
+    -   [Blog](https://blog.makerdao.com/)
+    
     -   [Forum](https://forum.makerdao.com/)
         
     -   [Reddit](https://www.reddit.com/r/makerDAO/)
         
     -   [Social media](https://twitter.com/MakerDAO)
-        
-    -   [Blog](https://blog.makerdao.com/)
     
 
 ### Custodial Vault Integrator
@@ -362,13 +361,13 @@ As a vault integrator it is very important that you have integrated with the Eme
 -   Notify your users through the interface and direct them towards the right communication channels:
     
 
+    -   [Blog](https://blog.makerdao.com/)
+    
     -   [Forum](https://forum.makerdao.com/)
         
     -   [Reddit](https://www.reddit.com/r/makerDAO/)
         
     -   [Social media](https://twitter.com/MakerDAO)
-        
-    -   [Blog](https://blog.makerdao.com/)
     
 
 
@@ -423,13 +422,13 @@ If you control the access to the smart contracts backing your Dapp, then you can
 -   Follow communication for latest development updates
     
 
+    -   [Blog](https://blog.makerdao.com/)
+    
     -   [Forum](https://forum.makerdao.com/)
         
     -   [Reddit](https://www.reddit.com/r/makerDAO/)
         
     -   [Social media](https://twitter.com/MakerDAO)
-        
-    -   [Blog](https://blog.makerdao.com/)
     
 
 ### Non-Custodial Dapps
@@ -449,13 +448,13 @@ If you don’t control the smart contracts backing your Dapp directly, then
 -   Follow communication for latest development updates
     
 
+    -   [Blog](https://blog.makerdao.com/)
+    
     -   [Forum](https://forum.makerdao.com/)
         
     -   [Reddit](https://www.reddit.com/r/makerDAO/)
         
-    -   [Social media](https://twitter.com/MakerDAO)
-        
-    -   [Blog](https://blog.makerdao.com/)    
+    -   [Social media](https://twitter.com/MakerDAO)  
 
 ## Keepers
 
