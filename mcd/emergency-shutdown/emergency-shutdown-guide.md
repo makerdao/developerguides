@@ -465,10 +465,9 @@ As a Keeper in the Maker Protocol it’s recommended that you prepare to:
     
 -   Bid in the auction contracts in the Maker Protocol helping it settle any debt it might have
     
--   Migrate Dai to new Dai in case of system redeployment
+-   In case of system redeployment, migrate Dai to new Dai and deploy new software instances to support it.
     
--   Claim equivalent Dai collateral in the system after emergency shutdown
-    
+-   Claim equivalent Dai collateral in the system after emergency shutdown    
 
 ## Market Makers
 
