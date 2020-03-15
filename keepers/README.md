@@ -9,7 +9,7 @@ This document assumes familiarity with Ethereum, and in-depth knowledge of the M
 
 ### [Auction Keeper](https://github.com/makerdao/auction-keeper)
 
-The Auction Keeper program enables automatic interaction with CDP auctions - more specifically flip (collateral sale), flap (MKR buy and burn), and flop (MKR minting). You can read more about the different auction types [here](https://github.com/makerdao/dss/wiki/Fuss).
+The Auction Keeper program enables automatic interaction with CDP auctions - more specifically flip (collateral sale), flap (MKR buy and burn), and flop (MKR minting). You can read more about the different auction types [here](https://docs.makerdao.com/auctions/the-auctions-of-the-maker-protocol).
 
 This is automated by specifying bidding models that define the decision making process, such as when to bid, how high to bid etc.
 
