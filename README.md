@@ -4,6 +4,13 @@ Developers can build a variety of experiences using one or more components of th
 
 All guides are organized in sections and by proficiency levels within each section.
 
+## Keepers (Collateral Auctions, Debt Auctions, Arbitrage)
+
+- [Keeper Guides Repo](https://github.com/makerdao/developerguides/tree/master/keepers)
+- [Auctions 101](https://github.com/makerdao/developerguides/tree/master/keepers/auctions/auctions-101.md)
+- [Auction Keeper Setup Guide](https://github.com/makerdao/developerguides/blob/master/keepers/auction-keeper-bot-setup-guide.md)
+- [Simple Arbitrage Keeper](https://github.com/makerdao/developerguides/tree/master/keepers/simple-arbitrage-keeper/simple-arbitrage-keeper.md)
+
 ## Vaults
 
 - [Maker Vault Integration Guide](https://github.com/makerdao/developerguides/tree/master/vault/vault-integration-guide/cdp-integration-guide.md)
@@ -43,11 +50,6 @@ All guides are organized in sections and by proficiency levels within each secti
 ## Governance
 
 - [Vote Proxy Setup: Air-gapped Machine](https://github.com/makerdao/developerguides/tree/master/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
-
-## Keepers (Automatic CDP/Liquidation/Auction/Arbitraging Functionality)
-
-- [Auctions 101](https://github.com/makerdao/developerguides/tree/master/keepers/auctions/auctions-101.md)
-- [Simple Arbitrage Keeper](https://github.com/makerdao/developerguides/tree/master/keepers/simple-arbitrage-keeper/simple-arbitrage-keeper.md)
 
 ## Partners
 
