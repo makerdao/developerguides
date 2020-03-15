@@ -15,6 +15,10 @@ All guides are organized in sections and by proficiency levels within each secti
 
 - [Maker Vault Integration Guide](https://github.com/makerdao/developerguides/tree/master/vault/vault-integration-guide/cdp-integration-guide.md)
 
+## Emergency Shutdown
+
+- [Emergency Shutdown guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown/emergency-shutdown-guide.md)
+
 ## Dai
 
 - [Dai Token](https://github.com/makerdao/developerguides/tree/master/dai/dai-token/dai-token.md)
