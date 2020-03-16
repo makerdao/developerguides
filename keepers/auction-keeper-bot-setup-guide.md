@@ -235,10 +235,13 @@ bin/auction-keeper \
 Once finalized, you should save your script to run your Auction Keeper as `flip-eth-a.sh ` (or something similar to identify that this Auction Keeper is for a Flip Auction). 
 In addition, make sure to verify the above copy+pasted script doesn't create extra spaces or characters on pasting+saving in your editor. You will notice an error when running it later below otherwise. 
 
-**Notes:**
+**Important Note about Running Auction Keepers on the Ethereum Mainnet**
+- If you get to the point where the auction keeper bot is not accepting mainnet as a valid argument, this is because there is no `network` parameter. To fix this, just omit that parameter.
+
+**Other Notes:**
 
 - All Collateral types (`ilk`'s) combine the name of the token and a letter corresponding to a set of risk parameters. For example, as you can see above, the example uses ETH-A. Note that ETH-A and ETH-B are two different collateral types for the same underlying token (WETH) but have different risk parameters.
-- For the MCD addresses, we simply pass `--network mainnet|kovan` in and it will load the required JSON files bundled within auction-keeper (or pymaker).
+- For the MCD addresses, we simply pass `--network kovan` in and it will load the required JSON files bundled within auction-keeper (or pymaker).
 
 ### 3. Passing the bidding the model as an argument to the Keeper script
 
