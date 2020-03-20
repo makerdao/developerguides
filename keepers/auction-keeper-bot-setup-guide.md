@@ -7,6 +7,7 @@
 **Audience:** Developers 
 
 ### Overview
+**NOTE!: For an out of the box working Keeper, [see this repository instead](https://github.com/makerdao/dockerized-auction-keeper). This guide will go more into detail on how to build your own keeper, and is not aimed for out of the box functionality.**
 
 The Maker Protocol, which powers Multi Collateral Dai (MCD), is a smart contract based system that backs and stabilizes the value of Dai through a dynamic combination of Vaults (formerly known as CDPs), autonomous feedback mechanisms, and incentivized external actors. To keep the system in a stable financial state, it is important to prevent both debt and surplus from building up beyond certain limits. This is where Auctions and Auction Keepers come in. The system has been designed so that there are three types of Auctions in the system: Surplus Auctions, Debt Auctions, and Collateral Auctions. Each auction is triggered as a result of specific circumstances. 
 
