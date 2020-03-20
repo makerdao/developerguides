@@ -236,6 +236,10 @@ bin/auction-keeper \
 Once finalized, you should save your script to run your Auction Keeper as `flip-eth-a.sh ` (or something similar to identify that this Auction Keeper is for a Flip Auction). 
 In addition, make sure to verify the above copy+pasted script doesn't create extra spaces or characters on pasting+saving in your editor. You will notice an error when running it later below otherwise. 
 
+**Notes on dynamic gas pricing**
+
+If you want to use a dynamic gas price, for example to ensure the Keeper can still post transaction during network congestion, you can pass on an ETH Gas Station API key to the keeper using `--ethgasstation-api-key` in the config above. You can get a free API key by signing up at https://data.concourseopen.com/
+
 **Important Note about Running Auction Keepers on the Ethereum Mainnet**
 - If you get to the point where the auction keeper bot is not accepting mainnet as a valid argument, this is because there is no `network` parameter. To fix this, just omit that parameter.
 
