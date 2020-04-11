@@ -32,6 +32,8 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 
   - [How to integrate with Dai.js](#how-to-integrate-with-daijs)
 
+  - [How to integrate with Pymaker](#how-to-integrate-with-pymaker)
+
 - [How to calculate rates and savings](#how-to-calculate-rates-and-savings)
 
   - [Calculating user earnings on a pool of Dai in DSR](#calculating-user-earnings-on-a-pool-of-dai-in-dsr)
@@ -56,7 +58,7 @@ Therefore any centralized exchange or custodian of Dai should integrate function
 
 ## How to integrate DSR
 
-There are different ways to integrate the DSR, the three main ones being either to integrate directly with the core smart contracts of the Maker Protocol, integrate through proxy smart contracts, or to use the Dai.js library - the Maker Javascript library.
+There are different ways to integrate the DSR, the four main ones being either to integrate directly with the core smart contracts of the Maker Protocol, integrate through proxy smart contracts, using the Dai.js library, the Maker Javascript library, or through Pymaker - the Maker Python API.
 
 - If you are running a smart contract system, or are already integrated with other protocols at a smart contract level, then it makes sense to interact directly with the Maker smart contracts, either by interacting directly with the core or through proxy contracts depending on the use case.
 
@@ -236,6 +238,18 @@ When a user wants to withdraw Dai, the function [exit](https://github.com/makerd
 ![DSR Exit](https://lh4.googleusercontent.com/7ZbsR-yKqS6_eRyBuMs6QM7JR30jQ4vCQCI2RwptUQegF6xE0iS2BgUjNMhyRN2oVTisycBvCAM-43AQ0_-U4yINwfJbtqB_TC9tLDFkTFPBep771fR-nGMh7bQ-BGsJZRFw25oH)
 
 ![DSR ExitAll](https://lh3.googleusercontent.com/xDj03keC6jjql90Il4-mdFgN_ZXBO2F2HlR3X8rTSPKucXbPPPDTWL42_5JAsNPpYMtMp0MOZoG3ZPisI7h-Zs226-XbQuHiidR3aV6OQonDcofKodpyeheoQ5yOxZOTyuYeTUh_)
+
+### How to integrate with [Pymaker](https://github.com/makerdao/pymaker)
+
+In order to ease Keeper development, a python API around most of the Maker contracts has been created. It can be used not only by keepers, but may also be found useful by authors of some other, unrelated utilities aiming to interact with these contracts, such as DSR interaction.
+
+You only need to import this project as a python module if you want to utilize the API. Moreover, it offers a [transaction facility](https://github.com/makerdao/pymaker/blob/master/pymaker/__init__.py#L346), wrapped around `web3.eth.sendTransaction()`, which enables the use of [dynamic gas pricing strategies](https://github.com/makerdao/pymaker/blob/master/pymaker/gas.py).
+
+###### Examples
+The below examples follow the same interaction pattern as described above in the Dai.js section, which covers the full DSR Lifecycle of joining and exiting Dai in the `Pot` contract.
+
+* Here's a [simple integration example](https://github.com/makerdao/pymaker/blob/master/tests/manual_test_dsr.py)
+* If you're needing some guidance on incorporating pymaker into your project, check out our [more comprehensive integration example](https://github.com/makerdao/dsr-pymaker-example).
 
 ## How to calculate rates and savings
 

@@ -15,9 +15,10 @@
         - [Manage](#manage)
         - [Close](#close)
       - [Integration Tools](#integration-tools)
+        - [Vault Manager](#vault-manager)
         - [Dai.js](#daijs)
           - [MCD Dai.js Example](#mcd-daijs-example)
-        - [Vault Manager](#vault-manager)
+        - [Pymaker](#pymaker)
     - [Vault Management](#vault-management)
       - [Ownership](#ownership)
       - [Adjustment](#adjustment)
@@ -103,7 +104,7 @@ There are multiple ways to integrate with the Maker products: Smart contracts, D
 
 We can recommend one tool over another according to our experience, however you or your software architect would have a better understanding of what could be used in your system.
 
-##### [CDP Manager](https://github.com/makerdao/dss-cdp-manager)
+##### [Vault Manager](https://github.com/makerdao/dss-cdp-manager)
 
 Another way to interact with Vaults is through the Maker smart contracts.
 
