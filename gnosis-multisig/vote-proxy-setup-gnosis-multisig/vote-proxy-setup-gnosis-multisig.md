@@ -27,7 +27,7 @@ To initiate the link, we need to call `initateLink(hotAddress)` with our multisi
 * Under “Multisig transactions” press “Add”
 
 * In the “Destination” field input the address of the
- * `VoteProxyFactory: 0x3E08741A68c2d964d172793cD0Ad14292F658cd8`
+  * `VoteProxyFactory: 0x3E08741A68c2d964d172793cD0Ad14292F658cd8`
 
 
 * In the “ABI string” window copy and insert the entire VoteProxyFactory ABI text string from this [etherscan link](http://api-kovan.etherscan.io/api?module=contract&action=getabi&address=0x3e08741a68c2d964d172793cd0ad14292f658cd8&format=raw)
@@ -78,7 +78,7 @@ Let’s set up and approve the Voting Proxy contract that you made in the previo
 * Under “Multisig transactions” press “Add”
 
 * In the “Destination” field input the address of the
- * `MKR ERC20: 0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd`
+  * `MKR ERC20: 0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd`
 
 
 * In the “ABI string” window copy and insert the entire MKR ERC20 ABI text string from this [etherscan link](http://api-kovan.etherscan.io/api?module=contract&action=getabi&address=0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd&format=raw)
@@ -104,11 +104,11 @@ With both the proxy link and MKR transfer approved, the hot wallet can be used t
 
 * Under “Multisig transactions” press “Add”
 
-* In the “Destination” field input the address of the
-`VoteProxy: <0xABC123>`
+* In the “Destination” field input the following address:
+  * `VoteProxy: <0xABC123>`
 
 * In the “ABI string” window copy and insert the following ABI text string:
- * `[{"constant":false,"inputs":[{"name":"wad","type":"uint256"}],"name":"lock","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}]`
+  * `[{"constant":false,"inputs":[{"name":"wad","type":"uint256"}],"name":"lock","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}]`
 
 
 * In the “Method” dropdown select the “lock” method that will generate one input field, “wad”.
