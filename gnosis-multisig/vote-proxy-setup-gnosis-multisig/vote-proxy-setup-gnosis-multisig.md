@@ -29,7 +29,7 @@ To initiate the link, we need to call `initateLink(hotAddress)` with our multisi
 * In the “Destination” field input the address of the
  * `VoteProxyFactory: 0x3E08741A68c2d964d172793cD0Ad14292F658cd8`
 
- 
+
 * In the “ABI string” window copy and insert the entire VoteProxyFactory ABI text string from this [etherscan link](http://api-kovan.etherscan.io/api?module=contract&action=getabi&address=0x3e08741a68c2d964d172793cd0ad14292f658cd8&format=raw)
 
 * In the “Method” dropdown select the “initiateLink” method that will generate one input field, “hotAddress”.
@@ -83,11 +83,11 @@ Let’s set up and approve the Voting Proxy contract that you made in the previo
 
 * In the “ABI string” window copy and insert the entire MKR ERC20 ABI text string from this [etherscan link](http://api-kovan.etherscan.io/api?module=contract&action=getabi&address=0xaaf64bfcc32d0f15873a02163e7e500671a4ffcd&format=raw)
 
-* In the “Method” dropdown select the “approve” method that will generate two input fields, “guy” and “wad”.
+* In the “Method” dropdown select the “approve” method that will generate two input fields, “guy” and “wad”. Note that there are two "approve" methods, one with a "guy" and adjustable "wad" parameter, and another with just a "guy" parameter. The latter binary approval automatically sets the "wad" to be a very large number. We recommend using the first method, which limits the Vote Proxy's authority to pull only that that is intentionally prescribed.
 
 * In “guy” you copy/paste the address of VoteProxy (as found in the previous, internal transaction).
 
-* In “wad” you add a test amount (< 1) of MKR to be locked up in the VoteProxy. Note this is in units of Wad, which is equivalent to Wei (10^18)
+* In “wad” you add a test amount (< 1) of MKR to be locked up in the VoteProxy. Note this is in units of Wad, which is equivalent to Wei (10^18), so one would enter 1000000000000000000 (1 with 18 zeros) for 1 MKR.
 
 * Press “Send multisig transaction.”
 
@@ -111,9 +111,9 @@ With both the proxy link and MKR transfer approved, the hot wallet can be used t
  * `[{"constant":false,"inputs":[{"name":"wad","type":"uint256"}],"name":"lock","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}]`
 
 
-* In the “Method” dropdown select the “lock” method that will generate two input field, “wad”.
+* In the “Method” dropdown select the “lock” method that will generate one input field, “wad”.
 
-* In “wad” you add a test amount (< 1) of MKR to be locked up in the VoteProxy. Note this is in units of Wad, which is equivalent to Wei (10^18)
+* In “wad” you add a test amount (< 1) of MKR to be locked up in the VoteProxy. Note this is in units of Wad, which is equivalent to Wei (10^18), so one would enter 1000000000000000000 (1 with 18 zeros) for 1 MKR.
 
 * Press “Send multisig transaction.”
 
