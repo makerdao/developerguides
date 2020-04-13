@@ -15,9 +15,10 @@
         - [Manage](#manage)
         - [Close](#close)
       - [Integration Tools](#integration-tools)
+        - [Vault Manager](#vault-manager)
         - [Dai.js](#daijs)
           - [MCD Dai.js Example](#mcd-daijs-example)
-        - [Vault Manager](#vault-manager)
+        - [Pymaker](#pymaker)
     - [Vault Management](#vault-management)
       - [Ownership](#ownership)
       - [Adjustment](#adjustment)
@@ -103,6 +104,16 @@ There are multiple ways to integrate with the Maker products: Smart contracts, D
 
 We can recommend one tool over another according to our experience, however you or your software architect would have a better understanding of what could be used in your system.
 
+##### [Vault Manager](https://github.com/makerdao/dss-cdp-manager)
+
+Another way to interact with Vaults is through the Maker smart contracts.
+
+CDP Manager is our public facing interface contract that allows anyone to easily interact with the MCD system. This is the recommended way to interact with the Maker protocol. You can find some examples that show a simple Vault lifecycle with CDP Manager [here](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md).
+
+If you want to abstract many individual contract calls into one, then you can use our [proxy contract](https://github.com/makerdao/dss-proxy-actions) that uses the CDP Manager to interact with the system. In the proxy contract, the owner of the Vault is the proxy address and not the user's address. Clearly, the user's address is the owner of the proxy, so there's a link between the two addresses. Please refer to the [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) guide to understand how proxy contracts are used interact with the core system.
+
+In the example of a custodial exchange, using the CDP Manager could bring more options to operate with the MCD system on the exchange, as this allows easy control of the Vault lifecycle. The exchange can open Vaults for the users and link the Vault Id to the user Id, hence having a link to the user for accountability.
+
 ##### [Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
 
 Link to documentation: [Dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
@@ -113,7 +124,7 @@ Nonetheless, you will have to depend on the Dai.js maintainers to build new feat
 
 ###### MCD Dai.js Example
 
-Currently, Dai.js has a plugin that enables interaction with the MCD deployment, the `[dai-plugin-mcd](https://github.com/makerdao/dai.js/tree/dev/packages/dai-plugin-mcd)`. This plugin uses the DS-Proxy via the [CDP Manager](https://docs.makerdao.com/smart-contract-modules/proxy-module/cdp-manager-detailed-documentation). This plugin can be used with the [Kovan 0.2.17](https://changelog.makerdao.com/releases/kovan/0.2.17/contracts.json) deployment or with the [mainnet deployment](https://changelog.makerdao.com/releases/mainnet/1.0.0/contracts.json). 
+Currently, Dai.js has a plugin that enables interaction with the MCD deployment, the `[dai-plugin-mcd](https://github.com/makerdao/dai.js/tree/dev/packages/dai-plugin-mcd)`. This plugin uses the DS-Proxy via the [CDP Manager](https://docs.makerdao.com/smart-contract-modules/proxy-module/cdp-manager-detailed-documentation). This plugin can be used with the [Kovan 0.2.17](https://changelog.makerdao.com/releases/kovan/0.2.17/contracts.json) deployment or with the [mainnet deployment](https://changelog.makerdao.com/releases/mainnet/1.0.0/contracts.json).
 
 A quick example of opening a Vault with Dai.js would look like this:
 Make sure to run [node 11.10](https://nodejs.org/download/release/v11.10.0/) and follow install [instructions](https://github.com/makerdao/dai.js).  
@@ -165,15 +176,13 @@ We have some example projects that can show you how to use Dai.js:
 - [Governance Dashboard](https://github.com/makerdao/governance-dashboard)
 - [MCD-CDP-Portal](https://github.com/makerdao/mcd-cdp-portal)
 
-##### [CDP Manager](https://github.com/makerdao/dss-cdp-manager)
+##### [Pymaker](https://github.com/makerdao/pymaker)
 
-Another way to interact with Vaults is through the Maker contracts.
+In order to ease Keeper development, a python API around most of the Maker contracts has been created. It can be used not only by keepers, but may also be found useful by authors of some other, unrelated utilities aiming to interact with these contracts, such as Vault interaction.
 
-CDP Manager is our public facing interface contract that allows anyone to easily interact with the MCD system. This is the recommended way to interact with the Maker protocol. You can find some examples that show a simple Vault lifecycle with CDP Manager [here](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md).
+You only need to import this project as a python module if you want to utilize the API. Moreover, it offers a [transaction facility](https://github.com/makerdao/pymaker/blob/master/pymaker/__init__.py#L346), wrapped around `web3.eth.sendTransaction()`, which enables the use of [dynamic gas pricing strategies](https://github.com/makerdao/pymaker/blob/master/pymaker/gas.py).
 
-If you want to abstract many individual contract calls into one, then you can use our [proxy contract](https://github.com/makerdao/dss-proxy-actions) that uses the CDP Manager to interact with the system. In the proxy contract, the owner of the Vault is the proxy address and not the user's address. Clearly, the user's address is the owner of the proxy, so there's a link between the two addresses. Please refer to the [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) guide to understand how proxy contracts are used interact with the core system.
-
-In the example of a custodial exchange, using the CDP Manager could bring more options to operate with the MCD system on the exchange, as this allows easy control of the Vault lifecycle. The exchange can open Vaults for the users and link the Vault Id to the user Id, hence having a link to the user for accountability.
+Here's a [pymaker integration example](https://github.com/makerdao/pymaker/blob/master/tests/manual_test_mcd.py) of the full Vault Lifecycle.
 
 ### Vault Management
 
