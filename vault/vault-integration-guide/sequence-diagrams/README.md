@@ -26,7 +26,7 @@
 ---
 
 ## Pay back DAI
-![Package](../img/PayBackDAI.png)
+![Package](../img/PayBackDai.png)
 
 ---
 
