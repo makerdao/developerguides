@@ -69,6 +69,7 @@ Some examples of portals that have built custom Vault integrations,
 - Tinlake allows users to borrow Dai by locking NFTs on their lending platform which packages Vaults on their backend.
 
 ![Package](img/cdpguide-package.png)
+
 *Illustration of a Vault packaged with various components*
 
 The possibilities to both differentiate and serve users are endless, and we will outline some general principles to help you architect and develop your custom Vault integration in the following sections of this guide,
@@ -110,7 +111,13 @@ Another way to interact with Vaults is through the Maker smart contracts.
 
 CDP Manager is our public facing interface contract that allows anyone to easily interact with the MCD system. This is the recommended way to interact with the Maker protocol. You can find some examples that show a simple Vault lifecycle with CDP Manager [here](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md).
 
-If you want to abstract many individual contract calls into one, then you can use our [proxy contract](https://github.com/makerdao/dss-proxy-actions) that uses the CDP Manager to interact with the system. In the proxy contract, the owner of the Vault is the proxy address and not the user's address. Clearly, the user's address is the owner of the proxy, so there's a link between the two addresses. Please refer to the [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) guide to understand how proxy contracts are used interact with the core system.
+If you want to abstract many individual contract calls into one, then you can use our [proxy contract](https://github.com/makerdao/dss-proxy-actions) that uses the CDP Manager to interact with the system. In the proxy contract, the owner of the Vault is the proxy address and not the user's address. Clearly, the user's address is the owner of the proxy, so there's a link between the two addresses. Please refer to the [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) guide to understand how proxy contracts are used interact with the core system. Here's an example of a Single Vault User Flow when using the DSProxy design pattern:
+
+![Package](img/SingleETHVaultUserFlow.png)
+
+*Illustration of a Single Vault User Flow*
+
+Referenced sequenced diagrams of each transaction operation with DSProxy can be [found here](/vault/vault-integration-guide/sequence-diagrams/README.md).
 
 In the example of a custodial exchange, using the CDP Manager could bring more options to operate with the MCD system on the exchange, as this allows easy control of the Vault lifecycle. The exchange can open Vaults for the users and link the Vault Id to the user Id, hence having a link to the user for accountability.
 
