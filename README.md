@@ -13,7 +13,7 @@ All guides are organized in sections and by proficiency levels within each secti
 
 ## Vaults
 
-- [Maker Vault Integration Guide](https://github.com/makerdao/developerguides/tree/master/vault/vault-integration-guide/cdp-integration-guide.md)
+- [Maker Vault Integration Guide](https://github.com/makerdao/developerguides/tree/master/vault/vault-integration-guide/vault-integration-guide.md)
 
 ## Emergency Shutdown
 
