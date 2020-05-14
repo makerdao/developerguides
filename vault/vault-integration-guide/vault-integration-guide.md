@@ -195,6 +195,23 @@ Here's a [pymaker integration example](https://github.com/makerdao/pymaker/blob/
 
 A Vault portal is a gateway for a user for managing a Vault. It can help them to lock collateral and open one, hold custody over it if required, provide monitoring and notification support for important changes that could affect its safety, and provide options to adjust collateral or debt either automatically or with user actions.
 
+### Collateral Types
+
+Maker Protocol is desinged to accept multiple types of collateral assets that users could use for their vaults. With the addition of many new assets in the future, the user will have to be cautios on the token details of each asset, such as token decimals or if the asset is an ERC-20 standard compliant token.
+
+All Maker Protocol contract addresses can be found at [changelog.makerdao.com](https://changelog.makerdao.com/). 
+
+Below is a list of included tokens in Maker Protocol and their details that are deployed on `mainnet`:
+
+| Tokens       | Token Address  | Decimals | ILK (collateral type) in bytes32 |
+| :---         |     :---:      |     :---:     | :--- |
+| ETH    |  [`0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`](https://etherscan.io/address/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2)    |   `18`  |   `ETH-A` - `0x4554482d41000000000000000000000000000000000000000000000000000000`    |
+| BAT    |    [`0x0D8775F648430679A709E98d2b0Cb6250d2887EF`](https://etherscan.io/address/0x0D8775F648430679A709E98d2b0Cb6250d2887EF)    |   `18`    | `BAT-A` - `0x4241542d41000000000000000000000000000000000000000000000000000000`      |
+| USDC   | [`0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`](https://etherscan.io/address/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)| `6`| `USDC-A` -   `0x555344432d410000000000000000000000000000000000000000000000000000` |
+|  WBTC | [`0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599`](https://etherscan.io/address/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599) | `8`  | `WBTC-A` - `0x574254432d410000000000000000000000000000000000000000000000000000`
+
+
+
 #### Ownership
 
 A portal can either offer custodial support and hold ownership of the Vault on behalf of the user or it can let the user hold it through their preferred Dapp wallet. Both these options can provide users with a different set of benefits.
