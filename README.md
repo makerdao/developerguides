@@ -4,12 +4,16 @@ Developers can build a variety of experiences using one or more components of th
 
 All guides are organized in sections and by proficiency levels within each section.
 
-## Keepers (Collateral Auctions, Debt Auctions, Arbitrage)
+## Dai
 
-- [Keeper Guides Repo](https://github.com/makerdao/developerguides/tree/master/keepers)
-- [Auctions 101](https://github.com/makerdao/developerguides/tree/master/keepers/auctions/auctions-101.md)
-- [Auction Keeper Setup Guide](https://github.com/makerdao/developerguides/blob/master/keepers/auction-keeper-bot-setup-guide.md)
-- [Simple Arbitrage Keeper](https://github.com/makerdao/developerguides/tree/master/keepers/simple-arbitrage-keeper/simple-arbitrage-keeper.md)
+- [Dai Token](https://github.com/makerdao/developerguides/tree/master/dai/dai-token/dai-token.md)
+- [Dai in Smart Contracts](https://github.com/makerdao/developerguides/tree/master/dai/dai-in-smart-contracts/README.md)
+- [Tracking Dai Supply](https://github.com/makerdao/developerguides/tree/master/dai/dai-supply/dai-supply.md)
+
+## Dai Savings Rate (DSR)
+
+- [Dai Savings Rate integration guide](https://github.com/makerdao/developerguides/tree/master/dai/dsr-integration-guide/dsr-integration-guide-01.md)
+- [DsrManager documentation](/dai/dsr-manager-docs/README.md)
 
 ## Vaults
 
@@ -19,12 +23,6 @@ All guides are organized in sections and by proficiency levels within each secti
 
 - [Emergency Shutdown guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown/emergency-shutdown-guide.md)
 
-## Dai
-
-- [Dai Token](https://github.com/makerdao/developerguides/tree/master/dai/dai-token/dai-token.md)
-- [Dai in Smart Contracts](https://github.com/makerdao/developerguides/tree/master/dai/dai-in-smart-contracts/README.md)
-- [Dai Savings Rate integration guide](https://github.com/makerdao/developerguides/tree/master/dai/dsr-integration-guide/dsr-integration-guide-01.md)
-- [Tracking Dai Supply](https://github.com/makerdao/developerguides/tree/master/dai/dai-supply/dai-supply.md)
 ## Maker Protocol / Multi-Collateral Dai
 
 - [Introduction and Overview of Multi-Collateral Dai: MCD101](https://github.com/makerdao/developerguides/tree/master/mcd/mcd-101/mcd-101.md)
@@ -33,6 +31,13 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Upgrading to MCD - overview for different partners](https://github.com/makerdao/developerguides/tree/master/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)
 - [Add a new collateral type to Maker Protocol - Kovan](https://github.com/makerdao/developerguides/tree/master/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
 - [Intro to the Rate mechanism](https://github.com/makerdao/developerguides/tree/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
+
+## Keepers (Collateral Auctions, Debt Auctions, Arbitrage)
+
+- [Keeper Guides Repo](https://github.com/makerdao/developerguides/tree/master/keepers)
+- [Auctions 101](https://github.com/makerdao/developerguides/tree/master/keepers/auctions/auctions-101.md)
+- [Auction Keeper Setup Guide](https://github.com/makerdao/developerguides/blob/master/keepers/auction-keeper-bot-setup-guide.md)
+- [Simple Arbitrage Keeper](https://github.com/makerdao/developerguides/tree/master/keepers/simple-arbitrage-keeper/simple-arbitrage-keeper.md)
 
 ## Developer Tools
 
@@ -46,12 +51,6 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Intro to OasisDEX Protocol](https://github.com/makerdao/developerguides/tree/master/Oasis/intro-to-oasis/intro-to-oasis-maker-otc.md)
 - [How to use Oasis Direct Proxy on OasisDEX Protocol](https://github.com/makerdao/developerguides/tree/master/Oasis/oasis-direct-proxy.md)
 
-## Gnosis Multisig Wallet
-
-- [Migrating Sai to Dai using Gnosis Multisig Wallet UI](https://github.com/makerdao/developerguides/tree/master/gnosis-multisig/migrating-gnosis-multisig-guide/migrating-gnosis-multisig-guide-01.md)
-- [Activating Dai Savings Rate on Dai in Gnosis Multisig Wallet](https://github.com/makerdao/developerguides/tree/master/gnosis-multisig/dsr-gnosis-multisig-guide/dsr-gnosis-multisig-guide-01.md)
-- [Vote Proxy Setup with Gnosis Multisig Wallet](https://github.com/makerdao/developerguides/blob/master/gnosis-multisig/vote-proxy-setup-gnosis-multisig/vote-proxy-setup-gnosis-multisig.md)
-
 ## Governance
 
 - [Vote Proxy Setup: Air-gapped Machine](https://github.com/makerdao/developerguides/tree/master/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
@@ -59,6 +58,12 @@ All guides are organized in sections and by proficiency levels within each secti
 ## Partners
 
 - [Setting up real money transfers using Wyre API](https://github.com/makerdao/developerguides/tree/master/partners/wyre-guide-01/wyre-guide-01.md)
+
+### Gnosis Multisig Wallet
+
+- [Migrating Sai to Dai using Gnosis Multisig Wallet UI](https://github.com/makerdao/developerguides/tree/master/gnosis-multisig/migrating-gnosis-multisig-guide/migrating-gnosis-multisig-guide-01.md)
+- [Activating Dai Savings Rate on Dai in Gnosis Multisig Wallet](https://github.com/makerdao/developerguides/tree/master/gnosis-multisig/dsr-gnosis-multisig-guide/dsr-gnosis-multisig-guide-01.md)
+- [Vote Proxy Setup with Gnosis Multisig Wallet](https://github.com/makerdao/developerguides/blob/master/gnosis-multisig/vote-proxy-setup-gnosis-multisig/vote-proxy-setup-gnosis-multisig.md)
 
 ## Partner compilations
 
