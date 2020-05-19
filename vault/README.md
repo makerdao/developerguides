@@ -10,4 +10,6 @@ Maker Vaults allow users to lock collateral and generate Dai.
 
 - [Vault Integration Guide](/vault/vault-integration-guide/vault-integration-guide.md)
 
+- [Monitoring Collateral Types and Vaults](/vault/monitoring-collateral-types-and-vaults/monitoring-collateral-types-and-vaults.md)
+
 ## Advanced

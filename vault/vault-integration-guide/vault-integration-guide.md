@@ -250,6 +250,8 @@ Portals can notify users about various topics to help them better manage their V
 - Governance and Executive Proposals that could change various Vault risk parameters.
 - Suggestions to save stability fees by migrating the Vault to other collateral types or lending services.
 
+For practical guidance, we recommend reviewing our [Monitoring Collateral Types and Vaults](/vault/monitoring-collateral-types-and-vaults/monitoring-collateral-types-and-vaults.md) Guide.
+
 #### Liquidation Support
 
 Unsafe Vaults that breach their collateralization ratio are liquidated by the Maker protocol as a last resort to reduce overall risk in the system and to keep it well collateralized. To prevent Vault owners from misusing this mechanism through [auction grinding attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf), a liquidation penalty is also tacked.
@@ -278,7 +280,7 @@ Lending protocols match lenders and borrowers that suppy assets to the protocol.
 
 The Maker Protocol is designed to accept multiple types of collateral assets that users can generate Dai with. With the addition of many new assets in the future, integration partners need to be aware of the details of each asset, such as token decimals and token interfaces.
 
-All Maker Protocol contract addresses can be found at [changelog.makerdao.com](https://changelog.makerdao.com/). 
+All Maker Protocol contract addresses can be found at [changelog.makerdao.com](https://changelog.makerdao.com/).
 
 Below is a list of included tokens in Maker Protocol and the details of their `mainnet` deployments:
 
