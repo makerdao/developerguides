@@ -89,7 +89,6 @@ Make sure you have:
 Define permit function parameters
 
 ```javascript
-//Define Permit Function Parameters
 const fromAddress = "0x9EE5e175D09895b8E1E28c22b961345e1dF4B5aE";
 const expiry = Date.now() + 120;
 const nonce = 1;
