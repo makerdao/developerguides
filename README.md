@@ -9,6 +9,7 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Dai Token](https://github.com/makerdao/developerguides/tree/master/dai/dai-token/dai-token.md)
 - [Dai in Smart Contracts](https://github.com/makerdao/developerguides/tree/master/dai/dai-in-smart-contracts/README.md)
 - [Tracking Dai Supply](https://github.com/makerdao/developerguides/tree/master/dai/dai-supply/dai-supply.md)
+- [How to use Permit Function and Relayers to Pay Gas for Dai Transactions in Dai](./dai/dai-permit-function/how-to-use-permit-function.md)
 
 ## Dai Savings Rate (DSR)
 
