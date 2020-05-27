@@ -2,6 +2,7 @@
 # Emergency Shutdown Desgin Patterns for Integrations
 
 **Level:** Advanced
+
 **Estimated Time:** 45 min
 
 - [Emergency Shutdown Desgin Patterns for Integrations](#emergency-shutdown-desgin-patterns-for-integrations)
