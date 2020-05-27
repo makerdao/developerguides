@@ -24,6 +24,7 @@ All guides are organized in sections and by proficiency levels within each secti
 ## Emergency Shutdown
 
 - [Emergency Shutdown guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown/emergency-shutdown-guide.md)
+- [Emergency Shutdown Design Patterns](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown-design-patterns/emergency-shutdown-design-patterns.md)
 
 ## Maker Protocol / Multi-Collateral Dai
 
