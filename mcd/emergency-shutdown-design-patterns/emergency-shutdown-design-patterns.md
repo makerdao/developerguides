@@ -1,5 +1,5 @@
 
-# Emergency Shutdown Desgin Patterns for Integrations
+# Emergency Shutdown Design Patterns for Integrations
 
 **Level:** Advanced
 
