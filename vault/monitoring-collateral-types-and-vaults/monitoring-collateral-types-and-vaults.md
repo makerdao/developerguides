@@ -22,9 +22,9 @@ After going through this guide, you will gain a better understanding of:
 
 ## Guide
 Mainnet addresses to contracts mentioned below can be found in the [latest release](https://changelog.makerdao.com/) of the Maker Protocol. To see the contract solidity code, go to etherscan.io, click on the `Contract` tab, and finally select the `Code` card. When reading numeric values, remember to account for their magnitudes. Of the fixed point integers:
-`wad` - 18 decimal places
-`ray` - 27 decimal places
-`rad` - 45 decimal places
+* `wad` - 18 decimal places
+* `ray` - 27 decimal places
+* `rad` - 45 decimal places
 
 ### Collateral Types
 Every [Collateral type](https://github.com/makerdao/developerguides/blob/kenton_dev/vault/vault-integration-guide/vault-integration-guide.md#collateral-types) state is stored in the `Ilk` data structure in the [Vat](https://github.com/makerdao/dss/blob/master/src/vat.sol), the central accounting contract of the Maker Protocol.
