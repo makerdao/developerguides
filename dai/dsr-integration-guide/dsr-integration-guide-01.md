@@ -26,9 +26,11 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 
 - [How to integrate DSR](#how-to-integrate-dsr)
 
-  - [How to integrate DSR through the core](#how-to-integrate-dsr-through-the-core)
+  - [How to integrate DSR through using DsrManager](#how-to-integrate-dsr-using-dsrmanager)
 
   - [How to integrate with proxy contracts](#how-to-integrate-with-proxy-contracts)
+  
+  - [How to integrate DSR through the core](#how-to-integrate-dsr-through-the-core)
 
   - [How to integrate with Dai.js](#how-to-integrate-with-daijs)
 
@@ -60,11 +62,13 @@ Therefore any centralized exchange or custodian of Dai should integrate function
 
 There are different ways to integrate the DSR, the four main ones being either to integrate directly with the core smart contracts of the Maker Protocol, integrate through proxy smart contracts, using the Dai.js library, the Maker Javascript library, or through Pymaker - the Maker Python API.
 
-- If you are running a smart contract system, or are already integrated with other protocols at a smart contract level, then it makes sense to interact directly with the Maker smart contracts, either by interacting directly with the core or through proxy contracts depending on the use case.
+- If you are running a smart contract system, or are already integrated with other protocols at a smart contract level, then it makes sense to interact directly with the Maker smart contracts. In most cases the DsrManager is the simplest way to integrate DSR functionality, as it provides an easy to use contract for this purpose. However there is also the option to integrate through the core or through proxy contracts depending on the use case.
 
-  - If you just need to enable DSR on a pool of Dai, then it makes sense to integrate with the core.
+  - If you just need to enable DSR on a pool of Dai, then it makes sense to integrate using **DsrManager**.
 
-    - If you need to integrate with multiple features of the Maker protocol, and want to carry over the proxy identity of users that are reflected in Maker front ends (i.e. be able to automatically show vaults, earned savings etc. in a UI), then it makes sense to integrate with the proxy contracts that the Maker Foundation uses.
+  - If you need to integrate with multiple features of the Maker protocol, and want to carry over the proxy identity of users that are reflected in Maker front ends (i.e. be able to automatically show vaults, earned savings etc. in a UI), then it makes sense to integrate with the proxy contracts that the Maker Foundation uses.
+    
+  - If you need to integrate the DSR and the functionality of the DsrManager is not enough, then it makes sense to look at integrating directly with the core Maker smart contracts.
 
 - If you custody Dai, but are not otherwise integrated directly with the smart contract layer of Ethereum, then it makes sense to use Dai.js, as the heavy plumbing of calling the smart contracts have been done for you. In the following, both approaches will be detailed.
 
@@ -72,9 +76,13 @@ There are different ways to integrate the DSR, the four main ones being either t
 
 The contract addresses and ABIs of the Maker Protocol can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/index.html)
 
-The contracts you need to work with are:
+The contracts we are going to cover in the following are:
 
 - [Dai](https://github.com/makerdao/dss/blob/master/src/dai.sol) - [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code)
+
+- [DsrManager - 0x373238337Bfe1146fb49989fc222523f83081dDb](https://etherscan.io/address/0x373238337Bfe1146fb49989fc222523f83081dDb#code)
+
+- [DssProxyActionsDsr](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L891) - [0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26](https://etherscan.io/address/0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26#code)
 
 - [DaiJoin](https://github.com/makerdao/dss/blob/master/src/join.sol) - [0x9759a6ac90977b93b58547b4a71c78317f391a28](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code)
 
@@ -82,35 +90,43 @@ The contracts you need to work with are:
 
 - [Vat](https://github.com/makerdao/dss/blob/master/src/vat.sol) - [0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b](https://etherscan.io/address/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b#code)
 
-- [DssProxyActionsDsr](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L891) - [0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26](https://etherscan.io/address/0x07ee93aeea0a36fff2a9b95dd22bd6049ee54f26#code)
-
-- [DsrManager - 0x373238337Bfe1146fb49989fc222523f83081dDb](https://etherscan.io/address/0x373238337Bfe1146fb49989fc222523f83081dDb#code)
-
 You can find ABIs here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html)
 
-### How to integrate DSR through the core
+### How to integrate DSR using DsrManager
 
-In order to integrate DSR by interacting directly with the core, you need to implement a smart contract that invokes functions in the `pot` contract.
-
-`pot` is the Dai Savings Rate contract, and you can read [detailed documentation of the contract here](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation). In order to accrue savings on Dai, you must call the function [join](https://github.com/makerdao/dss/blob/master/src/pot.sol#L150) with the amount of Dai you want to accrue savings on. However, in order for this function call to succeed you must first call [drip](https://github.com/makerdao/dss/blob/master/src/pot.sol#L140) to update the state of the system, to ensure internal balances are calculated correctly. Therefore to activate savings on x amount of Dai, you must call `pot.drip()` and then `pot.join(x)`, where x is a `uint256` in the same transaction. In order to do this atomically you need to implement these calls in a smart contract that can carry out both function calls in a single transaction. If you use a smart contract to carry out these function calls, since the DSR contract uses msg.sender as the depositor, msg.sender will be the only one able to retrieve Dai from DSR. So, ensure that only you have access to withdraw Dai from the DSR contract by implementing the necessary access mappings.
-
-A simple DSR example of how to interact with the Maker core can be found [here](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr.sol). **NOTE: Make sure to not use this code in production, as it has not been audited**. In this example, you can see how to properly call the `pot.join(x)`, `pot.exit(x)` and `pot.exitAll()` functions. Give close attention to the helper math functions, as they convert the Dai ERC-20 token 18 decimal into the internal accounting 27 decimal numbers. This could be used as inspiration for services that have a pool of Dai interacting with the Dai Savings Rate. Again, it is important to note that **the former example is not production ready code, but only for inspiration**.
-
-### How to integrate with DsrManager
-
-[DsrManager](https://etherscan.io/address/0x373238337Bfe1146fb49989fc222523f83081dDb#code) contract is a good example of a contract that implements the simplest interaction with the `pot` contract in the Maker Protocol.
+The `DsrManager` is an easy-to-use smart contract that allows service providers to deposit/withdraw Dai into the DSR contract  [pot](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation), and activate/deactivate the Dai Savings Rate to start earning savings on a pool of Dai within a single function call.
 
 To use DsrManager, first you need to approve the DsrManager contract in the Dai Token contract by calling `Dai.approve(address DsrManager)`. Then you are free to use the contract functions to manage Dai in the DSR contract.
 
-To activate DSR in your Dai, call `join(address dst, uint256 amount)`. With the `address` parameter being your own wallet address, or if you want to add Dai to DSR for someone else, add their wallet address instead.
+To activate DSR in your Dai, call `join(address dst, uint256 amount)` with the address parameter being your own wallet address, or if you want to add Dai to DSR to be owned by another address you can specify that - i.e. if you want to move Dai from a hot a wallet into DSR for a cold wallet. To retrieve Dai from DSR, you can use `exit(address dst, uint256 wad)` for withdrawing a certain amount to your chosen address. Or, `exitAll(address dst)` to withdraw all Dai to a chosen address.
 
-To retrieve Dai from DSR, you could use `exit(address dst, uint256 wad)` for withdrawing a certain amount to your chosen address. Or, `exitAll(address dst)` to withdraw all Dai to a chosen address.
+The savings activation flow can be split into the following steps:
 
-For more details, read this [DsrManager Guide](../dsr-manager-docs/README.md).
+1.  Earn savings on Dai
+    
 
-**Differencs between DSRManager and Proxy Contracts:**
+	a.  `join(address dst, uint wad)`
+    
 
-By using DSRManager, `msg.sender` is the main address registered in the `pot` contract that the user can verify his balance with. When using `DS-Proxy` the `DS-Proxy` address controlled by `msg.sender` is the address that is stored in the contract state that the user can verify his balance with. DSRManager allows the users to directly interact with the DSR contract without having to setup a proxy contract address. DsrManager is a cleaner approach to interact with DSR in Maker Protocol.
+2.  Monitor Savings of an address
+    
+
+	a.  `daiBalance(address usr) returns (uint wad)` to return the entire balance (principle + savings)
+    
+
+3.  Retrieve Accrued Savings
+    
+
+	a.  For a specific amount `exit(address dst, uint wad)`
+    
+	b.  For entire balance `exitAll(address dst)`
+    
+
+For more details on the DsrManager, read the [DsrManager documentation](https://github.com/makerdao/developerguides/blob/addDsrManager/dai/dsr-manager-docs/README.md).
+
+#### Difference between DSRManager and Proxy Contracts:
+
+By using DsrManager, you can avoid having to use a DS-Proxy contract to deposit Dai into the DSR. Instead, you can simply interact directly with the DsrManager which keeps track of user balances in pot through the pieOf mapping. In many instances using DsrManager will be the simpler way of doing a smart contract based DSR integration.
 
 ### How to integrate with proxy contracts
 
@@ -226,6 +242,14 @@ Call the `execute` function in your proxy contract to withdraw the remaining Dai
 `seth send $MYPROXY 'execute(address,bytes memory)' $PROXY_ACTIONS_DSR $exitAllCalldata`
 
 [Here is](https://kovan.etherscan.io/tx/0xcc4c7b3735a09b5430f0fd655913cc50d3ab563ca51944cab7ef18e6cd1856c9) an example of a successful transaction.
+
+### How to integrate DSR through the core
+
+In order to integrate DSR by interacting directly with the core, you need to implement a smart contract that invokes functions in the `pot` contract.
+
+`pot` is the Dai Savings Rate contract, and you can read [detailed documentation of the contract here](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation). In order to accrue savings on Dai, you must call the function [join](https://github.com/makerdao/dss/blob/master/src/pot.sol#L150) with the amount of Dai you want to accrue savings on. However, in order for this function call to succeed you must first call [drip](https://github.com/makerdao/dss/blob/master/src/pot.sol#L140) to update the state of the system, to ensure internal balances are calculated correctly. Therefore to activate savings on x amount of Dai, you must call `pot.drip()` and then `pot.join(x)`, where x is a `uint256` in the same transaction. In order to do this atomically you need to implement these calls in a smart contract that can carry out both function calls in a single transaction. If you use a smart contract to carry out these function calls, since the DSR contract uses msg.sender as the depositor, msg.sender will be the only one able to retrieve Dai from DSR. So, ensure that only you have access to withdraw Dai from the DSR contract by implementing the necessary access mappings.
+
+A simple DSR example of how to interact with the Maker core can be found [here](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr.sol). **NOTE: Make sure to not use this code in production, as it has not been audited**. In this example, you can see how to properly call the `pot.join(x)`, `pot.exit(x)` and `pot.exitAll()` functions. Give close attention to the helper math functions, as they convert the Dai ERC-20 token 18 decimal into the internal accounting 27 decimal numbers. This could be used as inspiration for services that have a pool of Dai interacting with the Dai Savings Rate. Again, it is important to note that **the former example is not production ready code, but only for inspiration**.
 
 ### How to integrate with Dai.js
 
