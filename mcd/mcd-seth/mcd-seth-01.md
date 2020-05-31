@@ -156,7 +156,7 @@ Then use the following command to use the join function, thus taking 150 BAT fro
 
 We can check the results with the contract function: `gem(bytes32 ilk,address urn)(uint256)` with.
 
-`seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'gem(bytes32,address)(uint256)' $ilk $urn)) eth`
+`seth --from-wei $(seth call $MCD_VAT 'gem(bytes32,address)(uint256)' $ilk $urn) eth`
 
 The output should look like this:
 
