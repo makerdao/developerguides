@@ -124,6 +124,8 @@ The savings activation flow can be split into the following steps:
 
 For more details on the DsrManager, read the [DsrManager documentation](https://github.com/makerdao/developerguides/blob/addDsrManager/dai/dsr-manager-docs/README.md).
 
+For a DsrManager contract integration example, [look here](./dsrManagerExample.sol). In this example you'll see a simple contract that uses the DsrManager contract as an interface.
+
 #### Difference between DSRManager and Proxy Contracts:
 
 By using DsrManager, you can avoid having to use a DS-Proxy contract to deposit Dai into the DSR. Instead, you can simply interact directly with the DsrManager which keeps track of user balances in pot through the pieOf mapping. In many instances using DsrManager will be the simpler way of doing a smart contract based DSR integration.
