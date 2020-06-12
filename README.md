@@ -68,6 +68,7 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Migrating Sai to Dai using Gnosis Multisig Wallet UI](https://github.com/makerdao/developerguides/tree/master/gnosis-multisig/migrating-gnosis-multisig-guide/migrating-gnosis-multisig-guide-01.md)
 - [Activating Dai Savings Rate on Dai in Gnosis Multisig Wallet](https://github.com/makerdao/developerguides/tree/master/gnosis-multisig/dsr-gnosis-multisig-guide/dsr-gnosis-multisig-guide-01.md)
 - [Vote Proxy Setup with Gnosis Multisig Wallet](https://github.com/makerdao/developerguides/blob/master/gnosis-multisig/vote-proxy-setup-gnosis-multisig/vote-proxy-setup-gnosis-multisig.md)
+- [Add Dai to DSR through DsrManager with Gnosis Multisig](./gnosis-multisig/dsr-gnosis-multisig-guide/dsr-manager-gnosis-multisig-guide.md)
 
 ## Partner compilations
 
