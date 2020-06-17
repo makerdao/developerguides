@@ -122,7 +122,7 @@ The savings activation flow can be split into the following steps:
 	b.  For entire balance `exitAll(address dst)`
     
 
-For more details on the DsrManager, read the [DsrManager documentation](./dsr-manager-docs/README.md).
+For more details on the DsrManager, read the [DsrManager documentation](../dsr-manager-docs/README.md).
 
 For a DsrManager contract integration example, [look here](./dsrManagerExample.sol). In this example you'll see a simple contract that uses the DsrManager contract as an interface.
 
