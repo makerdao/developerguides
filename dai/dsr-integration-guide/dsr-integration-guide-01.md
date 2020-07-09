@@ -24,12 +24,16 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 
   - [How to activate DSR](#how-to-activate-dsr)
 
+- [Integration Stories](#integration-stories)
+
+  - [Centralized Exchange](#centralized-exchange)
+
 - [How to integrate DSR](#how-to-integrate-dsr)
 
   - [How to integrate DSR through using DsrManager](#how-to-integrate-dsr-using-dsrmanager)
 
   - [How to integrate with proxy contracts](#how-to-integrate-with-proxy-contracts)
-  
+
   - [How to integrate DSR through the core](#how-to-integrate-dsr-through-the-core)
 
   - [How to integrate with Dai.js](#how-to-integrate-with-daijs)
@@ -48,6 +52,42 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 
 - [Working seth](https://docs.makerdao.com/clis/seth)
 
+## Integration Stories
+
+As described in the rest of this guide, there are many approaches to integrate DSR support into your system. Each approach has pros and cons, varying levels of complexity, and different technical requirements. This section is purposed to help streamline the integration experience for integration stories of common intention. Akin to directions on a map, integration stories help guide the reader through a suggested path, but they do not prohibit exploration of other paths, which may lead to improved or more thoughtful integrations. Each story begins with some assumptions of the developer’s system, an introduction to the story, and the contents thereof.
+
+### Centralized Exchange
+
+The following assumptions about your system’s design and operation:
+Single cold/hot wallet(s) holding assets for multiple users
+Scalable off-chain accounting system holding a record of users’ balances
+Asynchronous contract calls following User action
+Ability to make calls to contracts that don’t inherit the ERC20 spec
+Will not need to interact with adjacent systems that require a [proxy identity](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md).
+
+With these assumptions, the following integration story is relieved of the proxy-identity requirement and prioritizes simplicity for the centralized exchange. In the following steps, we build up the prerequisite knowledge of the DSR and outline the steps to integrate the `DsrManager` before concluding with some recommendations. Considered as the simplest and most secure way of adding Dai to the DSR, the `DsrManager` is a smart contract that allows service providers to deposit/withdraw dai into the DSR contract ([Pot contract](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation)), and activate/deactivate the Dai Savings Rate to start earning savings on a pool of dai in a single function call. Let us begin:
+
+1. Become knowledgeable of the DSR
+   - [What is DSR?](#what-is-dsr)
+2. Understand at a high level how to integrate the DSR (read only the introduction)
+   - [How to integrate DSR](#how-to-integrate-dsr)
+3. Integrate with the DsrManager
+   - [How to integrate with the DsrManager](#how-to-integrate-dsr-using-dsrmanager)
+4. Learn how rates and savings are calculated in the Pot contract
+   - [How to calculate rates and savings](#how-to-calculate-rates-and-savings)
+5. Calculate the savings for each user while operating a single wallet
+   - [Calculating user earnings on a pool of Dai in DSR](#calculating-user-earnings-on-a-pool-of-dai-in-dsr)
+6. Incorporate design patterns to handle Emergency Shutdown. Under extreme circumstances, such as prolonged market irrationality, governance attacks, or severe vulnerabilities, the Maker Protocol will go through Emergency Shutdown. It’s of paramount importance to ensure your systems can handle Dai in the DSR contract after Emergency shutdown has been triggered.
+   - [Emergency Shutdown Design Guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown-design-patterns/emergency-shutdown-design-patterns.md)
+
+**Miscellaneous recommendations**
+* Consider automatically depositing Dai into the DSR contract either as soon as it’s deposited into the exchange or after a User action to “activate” the DSR. Forgetting to `join` the Dai into the DSR could impose a liability to the exchange, which would be in the form of interest accrued on the User’s Dai.
+* Both joining and exiting from the `DsrManager` can direct ownership of the Dai deposit and withdrawal between accounts. Although private key management may differ across exchanges, we suggest joining with the hot wallet and transferring ownership of the Dai activated in the DSR to the cold wallet; similarly, we recommend exiting with the cold wallet and transferring the Dai principle + savings amount to the hot wallet, where it can be later transferred to a user wishing to withdrawal Dai from the exchange. Presented in another way:
+  - Calling `join(<cold address>, <Dai amount>)` from the Hot wallet
+  - Calling `exit(<hot address>, <Dai amount>)` from the Cold wallet
+
+
+
 ## What is DSR
 
 Dai Savings Rate (DSR) is an addition to the Maker Protocol that allows any Dai holder to earn risk-free savings in Dai. The savings paid out to Dai holders are financed by a fraction of the stability fee that Vault owners pay for borrowing Dai. The DSR is adjustable by MKR holders, and acts as a tool to manipulate demand of Dai, and thus ensuring the peg. At the time of writing the DSR is set to 7.75 % APY, but will change over time depending on MKR governance, just like the stability fee on borrowing Dai.
@@ -60,23 +100,23 @@ Therefore any centralized exchange or custodian of Dai should integrate function
 
 ## How to integrate DSR
 
-There are different ways to integrate the DSR, the four main ones being either to integrate directly with the core smart contracts of the Maker Protocol, integrate through proxy smart contracts, using the Dai.js library, the Maker Javascript library, or through Pymaker - the Maker Python API.
+There are different ways to integrate the DSR, the four main ones being either to integrate directly with the core smart contracts of the Maker Protocol, `DsrManager` integrate through proxy smart contracts, using the Dai.js library, the Maker Javascript library, or through Pymaker - the Maker Python API.
 
 - If you are running a smart contract system, or are already integrated with other protocols at a smart contract level, then it makes sense to interact directly with the Maker smart contracts. In most cases the DsrManager is the simplest way to integrate DSR functionality, as it provides an easy to use contract for this purpose. However there is also the option to integrate through the core or through proxy contracts depending on the use case.
 
-  - If you just need to enable DSR on a pool of Dai, then it makes sense to integrate using **DsrManager**.
+  - If you just need to enable DSR on a pool of Dai, then it makes sense to integrate using `DsrManager`.
 
   - If you need to integrate with multiple features of the Maker protocol, and want to carry over the proxy identity of users that are reflected in Maker front ends (i.e. be able to automatically show vaults, earned savings etc. in a UI), then it makes sense to integrate with the proxy contracts that the Maker Foundation uses.
-    
-  - If you need to integrate the DSR and the functionality of the DsrManager is not enough, then it makes sense to look at integrating directly with the core Maker smart contracts.
+
+  - If you need to integrate the DSR and the functionality of the `DsrManager` is not enough, then it makes sense to look at integrating directly with the core Maker smart contracts.
 
 - If you custody Dai, but are not otherwise integrated directly with the smart contract layer of Ethereum, then it makes sense to use Dai.js, as the heavy plumbing of calling the smart contracts have been done for you. In the following, both approaches will be detailed.
 
 ### Smart contract addresses and ABIs
 
-The contract addresses and ABIs of the Maker Protocol can be found here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/index.html)
+The latest contract addresses and ABIs of the Maker Protocol can be found here: [https://changelog.makerdao.com](https://changelog.makerdao.com/)
 
-The contracts we are going to cover in the following are:
+The 1.0.2 contracts we are going to cover in the following are:
 
 - [Dai](https://github.com/makerdao/dss/blob/master/src/dai.sol) - [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f#code)
 
@@ -90,11 +130,11 @@ The contracts we are going to cover in the following are:
 
 - [Vat](https://github.com/makerdao/dss/blob/master/src/vat.sol) - [0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b](https://etherscan.io/address/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b#code)
 
-You can find ABIs here: [https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html](https://changelog.makerdao.com/releases/mainnet/1.0.2/abi/index.html)
-
 ### How to integrate DSR using DsrManager
 
 The `DsrManager` is an easy-to-use smart contract that allows service providers to deposit/withdraw Dai into the DSR contract  [pot](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation), and activate/deactivate the Dai Savings Rate to start earning savings on a pool of Dai within a single function call.
+
+Other than integrating DSR through the Maker Protocol’s core, interacting with `DsrManager` is very similar to the other integration methods; in fact, the only difference is the former doesn’t require the Ethereum address to build and own a proxy identity.
 
 To use DsrManager, first you need to approve the DsrManager contract in the Dai Token contract by calling `Dai.approve(address DsrManager)`. Then you are free to use the contract functions to manage Dai in the DSR contract.
 
@@ -103,24 +143,24 @@ To activate DSR in your Dai, call `join(address dst, uint256 amount)` with the a
 The savings activation flow can be split into the following steps:
 
 1.  Earn savings on Dai
-    
+
 
 	a.  `join(address dst, uint wad)`
-    
+
 
 2.  Monitor Savings of an address
-    
+
 
 	a.  `daiBalance(address usr) returns (uint wad)` to return the entire balance (principle + savings)
-    
+
 
 3.  Retrieve Accrued Savings
-    
+
 
 	a.  For a specific amount `exit(address dst, uint wad)`
-    
+
 	b.  For entire balance `exitAll(address dst)`
-    
+
 
 For more details on the DsrManager, read the [DsrManager documentation](../dsr-manager-docs/README.md).
 
@@ -138,7 +178,7 @@ In the case of a DSR integration, we want to interact with the core DSR contract
 
 **IMPORTANT! You should be familiar with working with ds-proxy before you attempt this integration, so it is very important that you are [well acquainted with the concepts in this guide](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) before you proceed to ensure that you do not risk funds.**
 
-The main idea is that you use the [execute(address _target, bytes memory _data)](https://github.com/dapphub/ds-proxy/blob/master/src/proxy.sol#L53) function of `ds-proxy` by using the `dss-proxy-actions-dsr` contract address and the ABI encoded call data of the function you want to execute in that specific contract.
+The main idea is that you use the [`execute(address _target, bytes memory _data)`](https://github.com/dapphub/ds-proxy/blob/master/src/proxy.sol#L53) function of `ds-proxy` by using the `dss-proxy-actions-dsr` contract address and the ABI encoded call data of the function you want to execute in that specific contract.
 
 #### Activate Savings
 
