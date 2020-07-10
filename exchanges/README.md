@@ -11,8 +11,8 @@ If you are already familiar with Ethereum, the ERC-20 token standard, and Solidi
 ## Relevant Maker products for exchanges
 The Maker platform consist of various products that are relevant for exchanges. In this guide we will cover the following products:
 -   [Dai stablecoin](#dai-stablecoin)   
--   [Maker token](#maker-token) 
--   [Maker Protocol](#dai-credit-system) 
+-   [Maker token](#maker-token)
+-   [Maker Protocol](#dai-credit-system)
 -   [OTC Trading](#otc-trading)  
 -   [Price feeds (Oracles)](#price-feeds)    
 -   [Fiat On-Off Ramps](#fiat-on-off-ramps)
@@ -23,6 +23,8 @@ One of the main features of the Maker platform is the asset-backed cryptocurrenc
 A stablecoin is useful for exchanges as it provides a way for users to hedge their positions, or exchange more volatile cryptocurrencies to a currency price stable towards the USD, without having to exchange to fiat currencies.
 
 For users Dai is valuable, as it provides the same features as other cryptocurrencies, by being easy and cheap to transfer globally, while keeping a stable price to the USD. This is often useful in countries where fiat currencies are inflationary. In additon, Dai can earn interest trough the Dai Savings Rate mechanism of the Maker Protocol. 
+
+Head over to our [DSR Integration Story](https://github.com/makerdao/developerguides/tree/master/dai/dsr-integration-guide/dsr-integration-guide-01.md#centralized-exchange) for Centralized Exchanges.
 
 *Todo: Add integrations guides*
 
@@ -40,7 +42,7 @@ The Maker Protocol functionality can be useful for exchanges that are wishing to
 
 Thus, the Maker Protocol can be useful for exchanges, who want to,
 -   Offer asset-backed loans   
--   Create leveraged positions 
+-   Create leveraged positions
 -   Provide a collateral type
 
 *Todo: Add integrations guides*
