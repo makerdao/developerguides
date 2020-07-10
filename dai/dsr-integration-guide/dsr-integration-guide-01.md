@@ -8,7 +8,7 @@ Time: 30-60 minutes
 
 ## Overview
 
-This guide will explain the Dai Savings Rate and how to integrate DSR into your platform.
+This guide will explain the Dai Savings Rate and how to integrate DSR into your platform. For specific DSR integration usecases, suchs as integrating DSR as a centralized exchange see the [Integration Stories](#integration-stories) section for a quick start guides.
 
 ### Learning Objectives
 
@@ -23,10 +23,6 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 - [What is DSR?](#what-is-dsr)
 
   - [How to activate DSR](#how-to-activate-dsr)
-
-- [Integration Stories](#integration-stories)
-
-  - [Centralized Exchange](#centralized-exchange)
 
 - [How to integrate DSR](#how-to-integrate-dsr)
 
@@ -43,6 +39,10 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 - [How to calculate rates and savings](#how-to-calculate-rates-and-savings)
 
   - [Calculating user earnings on a pool of Dai in DSR](#calculating-user-earnings-on-a-pool-of-dai-in-dsr)
+  
+- [Integration Stories](#integration-stories)
+
+  - [Centralized Exchange](#centralized-exchange)
 
 ### Pre-requisites
 
@@ -51,42 +51,6 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 - [Working with Dai.js SDK](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
 
 - [Working seth](https://docs.makerdao.com/clis/seth)
-
-## Integration Stories
-
-As described in the rest of this guide, there are many approaches to integrate DSR support into your system. Each approach has pros and cons, varying levels of complexity, and different technical requirements. This section is purposed to help streamline the integration experience for integration stories of common intention. Akin to directions on a map, integration stories help guide the reader through a suggested path, but they do not prohibit exploration of other paths, which may lead to improved or more thoughtful integrations. Each story begins with some assumptions of the developer’s system, an introduction to the story, and the contents thereof.
-
-### Centralized Exchange
-
-The following assumptions about your system’s design and operation:
-Single cold/hot wallet(s) holding assets for multiple users
-Scalable off-chain accounting system holding a record of users’ balances
-Asynchronous contract calls following User action
-Ability to make calls to contracts that don’t inherit the ERC20 spec
-Will not need to interact with adjacent systems that require a [proxy identity](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md).
-
-With these assumptions, the following integration story is relieved of the proxy-identity requirement and prioritizes simplicity for the centralized exchange. In the following steps, we build up the prerequisite knowledge of the DSR and outline the steps to integrate the `DsrManager` before concluding with some recommendations. Considered as the simplest and most secure way of adding Dai to the DSR, the `DsrManager` is a smart contract that allows service providers to deposit/withdraw dai into the DSR contract ([Pot contract](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation)), and activate/deactivate the Dai Savings Rate to start earning savings on a pool of dai in a single function call. Let us begin:
-
-1. Become knowledgeable of the DSR
-   - [What is DSR?](#what-is-dsr)
-2. Understand at a high level how to integrate the DSR (read only the introduction)
-   - [How to integrate DSR](#how-to-integrate-dsr)
-3. Integrate with the DsrManager
-   - [How to integrate with the DsrManager](#how-to-integrate-dsr-using-dsrmanager)
-4. Learn how rates and savings are calculated in the Pot contract
-   - [How to calculate rates and savings](#how-to-calculate-rates-and-savings)
-5. Calculate the savings for each user while operating a single wallet
-   - [Calculating user earnings on a pool of Dai in DSR](#calculating-user-earnings-on-a-pool-of-dai-in-dsr)
-6. Incorporate design patterns to handle Emergency Shutdown. Under extreme circumstances, such as prolonged market irrationality, governance attacks, or severe vulnerabilities, the Maker Protocol will go through Emergency Shutdown. It’s of paramount importance to ensure your systems can handle Dai in the DSR contract after Emergency shutdown has been triggered.
-   - [Emergency Shutdown Design Guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown-design-patterns/emergency-shutdown-design-patterns.md)
-
-**Miscellaneous recommendations**
-* Consider automatically depositing Dai into the DSR contract either as soon as it’s deposited into the exchange or after a User action to “activate” the DSR. Forgetting to `join` the Dai into the DSR could impose a liability to the exchange, which would be in the form of interest accrued on the User’s Dai.
-* Both joining and exiting from the `DsrManager` can direct ownership of the Dai deposit and withdrawal between accounts. Although private key management may differ across exchanges, we suggest joining with the hot wallet and transferring ownership of the Dai activated in the DSR to the cold wallet; similarly, we recommend exiting with the cold wallet and transferring the Dai principle + savings amount to the hot wallet, where it can be later transferred to a user wishing to withdrawal Dai from the exchange. Presented in another way:
-  - Calling `join(<cold address>, <Dai amount>)` from the Hot wallet
-  - Calling `exit(<hot address>, <Dai amount>)` from the Cold wallet
-
-
 
 ## What is DSR
 
@@ -395,6 +359,45 @@ This time, you must add the two normalized balances, and multiply it with `chi`.
 Alice’s Dai holdings in DSR is now 20.0133 Dai, so she has in total earned 0.0133 Dai over the 6 days.
 
 To sum up, in order to keep track of user holdings of Dai in a DSR pool, you must simply calculate and store the normalized balance of their Dai at that point in time their Dai is added to the pool, by dividing their Dai contribution with `chi`. When the user wants to retrieve all their Dai, you simply take their entire normalized balance and multiply it with `chi`, to calculate how much Dai he can retrieve.
+
+## Integration Stories
+
+As described in this guide, there are many approaches to integrate DSR support into your system. Each approach has pros and cons, varying levels of complexity, and different technical requirements. This section is purposed to help streamline the integration experience for integration stories of common intention. Akin to directions on a map, integration stories help guide the reader through a suggested path, but they do not prohibit exploration of other paths, which may lead to improved or more thoughtful integrations. Each story begins with some assumptions of the developer’s system, an introduction to the story, and the contents thereof.
+
+### Centralized Exchange
+
+The following assumptions about your system’s design and operation:
+
+- Single cold/hot wallet(s) holding assets for multiple users
+
+- Scalable off-chain accounting system holding a record of users’ balances
+
+- Asynchronous contract calls following User action
+
+- Ability to make calls to contracts that don’t inherit the ERC20 spec
+
+- Will not need to interact with adjacent systems that require a [proxy identity](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md).
+
+With these assumptions, the following integration story is relieved of the proxy-identity requirement and prioritizes simplicity for the centralized exchange. In the following steps, we build up the prerequisite knowledge of the DSR and outline the steps to integrate the `DsrManager` before concluding with some recommendations. Considered as the simplest and most secure way of adding Dai to the DSR, the `DsrManager` is a smart contract that allows service providers to deposit/withdraw Dai into the DSR contract ([Pot contract](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation)), and activate/deactivate the Dai Savings Rate to start earning savings on a pool of Dai in a single function call. Let us begin:
+
+1. Become knowledgeable of the DSR
+   - [What is DSR?](#what-is-dsr)
+2. Understand at a high level how to integrate the DSR (read only the introduction)
+   - [How to integrate DSR](#how-to-integrate-dsr)
+3. Integrate with the DsrManager
+   - [How to integrate with the DsrManager](#how-to-integrate-dsr-using-dsrmanager)
+4. Learn how rates and savings are calculated in the Pot contract
+   - [How to calculate rates and savings](#how-to-calculate-rates-and-savings)
+5. Calculate the savings for each user while operating a single wallet
+   - [Calculating user earnings on a pool of Dai in DSR](#calculating-user-earnings-on-a-pool-of-dai-in-dsr)
+6. Incorporate design patterns to handle Emergency Shutdown. Under extreme circumstances, such as prolonged market irrationality, governance attacks, or severe vulnerabilities, the Maker Protocol will go through Emergency Shutdown. It’s of paramount importance to ensure your systems can handle Dai in the DSR contract after Emergency shutdown has been triggered.
+   - [Emergency Shutdown Design Guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown-design-patterns/emergency-shutdown-design-patterns.md)
+
+**Miscellaneous recommendations**
+* Consider automatically depositing Dai into the DSR contract either as soon as it’s deposited into the exchange or after a User action to “activate” the DSR. Forgetting to `join` the Dai into the DSR could impose a liability to the exchange, which would be in the form of interest accrued on the User’s Dai.
+* Both joining and exiting from the `DsrManager` can direct ownership of the Dai deposit and withdrawal between accounts. Although private key management may differ across exchanges, we suggest joining with the hot wallet and transferring ownership of the Dai activated in the DSR to the cold wallet; similarly, we recommend exiting with the cold wallet and transferring the Dai principle + savings amount to the hot wallet, where it can be later transferred to a user wishing to withdrawal Dai from the exchange. Presented in another way:
+  - Calling `join(<cold address>, <Dai amount>)` from the Hot wallet
+  - Calling `exit(<hot address>, <Dai amount>)` from the Cold wallet
 
 ## Summary
 
