@@ -63,10 +63,10 @@ Vaults are designed to give users easy and permissionless access to generate the
 
 Some examples of portals that have built custom Vault integrations,
 
-- Using proxy contracts for Vault management, InstaDapp integrates with liquidity sources like Kyber Network to help users that don't have MKR in their wallets to pay stability fees with ETH. InstaDapp also packages Vaults with Compound (another lending protocol) to create a bridge that allows users to migrate their Vault between Compound and the Maker protocol to access competitive rates.
-- DefiSaver packages Vaults with ETH/DAI liquidity from the [OasisDEX](https://oasis.app/trade/) to allow owners to self-liquidate their Vault before incurring a liquidation penalty from the protocol.
-- Keydonix packages Vaults with their internal ETH liquidity along with the OasisDEX to create ETH margin long positions in a single iteration.
-- Tinlake allows users to borrow Dai by locking NFTs on their lending platform which packages Vaults on their backend.
+- Using proxy contracts for Vault management, [InstaDapp](https://instadapp.io/) integrates with liquidity sources like Kyber Network to help users pay stability fees with any currency they want, maybe ETH. InstaDapp also packages Vaults with Compound (another lending protocol) to create a bridge that allows users to migrate their Vault between Compound and the Maker protocol to access competitive rates.
+- [DefiSaver](https://defisaver.com/) packages Vaults with ETH/DAI liquidity from the [OasisDEX](https://oasis.app/trade/) to allow owners to self-liquidate their Vault before incurring a liquidation penalty from the protocol.
+- [Keydonix](https://liquid-long.keydonix.com/) packages Vaults with their internal ETH liquidity along with the OasisDEX to create ETH margin long positions in a single iteration.
+- [Centrifuge](https://centrifuge.io/)'s Tinlake allows users to borrow Dai by locking NFTs on their lending platform which packages Vaults on their backend.
 
 ![Package](img/cdpguide-package.png)
 
