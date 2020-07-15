@@ -8,7 +8,7 @@ Time: 30-60 minutes
 
 ## Overview
 
-This guide will explain the Dai Savings Rate and how to integrate DSR into your platform. For specific DSR integration usecases, suchs as integrating DSR as a centralized exchange see the [Integration Stories](#integration-stories) section for a quick start guides.
+This guide will explain the Dai Savings Rate and how to integrate DSR into your platform. For specific DSR integration usecases, such as integrating DSR as a centralized exchange see the [Integration Stories](#integration-stories) section for a quick start guides.
 
 ### Learning Objectives
 
@@ -156,7 +156,7 @@ In order to retrieve Dai and savings from the `pot` there are two options - eith
 
 We’ll use the [0.2.17 MCD Kovan Deployment](https://changelog.makerdao.com/releases/kovan/0.2.17/index.html) to showcase how you could interact with DSR using the `seth` tool with the Proxy Actions DSR contract.
 
-**You can also use the Rinkey, Ropsten and Goerli deployments in this guide. Just make sure to change the contract addresses from the specific network from <https://changelog.makerdao.com>**
+**You can also use the Rinkeby, Ropsten and Goerli deployments in this guide. Just make sure to change the contract addresses from the specific network from <https://changelog.makerdao.com>**
 
 Before starting, you need to set up the right variables in your terminal. Save the below variables:
 
