@@ -88,8 +88,6 @@ The Dai token contract, follows the [ERC-20 standard](%5B%3Chttps://eips.ethereu
 -   The `permit()` function that uses the [EIP-712 signing standard](%5B%3Chttps://eips.ethereum.org/EIPS/eip-712%3E%5D(%3Chttps://eips.ethereum.org/EIPS/eip-712%3E)) as defined by [EIP-2612 (draft](https://github.com/ethereum/EIPs/blob/8a34d644aacf0f9f8f00815307fd7dd5da07655f/EIPS/eip-2612.md)).
 -   The `mint()` and `burn()` functions that the Maker Protocol is authorised to use.
 
-Binary approval can be given to addresses by token holders using `approve(address)` which sets the approved token amount to `MAX_UINT`.
-
 #### Permit
 
 The EIP-712 signing standard allows to sign structured typed data instead of just bytestrings. This allows in the creation of the `permit()` function. The `permit()` function allows the user to send his Dai without paying gas. This works as follows:
