@@ -65,10 +65,10 @@ Vaults are designed to give users easy and permissionless access to generate the
 
 Some examples of portals that have built custom Vault integrations,
 
-- Using proxy contracts for Vault management, InstaDapp integrates with liquidity sources like Kyber Network to help users that don't have MKR in their wallets to pay stability fees with ETH. InstaDapp also packages Vaults with Compound (another lending protocol) to create a bridge that allows users to migrate their Vault between Compound and the Maker protocol to access competitive rates.
-- DefiSaver packages Vaults with ETH/DAI liquidity from the [OasisDEX](https://oasis.app/trade/) to allow owners to self-liquidate their Vault before incurring a liquidation penalty from the protocol.
-- Keydonix packages Vaults with their internal ETH liquidity along with the OasisDEX to create ETH margin long positions in a single iteration.
-- Tinlake allows users to borrow Dai by locking NFTs on their lending platform which packages Vaults on their backend.
+- Using proxy contracts for Vault management, [InstaDapp](https://instadapp.io/) integrates with liquidity sources like Kyber Network to help users pay stability fees with any currency they want, maybe ETH. InstaDapp also packages Vaults with Compound (another lending protocol) to create a bridge that allows users to migrate their Vault between Compound and the Maker protocol to access competitive rates.
+- [DefiSaver](https://defisaver.com/) packages Vaults with ETH/DAI liquidity from the [OasisDEX](https://oasis.app/trade/) to allow owners to self-liquidate their Vault before incurring a liquidation penalty from the protocol.
+- [Keydonix](https://liquid-long.keydonix.com/) packages Vaults with their internal ETH liquidity along with the OasisDEX to create ETH margin long positions in a single iteration.
+- [Centrifuge](https://centrifuge.io/)'s Tinlake allows users to borrow Dai by locking NFTs on their lending platform which packages Vaults on their backend.
 
 ![Package](img/cdpguide-package.png)
 
@@ -113,7 +113,7 @@ Another way to interact with Vaults is through the Maker smart contracts.
 
 CDP Manager is our public facing interface contract that allows anyone to easily interact with the MCD system. This is the recommended way to interact with the Maker protocol. You can find some examples that show a simple Vault lifecycle with CDP Manager [here](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md). Or dive deep in the [CDP Manager Guide](../cdp-manager-guide.md).
 
-If you want to abstract many individual contract calls into one, then you can use our [proxy contract](https://github.com/makerdao/dss-proxy-actions) that uses the CDP Manager to interact with the system. In the proxy contract, the owner of the Vault is the proxy address and not the user's address. Clearly, the user's address is the owner of the proxy, so there's a link between the two addresses. Please refer to the [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) guide to understand how proxy contracts are used interact with the core system. Here's an example of a Single Vault User Flow when using the DSProxy design pattern:
+If you want to abstract many individual contract calls into one, then you can use our [proxy contract](https://github.com/makerdao/dss-proxy-actions) that uses the CDP Manager to interact with the system. In the proxy contract, the owner of the Vault is the proxy address and not the user's address. Clearly, the user's address is the owner of the proxy, so there's a link between the two addresses. Please refer to the [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md) guide to understand how proxy contracts are used to interact with the core system. Here's an example of a Single Vault User Flow when using the DSProxy design pattern:
 
 ![Package](img/SingleETHVaultUserFlow.png)
 
@@ -133,50 +133,50 @@ Nonetheless, you will have to depend on the Dai.js maintainers to build new feat
 
 ###### MCD Dai.js Example
 
-Currently, Dai.js has a plugin that enables interaction with the MCD deployment, the `[dai-plugin-mcd](https://github.com/makerdao/dai.js/tree/dev/packages/dai-plugin-mcd)`. This plugin uses the DS-Proxy via the [CDP Manager](https://docs.makerdao.com/smart-contract-modules/proxy-module/cdp-manager-detailed-documentation). This plugin can be used with the [Kovan 0.2.17](https://changelog.makerdao.com/releases/kovan/0.2.17/contracts.json) deployment or with the [mainnet deployment](https://changelog.makerdao.com/releases/mainnet/1.0.0/contracts.json).
+Currently, Dai.js has a plugin that enables interaction with the MCD deployment, the [dai-plugin-mcd](https://github.com/makerdao/dai.js/tree/dev/packages/dai-plugin-mcd). This plugin uses the DS-Proxy via the [CDP Manager](https://docs.makerdao.com/smart-contract-modules/proxy-module/cdp-manager-detailed-documentation). It can be used with the [Kovan 0.2.17](https://changelog.makerdao.com/releases/kovan/0.2.17/contracts.json) deployment or with the [mainnet deployment](https://changelog.makerdao.com/releases/mainnet/1.0.0/contracts.json).
 
 A quick example of opening a Vault with Dai.js would look like this:
 Make sure to run [node 11.10](https://nodejs.org/download/release/v11.10.0/) and follow install [instructions](https://github.com/makerdao/dai.js).  
 
 ```javascript
-    // Importing the necessary dependencies
-    import McdPlugin, { ETH, REP, MDAI } from '@makerdao/dai-plugin-mcd';
-    import Maker from '@makerdao/dai';
+// Importing the necessary dependencies
+import McdPlugin, { ETH, REP, MDAI } from '@makerdao/dai-plugin-mcd';
+import Maker from '@makerdao/dai';
 
-    //Defining the maker object with necessary configurations
-    const maker = await Maker.create('http', {
-    privateKey: YOUR_PRIVATE_KEY,
-        url: 'https://kovan.infura.io/v3/YOUR_INFURA_PROJECT_ID',
-        plugins: [
-            [
-                McdPlugin,
-                {
-                    network: 'kovan',
-                    cdpTypes: [
-                        { currency: ETH, ilk: 'ETH-A' },
-                        { currency: REP, ilk: 'REP-A' },
-                    ]
-                }
-            ]
+//Defining the maker object with necessary configurations
+const maker = await Maker.create('http', {
+privateKey: YOUR_PRIVATE_KEY,
+    url: 'https://kovan.infura.io/v3/YOUR_INFURA_PROJECT_ID',
+    plugins: [
+        [
+            McdPlugin,
+            {
+                network: 'kovan',
+                cdpTypes: [
+                    { currency: ETH, ilk: 'ETH-A' },
+                    { currency: REP, ilk: 'REP-A' },
+                ]
+            }
         ]
-    });
-    await maker.authenticate();
-    await maker.service('proxy').ensureProxy();
-    const cdpManager = maker.service('mcd:cdpManager');
-    /*
-    Opening a Vault with the REP token as collateral.
-    This is done in one function call with the help of the proxy contract
-    In one function call, the user opens a Vault, locks 50 REP tokens and draws 70 Dai
-    */
-    await cdpManager.openLockAndDraw('REP-A', REP(50), MDAI(70));
+    ]
+});
+await maker.authenticate();
+await maker.service('proxy').ensureProxy();
+const cdpManager = maker.service('mcd:cdpManager');
+/*
+Opening a Vault with the REP token as collateral.
+This is done in one function call with the help of the proxy contract
+In one function call, the user opens a Vault, locks 50 REP tokens and draws 70 Dai
+*/
+await cdpManager.openLockAndDraw('REP-A', REP(50), MDAI(70));
 
-    /*
-    Closoing a Vault requires getting the CDP Id and passing it to the wipeAndFree()
-    function
-    */
-    let proxy = await maker.currentProxy();
-    let cdps = await cdpManager.getCdpIds(proxy);
-    await cdpManager.wipendFree(cdps[0].id, 'REP-A', MDAI(70), REP(50))
+/*
+Closing a Vault requires getting the CDP Id and passing it to the wipeAndFree()
+function
+*/
+let proxy = await maker.currentProxy();
+let cdps = await cdpManager.getCdpIds(proxy);
+await cdpManager.wipendFree(cdps[0].id, 'REP-A', MDAI(70), REP(50))
 ```
 
 We have some example projects that can show you how to use Dai.js:
