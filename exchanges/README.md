@@ -22,11 +22,10 @@ One of the main features of the Maker platform is the asset-backed cryptocurrenc
 
 A stablecoin is useful for exchanges as it provides a way for users to hedge their positions, or exchange more volatile cryptocurrencies to a currency price stable towards the USD, without having to exchange to fiat currencies.
 
-For users Dai is valuable, as it provides the same features as other cryptocurrencies, by being easy and cheap to transfer globally, while keeping a stable price to the USD. This is often useful in countries where fiat currencies are inflationary. In additon, Dai can earn interest trough the Dai Savings Rate mechanism of the Maker Protocol. 
+For users Dai is valuable, as it provides the same features as other cryptocurrencies, by being easy and cheap to transfer globally, while keeping a stable price to the USD. This is often useful in countries where fiat currencies are inflationary. In additon, Dai can earn interest trough the Dai Savings Rate mechanism of the Maker Protocol.
 
 Head over to our [DSR Integration Story](https://github.com/makerdao/developerguides/tree/master/dai/dsr-integration-guide/dsr-integration-guide-01.md#centralized-exchange) for Centralized Exchanges.
 
-*Todo: Add integrations guides*
 
 ### Maker token
 The [Maker token (MKR)](https://makerdao.com/en/whitepaper/#mkr-token-governance) is the other token that comprises the Maker platform. The Maker platform is governed by holders of the MKR tokens, as the tokens are used as [votes in governance decisions](https://vote.makerdao.com/). The MKR token [fluctuates in value](https://coinmarketcap.com/currencies/maker/), why speculators might seek ways to obtain the token through an exchange. The MKR token is also needed to pay back fees in the Dai Credit System, why it is valuable for users of said system to be able to easily access the MKR token.
@@ -34,7 +33,7 @@ The [Maker token (MKR)](https://makerdao.com/en/whitepaper/#mkr-token-governance
 *Todo: Add integrations guides*
 
 ### The Maker Protocol
-The Maker Protocol, is responsible for the issuance of the currency Dai. Dai is created when users lock up cryptographic assets (tokens) as collateral in the system, for which they are able to draw a certain percentage of value in Dai as credit. This is called a Vault position. In the current version, the collateralization ratio for ETH and BAT is 150 %. This means, that your ratio of collateral/credit is 150 %, thus you can only draw 66% worth of Dai to your collateral. This metric ensures that the system is robust in case the collateral drops in value. If the Vaykt becomes under-collateralized, due to a drop in collateral value, the position will be liquidated, the collateral seized and sold off to stabilize the system. In order to control the issuance rate of Dai, there is a stability fee which a user must pay when loaning Dai. Currently, this fee is 4 % APR, which is a lot less than traditional loan schemes. Thus, the Dai Credit System essentially lets users loan money to a very favourable interest rate by locking up collateral tokens.
+The Maker Protocol, is responsible for the issuance of the currency Dai. Dai is created when users lock up cryptographic assets (tokens) as collateral in the system, for which they are able to draw a certain percentage of value in Dai as credit. This is called a Vault position. In the current version, the collateralization ratio for ETH and BAT is 150 %. This means, that your ratio of collateral/credit is 150 %, thus you can only draw 66% worth of Dai to your collateral. This metric ensures that the system is robust in case the collateral drops in value. If the Vaultt becomes under-collateralized, due to a drop in collateral value, the position will be liquidated, the collateral seized and sold off to stabilize the system. In order to control the issuance rate of Dai, there is a stability fee which a user must pay when loaning Dai. Currently, this fee is 4 % APR, which is a lot less than traditional loan schemes. Thus, the Dai Credit System essentially lets users loan money to a very favourable interest rate by locking up collateral tokens.
 
 You can read much more about the Maker Protocol and the underlying functionality [here](http://makerdao.com/whitepaper).
 
@@ -45,7 +44,8 @@ Thus, the Maker Protocol can be useful for exchanges, who want to,
 -   Create leveraged positions
 -   Provide a collateral type
 
-*Todo: Add integrations guides*
+Head over to our [Vault Integration Story](https://github.com/makerdao/developerguides/tree/master/vault/vault-integration-guide/vault-integration-guide.md#centralized-exchange) for Centralized Exchanges.
+
 
 ### OTC Trading
 The OTC Trading system allows users to buy and sell ERC-20 tokens on the Ethereum blockchain. More specifically, it allows users to create buy and sell orders for DAI, MKR and WETH, allowing for decentralized and automated trade of these tokens. OTC trading can be useful for exchanges who want to:

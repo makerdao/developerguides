@@ -32,6 +32,8 @@
         - [Exchanges](#exchanges)
         - [Lending protocols](#lending-protocols)  
     - [Accepted Vault Collateral Types](#accepted-vault-collateral-types)
+  - [Integration Stories](#integration-stories)
+    - [Centralized Exchange](#centralized-exchange)
   - [Summary](#summary)
   - [Additional resources](#additional-resources)
   - [Next Steps](#next-steps)
@@ -293,6 +295,51 @@ Below is a list of included tokens in Maker Protocol and the details of their `m
 |  WBTC-A | [`0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599`](https://etherscan.io/address/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599) | [`0xBF72Da2Bd84c5170618Fbe5914B0ECA9638d5eb5`](https://etherscan.io/address/0xBF72Da2Bd84c5170618Fbe5914B0ECA9638d5eb5)  | `8`  | `WBTC-A` - `0x574254432d410000000000000000000000000000000000000000000000000000`
 |  TUSD-A | [`0x0000000000085d4780B73119b644AE5ecd22b376`](https://etherscan.io/address/0x0000000000085d4780B73119b644AE5ecd22b376) | [`0x4454aF7C8bb9463203b66C816220D41ED7837f44`](https://etherscan.io/address/0x4454aF7C8bb9463203b66C816220D41ED7837f44)  | `18`  | `TUSD-A` - `0x545553442d410000000000000000000000000000000000000000000000000000`
 
+## Integration Stories
+
+As described in the rest of this guide, there are many approaches to integrate Vault support into your system. Each approach has pros and cons, varying levels of complexity, and different technical requirements. This section is purposed to help streamline the integration experience for integration stories of common intention. Akin to directions on a map, integration stories help guide the reader through a suggested path, but they do not prohibit exploration of other paths, which may lead to improved or more thoughtful integrations. Each story begins with some assumptions of the developer’s system, an introduction to the story, and the contents thereof.
+
+### Centralized Exchange
+
+The following assumptions about your system’s design and operation:
+- Single cold/hot wallet(s) holding assets for multiple users
+- Scalable off-chain accounting system holding a record of Users’ balances
+- Asynchronous contract calls following User action
+- Ability to make calls to contracts that don’t inherit the ERC20 spec
+
+With these assumptions, the following integration story utilizes a DSProxy and prioritizes flexibility for the centralized exchange. In the following steps, we build up the prerequisite knowledge of the Vault concept, outline the steps to deploy a [DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md), and integrate with the [CDPManager](https://github.com/makerdao/dss-cdp-manager) (rebranded to Vault), with help from the [Dss-Proxy-Actions](https://github.com/makerdao/dss-proxy-actions) library, before concluding with some recommendations.
+
+The CDPManager is a smart contract, created to enable a formalized process for Vaults to be transferred between owners, much like assets are transferred. Moreover, this interface contract offers a facility to own multiple Vaults with a single wallet address. It is recommended that all interactions with Vaults be done through the CDPManager.
+
+One potential integration worth considering is incorporating Vaults as a method of offering margin to your users. With the CDPManager, one could deploy a DSProxy, use Dss-Proxy-Actions to call multi-step atomic transactions, and successfully monitor as well as manage multiple margin positions from a hot wallet. Let us begin:
+
+1. Become knowledgeable of the Maker Protocol
+   - [Maker Protocol 101](https://docs.makerdao.com/maker-protocol-101)
+2. Be exposed to the various types of Vault Integrations
+   - [Types of Vault integrations](https://github.com/makerdao/developerguides/blob/master/vault/vault-integration-guide/vault-integration-guide.md#guide)
+3. Understand what a Vault Lifecycle is:
+   - [Vault Lifecycle](https://github.com/makerdao/developerguides/blob/master/vault/vault-integration-guide/vault-integration-guide.md#vault-lifecycle)
+4. Learn at a high level what proxy identities help us within the Maker Protocol
+   - [Proxy Identities within the Maker Protocol](https://docs.makerdao.com/smart-contract-modules/proxy-module)
+5. Understand how the CDPManager and Dss-Proxy-Actions work
+   - [CDPManager Documentation](https://docs.makerdao.com/smart-contract-modules/proxy-module/cdp-manager-detailed-documentation)
+   - [DSS-Proxy-Actions](https://docs.makerdao.com/smart-contract-modules/proxy-module/cdp-manager-detailed-documentation)
+6. Learn about the DSProxy design pattern
+   - [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md)
+7. Become familiar with our recommended Single Vault User Flow
+   - [Single Vault User Flow](https://github.com/makerdao/developerguides/blob/master/vault/vault-integration-guide/vault-integration-guide.md#vault-manager)
+   - Only addition to this flow would be to locate the User’s CDP ID from the list of Vaults owned by the operating ethereum address. An array of all CDP IDs can be retrieved from the [GetCdps contract](https://github.com/makerdao/dss-cdp-manager/blob/master/src/GetCdps.sol), which resides in the Dss-Proxy-Actions Github repository.   
+8. Pick your technical stack to build integration
+   - Javascript - [Dai.js](https://github.com/makerdao/developerguides/blob/master/vault/vault-integration-guide/vault-integration-guide.md#daijs)
+   - Java - [MCD4J](https://github.com/makerdao/mcd4j)
+   - If you use another tech stack, then the Smart Contracts can be accessed through other libraries (such as [Nethereum](https://github.com/Nethereum/Nethereum), etc)
+9. Read every section within Vault Management
+   - [Vault Management](https://github.com/makerdao/developerguides/blob/master/vault/vault-integration-guide/vault-integration-guide.md#vault-management)
+10. Incorporate design patterns to handle Emergency Shutdown. Under extreme circumstances, such as prolonged market irrationality, governance attacks, or severe vulnerabilities, the Maker Protocol will go through Emergency Shutdown. It’s of paramount importance to ensure your systems can handle Vault positions after Emergency shutdown has been triggered.
+  - [Emergency Shutdown Design Guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown-design-patterns/emergency-shutdown-design-patterns.md)
+
+
+
 ## Summary
 
 Debt expands possibilities for users on what they can achieve with the assets they hold in their wallet without having to sell them. In this guide we discussed how you as a custom Vault portal developer can turn these possibilities into great user experiences by providing users with the tools they need to manage Vaults and also create channels for collateral and Dai to seamlessly move in and out of a Vault through packaging with other products.
@@ -300,6 +347,7 @@ Debt expands possibilities for users on what they can achieve with the assets th
 ## Additional resources
 
 1. [Stability Fees Calculation Guide](../../mcd/intro-rate-mechanism/intro-rate-mechanism.md)
+2. [Monitoring Collateral Types and Vaults Guide](/vault/monitoring-collateral-types-and-vaults/monitoring-collateral-types-and-vaults.md)
 
 ## Next Steps
 
