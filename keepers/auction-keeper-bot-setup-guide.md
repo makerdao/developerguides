@@ -113,7 +113,7 @@ Auction Keepers communicate with *bidding models* via their standard input/stand
 - `guy` - Ethereum address of the current highest bidder.
 - `era` - current time (in seconds since the UNIX epoch).
 - `tic` - time when the current bid will expire (`None` if no bids yet).
-- `end` - time when the entire auction will expire (end is set to `0` is the auction is no longer live).
+- `end` - time when the entire auction will expire (end is set to `0` if the auction is no longer live).
 - `price` - current price being tendered (can be `None` if price is infinity).
 
 ---
@@ -221,11 +221,10 @@ source _virtualenv/bin/activate # Run virtual environment
 MODEL=$1
 
 bin/auction-keeper \
-    --rpc-host ${SERVER_ETH_RPC_HOST:?} \
-    --rpc-port ${SERVER_ETH_RPC_PORT?:} \
+    --rpc-host ${SERVER_ETH_RPC_HOST:?}:${SERVER_ETH_RPC_PORT:?} \
     --rpc-timeout 30 \
-    --eth-from ${ACCOUNT_ADDRESS?:} \
-    --eth-key ${ACCOUNT_KEY?:} \
+    --eth-from ${ACCOUNT_ADDRESS:?} \
+    --eth-key ${ACCOUNT_KEY:?} \
     --type flip \
     --ilk ETH-A \
     --from-block 14764534 \
