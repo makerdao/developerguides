@@ -54,6 +54,8 @@ All guides are organized in sections and by proficiency levels within each secti
 
 - [Intro to OasisDEX Protocol](https://github.com/makerdao/developerguides/tree/master/Oasis/intro-to-oasis/intro-to-oasis-maker-otc.md)
 - [How to use Oasis Direct Proxy on OasisDEX Protocol](https://github.com/makerdao/developerguides/tree/master/Oasis/oasis-direct-proxy.md)
+- [OasisDEX Market Maker Guide](./Oasis/oasisdex-market-maker-guide.md)  
+- [OasisDEX Market Taker Guide](./Oasis/oasisdex-market-taker-guide.md)
 
 ## Governance
 
