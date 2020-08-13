@@ -134,7 +134,7 @@ Example Integrations (all w/o Oasis Proxy Actions, but still likely using a cust
 
 - [Fill-or-Kill order](https://github.com/dydxprotocol/exchange-wrappers/blob/master/contracts/exchange-wrappers/OasisV3MatchingExchangeWrapper.sol#L69)
 
-```solidiy
+```solidity
 function exchange(
         address /*tradeOriginator*/,
         address receiver,
