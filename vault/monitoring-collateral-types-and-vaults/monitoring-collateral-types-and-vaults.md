@@ -130,7 +130,7 @@ Normalized Internal Dai = urn1.art = 18.26 x 10^18
 
 Locked Collateral = urn1.ink = 1 x 10^18
 
-USD Debt = Normalized Internal Dai x Collateral Debt Multiplier = 1.826 x 1.018 = $18.58
+USD Debt = Normalized Internal Dai x Collateral Debt Multiplier = 18.26 x 1.018 = $18.58
 
 USD Collateral = Locked Collateral x Delayed Collateral Price (from Ilk example) = 1 x 225 ETH / USD = $225
 
