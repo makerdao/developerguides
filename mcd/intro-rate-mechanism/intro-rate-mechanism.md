@@ -22,8 +22,6 @@
     - [Single Collateral Dai](#single-collateral-dai)
   - [Troubleshooting](#troubleshooting)
   - [Summary](#summary)
-  - [Additional resources](#additional-resources)
-  - [Next Steps](#next-steps)
   - [Help](#help)
 
 ## Overview
@@ -55,7 +53,7 @@ The formula for calculating compound interest is:
 
 Compound Interest = Total amount of Principal and Interest in future (or Future Value) less Principal amount at present (or Present Value)
 
-= [P (1 + i)<sup>n</sup>] – P
+= $[P (1 + i)^n ] - P$
 
 (Where P = Principal, i = nominal annual interest rate in percentage terms, and n = number of compounding periods.)
 
@@ -177,12 +175,6 @@ Check for a missing decimal point in rate if your python script takes too long t
 ## Summary
 
 In this guide we reviewed the general rate mechanism and how its used to track the Stability fee and the Dai Savings Rate in the Maker protocol.
-
-## Additional resources
-
-1. 
-
-## Next Steps
 
 ## Help
 

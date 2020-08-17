@@ -1,10 +1,30 @@
 # MKR Token Guide
 
-Level: Beginner
-
+Level: Beginner  
 Estimated Time: 30 minutes
 
+- [MKR Token Guide](#mkr-token-guide)
+  - [Overview](#overview)
+  - [Learning objectives](#learning-objectives)
+  - [Prerequisites](#prerequisites)
+  - [Content / Sections](#content--sections)
+  - [Token Info](#token-info)
+    - [Addresses](#addresses)
+    - [Details](#details)
+  - [Getting Testnet MKR](#getting-testnet-mkr)
+  - [Token Contract](#token-contract)
+    - [DSToken](#dstoken)
+    - [DSAuth](#dsauth)
+    - [Mint and Burn](#mint-and-burn)
+  - [Older MKR Tokens](#older-mkr-tokens)
+    - [BitShares](#bitshares)
+    - [First Ethereum Contact](#first-ethereum-contact)
+  - [Summary](#summary)
+  - [Next steps](#next-steps)
+  - [Resources](#resources)
+
 ## Overview
+
 The MKR token is the governance token of the Dai Credit System. It is primarily used to vote on changes to its Risk Parameters. To vote, MKR owners must "lock up" their tokens into a [voting proxy contract](https://medium.com/makerdao/the-makerdao-voting-proxy-contract-5765dd5946b4) or the [DSChief contract directly](https://github.com/dapphub/ds-chief), and from there vote on the different proposals.
 
 MKR is also the collateral of last resort in Multi-Collateral DAI: When the system is underwater, MKR is minted to replenish it. The risk of underwater CDPs for MKR holders is counterbalanced by the burning of a portion of CDP Stability Fees in MKR.
@@ -13,29 +33,24 @@ This guide will be useful to developers integrating MKR in applications like wal
 
 ## Learning objectives
 
-* You will learn basic information about the token.
+- You will learn basic information about the token.
 
-* Understand the additional functions supported by the token contract.
- 
+- Understand the additional functions supported by the token contract.
+
 ## Prerequisites
 
-* Knowledge of the ERC20 token standard.
+- Knowledge of the ERC20 token standard.
 
-* Ability to send Ethereum transactions from your preferred development environment.
+- Ability to send Ethereum transactions from your preferred development environment.
 
-* Optional: To run the examples, [seth](https://dapp.tools/seth/) configured with an account on Kovan testnet.
- 
+- Optional: To run the examples, [seth](https://dapp.tools/seth/) configured with an account on Kovan testnet.
 
 ## Content / Sections
 
-* Token Info
- 
-* Getting Testnet MKR
- 
-* Token Contract
- 
-* Older MKR Tokens
- 
+- Token Info
+- Getting Testnet MKR
+- Token Contract
+- Older MKR Tokens
 
 ## Token Info
 
@@ -55,12 +70,12 @@ A faucet on Kovan can be used to obtain MKR: [0xCbd3e165cE589657feFd2D38Ad6B6596
 
 Example:
 
-```
+```bash
 export FAUCET=0xCbd3e165cE589657feFd2D38Ad6B6596A1f734F6
 export MKR=0xAaF64BFCC32d0F15873a02163e7E500671a4ffcD
 seth send $FAUCET 'gulp(address)' $MKR
 ```
- 
+
 This faucet will send funds only once per address, so if you need more than one MKR, you will need to use multiple addresses.
 
 ## Token Contract
@@ -73,26 +88,17 @@ The MKR token contract is similar to most ERC20 token contracts, as it implement
 
 [DSAuth](https://github.com/dapphub/ds-auth) is used to authorize certain actions on the contract. In the case of a DSToken contract, the functions that are restricted by this method are:
 
-* `mint`
-
-* `burn`
-
-* `setName` 
-
-* `setOwner` (inherited from DSAuth)
-
-* `setAuthority` (inherited from DSAuth)
+- `mint`
+- `burn`
+- `setName`
+- `setOwner` (inherited from DSAuth)
+- `setAuthority` (inherited from DSAuth)
 
 For these functions to be executable, one of the three conditions must be applicable:
 
-* The caller is the contract owner
- 
-* The caller is the contract itself
- 
-* The caller has been granted permission by an authority contract
- 
-
- 
+- The caller is the contract owner
+- The caller is the contract itself
+- The caller has been granted permission by an authority contract
 
 In the absence of an authority contract, only the contract owner is able to execute restricted functions. For the current mainnet deployment, the authority contract is set to the burn address (0x0) and the owner of the contract is the MakerDAO devfund multisig contract. In the future, the MKR Token will use the [mkr-authority](https://github.com/makerdao/mkr-authority) contract configured to allow minting and burning of MKR. The owner will then be set to the burn address (0x0) to permanently lock it down.
 
@@ -100,12 +106,7 @@ In the absence of an authority contract, only the contract owner is able to exec
 
 As currently deployed, SCD doesn’t allow any minting or burning, except by a manual intervention of the Dev Fund Multisig. To date, no MKR has been formally burned, apart from the MKR placed in a [burner contract](https://etherscan.io/address/0x69076e44a9c70a67d5b79d95795aba299083c275), and a single minting event has happened, at contract creation.
 
- 
-
 In MCD, minting and burning are controlled by the [flap and the flop contracts](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-101/mcd-101.md#system-stabilizer-module).
-
- 
- 
 
 ## Older MKR Tokens
 
@@ -125,19 +126,13 @@ In this guide, we provided the basic token information for Mainnet and Kovan MKR
 
 ## Next steps
 
-* [The MakerDAO Voting Proxy Contract](https://medium.com/makerdao/the-makerdao-voting-proxy-contract-5765dd5946b4)
- 
-* [Vote Proxy Setup: Air-gapped Machine](https://github.com/makerdao/developerguides/blob/master/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
- 
-* [Dai Token](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md)
- 
+- [The MakerDAO Voting Proxy Contract](https://medium.com/makerdao/the-makerdao-voting-proxy-contract-5765dd5946b4)
+- [Vote Proxy Setup: Air-gapped Machine](https://github.com/makerdao/developerguides/blob/master/governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
+- [Dai Token](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md)
 
 ## Resources
 
-* [https://github.com/dapphub/seth](https://github.com/dapphub/seth)
- 
-* [https://github.com/dapphub/ds-token/](https://github.com/dapphub/ds-token/)
- 
-* [https://github.com/dapphub/ds-auth](https://github.com/dapphub/ds-auth)
- 
-* [https://github.com/dapphub/ds-guard/](https://github.com/dapphub/ds-guard/)
+- [https://github.com/dapphub/seth](https://github.com/dapphub/seth)
+- [https://github.com/dapphub/ds-token/](https://github.com/dapphub/ds-token/)
+- [https://github.com/dapphub/ds-auth](https://github.com/dapphub/ds-auth)
+- [https://github.com/dapphub/ds-guard/](https://github.com/dapphub/ds-guard/)

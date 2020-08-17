@@ -4,7 +4,7 @@
 
 **Estimated Time**: 90 - 120 minutes
 
-- [Add a new collateral type to Maker Protocol - Kovan](#add-a-new-collateral-type-to-dcs---kovan)
+- [Add a new collateral type to Maker Protocol - Kovan](#add-a-new-collateral-type-to-maker-protocol---kovan)
   - [Overview](#overview)
   - [Learning Objectives](#learning-objectives)
   - [Pre-requisites](#pre-requisites)
@@ -55,6 +55,7 @@ You will need a good understanding of these concepts to be able to work through 
 The guide below is updated for the [0.2.17](https://changelog.makerdao.com/releases/kovan/0.2.17/index.html) release of Maker Protocol on Kovan.
 
 For this tutorial you will want to set the gas limit to 3,000,000
+
 ```bash
 export ETH_GAS=3000000
 ```

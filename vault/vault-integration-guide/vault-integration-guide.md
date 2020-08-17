@@ -4,7 +4,7 @@
 
 **Estimated Time**: 90 - 120 minutes
 
-- [Vault Integration Guide](#vault-integration-guide)
+- [Maker Vault Integration Guide](#maker-vault-integration-guide)
   - [Overview](#overview)
   - [Learning Objectives](#learning-objectives)
   - [Pre-requisites](#pre-requisites)
@@ -24,13 +24,13 @@
       - [Adjustment](#adjustment)
       - [Accounting](#accounting)
         - [Individual Vaults](#individual-vaults)
-        - [Shared Vault](#shared-vault)
+        - [Shared Vaults](#shared-vaults)
       - [Monitoring](#monitoring)
       - [Liquidation Support](#liquidation-support)
     - [Vault Packaging](#vault-packaging)
       - [Components](#components)
         - [Exchanges](#exchanges)
-        - [Lending protocols](#lending-protocols)  
+        - [Lending protocols](#lending-protocols)
     - [Accepted Vault Collateral Types](#accepted-vault-collateral-types)
   - [Integration Stories](#integration-stories)
     - [Centralized Exchange](#centralized-exchange)
@@ -72,7 +72,7 @@ Some examples of portals that have built custom Vault integrations,
 
 ![Package](img/cdpguide-package.png)
 
-*Illustration of a Vault packaged with various components*
+*Illustration of a Vault packaged with various components:*
 
 The possibilities to both differentiate and serve users are endless, and we will outline some general principles to help you architect and develop your custom Vault integration in the following sections of this guide,
 
@@ -117,7 +117,7 @@ If you want to abstract many individual contract calls into one, then you can us
 
 ![Package](img/SingleETHVaultUserFlow.png)
 
-*Illustration of a Single Vault User Flow*
+*Illustration of a Single Vault User Flow:*
 
 Referenced sequenced diagrams of each transaction operation with DSProxy can be [found here](/vault/vault-integration-guide/sequence-diagrams/README.md).
 
@@ -303,6 +303,7 @@ As described in the rest of this guide, there are many approaches to integrate V
 ### Centralized Exchange
 
 The following assumptions about your system’s design and operation:
+
 - Single cold/hot wallet(s) holding assets for multiple users
 - Scalable off-chain accounting system holding a record of Users’ balances
 - Asynchronous contract calls following User action
@@ -329,17 +330,16 @@ One potential integration worth considering is incorporating Vaults as a method 
    - [Working with DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md)
 7. Become familiar with our recommended Single Vault User Flow
    - [Single Vault User Flow](https://github.com/makerdao/developerguides/blob/master/vault/vault-integration-guide/vault-integration-guide.md#vault-manager)
-   - Only addition to this flow would be to locate the User’s CDP ID from the list of Vaults owned by the operating ethereum address. An array of all CDP IDs can be retrieved from the [GetCdps contract](https://github.com/makerdao/dss-cdp-manager/blob/master/src/GetCdps.sol), which resides in the Dss-Proxy-Actions Github repository.   
+   - Only addition to this flow would be to locate the User’s CDP ID from the list of Vaults owned by the operating ethereum address. An array of all CDP IDs can be retrieved from the [GetCdps contract](https://github.com/makerdao/dss-cdp-manager/blob/master/src/GetCdps.sol), which resides in the Dss-Proxy-Actions Github repository.
 8. Pick your technical stack to build integration
    - Javascript - [Dai.js](https://github.com/makerdao/developerguides/blob/master/vault/vault-integration-guide/vault-integration-guide.md#daijs)
    - Java - [MCD4J](https://github.com/makerdao/mcd4j)
    - If you use another tech stack, then the Smart Contracts can be accessed through other libraries (such as [Nethereum](https://github.com/Nethereum/Nethereum), etc)
 9. Read every section within Vault Management
    - [Vault Management](https://github.com/makerdao/developerguides/blob/master/vault/vault-integration-guide/vault-integration-guide.md#vault-management)
-10. Incorporate design patterns to handle Emergency Shutdown. Under extreme circumstances, such as prolonged market irrationality, governance attacks, or severe vulnerabilities, the Maker Protocol will go through Emergency Shutdown. It’s of paramount importance to ensure your systems can handle Vault positions after Emergency shutdown has been triggered.
-  - [Emergency Shutdown Design Guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown-design-patterns/emergency-shutdown-design-patterns.md)
+10. Incorporate design patterns to handle Emergency Shutdown. Under extreme circumstances, such as prolonged market irrationality, governance attacks, or severe vulnerabilities, the Maker Protocol will go through Emergency Shutdown. It’s of paramount importance to ensure your systems can handle Vault positions after Emergency shutdown has been triggered.  
 
-
+    - [Emergency Shutdown Design Guide](https://github.com/makerdao/developerguides/blob/master/mcd/emergency-shutdown-design-patterns/emergency-shutdown-design-patterns.md)
 
 ## Summary
 

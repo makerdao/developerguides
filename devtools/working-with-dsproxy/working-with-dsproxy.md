@@ -1,8 +1,41 @@
 # Working with DSProxy
 
-**Level**: Advanced
-
+**Level**: Advanced  
 **Estimated Time**: 90 - 120 minutes
+
+- [Working with DSProxy](#working-with-dsproxy)
+  - [Overview](#overview)
+  - [Learning Objectives](#learning-objectives)
+  - [Pre-requisites](#pre-requisites)
+  - [Guide](#guide)
+    - [Examples](#examples)
+      - [Opening a Vault](#opening-a-vault)
+      - [Automate vault deleveraging](#automate-vault-deleveraging)
+    - [DSProxy](#dsproxy)
+      - [Ownership](#ownership)
+      - [Execute](#execute)
+      - [Event Logs](#event-logs)
+      - [Factory Contract](#factory-contract)
+    - [Create a script](#create-a-script)
+      - [Environment Setup](#environment-setup)
+      - [Create a new dapp project](#create-a-new-dapp-project)
+      - [Setup Delev.sol](#setup-delevsol)
+      - [Add helper functions](#add-helper-functions)
+      - [Setup `wipeWithEth` function](#setup-wipewitheth-function)
+      - [Checks](#checks)
+      - [Initialize variables](#initialize-variables)
+      - [Remove the Eth from the vault](#remove-the-eth-from-the-vault)
+      - [Market sell the Ether for Dai](#market-sell-the-ether-for-dai)
+      - [Wipe Dai debt from the Vault](#wipe-dai-debt-from-the-vault)
+    - [Deployment and Execution](#deployment-and-execution)
+    - [Best Practices](#best-practices)
+    - [Production Usage](#production-usage)
+  - [Troubleshooting](#troubleshooting)
+    - [Recovering ETH](#recovering-eth)
+  - [Summary](#summary)
+  - [Additional resources](#additional-resources)
+  - [Next Steps](#next-steps)
+  - [Help](#help)
 
 ## Overview
 
@@ -18,57 +51,55 @@ Understanding the DSProxy design pattern will help you quickly develop scripts t
 
 In this guide we will,
 
-* Understand how DSProxy and scripts work through examples
-* Understand the features of a DSProxy contract
-* Build and deploy a new script
-* Look at best practices of developing a script
-* Additional details to help with deploying a script to production
+- Understand how DSProxy and scripts work through examples
+- Understand the features of a DSProxy contract
+- Build and deploy a new script
+- Look at best practices of developing a script
+- Additional details to help with deploying a script to production
 
 ## Pre-requisites
 
-* Understanding of the functions used to interact with Vaults
-* Solidity development experience
+- Understanding of the functions used to interact with Vaults
+- Solidity development experience
 
 ## Guide
 
-* [Examples](#examples)
-* [Features](#dsproxy)
-* [Tutorial](#create-a-script)
-* [Best Practices](#best-practices)
-* [Production Usage](#production-usage)
-
 ### Examples
 
-#### Opening a Vault    
+#### Opening a Vault
 
 Opening a Vault to draw Dai is a common action performed by users within the Maker Platform and they perform multiple transactions on the [WETH](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2), [EthJoin](https://etherscan.io/address/0x2F0b23f53734252Bda2277357e97e1517d6B042A), [Vat](https://etherscan.io/address/0x35D1b3F3D7966A1DFe207aa4514C12a259A0492B), and [DaiJoin](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#readContract) contracts to complete it.
 
 Transactions to execute on the WETH token contract are,
 
-* Convert ETH to WETH using the `mint` function.
-* Approve the EthJoin contract to spend the user's WETH balance using the `approve` function.
+- Convert ETH to WETH using the `mint` function.
+- Approve the EthJoin contract to spend the user's WETH balance using the `approve` function.
 
 Transactions to execute on the EthJoin contract are,
-* Allocate the WETH to the vault using the `join` function.
+
+- Allocate the WETH to the vault using the `join` function.
 
 Transactions to execute on the Vat contract are,
-* Open the vault using the `open` function.
-* Lock the WETH into the vault using the `frob` function.
-* Draw Dai from the vault using the `frob` function.
-* `move` the Dai out of the vault.
-* `approve` the DaiJoin contract to access the user's Dai balance
+
+- Open the vault using the `open` function.
+- Lock the WETH into the vault using the `frob` function.
+- Draw Dai from the vault using the `frob` function.
+- `move` the Dai out of the vault.
+- `approve` the DaiJoin contract to access the user's Dai balance
 
 Transactions to execute on DaiJoin
-* Mint ERC20 Dai using the `exit` function, which in turns call the `mint` function of the ERC20 Dai contract.
 
-[Oasis Borrow](https://oasis.app/borrow) uses a [script](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L608) to improve the user experience by executing the above steps atomically within a single transaction. 
+- Mint ERC20 Dai using the `exit` function, which in turns call the `mint` function of the ERC20 Dai contract.
+
+[Oasis Borrow](https://oasis.app/borrow) uses a [script](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L608) to improve the user experience by executing the above steps atomically within a single transaction.
 
 #### Automate vault deleveraging
-A relatively common task for vault owner is to reduce its debt by selling collateral. This would normally involve multiple steps that could be done in a single atomic transaction:
-* Draw collateral from the vault
-* Sell the collateral for Dai
-* Pay back the vault debt
 
+A relatively common task for vault owner is to reduce its debt by selling collateral. This would normally involve multiple steps that could be done in a single atomic transaction:
+
+- Draw collateral from the vault
+- Sell the collateral for Dai
+- Pay back the vault debt
 
 ### DSProxy
 
@@ -92,14 +123,14 @@ Ownership of a DSProxy contract is set to an address when it is deployed. There 
 
 A DSProxy contract generates a event called `LogNote` with these values indexed when `execute()` is called,
 
-* Function signature, `0x1cff79cd`
-* Owner of the DSProxy contract, `msg.sender`
-* Contract address which contains the script, `address`
-* Calldata which contains function signature of script being executed and its input data, `data`
+- Function signature, `0x1cff79cd`
+- Owner of the DSProxy contract, `msg.sender`
+- Contract address which contains the script, `address`
+- Calldata which contains function signature of script being executed and its input data, `data`
 
 #### Factory Contract
 
-The function  `build` in the DSProxyFactory contract is used to deploy a personal DSProxy contract. Since proxy addresses are derived from the internal nonce of the DSProxyFactory, **it's reccommended a 20 block confirmation time follows the `build` transaction**, lest an accidental address re-assignment during a block re-org. For production use cases on mainnet you can use a common factory contract that is already being used by existing projects to avoid deploying redundant DSProxy contracts for users who already have one. Please check the [Production Usage](#production-usage) section in this guide for more details.
+The function `build` in the DSProxyFactory contract is used to deploy a personal DSProxy contract. Since proxy addresses are derived from the internal nonce of the DSProxyFactory, **it's reccommended a 20 block confirmation time follows the `build` transaction**, lest an accidental address re-assignment during a block re-org. For production use cases on mainnet you can use a common factory contract that is already being used by existing projects to avoid deploying redundant DSProxy contracts for users who already have one. Please check the [Production Usage](#production-usage) section in this guide for more details.
 
 ### Create a script
 
@@ -111,10 +142,10 @@ We'll use `dapp` and `seth` while working through this section but you can also 
 
 You have to create a `~/.sethrc` file and configure it with these values to work with the Kovan testnet,
 
-* `export SETH_CHAIN=kovan`
-* `export ETH_FROM=0xYourKovanAddressFromKeyStoreOrLedger`
-* `export ETH_GAS=4000000`
-* `export ETH_GAS_PRICE=2500000000`
+- `export SETH_CHAIN=kovan`
+- `export ETH_FROM=0xYourKovanAddressFromKeyStoreOrLedger`
+- `export ETH_GAS=4000000`
+- `export ETH_GAS_PRICE=2500000000`
 
 It is usually recommended to configure `ETH_RPC_URL` to point an Infura endpoint or your own Kovan Ethereum node.
 
@@ -138,7 +169,7 @@ We first need to add the required interfaces to interact with functions on those
 
 This contract will utilize the ERC20 contracts for WETH and DAI (`GemLike`), their adaptor contracts (`DaiJoinLike` and `GemJoinLike`), interact with the `vat` (`VatLike`), Oasis' MatchingMarket (`OasisLike`) and the `CDPManager` (`ManagerLike`):
 
-```text
+```solidity
 interface GemLike {
     function approve(address, uint) external;
     function transfer(address, uint) external;
@@ -198,9 +229,9 @@ interface ManagerLike {
 
 #### Add helper functions
 
-The `vat` records the individual vault debt balances by dividing the Dai amounts by the accrued `rate` for that ilk type. This facilitates the calculation of vault fees (For more details about rate accumulation, read this [guide](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)). Here, we adapt a function from [`dss-proxy-actions`](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L164)  
+The `vat` records the individual vault debt balances by dividing the Dai amounts by the accrued `rate` for that ilk type. This facilitates the calculation of vault fees (For more details about rate accumulation, read this [guide](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)). Here, we adapt a function from [`dss-proxy-actions`](https://github.com/makerdao/dss-proxy-actions/blob/master/src/DssProxyActions.sol#L164)
 
-```
+```solidity
     function _getWipeDart(
         address vat,
         uint dai,
@@ -219,17 +250,16 @@ The `vat` records the individual vault debt balances by dividing the Dai amounts
     }
 ```
 
-
 #### Setup `wipeWithEth` function
 
 Add a new function `wipeWithEth` which takes in the following inputs,
 
-* Address of the [CDP Manager](https://github.com/makerdao/dss-cdp-manager) contract
-* Address of the [MCD ETH Adapter](https://github.com/makerdao/dss/blob/master/src/join.sol#L62) (ethJoin)
-* Address of the [MCD DAI Adapter](https://github.com/makerdao/dss/blob/master/src/join.sol#L137) (daiJoin)
-* Address of the current [Oasis Matching Market](https://github.com/makerdao/maker-otc) contract
-* Id of the CDP in decimals. Ex: 44
-* Amount of Eth to be used
+- Address of the [CDP Manager](https://github.com/makerdao/dss-cdp-manager) contract
+- Address of the [MCD ETH Adapter](https://github.com/makerdao/dss/blob/master/src/join.sol#L62) (ethJoin)
+- Address of the [MCD DAI Adapter](https://github.com/makerdao/dss/blob/master/src/join.sol#L137) (daiJoin)
+- Address of the current [Oasis Matching Market](https://github.com/makerdao/maker-otc) contract
+- Id of the CDP in decimals. Ex: 44
+- Amount of Eth to be used
 
 ```text
 function wipeWithEth(
@@ -240,7 +270,7 @@ function wipeWithEth(
     uint cdp,
     uint wadEth
 )
-    public 
+    public
 {
     // logic
 }
@@ -250,7 +280,7 @@ function wipeWithEth(
 
 Within the function body, ensure at least some Eth is being removed from the vault, using a require statement:
 
-```text
+```solidity
 require(wadEth > 0);
 ```
 
@@ -258,15 +288,15 @@ require(wadEth > 0);
 
 Then we determine what is the `urn` address for our vault:
 
-```text
+```solidity
 address urn = ManagerLike(manager).urns(cdp);
 ```
 
 #### Remove the Eth from the vault
 
-First real step is withdraw the Ether from the vault. This is done by the `frob` function on the CDP Manager. After this is done, we need to move it from the `urn` address to our proxy and converting the internal WETH balance to an actual ERC20. 
+First real step is withdraw the Ether from the vault. This is done by the `frob` function on the CDP Manager. After this is done, we need to move it from the `urn` address to our proxy and converting the internal WETH balance to an actual ERC20.
 
-```text
+```solidity
 //Remove the WETH from the vault
 ManagerLike(manager).frob(cdp, -int(wadEth), int(0));
 // Moves the WETH from the CDP urn to proxy's address
@@ -277,12 +307,11 @@ GemJoinLike(ethJoin).exit(address(this), wadEth);
 
 At this step, we have withdrawn the Ether from the vault. If remove that ether makes the vault undercollaterized, the transaction will fail here and revert.
 
-
 #### Market sell the Ether for Dai
 
-Oasis has a `sellAllAmount` method that market sells a ERC20 for another ERC20 token, here Weth and Dai. For this to work, make sure that the Kovan Oasis Trade has the required open orders. 
+Oasis has a `sellAllAmount` method that market sells a ERC20 for another ERC20 token, here Weth and Dai. For this to work, make sure that the Kovan Oasis Trade has the required open orders.
 
-```text
+```solidity
 //Approve Oasis to obtain the WETH to be sold
 GemJoinLike(ethJoin).gem().approve(oasisMatchingMarket,wadEth);
 //Market order to sell the WETH for DAI
@@ -293,7 +322,8 @@ uint daiAmt = OasisLike(oasisMatchingMarket).sellAllAmount(
     uint(0)
 );
 ```
-In this naive implementation, we are market selling the Ether for Dai, irrespective of the on-chain price compared to the market. It could be possible to query an oracle to make sure there is no slippage or have the user specify a minimum amount of Dai to be received. 
+
+In this naive implementation, we are market selling the Ether for Dai, irrespective of the on-chain price compared to the market. It could be possible to query an oracle to make sure there is no slippage or have the user specify a minimum amount of Dai to be received.
 
 #### Wipe Dai debt from the Vault
 
@@ -308,7 +338,7 @@ DaiJoinLike(daiJoin).join(urn, daiAmt);
 
 To finally wipe the Dai, we have to calculate its art value in accordance to the current rate (so it takes into account fees) and finally wipe the debt using `frob`:
 
-```
+```solidity
 // Calculate the amount of art corresponding to DAI (accumulated rates)
 int dart = _getWipeDart(ManagerLike(manager).vat(), VatLike(ManagerLike(manager).vat()).dai(urn), urn, ManagerLike(manager).ilks(cdp));
 // Pay back the art/dai in the vault
@@ -317,7 +347,7 @@ ManagerLike(manager).frob(cdp, int(0), dart);
 
 Before we proceed to the next section of this guide, please ensure your code matches the `Delev` contract below
 
-```text
+```solidity
 contract Delev {
 
     function wipeWithEth(
@@ -419,16 +449,17 @@ Make a note of the returned DSProxy contract address and store it as a variable.
 ```bash
 export MYPROXY=0xYourDSProxyAddress
 ```
+
 We can prepare calldata to extract and sell 0.01 ETH from our vault #560 on Kovan using this command with the following inputs,
 
-* Address of the CDP Manager contract
-* Address of the MCD ETH Adapter (ethJoin)
-* Address of the MCD DAI Adapter (daiJoin)
-* Address of the current Oasis Matching Market contract
-* Id of the CDP in decimals. (560)
-* Amount of Eth to be used: 0.01
+- Address of the CDP Manager contract
+- Address of the MCD ETH Adapter (ethJoin)
+- Address of the MCD DAI Adapter (daiJoin)
+- Address of the current Oasis Matching Market contract
+- Id of the CDP in decimals. (560)
+- Amount of Eth to be used: 0.01
 
-```
+```bash
 export CDP_MANAGER=0x1476483dD8C35F25e568113C5f70249D3976ba21
 export ETH_JOIN=0x775787933e92b709f2a3C70aa87999696e74A9F8
 export DAI_JOIN=0x5AA71a3ae1C0bd6ac27A1f28e1415fFFB6F15B8c
@@ -436,17 +467,17 @@ export OASIS=0xe325acB9765b02b8b418199bf9650972299235F4
 CALLDATA=$(seth calldata 'wipeWithEth(address,address,address,address,uint,uint)' $CDP_MANAGER $ETH_JOIN $DAI_JOIN $OASIS $(seth --to-hexdata $(seth --to-uint256 560)) $(seth --to-uint256 $(seth --to-wei 0.01 eth)))
 ```
 
-
 CALLDATA should look like this:
-```
+
+```bash
 echo $CALLDATA
 0xb46858180000000000000000000000001476483dd8c35f25e568113c5f70249d3976ba21000000000000000000000000775787933e92b709f2a3c70aa87999696e74a9f80000000000000000000000005aa71a3ae1c0bd6ac27a1f28e1415fffb6f15b8c000000000000000000000000e325acb9765b02b8b418199bf9650972299235f4000000000000000000000000000000000000000000000000000000000000023000000000000000000000000000000000000000000000000000038d7ea4c68000
 ```
 
 Call execute on the DSProxy contract with these inputs,
 
-* Address of the deployed `Delev` contract
-* Calldata to execute the `wipeWithEth` script
+- Address of the deployed `Delev` contract
+- Calldata to execute the `wipeWithEth` script
 
 ```bash
 seth send $MYPROXY 'execute(address,bytes memory)' $DELEV $CALLDATA
@@ -466,8 +497,8 @@ A common [Proxy Registry](https://github.com/makerdao/proxy-registry) can be use
 
 Proxy Registries are already available on these networks,
 
-* Mainnet: `0x4678f0a6958e4d2bc4f1baf7bc52e8f3564f3fe4`
-* Kovan: `0x64a436ae831c1672ae81f674cab8b6775df3475c`
+- Mainnet: `0x4678f0a6958e4d2bc4f1baf7bc52e8f3564f3fe4`
+- Kovan: `0x64a436ae831c1672ae81f674cab8b6775df3475c`
 
 ## Troubleshooting
 
@@ -489,6 +520,6 @@ Writing scripts can help you solve a variety of problems you encounter as a deve
 
 ## Help
 
-* Contact Integrations team - integrate@makerdao.com
+- Contact Integrations team - integrate@makerdao.com
 
-* Rocket chat - #dev channel
+- Rocket chat - #dev channel

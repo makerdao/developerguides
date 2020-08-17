@@ -4,6 +4,30 @@
 
 **Estimated Time**: 30 - 60 minutes
 
+- [Dai Token](#dai-token)
+  - [Overview](#overview)
+  - [Learning Objectives](#learning-objectives)
+  - [Pre-requisites](#pre-requisites)
+  - [Guide](#guide)
+    - [Token Info](#token-info)
+      - [Addresses](#addresses)
+      - [Details](#details)
+      - [Token stats](#token-stats)
+    - [Getting Dai](#getting-dai)
+      - [Mainnet](#mainnet)
+      - [Testnet](#testnet)
+    - [Token Contract](#token-contract)
+      - [Permit](#permit)
+      - [Mint and Burn](#mint-and-burn)
+      - [Aliases](#aliases)
+      - [Authority](#authority)
+    - [DaiJoin Adapter](#daijoin-adapter)
+    - [**Emergency Shutdown**](#emergency-shutdown)
+    - [Deploy on testnet](#deploy-on-testnet)
+  - [Summary](#summary)
+  - [Additional resources](#additional-resources)
+  - [Help](#help)
+
 ## Overview
 
 Dai is a decentralized stablecoin currently live on the Ethereum network. The Maker Protocol incentivizes users to increase or decrease the Dai token supply based on supply and demand and ensures its value stays pegged to 1 USD.
@@ -12,34 +36,21 @@ The token contract conforms to the ERC20 token standard which allows wallets, ex
 
 ## Learning Objectives
 
-* You will learn basic information about the token.
+- You will learn basic information about the token.
 
-* Understand the additional functions supported by the token contract.
+- Understand the additional functions supported by the token contract.
 
-* Deploy your own token to an Ethereum testnet.
+- Deploy your own token to an Ethereum testnet.
 
-* Integrate the Dai token effectively with your application.
+- Integrate the Dai token effectively with your application.
 
 ## Pre-requisites
 
-* Knowledge of the [ERC20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md) token standard.
+- Knowledge of the [ERC20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md) token standard.
 
-* Ability to send ethereum transactions from your preferred dev environment.
+- Ability to send ethereum transactions from your preferred dev environment.
 
 ## Guide
-
-* [Token Info](#token-info)
-
-* [Getting Dai](#getting-dai)
-
-* [Token contract](#token-contract)
-
-* [DAI Join Adapter](#daijoin-adapter)
-
-* [Emergency Shutdown](#emergency-shutdown)
-
-* [Deploy on testnet](#deploy-on-testnet)
-
 
 ### Token Info
 
@@ -89,16 +100,16 @@ The codebase at commit [6fa5581](https://github.com/makerdao/dss/blob/6fa55812a5
 
 The Dai token contract, follows the [ERC-20 standard](%5B%3Chttps://eips.ethereum.org/EIPS/eip-20%3E%5D(%3Chttps://eips.ethereum.org/EIPS/eip-20%3E)) with some additional features. The added features are
 
--   The `permit()` function that uses the [EIP-712 signing standard](%5B%3Chttps://eips.ethereum.org/EIPS/eip-712%3E%5D(%3Chttps://eips.ethereum.org/EIPS/eip-712%3E)) as defined by [EIP-2612 (draft](https://github.com/ethereum/EIPs/blob/8a34d644aacf0f9f8f00815307fd7dd5da07655f/EIPS/eip-2612.md)).
--   The `mint()` and `burn()` functions that the Maker Protocol is authorised to use.
+- The `permit()` function that uses the [EIP-712 signing standard](%5B%3Chttps://eips.ethereum.org/EIPS/eip-712%3E%5D(%3Chttps://eips.ethereum.org/EIPS/eip-712%3E)) as defined by [EIP-2612 (draft](https://github.com/ethereum/EIPs/blob/8a34d644aacf0f9f8f00815307fd7dd5da07655f/EIPS/eip-2612.md)).
+- The `mint()` and `burn()` functions that the Maker Protocol is authorised to use.
 
 #### Permit
 
 The EIP-712 signing standard allows to sign structured typed data instead of just bytestrings. This allows in the creation of the `permit()` function. The `permit()` function allows the user to send his Dai without paying gas. This works as follows:
 
--   User signs a `permit` message allowing a `destination` address to withdraw an x amount of Dai from his wallet.
--   This message is read by a relayer that takes the signed message and processes it by paying the transaction fee for the user. This relayer then takes a Dai cut from you the user for processing the transaction.
--   You the user can send Dai by paying for the transaction fees with your Dai, while a relayer in the backend is doing the processing.
+- User signs a `permit` message allowing a `destination` address to withdraw an x amount of Dai from his wallet.
+- This message is read by a relayer that takes the signed message and processes it by paying the transaction fee for the user. This relayer then takes a Dai cut from you the user for processing the transaction.
+- You the user can send Dai by paying for the transaction fees with your Dai, while a relayer in the backend is doing the processing.
 
 Check [https://stablecoin.services/](https://stablecoin.services/) and [https://gasless.mosendo.com/](https://gasless.mosendo.com/) for live examples. The EIP for this functionnality is currently in [draft](https://github.com/ethereum/EIPs/blob/8a34d644aacf0f9f8f00815307fd7dd5da07655f/EIPS/eip-2612.md).
 
@@ -108,8 +119,8 @@ Tokens are created when a user adds collateral to their Vault and creates new Da
 
 The [MCD_DAI_JOIN](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code) adapter contract in the Maker Protocol is authorized to calls the mint and burn functions of Dai token which to increase or decrease the total supply.
 
--   `mint` has the function signature: `mint(address guy, uint wad)`. It increases the total supply of the token as well as the `guy`’s token balance by the `wad` amount. All calls to `mint()` originate from the `exit()` function on the [DaiJoin](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code) contract.
--   `burn` has the function signature: `burn(address guy, uint wad)`. It decreases the total supply of the token as well as the `guy`’s token balance by the `wad` amount. Calls to `burn()` originate from `join()` function on the [DaiJoin](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code) contract. Contrary to Mint, Burn is not restricted to DaiJoin, this means that any user if he intends to do so, can burn his Dai. This however is not recommended.
+- `mint` has the function signature: `mint(address guy, uint wad)`. It increases the total supply of the token as well as the `guy`’s token balance by the `wad` amount. All calls to `mint()` originate from the `exit()` function on the [DaiJoin](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code) contract.
+- `burn` has the function signature: `burn(address guy, uint wad)`. It decreases the total supply of the token as well as the `guy`’s token balance by the `wad` amount. Calls to `burn()` originate from `join()` function on the [DaiJoin](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code) contract. Contrary to Mint, Burn is not restricted to DaiJoin, this means that any user if he intends to do so, can burn his Dai. This however is not recommended.
 
 #### Aliases
 
@@ -127,8 +138,8 @@ The ERC20 Dai Token contract does not represent all Dai supply, as Dai can be in
 
 The DaiJoin Adapter is used to convert internal Dai to a ERC20 token usable by wallets and exchanges. Typically, contracts and users deposit their internal Dai into the DaiJoin Adapter and obtain ERC20 tokens in exchange. Any holder of a ERC20 Dai token can also withdraw internal Dai from the contract by burning ERC20 Dai.
 
--   `exit(address usr, uint wad)`: Transfers an internal Dai balance of the amount `wad` from address `usr` to the DaiJoin contract, and mint new ERC20 in favor of `usr`.
--   `join(address usr, uint wad)`: Burns `wad` Dai from address `usr` and transfer the equivalent internal Dai in its favor. Note that join is possible only if the DaiJoin contract is approved.
+- `exit(address usr, uint wad)`: Transfers an internal Dai balance of the amount `wad` from address `usr` to the DaiJoin contract, and mint new ERC20 in favor of `usr`.
+- `join(address usr, uint wad)`: Burns `wad` Dai from address `usr` and transfer the equivalent internal Dai in its favor. Note that join is possible only if the DaiJoin contract is approved.
 
 ### **Emergency Shutdown**
 
@@ -142,17 +153,17 @@ More information about the Emergency Shutdown can be found in the [Emergency Shu
 
 Dai and the associated MCD contracts are deployed on [various testnets](https://changelog.makerdao.com), but you may want do deploy your own version of the Dai contract to test your ERC20 or `permit` integrations. The following instructions require a working configuration of [dapp.tools](https://dapp.tools), including `dapp` (tested with v0.27.0) and `seth` (v0.8.4) and a provisionned test account with its associated keys.
 
-1.  `git clone `[https://github.com/makerdao/dss](https://github.com/makerdao/dss)
-2.  `cd dss`
-3.  `dapp update`
-4.  `dapp build`
-5.  `export SETH_CHAIN=kovan` :
+1. `git clone`[https://github.com/makerdao/dss](https://github.com/makerdao/dss)
+2. `cd dss`
+3. `dapp update`
+4. `dapp build`
+5. `export SETH_CHAIN=kovan` :
 Change kovan for your prefered chain
-6.  `export ETH_KEYSTORE=~/keys` : Define where your keys are store
-7.  `export ETH_FROM=<address>` : Set your test account
-8.  `export ETH_RPC_URL=<RPC URL>` : Set the URL for a testnet RPC node (Infura or other)
-9.  `export chainid= $(seth --to-uint256 42)`:  Deploying the contract requires passing the chain id, for use with the permit function. For Kovan, the id is 42.
-10.  `dapp create Dai $chainid` : To deploy the contract. If successful, this will return the address of your new contract.
+6. `export ETH_KEYSTORE=~/keys` : Define where your keys are store
+7. `export ETH_FROM=<address>` : Set your test account
+8. `export ETH_RPC_URL=<RPC URL>` : Set the URL for a testnet RPC node (Infura or other)
+9. `export chainid= $(seth --to-uint256 42)`:  Deploying the contract requires passing the chain id, for use with the permit function. For Kovan, the id is 42.
+10. `dapp create Dai $chainid` : To deploy the contract. If successful, this will return the address of your new contract.
 
 If you want to verify your contract on Etherscan, use the output of
 
@@ -162,10 +173,10 @@ and specify the content of `$chainid` as the ABI formatted constructor.
 
 Once deployed, you may test your contract
 
-1.  `export DAIK=<deployed contract address>`
-2.  `seth call $DAIK 'wards(address)' $ETH_FROM`:  Should return 1 because the adress that deployed the contract is part of wards by default.
-3.  `seth send $DAIK 'mint(address,uint256)' $ETH_FROM $(seth --to-uint256 $(seth --to-wei 100000000 eth))`: Will mint yourself 100,000,000 test-DAI
-4.  `seth --from-wei $(seth --to-dec $(seth call $DAIK 'balanceOf(address)' $ETH_FROM))`: To see your test-Dai balance
+1. `export DAIK=<deployed contract address>`
+2. `seth call $DAIK 'wards(address)' $ETH_FROM`:  Should return 1 because the adress that deployed the contract is part of wards by default.
+3. `seth send $DAIK 'mint(address,uint256)' $ETH_FROM $(seth --to-uint256 $(seth --to-wei 100000000 eth))`: Will mint yourself 100,000,000 test-DAI
+4. `seth --from-wei $(seth --to-dec $(seth call $DAIK 'balanceOf(address)' $ETH_FROM))`: To see your test-Dai balance
 
 ## Summary
 
@@ -180,6 +191,5 @@ In this guide, we briefly discussed the technical details of the Dai token contr
 
 ## Help
 
-* Contact Integrations team - integrate@makerdao.com
-
-* Rocket chat - #dev channel
+- Contact Integrations team - integrate@makerdao.com
+- Rocket chat - #dev channel

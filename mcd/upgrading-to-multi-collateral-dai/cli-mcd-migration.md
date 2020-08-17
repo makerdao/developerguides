@@ -2,14 +2,25 @@
 
 This guide is tested on the [2.10 deployment of MCD to Kovan.](https://changelog.makerdao.com/releases/0.2.10/index.html)
 
+- [Migrating Dai and CDPs to MCD on Kovan using Seth](#migrating-dai-and-cdps-to-mcd-on-kovan-using-seth)
+  - [Introduction](#introduction)
+  - [Setup](#setup)
+  - [Migrating Sai to Dai and Dai to Sai](#migrating-sai-to-dai-and-dai-to-sai)
+  - [Migrating CDPs](#migrating-cdps)
+  - [Need help](#need-help)
+  - [Additional resources](#additional-resources)
+
 ## Introduction
+
 This guide will explain how to use the command line tools [seth](http://dapp.tools/seth/) and [mcd-cli](https://github.com/makerdao/mcd-cli#installation) to migrate Single Collateral Dai tokens (SAI) to Multi Collateral Dai tokens (DAI), and CDP migration on the Kovan network.
 
 Since this guide will utilize `seth` and `mcd-cli`, we highly recommend you to go over these guides first to get you setup and acquainted with the tools.
--   [Introduction to Seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md)   
--   [Using seth to draw Dai from Kovan deployment of MCD](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md)  
+
+- [Introduction to Seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md)
+- [Using seth to draw Dai from Kovan deployment of MCD](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md)  
 
 ## Setup
+
 Make sure you have installed [seth](http://dapp.tools/seth/) and [mcd-cli](https://github.com/makerdao/mcd-cli#installation) before starting this guide. See the links and guides above for guidance. Since we are using the Kovan testnet for this guide, ensure that your seth and mcd-cli variables are set to interact with the Kovan network. You can do this by putting the following lines:
 
 `export SETH_CHAIN=kovan`
@@ -118,7 +129,7 @@ In order to do the migration, ensure that you have some Kovan MKR to pay down th
 
 Now that the contract variables are set up, and your have K-MKR, we are ready to start migrating a CDP. If you do not already have a CDP to migrate, go to cdp.makerdao.com, and ensure that you are connected to the Kovan network (i.e. through MetaMask). Open a CDP using Kovan ETH, and draw some Kovan SAI.
 
-Once you have created a CDP (or if you already had one), find the CDP id in the CDP portal. See picture below - the CDP id is in the red ring: ![](https://lh3.googleusercontent.com/TdddYarFtj2kIg2w_8JGGQ-j7PKEPuhOKE0_EWksIRm-3o7O7Z-RIBBwYsLntuJi4HFCyDE36EKQtciTELKitE_SxoYzWqVhV9nJBrKzCYjgwV4iUvr-6X6SWyox8m002W4ZRBfb)
+Once you have created a CDP (or if you already had one), find the CDP id in the CDP portal. See picture below - the CDP id is in the red ring: ![SCD CDP Portal](https://lh3.googleusercontent.com/TdddYarFtj2kIg2w_8JGGQ-j7PKEPuhOKE0_EWksIRm-3o7O7Z-RIBBwYsLntuJi4HFCyDE36EKQtciTELKitE_SxoYzWqVhV9nJBrKzCYjgwV4iUvr-6X6SWyox8m002W4ZRBfb)
 
 We need to turn this CDP id into a bytes32 string to pass it onto the smart contracts. We do so by converting it and storing it in a variable using mcd-cli. Execute the following command to do so - replace cdp-id with your id. In our case 6613:
 
@@ -142,7 +153,7 @@ Now that we have saved a bunch of variables, we are ready to begin the migration
 
 `seth --from-wei $(seth --to-dec $(seth call $SAI_SAI 'balanceOf(address)' "$MCD_JOIN_SAI")) eth`
 
-Example output: 
+Example output:
 
 `$ 998.000000000000000000`
 
@@ -162,16 +173,17 @@ When the transaction is mined, the SCD CDP should have disappeared from cdp.make
 
 If that is the case, congratulations, you have successfully migrated your CDP from SCD to MCD!
 
-## Need help?
+## Need help
 
 If you encounter any issues, feel free to reach out at [integrate@makerdao.com](mailto:integrate@makerdao.com) or @lollike on [chat.makerdao.com](https://chat.makerdao.com/) - we are happy to help troubleshoot!  
 
 ## Additional resources
-Guides:
--   [Introduction and Overview of Multi-Collateral Dai: MCD101](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-101/mcd-101.md)    
--   [Using MCD-CLI to create and close a MCD CDP on Kovan](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)    
--   [Upgrading to MCD - overview for different partners](https://github.com/makerdao/developerguides/blob/master/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)  
--   [Add a new collateral type to DCS - Kovan](https://github.com/makerdao/developerguides/blob/master/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
 
-Source code/wiki:
--   [Multi Collateral Dai code + wiki](https://github.com/makerdao/dss)
+Guides:
+
+- [Introduction and Overview of Multi-Collateral Dai: MCD101](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-101/mcd-101.md)
+- [Using MCD-CLI to create and close a MCD CDP on Kovan](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-cli/mcd-cli-guide-01/mcd-cli-guide-01.md)
+- [Upgrading to MCD - overview for different partners](https://github.com/makerdao/developerguides/blob/master/mcd/upgrading-to-multi-collateral-dai/upgrading-to-multi-collateral-dai.md)  
+- [Add a new collateral type to DCS - Kovan](https://github.com/makerdao/developerguides/blob/master/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)  
+- Source code/wiki:
+  - [Multi Collateral Dai code + wiki](https://github.com/makerdao/dss)
