@@ -45,7 +45,11 @@ The token contract conforms to the ERC20 token standard which allows wallets, ex
 
 #### Addresses
 
-Dai is available on the Ethereum mainnet at [0x6b175474e89094c44da98b954eedeac495271d0f](https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f) and the Kovan testnet at [0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa](https://kovan.etherscan.io/token/0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa). Other deployments are listed on [changelog.makerdao.com](https://changelog.makerdao.com).
+Dai is available on the:
+* _Ethereum mainnet_ at [0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/token/0x6B175474E89094C44Da98b954EedeAC495271d0F)
+* _Kovan testnet_ at [0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa](https://kovan.etherscan.io/token/0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa)
+
+Other deployments are listed on [changelog.makerdao.com](https://changelog.makerdao.com).
 
 #### Details
 
