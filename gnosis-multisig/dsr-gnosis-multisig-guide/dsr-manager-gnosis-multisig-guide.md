@@ -1,8 +1,19 @@
 # Add Dai to DSR through DsrManager with Gnosis Multisig
 
-**Level:** Advanced
-
+**Level:** Advanced  
 **Estimated Time:** 20 minutes
+
+- [Add Dai to DSR through DsrManager with Gnosis Multisig](#add-dai-to-dsr-through-dsrmanager-with-gnosis-multisig)
+  - [Overview](#overview)
+  - [Learning Objectives](#learning-objectives)
+  - [Pre-requisites](#pre-requisites)
+  - [Step 1: Approve DsrManager to pull funds](#step-1-approve-dsrmanager-to-pull-funds)
+  - [Step 2: Add Dai to DSR](#step-2-add-dai-to-dsr)
+  - [Step 3: Retrieve Dai from DSR](#step-3-retrieve-dai-from-dsr)
+    - [3.A - Retrieve a portion of Dai from DSR](#3a---retrieve-a-portion-of-dai-from-dsr)
+    - [3.B - Retrieve all Dai from DSR](#3b---retrieve-all-dai-from-dsr)
+  - [Additional Resources](#additional-resources)
+  - [Help](#help)
 
 ## Overview
 

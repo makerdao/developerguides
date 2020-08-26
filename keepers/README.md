@@ -1,4 +1,22 @@
 # Keepers
+
+- [Keepers](#keepers)
+  - [Prerequisites](#prerequisites)
+  - [Multi Collateral Dai (MCD) Keepers](#multi-collateral-dai-mcd-keepers)
+    - [Auction Keeper](#auction-keeper)
+    - [Dockerized Auction Keeper](#dockerized-auction-keeper)
+    - [Chief Keeper](#chief-keeper)
+    - [Cage Keeper](#cage-keeper)
+  - [Single Collateral Dai (SCD) Keepers](#single-collateral-dai-scd-keepers)
+    - [Pymaker](#pymaker)
+    - [Bite Keeper](#bite-keeper)
+    - [Arbitrage Keeper](#arbitrage-keeper)
+    - [CDP Keeper](#cdp-keeper)
+  - [OasisDex Keepers](#oasisdex-keepers)
+    - [Simple Arbitrage Keeper](#simple-arbitrage-keeper)
+  - [Additional source code and developer docs](#additional-source-code-and-developer-docs)
+  - [Need help](#need-help)
+
 This document contains the necessary resources for partners to implement Keepers - programs that automatically monitor and interact with the Maker Protocol.
 
 ## Prerequisites
@@ -51,11 +69,11 @@ The `arbitrage-keeper` monitors arbitrage opportunities in the Dai Credit System
 
 The `CDP-keeper` can be used to automatically manage CDPs. Features include:
 
--   Automatic top up of collateral, if collateral value decreases, and the CDP approaches the liquidation ratio
+- Automatic top up of collateral, if collateral value decreases, and the CDP approaches the liquidation ratio
 
--   Wiping debt instead of top-up
+- Wiping debt instead of top-up
 
--   Managing Dai volume
+- Managing Dai volume
 
 ## OasisDex Keepers
 
@@ -63,38 +81,32 @@ The `CDP-keeper` can be used to automatically manage CDPs. Features include:
 
 The Simple Arbitrage Keeper profits from executing atomic multi-trade transactions between OasisDEX and Uniswap.
 
-
 ## Additional source code and developer docs
 
-**Running a keeper node**
+**Running a keeper node:**
 
--   [Infrastructure required for an auction keeper (and most others)](https://github.com/makerdao/auction-keeper#infrastructure)
+- [Infrastructure required for an auction keeper (and most others)](https://github.com/makerdao/auction-keeper#infrastructure)
 
+**Current Dai credit system implementation (Multi Collateral Dai):**
 
-**Current Dai credit system implementation (Multi Collateral Dai)**
+- Docs: [https://docs.makerdao.com/](https://docs.makerdao.com/)
 
--   Docs: [https://docs.makerdao.com/](https://docs.makerdao.com/)
+- Source: [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
 
--   Source: [https://github.com/makerdao/dss](https://github.com/makerdao/dss)
+**Single Collateral Dai:**
 
+- Docs: [https://github.com/makerdao/sai/blob/master/DEVELOPING.md](https://github.com/makerdao/sai/blob/master/DEVELOPING.md)
 
-**Single Collateral Dai**
+- Source: [https://github.com/makerdao/sai](https://github.com/makerdao/sai)
 
--   Docs: [https://github.com/makerdao/sai/blob/master/DEVELOPING.md](https://github.com/makerdao/sai/blob/master/DEVELOPING.md)
+**Python API:**
 
--   Source: [https://github.com/makerdao/sai](https://github.com/makerdao/sai)
+- Docs/source: [https://github.com/makerdao/pymaker](https://github.com/makerdao/pymaker)
 
+**Maker platform in general:**
 
-**Python API**
+- [Whitepaper](https://makerdao.com/whitepaper/)
 
--   Docs/source: [https://github.com/makerdao/pymaker](https://github.com/makerdao/pymaker)
-
-
-**Maker platform in general**
-
--   [Whitepaper](https://makerdao.com/whitepaper/)
-
-
-## Need help?
+## Need help
 
 Contact [integrate@makerdao.com](mailto:integrate@makerdao.com) or #dev channel on chat.makerdao.com

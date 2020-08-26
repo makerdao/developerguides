@@ -5,7 +5,7 @@
 
 **Estimated Time:** 45 min
 
-- [Emergency Shutdown Design Patterns for Integrations](#emergency-shutdown-desgin-patterns-for-integrations)
+- [Emergency Shutdown Design Patterns for Integrations](#emergency-shutdown-design-patterns-for-integrations)
 - [Overview](#overview)
 - [Learning Objectives](#learning-objectives)
 - [Pre-requisites](#pre-requisites)

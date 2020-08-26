@@ -1,5 +1,24 @@
 # Auctions and Keepers in Multi-Collateral Dai Explained
 
+**Level:** Beginner  
+**Estimated Time:** 20 minutes
+
+- [Auctions and Keepers in Multi-Collateral Dai Explained](#auctions-and-keepers-in-multi-collateral-dai-explained)
+  - [Overview](#overview)
+  - [Auctions](#auctions)
+  - [Keepers](#keepers)
+  - [The Auction Parameters and Mechanisms](#the-auction-parameters-and-mechanisms)
+    - [Auctions Glossary](#auctions-glossary)
+    - [Bid Increments During an Auction](#bid-increments-during-an-auction)
+    - [How Bids are Placed During an Auction](#how-bids-are-placed-during-an-auction)
+  - [Surplus Auction](#surplus-auction)
+  - [Collateral Auction (Collateral Sale)](#collateral-auction-collateral-sale)
+  - [Debt Auction](#debt-auction)
+  - [Participate as a Keeper In MCD](#participate-as-a-keeper-in-mcd)
+  - [Help](#help)
+
+## Overview
+
 The Maker Protocol is a smart contract platform on Ethereum that backs and stabilizes the value of our stablecoin, Dai. It does this through a dynamic system of Vault Positions, autonomous feedback mechanisms, and appropriately incentivized external actors.
 
 In this document, we explain the auction mechanisms within the system, as well as particular types of external actors, called Keepers, that bid on the Auctions.
@@ -12,15 +31,11 @@ The system protects against debt creation by overcollateralization. Under ideal 
 
 Further, if, for example, the collateral price drops sharply or no one wants to buy the collateral, there may be debt in the liquidated Vault that cannot be repaid through a collateral auction and must be addressed by the system. The first course of action is to cover this debt using surplus from stability fees, if there is any surplus to cover it. If there is not, then the system initiates a **Debt Auction**, whereby the winning bidder pays Dai to cover the outstanding debt and in return receives an amount of newly minted MKR, increasing the amount of MKR in circulation.
 
-
 To **summarize**, we have three types of Auctions:
 
--   **Surplus Auction**: The winning bidder pays MKR for surplus Dai from stability fees. The MKR received is burnt, thereby reducing the amount of MKR in circulation.
-    
--   **Collateral Auction**: The winning bidder pays Dai for collateral from a liquidated Vault. The Dai received is used to cover the outstanding debt in the liquidated Vault
-    
--   **Debt Auction**: The winning bidder pays Dai for MKR to cover outstanding debt that Collateral Auctions haven’t been able to cover. MKR is minted by the system, thereby increasing the amount of MKR in circulation.
-    
+- **Surplus Auction**: The winning bidder pays MKR for surplus Dai from stability fees. The MKR received is burnt, thereby reducing the amount of MKR in circulation.
+- **Collateral Auction**: The winning bidder pays Dai for collateral from a liquidated Vault. The Dai received is used to cover the outstanding debt in the liquidated Vault
+- **Debt Auction**: The winning bidder pays Dai for MKR to cover outstanding debt that Collateral Auctions haven’t been able to cover. MKR is minted by the system, thereby increasing the amount of MKR in circulation.
 
 The actors that bid on these Auctions are called **Keepers**.
 
@@ -40,27 +55,19 @@ Various considerations were taken into account when designing the auction mechan
 
 **Risk parameters**. In general, the following parameters are used across all of the auction types:
 
--   `beg`: Minimum bid increase (for example, 3%).
-    
--  `ttl`: Bid duration (for example, 6 hours). The auction ends if no new bid is placed during this time.
-    
--   `tau`: Auction duration (for example, 24 hours). The auction ends after this period under all circumstances.
-    
+- `beg`: Minimum bid increase (for example, 3%).
+- `ttl`: Bid duration (for example, 6 hours). The auction ends if no new bid is placed during this time.
+- `tau`: Auction duration (for example, 24 hours). The auction ends after this period under all circumstances.
 
 The values of the risk parameters are determined by Maker Governance voters (MKR holders) per auction type. Note that there are different Collateral Auction risk parameters for each type of collateral used in the system.
 
 **Auction and bid information**. The following information is always available during an active auction:
 
--   `lot` : Amount of asset that is up for auction/sale.
-    
--   `bid`: Current highest bid.
-    
--   `guy`: Highest bidder.
-    
--  `tic`: Bid expiry date/time (empty if zero bids).
-    
--   `end`: Auction expiry date/time.
-    
+- `lot` : Amount of asset that is up for auction/sale.
+- `bid`: Current highest bid.
+- `guy`: Highest bidder.
+- `tic`: Bid expiry date/time (empty if zero bids).
+- `end`: Auction expiry date/time.
 
 ### Bid Increments During an Auction
 
@@ -78,15 +85,11 @@ Bidders send DAI or MKR tokens from their addresses to the system/specific aucti
 
 **High-level Mechanism Process**:
 
--   Maker Governance voters determine the amount of surplus allowed in the system at any one time. A Surplus auction is triggered when the system has a Dai surplus over the pre-determined amount as set by MKR governance.
+- Maker Governance voters determine the amount of surplus allowed in the system at any one time. A Surplus auction is triggered when the system has a Dai surplus over the pre-determined amount as set by MKR governance.
 
-	-   To determine whether the system has a net surplus, accrued stability fees and debt in the system must be added together. Any user can do this by sending the `heal` transaction to the system contract called Vow.
-    
-	-   Provided there is a net surplus, the Surplus Auction is triggered when any user sends the `flap` transaction to the Vow contract.
-    
-
--   When the auction begins, a fixed amount (`lot`) of Dai is put up for sale. Bidders then bid with MKR in increments greater than the minimum bid increase amount. The auction officially ends when the bid duration ends (`ttl`) without another bid OR when the auction duration (`tau`) has been reached. Once the auction ends, the MKR received for the surplus Dai is then sent to be burnt, thereby contracting the system’s MKR supply.
-    
+- To determine whether the system has a net surplus, accrued stability fees and debt in the system must be added together. Any user can do this by sending the `heal` transaction to the system contract called Vow.
+- Provided there is a net surplus, the Surplus Auction is triggered when any user sends the `flap` transaction to the Vow contract.
+- When the auction begins, a fixed amount (`lot`) of Dai is put up for sale. Bidders then bid with MKR in increments greater than the minimum bid increase amount. The auction officially ends when the bid duration ends (`ttl`) without another bid OR when the auction duration (`tau`) has been reached. Once the auction ends, the MKR received for the surplus Dai is then sent to be burnt, thereby contracting the system’s MKR supply.
 
 ## Collateral Auction (Collateral Sale)
 
@@ -96,14 +99,11 @@ Bidders send DAI or MKR tokens from their addresses to the system/specific aucti
 
 For each type of collateral, MKR holders approve a specific risk parameter called the liquidation ratio. This ratio determines the amount of overcollaterization a Vault requires to avoid liquidation. For example, if the liquidation ratio is 150%, then the value of the collateral must always be one and a half times the value of the Dai generated. If the value of the collateral falls below the liquidation ratio, then the Vault becomes unsafe and is liquidated by the system. The system then takes over the collateral and auctions it off to cover both the debt in the Vault and an applied liquidation penalty.
 
--   The Collateral Auction is triggered when a Vault is liquidated.
-    
-	-   Any user can liquidate a Vault that is unsafe by sending the bite transaction identifying the Vault. This will launch a collateral auction.
-    
-	-   If the amount of collateral in the Vault being “bitten” is less than the lot size for the auction, then there will be one auction for all collateral in the Vault.
-    
-	-   If the amount of collateral in the Vault being “bitten” is larger than the lot size for the auction, then an auction will launch with the full lot size of collateral, and the Vault can be “bitten” again to launch another auction until all collateral in the Vault is up for bidding in Collateral Auctions.
-    
+- The Collateral Auction is triggered when a Vault is liquidated.
+- Any user can liquidate a Vault that is unsafe by sending the bite transaction identifying the Vault. This will launch a collateral auction.
+- If the amount of collateral in the Vault being “bitten” is less than the lot size for the auction, then there will be one auction for all collateral in the Vault.
+- If the amount of collateral in the Vault being “bitten” is larger than the lot size for the auction, then an auction will launch with the full lot size of collateral, and the Vault can be “bitten” again to launch another auction until all collateral in the Vault is up for bidding in Collateral Auctions.
+
 An important aspect of a Collateral Auction is that the auction expiration and bid expiration parameters are dependent on the specific type of collateral, where more liquid collateral types have shorter expiration times and vice-versa.
 
 Once the auction begins, the first bidder can bid any amount of Dai to aquire the collateral amount (`lot`). Other bidders can raise that bid offering more Dai for the same collateral amount (`lot`) until there is a bid that covers the outstanding debt. If and when there is a bid that covers the outstanding debt, the auction will turn into a reverse auction, where a bidder bids on accepting smaller parts of the collateral for the fixed amount of Dai that covers the outstanding debt. The auction ends when the bid duration (`ttl`) has passed OR when the auction duration (`tau`) has been reached. Again, this process is designed to encourage early bidding. Once the auction is over, the system sends the collateral to the winning bidder’s address.
@@ -116,14 +116,12 @@ Once the auction begins, the first bidder can bid any amount of Dai to aquire th
 
 Debt Auctions are triggered when the system has Dai debt that has passed the specified debt limit.
 
--   Maker Governance voters determine the debt limit. The Debt auction is triggered when the system has a debt in Dai below that limit.
+- Maker Governance voters determine the debt limit. The Debt auction is triggered when the system has a debt in Dai below that limit.
 
-	-   In order to determine whether the system has a net debt, the accrued stability fees and debt in the system  must be added together. Any user can do this by sending the `heal` transaction to the system contract named Vow.
-    
-	-   Provided there is a sufficiently sized net debt, the debt auction is triggered when any user sends the `flop` transaction to the Vow contract
-   
+- In order to determine whether the system has a net debt, the accrued stability fees and debt in the system  must be added together. Any user can do this by sending the `heal` transaction to the system contract named Vow.
+- Provided there is a sufficiently sized net debt, the debt auction is triggered when any user sends the `flop` transaction to the Vow contract
+
 This is a reverse auction, where Keepers bid on how little MKR they are willing to accept for the fixed Dai amount (`lot`) they have to pay at auction settlement. The auction ends when the bid duration (`ttl`) has passed OR when the auction duration (`tau`) has been reached. Once the auction is over, the Dai, paid into the system by bidders in exchange for newly minted MKR, reduces the original debt balance in the system.
-
 
 ## Participate as a Keeper In MCD
 
@@ -131,4 +129,7 @@ We expect that most interactions with Auction contracts will happen via automate
   
 In the meantime, anyone interested in participating as a Keeper should start thinking about strategies for bidding on the different types of Auctions. As always, we welcome questions about the Auctions in the [#keeper](https://chat.makerdao.com/channel/keeper) channel in the Maker Chat.
 
+## Help
 
+- Contact integrations team - integrate@makerdao.com  
+- Rocket chat - [#keeper](https://chat.makerdao.com/channel/keeper) channel
