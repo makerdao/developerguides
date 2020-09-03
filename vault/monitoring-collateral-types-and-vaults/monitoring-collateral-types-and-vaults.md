@@ -153,7 +153,7 @@ You may notice that an Ethereum address only has access to a single `Urn` for ea
 
 #### Example
 
-Since it’s the most complex and more commonly used, the following example for reading the state of an `Urn` with a proxy identity is used; if the proxy identity owns multiple `urns` through the CDPManager, it will read the list through the GetCDPs contract. Data location is shown in pseudocode and follows this format: `Contract.function(...).variable`. Assuming that a DSProxy has already been built for a particular User Address:
+Since it’s the most complex and more commonly used, the following example for reading the state of an `Urn` with a proxy identity is used; if the proxy identity owns multiple `urns` through the CDPManager, it will read the list through the [GetCDPs contract](https://github.com/makerdao/dss-cdp-manager/blob/master/src/GetCdps.sol). Data location is shown in pseudocode and follows this format: `Contract.function(...).variable`. Assuming that a DSProxy has already been built for a particular User Address:
 
 ```bash
 UserAddress = ‘0x123ABC….’
