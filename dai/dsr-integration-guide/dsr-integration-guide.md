@@ -61,7 +61,7 @@ This guide will explain the Dai Savings Rate and how to integrate DSR into your 
 
 ## What is DSR
 
-Dai Savings Rate (DSR) is an addition to the Maker Protocol that allows any Dai holder to earn risk-free savings in Dai. The savings paid out to Dai holders are financed by a fraction of the stability fee that Vault owners pay for borrowing Dai. The DSR is adjustable by MKR holders, and acts as a tool to manipulate demand of Dai, and thus ensuring the peg. At the time of writing the DSR is set to 7.75 % APY, but will change over time depending on MKR governance, just like the stability fee on borrowing Dai.
+Dai Savings Rate (DSR) is an addition to the Maker Protocol that allows any Dai holder to earn savings in Dai.
 
 ### How to activate DSR
 
