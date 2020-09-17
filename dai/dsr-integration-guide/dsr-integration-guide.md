@@ -65,9 +65,9 @@ Dai Savings Rate (DSR) is an addition to the Maker Protocol that allows any Dai 
 
 ### How to activate DSR
 
-Dai does not automatically earn savings, rather you must activate the DSR by interacting with the DSR contract [pot](https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#code) of the Maker Protocol. This means transferring Dai from your wallet to the Maker Protocol. It is important to note that the Dai is never locked and can always be redeemed immediately (within a block), as there are no liquidity constraints, and can ONLY be retrieved to the depositing account. Activating DSR is therefore completely safe and adds no further risk, than the risk of holding Dai in the first place. Consequently, you should ALWAYS activate Dai Savings Rate on any Dai that is being held in custody, and simply deactivate DSR (by effectively retrieving Dai to your wallet) when you need to transfer Dai, or use Dai in dapps.
+Dai does not automatically earn savings, rather you must activate the DSR by interacting with the DSR contract [pot](https://etherscan.io/address/0x197e90f9fad81970ba7976f33cbd77088e5d7cf7#code) of the Maker Protocol. This means transferring Dai from your wallet to the Maker Protocol. It is important to note that the Dai is never locked and can always be redeemed immediately (within a block), as there are no liquidity constraints, and can ONLY be retrieved to the depositing account.
 
-Therefore any centralized exchange or custodian of Dai should integrate functionality to activate the DSR on Dai in their custody. Similarly, any decentralized exchange, wallet or dapp in general can enable anyone to earn the DSR by integrating the functionality as well, by exposing it as a simple “enable” button click.
+Therefore it can be beneficial for any centralized exchange or custodian of Dai to integrate functionality to activate the DSR on Dai in their custody. Similarly, any decentralized exchange, wallet or dapp in general can enable anyone to earn the DSR by integrating the functionality as well, by exposing it as a simple “enable” button click.
 
 ## How to integrate DSR
 
@@ -253,7 +253,7 @@ Call the `execute` function in your proxy contract to withdraw the remaining Dai
 
 In order to integrate DSR by interacting directly with the core, you need to implement a smart contract that invokes functions in the `pot` contract.
 
-`pot` is the Dai Savings Rate contract, and you can read [detailed documentation of the contract here](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation). In order to accrue savings on Dai, you must call the function [join](https://github.com/makerdao/dss/blob/master/src/pot.sol#L150) with the amount of Dai you want to accrue savings on. However, in order for this function call to succeed you must first call [drip](https://github.com/makerdao/dss/blob/master/src/pot.sol#L140) to update the state of the system, to ensure internal balances are calculated correctly. Therefore to activate savings on x amount of Dai, you must call `pot.drip()` and then `pot.join(x)`, where x is a `uint256` in the same transaction. In order to do this atomically you need to implement these calls in a smart contract that can carry out both function calls in a single transaction. If you use a smart contract to carry out these function calls, since the DSR contract uses msg.sender as the depositor, msg.sender will be the only one able to retrieve Dai from DSR. So, ensure that only you have access to withdraw Dai from the DSR contract by implementing the necessary access mappings.
+`pot` is the Dai Savings Rate contract, and you can read [detailed documentation of the contract here](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation). In order to earn savings on Dai, you must call the function [join](https://github.com/makerdao/dss/blob/master/src/pot.sol#L150) with the amount of Dai you want to earn savings on. However, in order for this function call to succeed you must first call [drip](https://github.com/makerdao/dss/blob/master/src/pot.sol#L140) to update the state of the system, to ensure internal balances are calculated correctly. Therefore to activate savings on x amount of Dai, you must call `pot.drip()` and then `pot.join(x)`, where x is a `uint256` in the same transaction. In order to do this atomically you need to implement these calls in a smart contract that can carry out both function calls in a single transaction. If you use a smart contract to carry out these function calls, since the DSR contract uses msg.sender as the depositor, msg.sender will be the only one able to retrieve Dai from DSR. So, ensure that only you have access to withdraw Dai from the DSR contract by implementing the necessary access mappings.
 
 A simple DSR example of how to interact with the Maker core can be found [here](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr.sol). **NOTE: Make sure to not use this code in production, as it has not been audited**. In this example, you can see how to properly call the `pot.join(x)`, `pot.exit(x)` and `pot.exitAll()` functions. Give close attention to the helper math functions, as they convert the Dai ERC-20 token 18 decimal into the internal accounting 27 decimal numbers. This could be used as inspiration for services that have a pool of Dai interacting with the Dai Savings Rate. Again, it is important to note that **the former example is not production ready code, but only for inspiration**.
 
@@ -281,7 +281,7 @@ User’s Dai balance with the exchange can be updated continuously by the exchan
 
 #### Retrieve Accrued Savings
 
-When a user wants to withdraw Dai, the function [exit](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L31)  can be used to withdraw a specific amount of Dai from the savings contract. You can also invoke the [exitAll](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L43) function, to retrieve all Dai for a user including accrued savings. Afterwards, the Dai can be withdrawn from the exchange itself. Therefore, when a user wants to withdraw Dai from the exchange, these function calls can simply be invoked first in that process, resulting in a seamless experience for the user. The diagrams below show the flow for the user, when he wants to withdraw Dai from the exchange.
+When a user wants to withdraw Dai, the function [exit](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L31) can be used to withdraw a specific amount of Dai from the DSR contract. You can also invoke the [exitAll](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js#L43) function, to retrieve all Dai for a user including earned savings. Afterwards, the Dai can be withdrawn from the exchange itself. Therefore, when a user wants to withdraw Dai from the exchange, these function calls can simply be invoked first in that process, resulting in a seamless experience for the user. The diagrams below show the flow for the user, when he wants to withdraw Dai from the exchange.
 
 ![DSR Exit](https://lh4.googleusercontent.com/7ZbsR-yKqS6_eRyBuMs6QM7JR30jQ4vCQCI2RwptUQegF6xE0iS2BgUjNMhyRN2oVTisycBvCAM-43AQ0_-U4yINwfJbtqB_TC9tLDFkTFPBep771fR-nGMh7bQ-BGsJZRFw25oH)
 
@@ -302,11 +302,11 @@ The below examples follow the same interaction pattern as described above in the
 
 ## How to calculate rates and savings
 
-Whether you are integrating with the core, or the proxy contracts, you must interact directly with the core contract `pot` to retrieve the current status of the system, such as the current savings rate or the balance and accrued interest for a specific user.
+Whether you are integrating with the core, or the proxy contracts, you must interact directly with the core contract `pot` to retrieve the current status of the system, such as the current savings rate or the balance and earned savings for a specific user.
 
-The current savings rate is stored in the variable `dsr` which will return the accruing savings rate per second. At the time of writing this variable returns: 1.000000000627937192491029810 which is the savings % per second. To get the APR you simply have to uplift this number to the amount of seconds in a year: `dsr^(60*60*24*365)` - in this case this is `(1.000000000627937192491029810)^(60*60*24*365)=1.019999766` equal to 2 % APR.
+The current savings rate is stored in the variable `dsr` which will return the savings rate per second. At the time of writing this variable returns: 1.000000000627937192491029810 which is the savings % per second. To get the APR you simply have to uplift this number to the amount of seconds in a year: `dsr^(60*60*24*365)` - in this case this is `(1.000000000627937192491029810)^(60*60*24*365)=1.019999766` equal to 2 % APR.
 
-The way interest is accrued on user balances deposited in `pot` is by using normalized balances and a rate accumulator. When you deposit Dai into `pot` the user balance is divided by the rate accumulator `chi`and stored in the normalized user balances map `pie`.
+The way savings grow for user balances deposited in `pot` is by using normalized balances and a rate accumulator. When you deposit Dai into `pot` the user balance is divided by the rate accumulator `chi` and stored in the normalized user balances map `pie`.
 
 To calculate the normalized balance stored in pie you simply do the following equation:
 
@@ -314,7 +314,7 @@ To calculate the normalized balance stored in pie you simply do the following eq
 
 Everytime the system is updated by calling `drip()` the number `chi` grows according to the savings rate `dsr`. However the normalized balances in `pie` remain unchanged.
 
-To retrieve current balance of a user in Dai, and therefore also accrued savings, you must retrieve the normalized balance and and multiply it with the number `chi` to calculate the amount of Dai the user can retrieve from the contract. This is thus the reverse calculation of the earlier deposit function.
+To retrieve current balance of a user in Dai, and therefore also earned savings, you must retrieve the normalized balance and and multiply it with the number `chi` to calculate the amount of Dai the user can retrieve from the contract. This is thus the reverse calculation of the earlier deposit function.
 
 Therefore to retrieve the balance of a user, you need to do the following calculation:
 
@@ -331,8 +331,8 @@ You can read more about rates here:
 ### Calculating user earnings on a pool of Dai in DSR
 
 If you are an exchange or some other type of custodian that holds funds on behalf of users, and you want to manage a pool of Dai with DSR activated, rather than a stack for each user, you need to do some internal accounting to keep track of how much Dai each user has earned and are allowed to withdraw from the pool.
-In order to do this, any time a user activates DSR on an amount of Dai, you need to calculate a normalized balance, to calculate the compounding rate for each user.
-The normalized balance is a balance that does not change, but resembles a fraction of Dai in the DSR. It is calculated by taking the amount of Dai a user wants to add to the DSR contract, and dividing it by the variable `chi`, which is the “rate accumulator” in the system. `chi` is a variable that increases in value at the rate of the DSR. So if the DSR is set to 4% APR, the chi value will grow 4% in a year. The rate is accumulated every second and is updated almost every block, why the number `chi` is a small number that grows slowly. The variable `chi` can be read from the Oasis API at <https://api.oasis.app/v1/save/info>, directly from the DSR smart contract [pot](https://github.com/makerdao/dss/blob/master/src/pot.sol#L61), or retrieved from the [integration libraries](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js).
+In order to do this, any time a user activates DSR on an amount of Dai, you need to calculate a normalized balance, to calculate the savings for each user.
+The normalized balance is a balance that does not change, but resembles a fraction of Dai in the DSR contract. It is calculated by taking the amount of Dai a user wants to add to the DSR contract, and dividing it by the variable `chi`, which is the “rate accumulator” in the system. `chi` is a variable that increases in value at the rate of the DSR. So if the DSR is set to 4% APY, the chi value will grow 4% in a year. The rate is accumulated every second and is updated almost every block, why the number `chi` is a small number that grows slowly. The variable `chi` can be read from the Oasis API at <https://api.oasis.app/v1/save/info>, directly from the DSR smart contract [pot](https://github.com/makerdao/dss/blob/master/src/pot.sol#L61), or retrieved from the [integration libraries](https://github.com/makerdao/dai.js/blob/dev/packages/dai-plugin-mcd/src/SavingsService.js).
 
 Therefore, when an amount of Dai of a user is added to the DSR contract, you simply need to store how much Dai they are supplying, and calculate and store what the normalized balance is at that time. So if Alice adds 10 Dai to your pool of Dai in DSR, you would record the following:
 
@@ -349,7 +349,7 @@ Alice has thus earned 0.0044 Dai in 3 days, and can withdraw this amount + her o
 
 `Deposit 2020-01-11:    User: Alice,   Dai: 10,   Chi: 1.0006789,   Normalized Balance (Dai/Chi): 9.9932156`
 
-Notice that since `chi` has gone up since the first deposit, this time Alice’s normalized balance is lower. This is how we can keep track on how much Dai deposits on different days have earned from the DSR.
+Notice that since `chi` has gone up since the first deposit, this time Alice’s normalized balance is lower. This is how the system keeps track on how much Dai deposits on different days have earned from the DSR.
 
 3 days more go by, and now Alice wants to calculate how much her total amount of Dai in DSR is worth. Now `chi` is: 1.0011233.
 This time, you must add the two normalized balances, and multiply it with `chi`. So the equation is:
@@ -396,7 +396,7 @@ With these assumptions, the following integration story is relieved of the proxy
 
 #### Miscellaneous recommendations
 
-- Consider automatically depositing Dai into the DSR contract either as soon as it’s deposited into the exchange or after a User action to “activate” the DSR. Forgetting to `join` the Dai into the DSR could impose a liability to the exchange, which would be in the form of interest accrued on the User’s Dai.
+- Consider automatically depositing Dai into the DSR contract either as soon as it’s deposited into the exchange or after a User action to “activate” the DSR.
 - Both joining and exiting from the `DsrManager` can direct ownership of the Dai deposit and withdrawal between accounts. Although private key management may differ across exchanges, we suggest joining with the hot wallet and transferring ownership of the Dai activated in the DSR to the cold wallet; similarly, we recommend exiting with the cold wallet and transferring the Dai principle + savings amount to the hot wallet, where it can be later transferred to a user wishing to withdrawal Dai from the exchange. Presented in another way:
   - Calling `join(<cold address>, <Dai amount>)` from the Hot wallet
   - Calling `exit(<hot address>, <Dai amount>)` from the Cold wallet
