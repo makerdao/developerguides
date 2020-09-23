@@ -30,7 +30,7 @@
 
 ## Overview
 
-Dai is a decentralized stablecoin currently live on the Ethereum network. The Maker Protocol incentivizes users to increase or decrease the Dai token supply based on supply and demand and ensures its value stays pegged to 1 USD.
+Dai is a decentralized, unbiased, collateral-backed cryptocurrency soft-pegged to the US Dollar. Resistant to hyperinflation due to its low volatility, Dai offers economic freedom and opportunity to anyone, anywhere.
 
 The token contract conforms to the ERC20 token standard which allows wallets, exchanges, and other applications to easily integrate with minimal effort. This guide will be useful to developers integrating Dai in applications like wallets, exchanges, and smart contracts to get a better understanding of the token contract and its functionality.
 
