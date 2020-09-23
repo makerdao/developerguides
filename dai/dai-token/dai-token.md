@@ -74,7 +74,7 @@ In addition, the contract has the `version` field set to 1. This field is a cons
 
 Multi Collateral Dai has been live on the Ethereum mainnet since November 18, 2019 and its current total supply can be viewed on [DaiStats](https://daistats.com/).
 
-The system internally uses 1 USD as the target price of Dai when it issues new debt or removes existing debt from a Vault but the market price of the token could vary based on a variety of conditions like exchange liquidity, trading pair etc.
+The system internally uses 1 USD as the target price of Dai when new Dai is generated or burned through the Maker Vaults, but the market price of the token could vary based on a variety of conditions like exchange liquidity, trading pair etc.
 
 Care should be taken before using the price of Dai directly reported by sources like [CoinMarketCap](https://coinmarketcap.com/currencies/dai/), because exchange bugs may produce unreasonable price data. In many scenarios, such as displaying the value of Dai in a wallet, it is perfectly fine to hard code the price of a token to 1 USD.
 
@@ -84,13 +84,13 @@ Care should be taken before using the price of Dai directly reported by sources 
 
 Dai can be purchased with Ether on many popular exchanges, which many are listed on [https://coinmarketcap.com/currencies/multi-collateral-dai/markets/](https://coinmarketcap.com/currencies/multi-collateral-dai/markets/). It is also available on many decentralized exchanges like [Oasis](https://oasis.app/trade/), [KyberSwap](https://kyberswap.com/), and [Uniswap](https://uniswap.exchange/).
 
-You can also create your own Dai by opening a Vault with [https://oasis.app/](https://oasis.app/).
+You can also generate Dai by opening a Vault with [https://oasis.app/](https://oasis.app/).
 
 #### Testnet
 
 There are no Dai faucet on testnets, but you can generate your own Dai on the major Ethereum testnets: Goerli, Kovan, Rinkeby and Ropsten. After having obtained testnet-ETH, you can head over to [Oasis](%5B%3Chttps://oasis.app/?network=kovan%3E%5D(%3Chttps://oasis.app/?network=kovan%3E)) and open a Vault. Make sure to change the `?network=<networkName>` parameter to your preferred network
 
-Alternatively, if you're more comfortable with cli-tools, then you can use our [seth guide](%5B%3Chttps://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md%3E%5D(%3Chttps://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md%3E)).
+Alternatively, if you're more comfortable with cli-tools, then you can the [seth guide](%5B%3Chttps://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md%3E%5D(%3Chttps://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md%3E)).
 
 Another option is to buy Kovan Dai with Kovan ETH on [Oasis Trade](https://oasis.app/trade) if there is sufficient liquidity available.
 
@@ -105,17 +105,17 @@ The Dai token contract, follows the [ERC-20 standard](%5B%3Chttps://eips.ethereu
 
 #### Permit
 
-The EIP-712 signing standard allows to sign structured typed data instead of just bytestrings. This allows in the creation of the `permit()` function. The `permit()` function allows the user to send his Dai without paying gas. This works as follows:
+The EIP-712 signing standard allows to sign structured typed data instead of just byte strings. This allows in the creation of the `permit()` function. The `permit()` function allows the user to send Dai without paying gas. This works as follows:
 
-- User signs a `permit` message allowing a `destination` address to withdraw an x amount of Dai from his wallet.
-- This message is read by a relayer that takes the signed message and processes it by paying the transaction fee for the user. This relayer then takes a Dai cut from you the user for processing the transaction.
-- You the user can send Dai by paying for the transaction fees with your Dai, while a relayer in the backend is doing the processing.
+- User signs a `permit` message allowing a `destination` address to withdraw an amount of Dai from his wallet.
+- This message is read by a relayer that takes the signed message and processes it by paying the transaction fee for the user. This relayer then takes a Dai cut from the user for processing the transaction.
+- The user can send Dai by paying for the transaction fee with Dai, while a relayer in the backend is doing the processing.
 
 Check [https://stablecoin.services/](https://stablecoin.services/) and [https://gasless.mosendo.com/](https://gasless.mosendo.com/) for live examples. The EIP for this functionnality is currently in [draft](https://github.com/ethereum/EIPs/blob/8a34d644aacf0f9f8f00815307fd7dd5da07655f/EIPS/eip-2612.md).
 
 #### Mint and Burn
 
-Tokens are created when a user adds collateral to their Vault and creates new Dai from it. Tokens are destroyed when the same user pays back the same amount of Dai they’ve previously issued for the system to remove them from the supply and return their locked collateral back. Also `mint` and `burn` functions are used when user deposits and withdraws Dai from the Dai Savings Rate contract.
+Tokens are created when a user adds collateral to their Vault and generates new Dai from it. Tokens are burned, when the same user pays back the same amount of Dai they’ve previously issued for the system to remove them from the supply to free  their locked collateral back. Also `mint` and `burn` functions are used when user deposits and withdraws Dai from the Dai Savings Rate contract.
 
 The [MCD_DAI_JOIN](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#code) adapter contract in the Maker Protocol is authorized to calls the mint and burn functions of Dai token which to increase or decrease the total supply.
 

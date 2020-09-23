@@ -22,15 +22,14 @@
 
 ## Overview
 
-Dai diverges from the other Ethereum tokens in the sense that it is more than an
-ERC-20 token. The Maker Protocol was designed modularly, which allows Dai to
-take multiple forms. That poses a challenge for token analysis and crypto
+The Maker Protocol was designed modularly, which allows Dai to
+take multiple forms, and such Dai is not exclusively an ERC20 token. That poses a challenge for token analysis and crypto
 trackers because looking at ERC-20 supply and transactions does not provide a
 complete picture.
 
 ## Learning objectives
 
-Understand the difference between Protocol, ERC20 and DSR Dai, and know the methods to
+Understand the difference between Protocol Dai, ERC20 Dai, and Dai locked in DSR, and know the methods to
 determine the total supply.
 
 ## Pre-requisites
@@ -66,9 +65,9 @@ After this change, the user’s internal-Dai balance becomes 0, the Dai Adaptor 
 
 As such, every ERC-20 Dai is backed by exactly one internal-Dai. We could represent ERC-20 Dai as a wrapped internal-Dai.
 
-#### DSR Dai
+#### Dai in DSR
 
-DSR Dai differs from the other two types of Dai in the sense that it is not directly transferable. What we refer to DSR Dai is a Dai balance held inside [the `pot` contract](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation).
+Dai locked in DSR differs from the other two types of Dai in the sense that it is not directly transferable. Dai locked in DSR is a Dai balance held inside [the `pot` contract](https://docs.makerdao.com/smart-contract-modules/rates-module/pot-detailed-documentation).
 
 When a user activates DSR on its Dai:
 
@@ -79,7 +78,7 @@ When a user activates DSR on its Dai:
 
 #### Other Dai
 
-There are on the market other Dai types (zkDai, Chai, cDAI, aDai, etc.), which usually derive from either the DSR Dai or the ERC 20 Dai. Since the supply of these tokens are already included in the total "Maker Protocol Dai" it is not necessary to add their supply to the total.
+Other projects in the ecosystem have created other variations of Dai  (zkDai, Chai, cDAI, aDai, etc.), which usually derive from either the Dai in DSR or the ERC 20 Dai. Since the supply of these tokens are already included in the total "Maker Protocol Dai" it is not necessary to add their supply to the total.
 
 Also, Dai can be purely internal: anyone can hold its Dai in Internal form, and burn and mint ERC20 Dai when necessary. The Maker Protocol itself keeps internal-Dai balances for its System Surplus and System Debt.
 
@@ -140,9 +139,9 @@ erc20dai.methods.totalSupply().call().then(
 );
 ```
 
-#### DSR - Dai
+#### Dai in DSR
 
-The Dai in DSR can be calculated by looking at the normalized Dai put in the pot DSR contract (`Pie`), multiplied by the accumulated rate (`rate`). This number includes the Dai deposited in DSR and the accrued savings rate. [Dai.js](https://github.com/makerdao/dai.js/wiki/Multi-Collateral-Dai-Examples) provides the method `getTotalDai()` to directly obtain the amount of Dai in DSR:
+The Dai in DSR can be calculated by looking at the normalized Dai put in the pot DSR contract (`Pie`), multiplied by the accumulated rate (`rate`). This number includes the Dai deposited in DSR and the earned savings rate. [Dai.js](https://github.com/makerdao/dai.js/wiki/Multi-Collateral-Dai-Examples) provides the method `getTotalDai()` to directly obtain the amount of Dai in DSR:
 
 ```javascript
 const Maker = require('@makerdao/dai');

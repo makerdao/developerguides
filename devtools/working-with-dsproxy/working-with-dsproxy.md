@@ -68,7 +68,7 @@ In this guide we will,
 
 #### Opening a Vault
 
-Opening a Vault to draw Dai is a common action performed by users within the Maker Platform and they perform multiple transactions on the [WETH](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2), [EthJoin](https://etherscan.io/address/0x2F0b23f53734252Bda2277357e97e1517d6B042A), [Vat](https://etherscan.io/address/0x35D1b3F3D7966A1DFe207aa4514C12a259A0492B), and [DaiJoin](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#readContract) contracts to complete it.
+Opening a Vault to generate Dai is a common action performed by users within the Maker Platform and they perform multiple transactions on the [WETH](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2), [EthJoin](https://etherscan.io/address/0x2F0b23f53734252Bda2277357e97e1517d6B042A), [Vat](https://etherscan.io/address/0x35D1b3F3D7966A1DFe207aa4514C12a259A0492B), and [DaiJoin](https://etherscan.io/address/0x9759a6ac90977b93b58547b4a71c78317f391a28#readContract) contracts to complete it.
 
 Transactions to execute on the WETH token contract are,
 

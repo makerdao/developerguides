@@ -24,8 +24,8 @@
 
 ## Overview
 
-With the deployment of MCD, the Dai token has received an improvement in its token contract. This improvement is the addition of a new function called [permit](https://github.com/makerdao/dss/blob/master/src/dai.sol#L118). This function, which in its own is made possible by the [EIP712](https://eips.ethereum.org/EIPS/eip-712) standard, allows Dai holders to pay their transaction fees in Dai, eliminating the need to have Ether to pay for gas on transactions involving Dai.  
-As a result, Dai becomes a first class token on the Ethereum blockchain on par with Ether. Through this feature, we are one step closer to improving user experience and adoption in the crypto ecosystem.
+With the deployment of MCD, the Dai token has received an improvement in its token contract. This improvement is the addition of a new function called [permit](https://github.com/makerdao/dss/blob/master/src/dai.sol#L118). This function, which in its own is made possible by the [EIP712](https://eips.ethereum.org/EIPS/eip-712) standard, allows service provider to create integrations that allows Dai holders to pay their transaction fees in Dai, eliminating the need to have Ether to pay for gas on transactions involving Dai.  
+Through this feature, we are one step closer to improving user experience and adoption in the crypto ecosystem.
 
 In this guide, you will learn more about how this feature works and how you could implement it in your own dapp.
 
@@ -59,7 +59,7 @@ This third party service is called a relayer and since there is no such thing as
 
 ## Permit
 
-The Dai permit function allows a spender to move funds from your wallet without you making an approval transaction on the Ethereum blockchain. The approver can then sign a message for this approval to be broadcasted by a relayer.
+The Dai permit function allows a spender to move funds from a user wallet by having the user sign an approval message, rather than an approval transaction on the Ethereum blockchain, which eliminates the initial gas cost of approval. The signed approval message can then be broadcasted by a relayer.
 
 By having the permit function use the EIP712 standard, it can sign structured typed data. This allows developers to create transactions that do not simply allow a transfer of tokens from one address to another, but also transactions that involve more complicated smart contract function calls. With the permit function, as an example, now you can exchange your Dai token to another one on Uniswap without the need to have Ether in your wallet to pay for gas.
 
@@ -89,7 +89,7 @@ The `v`, `r`, and `s` parameters are the result of the cryptographic signature p
 
 #### Note on security
 
-With all the aforementioned parameters for signing the permit function, the user is protected against major malicious acts from the relayers or facilitating smart contracts.  
+With all the aforementioned parameters for signing the permit function, the user is protected against major malicious acts from the relayers or facilitating smart contracts.
 With the addition of the expiry variable, you are minimizing the risk of the relayer taking the signed message hostage and not broadcast it to the network. In case this relayer does behave maliciously, he would only be able to keep the message until the expiry value has been reached.  
 Another important aspect is to verify the contracts that you are giving allowance to use your funds. If there’s a malicious entry in that contract that could take advantage of a function that has an allowance to use your funds, you are at risk of losing them.
 
@@ -262,7 +262,7 @@ This simple example shows you the fundamentals of this permit function. Here, a 
 
 ### Transfers
 
-In order to implement a complete gasless transfer, you will have to deploy a contract that implements the permit feature. This contract, when called, will check for the permit approval from the sender and then pull funds from the sender to the receiver with the `transferFrom` function. The sender needs to give approval to the contract to take funds from his wallet by signing a message with the permit function. The actual invoker of the transfer transaction will be a relayer service that listens for incoming signed messages with the respective function call.
+In order to implement a complete metatransaction, you will have to deploy a contract that implements the permit feature. This contract, when called, will check for the permit approval from the sender and then pull funds from the sender to the receiver with the `transferFrom` function. The sender needs to give approval to the contract to take funds from his wallet by signing a message with the permit function. The actual invoker of the transfer transaction will be a relayer service that listens for incoming signed messages with the respective function call.
 
 A community implementation example of this can be found in the code base of [https://stablecoin.services/](https://stablecoin.services/). **Note: We are simply using this implementation as an example and should not be taken as endorsed code that can be mimicked for production usage.** This service utilizes a relayer service and smart contracts that allows for transferring your Dai and using other services in a gasless manner.  
 The [Dai Automated Clearing House (DACH)](https://etherscan.io/address/0x64043a98f097fD6ef0D3ad41588a6B0424723b3a#code) contract implements the gasless transfer function, specifically the [daiCheque](https://github.com/dapphub/ds-dach/blob/49a3ccfd5d44415455441feeb2f5a39286b8de71/src/dach.sol#L114) function. In order for this function to be successful, it has to verify the permit signature the user signed. The user has to give permission to this contract to pull funds from his wallet to transfer to the receiver and also transfer the fee to the relayer that will broadcast the transaction on the Ethereum network.
