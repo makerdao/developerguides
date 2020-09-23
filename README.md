@@ -39,7 +39,6 @@ All guides are organized in sections and by proficiency levels within each secti
 ## Keepers (Collateral Auctions, Debt Auctions, Arbitrage)
 
 - [Keeper Guides Repo](./keepers/README.md)
-- [Auctions 101](./keepers/auctions/auctions-101.md)
 - [Auction Keeper Setup Guide](./keeper/../keepers/auction-keeper-bot-setup-guide/auction-keeper-bot-setup-guide.md)
 - [Simple Arbitrage Keeper](./keeper/../keepers/simple-arbitrage-keeper/simple-arbitrage-keeper.md)
 
