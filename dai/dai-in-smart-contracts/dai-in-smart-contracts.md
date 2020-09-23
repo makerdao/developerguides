@@ -26,7 +26,7 @@
 
 ## Overview
 
-This guide will show you how to integrate Dai into your own smart contracts. Dai is the first decentralized stablecoin built on Ethereum by MakerDAO. The Dai token is based on the [DS-Token](https://dapp.tools/dappsys/ds-token.html) implementation which follows the ERC-20 token standard with minor additions that makes it fit nicely into the Maker system. The Dai Stablecoin System involves a set of smart contracts that allows anyone to issue Dai by locking collateral (other valuable crypto assets) into the system.
+This guide will show you how to integrate Dai into your own smart contracts. Dai is a decentralized stablecoin built on Ethereum. The Dai token is based on the [DS-Token](https://dapp.tools/dappsys/ds-token.html) implementation which follows the ERC-20 token standard with minor additions.
 
 ## Learning Objectives
 
