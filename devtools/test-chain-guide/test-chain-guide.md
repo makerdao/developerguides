@@ -94,6 +94,7 @@ In your terminal, after some time you'll see this text:
 
 ```bash
 Starting Ganache...
+Skipping git submodule update.
 Launched testchain in --- seconds.
 Press Ctrl-C to stop the test chain.
 ```
@@ -300,7 +301,7 @@ To prepare the locking of collateral, we set two variables with the amount of co
 
 ```bash
 export dink=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 5 eth)))
-export dart=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 20 eth)))
+export dart=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 100 eth)))
 ```
 
 - `dink` is delta ink - a signed difference value to the current value. This value is used in the frob function call to determine how much ink to lock in the Vat.
@@ -315,13 +316,13 @@ seth send $CDP_MANAGER 'frob(uint256,int256,int256)' $cdpId $dink $dart
 Now we can check if we successfully generated our Dai in the Dai Adapter (output is in rad):
 
 ```bash
- seth --to-dec $(seth call $MCD_VAT 'dai(address)(uint256)' $urn)
+ seth call $MCD_VAT 'dai(address)(uint256)' $urn
 ```
 
 And then move the internal Dai balance from the urn account to our account:
 
 ```bash
-export rad=$(seth --to-dec $(seth call $MCD_VAT 'dai(address)(uint256)' $urn))
+export rad=seth call $MCD_VAT 'dai(address)(uint256)' $urn)
 seth send $CDP_MANAGER 'move(uint256,address,uint256)' $cdpId $ETH_FROM $(seth --to-uint256 $rad)
 ```
 
@@ -349,7 +350,7 @@ seth --from-wei $(seth --to-dec $(seth call $MCD_DAI 'balanceOf(address)' $ETH_F
 Output:
 
 ```bash
-20.000000000000000000
+100.000000000000000000
 ```
 
 Congratulations, you’ve successfully created an ETH Vault in the MCD system and drawn some fresh Dai.
