@@ -307,7 +307,7 @@ export dart=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 100 eth)))
 - `dink` is delta ink - a signed difference value to the current value. This value is used in the frob function call to determine how much ink to lock in the Vat.
 - `dart`  is delta art - a signed difference value to the current value. This value is used in the frob function call to determine how much art(debt) to mint in the Vat.
 
-Finally, we can lock up collateral in the Vat and generate Dai. The parameters `$dink` and `$dart` that we defined earlier represent how much ether we want to lock in our ether Vault and how much Dai we want to generate, respectively. This being 5 ether and 20 Dai. We can deposit the ether and generate Dai all in one transaction, as shown below:
+Finally, we can lock up collateral in the Vat and generate Dai. The parameters `$dink` and `$dart` that we defined earlier represent how much ether we want to lock in our ether Vault and how much Dai we want to generate, respectively. This being 5 ether and 100 Dai. We can deposit the ether and generate Dai all in one transaction, as shown below:
 
 ```bash
 seth send $CDP_MANAGER 'frob(uint256,int256,int256)' $cdpId $dink $dart
