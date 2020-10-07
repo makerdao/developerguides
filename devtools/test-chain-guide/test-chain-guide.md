@@ -322,7 +322,7 @@ Now we can check if we successfully generated our Dai in the Dai Adapter (output
 And then move the internal Dai balance from the urn account to our account:
 
 ```bash
-export rad=seth call $MCD_VAT 'dai(address)(uint256)' $urn)
+export rad=$(seth call $MCD_VAT 'dai(address)(uint256)' $urn)
 seth send $CDP_MANAGER 'move(uint256,address,uint256)' $cdpId $ETH_FROM $(seth --to-uint256 $rad)
 ```
 
