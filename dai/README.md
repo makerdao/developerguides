@@ -14,8 +14,10 @@ The Dai stablecoin is a collateral-backed cryptocurrency whose value is stable r
 
 [Tracking Dai Supply](/dai/dai-supply/dai-supply.md)
 
-[DSR Integration Guide](/dai/dsr-integration-guide/dsr-integration-guide-01.md)
+[DSR Integration Guide](/dai/dsr-integration-guide/dsr-integration-guide.md)
 
-[DsrManager documentation](/dai/dsr-manager-docs/README.md)
+[DsrManager documentation](/dai/dsr-manager-docs/dsr-manager-docs.md)
+
+[Permit Function](/dai/how-to-use-permit-function/how-to-use-permit-function.md)
 
 ## Advanced
