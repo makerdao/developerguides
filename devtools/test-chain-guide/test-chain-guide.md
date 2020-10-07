@@ -335,7 +335,7 @@ seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI
 Finally, we withdraw the Dai to our account. We need the `$wad` parameter that will define the amount of Dai we want to withdraw.
 
 ```bash
-export wad=$(seth --to-uint256 $(seth --to-wei 20 eth))
+export wad=$(seth --to-uint256 $(seth --to-wei 100 eth))
 seth send $MCD_JOIN_DAI "exit(address,uint256)" $ETH_FROM $wad
 ```
 
