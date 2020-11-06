@@ -1,3 +1,15 @@
+---
+title: Dai in Smart Contracts
+description: Integrate Dai into your own smart contracts
+parent: dai
+tags:
+  - dai
+	- smart contract
+slug: dai-in-smart-contracts
+contentType: guide
+root: false
+---
+
 # Dai in Smart Contracts
 
 **Level**: Beginner  
