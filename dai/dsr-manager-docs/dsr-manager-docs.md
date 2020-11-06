@@ -1,3 +1,17 @@
+---
+title: DsrManager
+description: Learn about DsrManager and integrate with DSR
+parent: dai
+tags:
+  - dai
+	- DSR
+  - dsrManager contract
+  - integrate with DSR
+slug: dsr-manager-guide
+contentType: guides
+root: false
+---
+
 # DsrManager
 
 **Level**: Beginner  
