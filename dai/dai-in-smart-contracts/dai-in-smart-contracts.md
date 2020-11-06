@@ -6,7 +6,7 @@ tags:
   - dai
 	- smart contract
 slug: dai-in-smart-contracts
-contentType: guide
+contentType: guides
 root: false
 ---
 
