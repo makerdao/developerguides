@@ -1,3 +1,17 @@
+---
+title: Tracking Dai Supply
+description: Learn about how to count the Dai supply
+parent: dai
+tags:
+  - dai
+  - total supply
+  - ERC20 token
+  - mcd 
+slug: tracking-dai-supply
+contentType: guides
+root: false
+---
+
 # Tracking Dai Supply
 
 **Level:** Intermediate  
@@ -11,12 +25,12 @@
     - [The different states of Dai](#the-different-states-of-dai)
       - [Maker Protocol Dai, or internal-Dai](#maker-protocol-dai-or-internal-dai)
       - [ERC-20 Dai](#erc-20-dai)
-      - [DSR Dai](#dsr-dai)
+      - [Dai in DSR](#dai-in-dsr)
       - [Other Dai](#other-dai)
     - [How to obtain supply numbers](#how-to-obtain-supply-numbers)
       - [Total Maker Protocol Dai, or internal-Dai](#total-maker-protocol-dai-or-internal-dai)
       - [ERC20 Dai](#erc20-dai)
-      - [DSR - Dai](#dsr---dai)
+      - [Dai in DSR](#dai-in-dsr-1)
   - [Next steps](#next-steps)
   - [Resources](#resources)
 
