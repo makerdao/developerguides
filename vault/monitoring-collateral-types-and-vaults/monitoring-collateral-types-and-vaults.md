@@ -1,3 +1,17 @@
+---
+title: Monitoring Collateral Types and Vaults
+description: Learn how to monitor Maker Protocol State
+parent: vaults
+tags:
+  - vaults
+  - protocol state
+  - ratios
+  - collateral price
+slug: monitoring-collateral-types-and-vaults
+contentType: guides
+root: false
+---
+
 # Monitoring Collateral Types and Vaults
 
 Level: Intermediate  
