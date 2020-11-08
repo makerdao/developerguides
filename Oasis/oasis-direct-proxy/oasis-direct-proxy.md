@@ -1,3 +1,17 @@
+---
+title: How to use Oasis Direct Proxy on OasisDEX Protocol
+description: Learn about Oasis Direct Proxy and how it is used in OasisDEX Protocol
+parent: oasisdex
+tags:
+  - oasisdex
+  - proxy contract
+  - trade
+  - decentralized  
+slug: how-to-use-oasis-direct-proxy-on-oasisdex-protocol
+contentType: guides
+root: false
+---
+
 # How to use Oasis Direct Proxy on OasisDEX Protocol
 
 **Level:** Intermediate  
