@@ -37,7 +37,7 @@ The peep() method will give you the future value of the price feed.
 In order for other smart contracts or Ethereum accounts to call these methods, they must be whitelisted - read more in the “Apply to get whitelisted” section.  
 An OSM contract can only read from a single source, so in practice one OSM contract must be deployed per collateral type.
 
-The latest contract addresses for each collateral oracle contract can be found in the [changelog](https://changelog.makerdao.com/releases/mainnet/active/contracts.json). Each collateral asset will have a contract address named as PIP_collateralName. For example, for the ETH collateral type, you’ll find the oracle contract as this: `[PIP_ETH](https://etherscan.io/address/0x81FE72B5A8d1A857d176C3E7d5Bd2679A9B85763#code)`
+The latest contract addresses for each collateral oracle contract can be found in the [changelog](https://changelog.makerdao.com/releases/mainnet/active/contracts.json). Each collateral asset will have a contract address named as PIP_collateralName. For example, for the ETH collateral type, you’ll find the oracle contract as this: [PIP_ETH](https://etherscan.io/address/0x81FE72B5A8d1A857d176C3E7d5Bd2679A9B85763#code)
 
 To read the price of the PIP_ETH contract on-chain, you have to create a smart contract that will call the reading functions in the PIP_ETH contract.
 
