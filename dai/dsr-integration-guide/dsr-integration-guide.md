@@ -1,3 +1,17 @@
+---
+title: DSR Integration Guide
+description: Learm about DSR amd integrate it into your platform
+parent: dai
+tags:
+  - dai
+	- DSR
+	- dai savings rate
+	- earn savings in dai
+slug: dsr-integration-guide
+contentType: guides
+root: false
+---
+
 # DSR Integration Guide
 
 Level: Intermediate  

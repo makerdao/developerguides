@@ -1,3 +1,16 @@
+---
+title: Emergency Shutdown Design Patterns for Integrations
+description: Learn about design processes for the emergency shutdown process
+parent: mcd
+tags:
+  - emergency shutdown
+  - mcd
+  - shutdown process
+  - design processes
+slug: emergency-shutdown-design-patterns-for-integrations
+contentType: guides
+root: false
+---
 
 # Emergency Shutdown Design Patterns for Integrations
 

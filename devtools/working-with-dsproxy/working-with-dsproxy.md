@@ -1,3 +1,16 @@
+---
+title: Working with DSProxy
+description: Learn how DSProxy is used in Maker and apply it in your applications
+parent: devtools
+tags:
+  - proxy conntracts
+  - dsproxy
+  - aggregate transactions
+slug: working-with-ds-proxy
+contentType: guides
+root: false
+---
+
 # Working with DSProxy
 
 **Level**: Advanced  

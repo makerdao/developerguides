@@ -1,4 +1,20 @@
+<<<<<<< HEAD
 # Vault Manager Guide
+=======
+---
+title: CDP Manager Guide
+description: Learn about CDP Manager and use it to integrate with Maker Protocol
+parent: vaults
+tags:
+  - vaults
+  - CDP Manager  
+slug: cdp-manager-guide
+contentType: guides
+root: false
+---
+
+# CDP Manager Guide
+>>>>>>> 3c16340bc37c925b6e78e4f67975cbba889799a2
 
 **Level**: Advanced  
 **Estimated Time**: 30 minutes

@@ -56,12 +56,16 @@ All guides are organized in sections and by proficiency levels within each secti
 - [OasisDEX Market Maker Guide](./Oasis/oasisdex-market-maker-guide/oasisdex-market-maker-guide.md)  
 - [OasisDEX Market Taker Guide](./Oasis/oasisdex-market-taker-guide/oasisdex-market-taker-guide.md)
 
+## Oracles
+
+- [Oracle Integration Guide](./oracles/oracle-integration-guide.md)
+
 ## Governance
 
 - [Vote Proxy Setup: Air-gapped Machine](./governance/vote-proxy-setup-airgapped-machine/vote-proxy-setup-airgapped-machine.md)
 
 
-### Gnosis Multisig Wallet
+## Gnosis Multisig Wallet
 
 - [Activating Dai Savings Rate on Dai in Gnosis Multisig Wallet](./gnosis-multisig/dsr-gnosis-multisig-guide/dsr-gnosis-multisig-guide.md)
 - [Vote Proxy Setup with Gnosis Multisig Wallet](./gnosis-multisig/vote-proxy-setup-gnosis-multisig/vote-proxy-setup-gnosis-multisig.md)

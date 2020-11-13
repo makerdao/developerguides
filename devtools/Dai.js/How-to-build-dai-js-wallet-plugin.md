@@ -1,3 +1,17 @@
+---
+title: How to build a Dai.js wallet plugin
+description: Learn how to integrate your wallet into the Dai.js library
+parent: dai.js
+tags:
+  - dai.js
+  - wallet
+  - integrate
+  - wallet plugin
+slug: how-to-build-a-dai-js-wallet-plugin
+contentType: guides
+root: false
+---
+
 # How to build a Dai.js wallet plugin
 
 **Level:** Intermediate  

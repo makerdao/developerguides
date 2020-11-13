@@ -1,3 +1,17 @@
+---
+title: Auction Keeper Bot Setup Guide
+description: Learn how to setup an auciton keeper bot
+parent: keepers
+tags:
+  - keepers
+  - auction
+  - bot
+  - setup guide  
+slug: auction-keeper-bot-setup-guide
+contentType: guides
+root: false
+---
+
 # Auction Keeper Bot Setup Guide
 
 **Level:** Intermediate  

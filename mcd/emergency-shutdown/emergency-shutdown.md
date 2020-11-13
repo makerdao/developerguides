@@ -1,3 +1,15 @@
+---
+title: Emergency Shutdown Guide - MCD
+description: Learm about the Emergency Shutdown Process of the Maker Protocol
+parent: mcd
+tags:
+  - emergency shutdown
+  - mcd
+  - shutdown process
+slug: emergency-shutdown-guide-mcd
+contentType: guides
+root: false
+---
 
 # Emergency Shutdown Guide - MCD
 

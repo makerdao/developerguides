@@ -1,3 +1,17 @@
+---
+title: Intro to the Rate Mechanism
+description: Understand how the Maker Protocol Rate Mechanism works
+parent: mcd
+tags:
+  - mcd
+  - Rate Mechanism
+  - Stability Fee
+  - Dai Savings Rate (DSR)
+slug: intro-to-the-rate-mechanism
+contentType: guides
+root: false
+---
+
 # Intro to the Rate mechanism
 
 **Level**: Intermediate

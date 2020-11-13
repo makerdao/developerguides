@@ -1,3 +1,16 @@
+---
+title: Maker Vault Integration Guide
+description: Learn how to integrate Maker Vaults into your own application
+parent: vaults
+tags:
+  - vaults
+  - vault integration tools
+  - integrations
+slug: maker-vault-integration-guide
+contentType: guides
+root: false
+---
+
 # Maker Vault Integration Guide
 
 **Level**: Intermediate
