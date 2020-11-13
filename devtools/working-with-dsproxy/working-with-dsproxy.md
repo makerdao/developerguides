@@ -41,7 +41,7 @@
 
 Whether you are a Keeper looking to integrate the Maker Protocol with a new source of liquidity, or an interface developer looking to cut down the number of transactions an end user has to sign, you can now implement your ideas by creating simple scripts that can atomically perform transactions across multiple contracts through DSProxy.
 
-Maker's approach to modularizing smart contracts and splitting logic into numerous tiny functions are great for security, but interface developers and end users interacting with them have to execute multiple transactions now to achieve a single goal. Instead of imposing the design constraints of good end-user ergonomics on the core smart contracts, we move it to an additional compositional layer of smart contracts built with DSProxy and stateless scripts.
+The Maker Protocol's approach to modularizing smart contracts and splitting logic into numerous tiny functions are great for security, but interface developers and end users interacting with them have to execute multiple transactions now to achieve a single goal. Instead of imposing the design constraints of good end-user ergonomics on the core smart contracts, it is moved to an additional compositional layer of smart contracts built with DSProxy and stateless scripts.
 
 Keeping this functionality in a separate layer also allows developers to add additional scripts over time when new user needs emerge and better methods to compose new protocols are developed.
 
@@ -49,7 +49,7 @@ Understanding the DSProxy design pattern will help you quickly develop scripts t
 
 ## Learning Objectives
 
-In this guide we will,
+In this guide you will,
 
 - Understand how DSProxy and scripts work through examples
 - Understand the features of a DSProxy contract
@@ -105,7 +105,7 @@ A relatively common task for vault owner is to reduce its debt by selling collat
 
 A user first deploys their own personal DSProxy contract and then uses it to call various scripts for the goals they wish to achieve. This DSProxy contract can also directly own digital assets long term since the user always has full ownership of the contract and it can be treated as an extension of the user's own ethereum address.
 
-Scripts are implemented in Solidity as functions and multiple scripts are typically combined and deployed together as a single contract. A DSProxy contract can only execute one script in a single transaction. In this section we will focus on the features of a DSProxy contract and look at how scripts work in the next section.
+Scripts are implemented in Solidity as functions and multiple scripts are typically combined and deployed together as a single contract. A DSProxy contract can only execute one script in a single transaction. This section will focus on the features of a DSProxy contract and look at how scripts work in the next section.
 
 #### Ownership
 
@@ -134,11 +134,11 @@ The function `build` in the DSProxyFactory contract is used to deploy a personal
 
 ### Create a script
 
-We've seen an example earlier of how a script can help Vault owners to reduce their debt by selling collateral. Oasis exchange contracts are a good source of liquidity especially for buying small amounts of collateral. In this section, we will create a script that will allow users to draw Eth from their vault, sell it on Oasis and wipe debt from a Vault.
+You have seen an example earlier of how a script can help Vault owners to reduce their debt by selling collateral. Oasis exchange contracts are a good source of liquidity especially for buying small amounts of collateral. In this section, you will create a script that will allow users to draw Eth from their vault, sell it on Oasis and wipe debt from a Vault.
 
 #### Environment Setup
 
-We'll use `dapp` and `seth` while working through this section but you can also use your own tool of choice like the Remix IDE to execute these steps. Instructions to install both the tools can be found [here](https://dapp.tools/).
+You'll use `dapp` and `seth` while working through this section but you can also use your own tool of choice like the Remix IDE to execute these steps. Instructions to install both the tools can be found [here](https://dapp.tools/).
 
 You have to create a `~/.sethrc` file and configure it with these values to work with the Kovan testnet,
 
@@ -165,7 +165,7 @@ dapp init
 
 #### Setup Delev.sol
 
-We first need to add the required interfaces to interact with functions on those contracts later in the script.
+First you need to add the required interfaces to interact with functions on those contracts later in the script.
 
 This contract will utilize the ERC20 contracts for WETH and DAI (`GemLike`), their adaptor contracts (`DaiJoinLike` and `GemJoinLike`), interact with the `vat` (`VatLike`), Oasis' MatchingMarket (`OasisLike`) and the `CDPManager` (`ManagerLike`):
 
@@ -286,7 +286,7 @@ require(wadEth > 0);
 
 #### Initialize variables
 
-Then we determine what is the `urn` address for our vault:
+Then you determine what is the `urn` address for our vault:
 
 ```solidity
 address urn = ManagerLike(manager).urns(cdp);
@@ -294,7 +294,7 @@ address urn = ManagerLike(manager).urns(cdp);
 
 #### Remove the Eth from the vault
 
-First real step is withdraw the Ether from the vault. This is done by the `frob` function on the CDP Manager. After this is done, we need to move it from the `urn` address to our proxy and converting the internal WETH balance to an actual ERC20.
+First real step is withdraw the Ether from the vault. This is done by the `frob` function on the CDP Manager. After this is done, you need to move it from the `urn` address to our proxy and converting the internal WETH balance to an actual ERC20.
 
 ```solidity
 //Remove the WETH from the vault
@@ -305,7 +305,7 @@ ManagerLike(manager).flux(cdp, address(this), wadEth);
 GemJoinLike(ethJoin).exit(address(this), wadEth);
 ```
 
-At this step, we have withdrawn the Ether from the vault. If remove that ether makes the vault undercollaterized, the transaction will fail here and revert.
+At this step, you have withdrawn the Ether from the vault. If remove that ether makes the vault undercollaterized, the transaction will fail here and revert.
 
 #### Market sell the Ether for Dai
 
@@ -323,11 +323,11 @@ uint daiAmt = OasisLike(oasisMatchingMarket).sellAllAmount(
 );
 ```
 
-In this naive implementation, we are market selling the Ether for Dai, irrespective of the on-chain price compared to the market. It could be possible to query an oracle to make sure there is no slippage or have the user specify a minimum amount of Dai to be received.
+In this naive implementation, you are market selling the Ether for Dai, irrespective of the on-chain price compared to the market. It could be possible to query an oracle to make sure there is no slippage or have the user specify a minimum amount of Dai to be received.
 
 #### Wipe Dai debt from the Vault
 
-We now wipe debt of the Vault with the Dai that we just acquired. We have to first `approve` the Dai Adapter to take our Dai and have it move it into the `urn` (using `join`):
+You now wipe debt of the Vault with the Dai that you just acquired. You have to first `approve` the Dai Adapter to take our Dai and have it move it into the `urn` (using `join`):
 
 ```text
 // Approves adapter to take the DAI amount
@@ -336,7 +336,7 @@ DaiJoinLike(daiJoin).dai().approve(daiJoin, daiAmt);
 DaiJoinLike(daiJoin).join(urn, daiAmt);
 ```
 
-To finally wipe the Dai, we have to calculate its art value in accordance to the current rate (so it takes into account fees) and finally wipe the debt using `frob`:
+To finally wipe the Dai, you have to calculate its art value in accordance to the current rate (so it takes into account fees) and finally wipe the debt using `frob`:
 
 ```solidity
 // Calculate the amount of art corresponding to DAI (accumulated rates)
@@ -345,7 +345,7 @@ int dart = _getWipeDart(ManagerLike(manager).vat(), VatLike(ManagerLike(manager)
 ManagerLike(manager).frob(cdp, int(0), dart);
 ```
 
-Before we proceed to the next section of this guide, please ensure your code matches the `Delev` contract below
+Before you proceed to the next section of this guide, please ensure your code matches the `Delev` contract below
 
 ```solidity
 contract Delev {
@@ -411,7 +411,7 @@ contract Delev {
 
 ### Deployment and Execution
 
-Before we begin, ensure you have some Kovan ETH to pay gas for transactions and Kovan Sai on the address by following instructions on this [guide](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md#testnet)
+Before you begin, ensure you have some Kovan ETH to pay gas for transactions and Kovan Sai on the address by following instructions on this [guide](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md#testnet)
 
 Build the `delev` project
 
@@ -450,7 +450,7 @@ Make a note of the returned DSProxy contract address and store it as a variable.
 export MYPROXY=0xYourDSProxyAddress
 ```
 
-We can prepare calldata to extract and sell 0.01 ETH from our vault #560 on Kovan using this command with the following inputs,
+You can prepare calldata to extract and sell 0.01 ETH from our vault #560 on Kovan using this command with the following inputs,
 
 - Address of the CDP Manager contract
 - Address of the MCD ETH Adapter (ethJoin)
@@ -508,7 +508,7 @@ Proxy Registries are already available on these networks,
 
 ## Summary
 
-Writing scripts can help you solve a variety of problems you encounter as a developer trying to improve the user experience for your users, or even as a power user interacting with ethereum protocols. We hope this guide has covered all the relevant details to help you get started with DSProxy.
+Writing scripts can help you solve a variety of problems you encounter as a developer trying to improve the user experience for your users, or even as a power user interacting with ethereum protocols. The hope is this guide has covered all the relevant details to help you get started with DSProxy.
 
 ## Additional resources
 
@@ -520,6 +520,4 @@ Writing scripts can help you solve a variety of problems you encounter as a deve
 
 ## Help
 
-- Contact Integrations team - integrate@makerdao.com
-
-- Rocket chat - #dev channel
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

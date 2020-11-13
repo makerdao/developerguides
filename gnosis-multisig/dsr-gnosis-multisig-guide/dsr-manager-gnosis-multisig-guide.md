@@ -23,13 +23,13 @@ In this guide, we will cover how you can add Dai from the old version of the Gno
 
 - Learn how to safely move Dai funds from Gnosis Multisig Wallet into the DSR contract of Maker Protocol through [DsrManager contract](https://etherscan.io/address/0x373238337Bfe1146fb49989fc222523f83081dDb#code).
 
-- Learn how to retrieve Dai and accrued savings back into Gnosis Multisig Wallet.
+- Learn how to retrieve Dai and earned savings back into Gnosis Multisig Wallet.
 
 ## Pre-requisites
 
 - Basic knowledge of how to execute multisig transactions in the Gnosis Multisig UI.
 
-## Step 1: Approve DsrManager to pull funds
+## Step 1: Approve DsrManager
 
 Go to [https://wallet.gnosis.pm](https://wallet.gnosis.pm) and login with your wallet. This is the old version of Gnosis Multisig.
 
@@ -99,7 +99,5 @@ There are two options to retrieve your Dai from DSR. You could retrieve it all a
 - [DSR Integration Guide](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr-integration-guide-01.md)
 
 ## Help
-
-- Contact Integrations Team - [integrate@makerdao.com](mailto:integrate@makerdao.com)
 
 - [chat.makerdao.com - #dev channel](https://chat.makerdao.com/channel/dev)

@@ -1,4 +1,4 @@
-# Quick guide - Listing DAI or MKR tokens on exchange
+# Listing DAI or MKR tokens
 
 - [Quick guide - Listing DAI or MKR tokens on exchange](#quick-guide---listing-dai-or-mkr-tokens-on-exchange)
   - [Prerequisites](#prerequisites)
@@ -14,7 +14,7 @@
     - [Maker platform in general](#maker-platform-in-general)
   - [Help](#help)
 
-This document contains the necessary resources for an exchange to integrate the DAI and MKR ERC-20 tokens.
+This document contains the necessary resources for an exchange or wallet to integrate the DAI and MKR ERC-20 tokens.
 
 ## Prerequisites
 
@@ -62,7 +62,7 @@ When listing Dai or Maker tokens on exchanges or in wallets, you should use the 
 ### Token libraries
 
 **Javascript Library**\
-[Dai.js](https://docs.makerdao.com/dai.js) is a javascript library that exposes the functionality of the smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
+[Dai.js](https://docs.makerdao.com/dai.js) is a javascript library that exposes the functionality of the Maker Protocol smart contracts in a javascript environment, mitigating the need to integrate directly with the smart contract layer. It can, among other things, be used to [implement token transfers](https://github.com/makerdao/dai.js#usage).
 
 - Docs: <https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki>
 - Source: <https://github.com/makerdao/dai.js>
@@ -75,8 +75,8 @@ Similarly to the library above, the [Python API](https://github.com/makerdao/pym
 
 ### Maker platform in general
 
-- [Dai Credit System Whitepaper](https://makerdao.com/whitepaper/)
+- [Maker Protocol Whitepaper](https://makerdao.com/whitepaper/)
 
 ## Help
 
-Contact integrate@makerdao.com or #dev channel on [chat.makerdao.com](https://chat.makerdao.com/)
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

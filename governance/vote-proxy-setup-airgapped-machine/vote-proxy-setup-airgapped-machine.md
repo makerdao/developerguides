@@ -23,11 +23,11 @@
 
 This guide describes one way to link an offline cold wallet to an online hot wallet for participating in MakerDAO governance by voting using the [Voting-Proxy contract](https://github.com/makerdao/vote-proxy) as described in this [article](https://blog.makerdao.com/the-makerdao-voting-proxy-contract/)
 
-More specifically, it will show how to set up the cold-hot wallet link on your personal voting contract (VoteProxy) while your cold wallet resides on an air-gapped machine. To initiate the link, we will use [seth](https://github.com/dapphub/dapptools/tree/master/src/seth), a simple ethereum client tool in the [dapp.tools](https://dapp.tools/) collection, and geth, the go ethereum client. Geth on an air-gapped machine will be used to create and sign the transaction, but Seth on a hot machine will be used to prepare and publish the transaction. To approve the proxy link, approve MKR transfers, and lock up MKR, we will use [Etherscan](https://etherscan.io/) and [MyCrypto](https://www.mycrypto.com/). The reader needs their air-gapped machine provisioned with geth and access to their MetaMask hot wallet on another machine; it is suggested to store the cold wallet in a keystore file, accessible by geth. The following instructions work for GNU/Linux, macOS, and in a [Windows 10 bash shell](https://www.laptopmag.com/articles/use-bash-shell-windows-10).
+More specifically, it will show how to set up the cold-hot wallet link on your personal voting contract (VoteProxy) while your cold wallet resides on an air-gapped machine. To initiate the link, you will use [seth](https://github.com/dapphub/dapptools/tree/master/src/seth), a simple ethereum client tool in the [dapp.tools](https://dapp.tools/) collection, and geth, the go ethereum client. Geth on an air-gapped machine will be used to create and sign the transaction, but Seth on a hot machine will be used to prepare and publish the transaction. To approve the proxy link, approve MKR transfers, and lock up MKR, you will use [Etherscan](https://etherscan.io/) and [MyCrypto](https://www.mycrypto.com/). The reader needs their air-gapped machine provisioned with geth and access to their MetaMask hot wallet on another machine; it is suggested to store the cold wallet in a keystore file, accessible by geth. The following instructions work for GNU/Linux, macOS, and in a [Windows 10 bash shell](https://www.laptopmag.com/articles/use-bash-shell-windows-10).
 
 ## Learning objectives
 
-In this guide, we will learn how to
+In this guide, you will learn how to
 
 - Set up the VoteProxy contract with an air-gapped machine
 - Use geth to sign offline transactions for broadcasting
@@ -35,7 +35,7 @@ In this guide, we will learn how to
 ## Pre-requisites and Disclaimers
 
 - It is assumed that you have correctly set up an air-gapped computer. Do not use these instructions if you have any concerns regarding the security of your machine.
-- It is assumed that you broadcast signed transaction immediately after transaction fabrication. Especially near/after hard forks, we suggest researching methods of replay protection if signed transactions are not immediately broadcasted. [EIP-155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md) is a great starting point.
+- It is assumed that you broadcast signed transaction immediately after transaction fabrication. Especially near/after hard forks, it is suggested to research methods of replay protection if signed transactions are not immediately broadcasted. [EIP-155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md) is a great starting point.
 
 ## Sections
 
@@ -120,7 +120,7 @@ Please open a new terminal to start using dapptools!
 ```
 
 Remember to open a new terminal, as dapptools needs a fresh CLI restart.
-For this tutorial, we will work with the Kovan testnet:
+For this tutorial, you will work with the Kovan testnet:
 
 ```bash
 export SETH_CHAIN=kovan
@@ -128,7 +128,7 @@ export SETH_CHAIN=kovan
 
 ### Initiate link
 
-To initiate the link, we need to call `initateLink(hotAddress)` with our wallet on the air-gapped machine.
+To initiate the link, you need to call `initateLink(hotAddress)` with our wallet on the air-gapped machine.
 Make sure you have enough kovan ethereum on your cold wallet to cover gas costs. [You can get kovan ETH here](https://github.com/kovan-testnet/faucet).
 
 Following the Signing Process outlined over in the Configure geth section
@@ -169,7 +169,7 @@ Following the Signing Process outlined over in the Configure geth section
 
 ### Approve link
 
-To approve the link, we need to call `approveLink(coldAddress)` with our MetaMask wallet. To mitigate the risks in moving multiple private keys at once, we will use etherscan.io to call this smart contract function.
+To approve the link, you need to call `approveLink(coldAddress)` with our MetaMask wallet. To mitigate the risks in moving multiple private keys at once, you will use etherscan.io to call this smart contract function.
 
 Now, let’s head over to the `Write Contract` tab under the Kovan etherscan Address page for the [VoteProxyFactory](https://kovan.etherscan.io/address/0x3e08741a68c2d964d172793cd0ad14292f658cd8#writeContract)
 
@@ -187,7 +187,7 @@ Note: Every cold-hot wallet link is one to one, meaning for any approved link, t
 
 ### Approve MKR transfer
 
-Before we can lock up MKR, we need to approve our VoteProxy to make ERC20 Token (MKR) transfers. That way MKR can be pulled from the cold wallet and pushed to the voting contract (DSChief). Feel free to change the allowance to a value more appropriate for your case.
+Before you can lock up MKR, you need to approve our VoteProxy to make ERC20 Token (MKR) transfers. That way MKR can be pulled from the cold wallet and pushed to the voting contract (DSChief). Feel free to change the allowance to a value more appropriate for your case.
 
 - Allowance: 100000 MKR
 - Gas price: 10 Gwei
@@ -247,7 +247,7 @@ Following the Signing Process outlined over in the Configure geth section
 
 ### Lock MKR
 
-With both the proxy link and MKR transfer approved, the hot wallet can be used to move MKR to and from DSChief. To call the `lock()` method on your VoteProxy contract, we will use MyCrypto, though the method can be called with your cold wallet as well. We are using MyCrypto instead of Etherscan because the former allows us to pass in our own ABI Interface sections on the fly. The lock method will pull MKR from your cold wallet and push it to DSChief. In this example, we will lock 5 MKR. Note that the MKR amount has to be represented in units of WEI.
+With both the proxy link and MKR transfer approved, the hot wallet can be used to move MKR to and from DSChief. To call the `lock()` method on your VoteProxy contract, you will use MyCrypto, though the method can be called with your cold wallet as well. You are using MyCrypto instead of Etherscan because the former allows us to pass in your own ABI Interface sections on the fly. The lock method will pull MKR from your cold wallet and push it to DSChief. In this example, you will lock 5 MKR. Note that the MKR amount has to be represented in units of WEI.
 
 <https://www.mycrypto.com/contracts/interact>
 
@@ -291,7 +291,7 @@ PROXYFACTORY=0xa63E145309cadaa6A903a19993868Ef7E85058BE
 
 In this guide, you signed transactions on your air-gapped machine, initiated and approved a cold-hot wallet link, approved an MKR transfer, and locked MKR in DSChief. You can now participate in Polling and Executive Voting at the Governance dapp at <https://vote.makerdao.com>
 
-If you have any questions, we’re always here to help either on our subreddit or chat.makerdao.com.
+If you have any questions, you can reach out in the #dev channel on chat.makerdao.com.
 
 Happy voting!
 

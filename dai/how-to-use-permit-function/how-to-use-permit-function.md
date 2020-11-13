@@ -330,6 +330,4 @@ In this guide we have shown you the building blocks of the Dai permit function a
 
 For any questions reach us at:
 
-- [integrations@makerdao.com](mailto:integrations@makerdao.com)
-
 - #dev channel in [chat.makerdao.com](https://chat.makerdao.com/)

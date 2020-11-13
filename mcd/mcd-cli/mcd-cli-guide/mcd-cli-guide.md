@@ -23,7 +23,7 @@ This guide will show how to use the [mcd-cli](https://github.com/makerdao/mcd-cl
 - Paying back Dai
 - Unlocking collateral
 
-The command-line interface mcd-cli will enable you to easily interact with the Multi-Collateral Dai contracts. In the CLI, you can lock assets such as ETH and many other collateral tokens we have added (REP, OMG, ZRX, BAT, DGD, GNT)), draw Dai against them, check your Vault position, and much more.  
+The command-line interface mcd-cli will enable you to easily interact with the Multi-Collateral Dai contracts. In the CLI, you can lock assets such as ETH and many other collateral tokens have been added (REP, OMG, ZRX, BAT, DGD, GNT)), draw Dai against them, check your Vault position, and much more.  
 
 ## Installing mcd-cli and seth
 
@@ -39,7 +39,7 @@ The command-line interface mcd-cli will enable you to easily interact with the M
 
 ### Setting up variables in seth
 
-Configuring Seth can be done with environment variables or command line options. Environment variables can be generally used in two ways: you can save them in a configuration file named `.sethrc` in specific locations, like your home folder, or just set them only for the current terminal session. In this guide we will use environment variables with the latter approach for simplicity’s sake, however for ease-of-use in the future, we strongly encourage to save the variables in your project folder. Follow [this example](https://github.com/dapphub/dapptools/tree/master/src/seth#example-sethrc-file) to do so.
+Configuring Seth can be done with environment variables or command line options. Environment variables can be generally used in two ways: you can save them in a configuration file named `.sethrc` in specific locations, like your home folder, or just set them only for the current terminal session. In this guide you will use environment variables with the latter approach for simplicity’s sake, however for ease-of-use in the future, it is strongly encouraged to save the variables in your project folder. Follow [this example](https://github.com/dapphub/dapptools/tree/master/src/seth#example-sethrc-file) to do so.
 
 Seth can connect to the Kovan Ethereum testnet through a default remote node provided by Infura, by specifying the `SETH_CHAIN` variable in a terminal or the `.sethrc` file:
 
@@ -115,11 +115,11 @@ After you have successfully received the Kovan collateral tokens, you can contin
 
 ## Vault Lifecycle Walkthrough
 
-The following instructions will guide you through an example of a Vault's lifecycle. We will be creating a loan with the REP token and will then pay it back. Make sure you have set up the env variables outlined above in **Setting up variables in seth** since we will be using those in the following.
+The following instructions will guide you through an example of a Vault's lifecycle. You will be creating a loan with the REP token and will then pay it back. Make sure you have set up the env variables outlined above in **Setting up variables in seth** since you will be using those in the following.
 
 **Once set up, you can begin to run through the Vault lifecycle using the commands noted below.**  
 
-For this example, we are going to use the REP token as the first type of collateral in our Vault. Before proceeding, please check that you have already received some REP from the faucet. If you haven’t, please visit the  **‘Getting K Collateral tokens’** section above.  
+For this example, you are going to use the REP token as the first type of collateral in our Vault. Before proceeding, please check that you have already received some REP from the faucet. If you haven’t, please visit the  **‘Getting K Collateral tokens’** section above.  
 
 ### Instructions
 
@@ -246,7 +246,7 @@ mcd-cdp-open: Waiting for transaction receipt....
 Opened: cdp 109
 ```
 
-In our case, the CDP id is `109`, so we will use that as the example id in the following commands. You will have a different id, so you should substitute `109` with your cdp id.
+In this case, the CDP id is `109`, so this will used as the example id in the following commands. You will have a different id, so you should substitute `109` with your cdp id.
 
 To lock 30 REP tokens into the CDP, execute:
 
@@ -350,7 +350,7 @@ This concludes the Vault Lifecycle Walkthrough Guide!
 
 ## Help
 
-If you have any questions, don't hesitate to reach out on chat.makerdao.com in the #help channel.
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel
 
 ## Additional resources
 

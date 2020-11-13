@@ -26,7 +26,7 @@
 
 ## Overview
 
-Maker governance votes on stability fee changes using annual rates, ex: `5.5%`, but the rate mechanism doesn't rely on annual rates in any form to track the interest accrued in Maker Vaults. As a dapp developer you won't be able to find this number stored in the smart contracts but instead you will run into a number like `1000000001697766583380253701`. In this guide, we'll help you understand how the stored rate value corresponds to the annual number, how multiple changes in both rates and debt levels over the lifetime of a Vault are accounted for in the Maker protocol, and how the rate mechanism is used for tracking both stability fees and the Dai Savings Rate.
+Maker governance votes on stability fee changes using annual rates, ex: `5.5%`, but the rate mechanism in the Maker Protocol smart contracts doesn't rely on annual rates to track the interest accrued in Maker Vaults. As a dapp developer you won't be able to find this number stored in the smart contracts but instead you will run into a number like `1000000001697766583380253701`. This guide will help you understand how the stored rate value corresponds to the annual number, how multiple changes in both rates and debt levels over the lifetime of a Vault are accounted for in the Maker Protocol, and how the rate mechanism is used for tracking both stability fees and the Dai Savings Rate.
 
 ## Learning Objectives
 
@@ -109,7 +109,7 @@ $python
 >>>
 ```
 
-We can now see that the stored rate compounds to a value of `5.5%` over a year.
+You can now see that the stored rate compounds to a value of `5.5%` over a year.
 
 ### Rate Accumulator
 
@@ -129,7 +129,7 @@ Ex: A user deposits collateral and draws `100` dai in debt from a Vault and the 
 
 Dividing the actual balance 100 by current the value of the rate accumulator which gives us the result `99.917068832868719`. This is now stored as the normalized balance which will initialize the Vault debt with the principal amount. As the shared rate accumulator continues to increase when `drip` is executed in the future, the debt balance of this Vault will also increase.
 
-Now that we've understood the rate mechanism used by the Maker protocol to maintain user balances that change over time based on a rate, we'll see what the rate mechanism is used for in both [Multi-Collateral Dai](https://github.com/makerdao/dss) and [Single Collateral Dai](https://github.com/makerdao/sai).
+Now that you've understood the rate mechanism used by the Maker protocol to maintain user balances that change over time based on a rate, you'll see what the rate mechanism is used for in both [Multi-Collateral Dai](https://github.com/makerdao/dss) and [Single Collateral Dai](https://github.com/makerdao/sai).
 
 ### Multi Collateral Dai
 
@@ -174,9 +174,8 @@ Check for a missing decimal point in rate if your python script takes too long t
 
 ## Summary
 
-In this guide we reviewed the general rate mechanism and how its used to track the Stability fee and the Dai Savings Rate in the Maker protocol.
+This guide covered the general rate mechanism and how it is used to track the Stability fee and the Dai Savings Rate in the Maker protocol.
 
 ## Help
 
-- Contact Integrations team - integrate@makerdao.com
-- Rocket chat - #dev channel
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

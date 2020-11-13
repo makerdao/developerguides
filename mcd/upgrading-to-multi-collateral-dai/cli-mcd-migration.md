@@ -1,3 +1,5 @@
+**DEPRECATED**
+
 # Migrating Dai and CDPs to MCD on Kovan using Seth
 
 This guide is tested on the [2.10 deployment of MCD to Kovan.](https://changelog.makerdao.com/releases/0.2.10/index.html)
@@ -175,7 +177,7 @@ If that is the case, congratulations, you have successfully migrated your CDP fr
 
 ## Need help
 
-If you encounter any issues, feel free to reach out at [integrate@makerdao.com](mailto:integrate@makerdao.com) or @lollike on [chat.makerdao.com](https://chat.makerdao.com/) - we are happy to help troubleshoot!  
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel
 
 ## Additional resources
 

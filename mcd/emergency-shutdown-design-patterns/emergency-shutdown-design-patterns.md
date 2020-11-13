@@ -296,4 +296,4 @@ While we have discussed many patterns, you can use the following rule of thumb t
 # Resources
 
 - [Emergency Shutdown Documentation](https://docs.makerdao.com/smart-contract-modules/shutdown/the-emergency-shutdown-process-for-multi-collateral-dai-mcd)
-- Reach us at [Rocket Chat](https://chat.makerdao.com/channel/dev) or contact Integrations Team: integrate@makerdao.com
+- Reach us at [Rocket Chat](https://chat.makerdao.com/channel/dev)

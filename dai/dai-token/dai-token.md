@@ -30,9 +30,7 @@
 
 ## Overview
 
-Dai is a decentralized, unbiased, collateral-backed cryptocurrency soft-pegged to the US Dollar. Resistant to hyperinflation due to its low volatility, Dai offers economic freedom and opportunity to anyone, anywhere.
-
-The token contract conforms to the ERC20 token standard which allows wallets, exchanges, and other applications to easily integrate with minimal effort. This guide will be useful to developers integrating Dai in applications like wallets, exchanges, and smart contracts to get a better understanding of the token contract and its functionality.
+Dai is a decentralized stablecoin built on Ethereum. The Dai token contract conforms to the ERC20 token standard which allows wallets, exchanges, and other applications to easily integrate with minimal effort. This guide will be useful to developers integrating Dai in applications like wallets, exchanges, and smart contracts to get a better understanding of the token contract and its functionality.
 
 ## Learning Objectives
 
@@ -191,5 +189,4 @@ In this guide, we briefly discussed the technical details of the Dai token contr
 
 ## Help
 
-- Contact Integrations team - integrate@makerdao.com
-- Rocket chat - #dev channel
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

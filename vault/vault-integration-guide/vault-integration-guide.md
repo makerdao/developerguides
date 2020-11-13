@@ -360,5 +360,4 @@ Please read the [Collateral Onboarding](https://github.com/makerdao/community/bl
 
 ## Help
 
-- Contact Integrations team - integrate@makerdao.com
-- Rocket chat - #dev channel
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

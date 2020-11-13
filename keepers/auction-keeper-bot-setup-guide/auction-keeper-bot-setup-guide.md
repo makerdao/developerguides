@@ -40,7 +40,7 @@
 
 **NOTE!: For an out of the box working Keeper, [see this repository instead](https://github.com/makerdao/dockerized-auction-keeper). This guide will go more into detail on how to build your own keeper, and is not aimed for out of the box functionality.**
 
-The Maker Protocol, which powers Multi Collateral Dai (MCD), is a smart contract based system that backs and stabilizes the value of Dai through a dynamic combination of Vaults (formerly known as CDPs), autonomous feedback mechanisms, and incentivized external actors. To keep the system in a stable financial state, it is important to prevent both debt and surplus from building up beyond certain limits. This is where Auctions and Auction Keepers come in. The system has been designed so that there are three types of Auctions in the system: Surplus Auctions, Debt Auctions, and Collateral Auctions. Each auction is triggered as a result of specific circumstances.
+The Maker Protocol, which powers Multi Collateral Dai (MCD), is a smart contract based system that backs and stabilizes the value of Dai through a dynamic combination of Vaults, autonomous feedback mechanisms, and incentivized external actors. To keep the system in a stable financial state, it is important to prevent both debt and surplus from building up beyond certain limits. This is where Auctions and Auction Keepers come in. The system has been designed so that there are three types of Auctions in the system: Surplus Auctions, Debt Auctions, and Collateral Auctions. Each auction is triggered as a result of specific circumstances.
 
 Auction Keepers are external actors that are incentivized by profit opportunities to contribute to decentralized systems. In the context of the Maker Protocol, these external agents are incentivized to automate certain operations around the Ethereum blockchain. This includes:
 
@@ -78,7 +78,6 @@ This guide will show how to use the auction-keeper to interact with the Kovan de
 6. Testing
 7. Support
 
-We are proud to say that since the Maker Protocol is an open-source platform, all of the code we have created to run the Keeper bot is free and accessible to all.
 
 ## 1.Introduction
 
@@ -313,7 +312,7 @@ If you want to use a dynamic gas price, for example to ensure the Keeper can sti
 **Other Notes:**
 
 - All Collateral types (`ilk`'s) combine the name of the token and a letter corresponding to a set of risk parameters. For example, as you can see above, the example uses ETH-A. Note that ETH-A and ETH-B are two different collateral types for the same underlying token (WETH) but have different risk parameters.
-- For the MCD addresses, we simply pass `--network kovan` in and it will load the required JSON files bundled within auction-keeper (or pymaker).
+- For the MCD addresses, you simply pass `--network kovan` in and it will load the required JSON files bundled within auction-keeper (or pymaker).
 
 ### 3. Passing the bidding the model as an argument to the Keeper script
 
@@ -435,11 +434,11 @@ Please refer to this [guide](https://github.com/makerdao/developerguides/blob/ma
 
 ## 6. Testing your Keeper
 
-To help with the testing of your Auction Keeper, we have created a collection of python and shell scripts herein that may be used to test `auction-keeper`, `pymaker`'s auction facilities, and relevant smart contracts in `dss`. For more information about testing your Auction Keeper with your own testchain visit [tests/manual/README](https://github.com/makerdao/auction-keeper/blob/master/tests/manual/README.md).
+To help with the testing of your Auction Keeper, there is a collection of python and shell scripts herein that may be used to test `auction-keeper`, `pymaker`'s auction facilities, and relevant smart contracts in `dss`. For more information about testing your Auction Keeper with your own testchain visit [tests/manual/README](https://github.com/makerdao/auction-keeper/blob/master/tests/manual/README.md).
 
 ## 7. Support
 
-We welcome any questions or concerns about the Auction Keepers in the [#keeper](https://chat.makerdao.com/channel/keeper) channel in the Maker Chat.
+Questions or concerns about the Auction Keepers are welcome in the [#keeper](https://chat.makerdao.com/channel/keeper) channel in the Maker Chat.
 
 ## Disclaimer
 

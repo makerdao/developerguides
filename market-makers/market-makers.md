@@ -1,3 +1,5 @@
+**DEPRECATED**
+
 # Market Makers
 
 - [Market Makers](#market-makers)
@@ -66,4 +68,4 @@ Pymaker is a Python API which provides endpoints to interact with the Maker smar
 
 ## Need help
 
-Contact [integrate@makerdao.com](mailto:integrate@makerdao.com) or #dev channel on chat.makerdao.com
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

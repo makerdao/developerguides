@@ -1,4 +1,4 @@
-# CDP Manager Guide
+# Vault Manager Guide
 
 **Level**: Advanced  
 **Estimated Time**: 30 minutes
@@ -19,11 +19,11 @@ This guide works under the [1.0.7](https://changelog.makerdao.com/releases/kovan
 
 ## Overview
 
-The [DssCdpManager](https://github.com/makerdao/dss-cdp-manager)  as known as the CDP Manager, was created to enable a formalised process to interact with the Maker Protocol. The manager works by having a [dss](https://github.com/makerdao/dss) wrapper that allows users to interact with their Vaults in an easy way, treating them as non-fungible tokens (NFTs).
+The [DssCdpManager](https://github.com/makerdao/dss-cdp-manager), was created to enable a formalised process to interact with the Maker Protocol. The manager works by having a [dss](https://github.com/makerdao/dss) wrapper that allows users to interact with their Vaults in an easy way, treating them as non-fungible tokens (NFTs).
 
 In addition to the [dss-proxy](https://github.com/makerdao/dss-proxy-actions)-actions, the CDP Manager is the recommended interface to engage with the Maker Protocol as it allows users to easily transfer their Vaults to each other if need be. In addition, each Vault created through this interface gets an ID, which can then be used for purposes such as tracking your Vault positions, or attaching this ID to another reference in your own system.
 
-By using the CDP Manager directly, the msg.sender will be the direct owner of the Vault in comparison to using ds-proxy and dss-proxy-actions, where the ds-proxy address will be the owner of the Vaults and the user will be the owner of the proxy.
+By using the Vault Manager directly, the msg.sender will be the direct owner of the Vault in comparison to using ds-proxy and dss-proxy-actions, where the ds-proxy address will be the owner of the Vaults and the user will be the owner of the proxy.
 
 ## Learning Objectives
 
@@ -83,12 +83,11 @@ export MCD_JOIN_DAI=0x5AA71a3ae1C0bd6ac27A1f28e1415fFFB6F15B8c
 export MCD_JUG=0xcbB7718c9F39d05aEEDE1c472ca8Bf804b2f1EaD
 export ETH_GAS=2000000
 ```
-
-We will use Kovan BAT tokens as our collateral in this guide. If you need to get some Kovan BAT tokens, follow [this guide.](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md#getting-tokens)
+You will use Kovan BAT tokens as the collateral in this guide. If you need to get some Kovan BAT tokens, follow [this guide.](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-seth/mcd-seth-01.md#getting-tokens)
 
 ### Locking collateral into the system
 
-As we use the CDP Manager for interacting with the system, first you will need to `open` an empty Vault.
+As you use the CDP Manager for interacting with the system, first you will need to `open` an empty Vault.
 
 Calling the `open` function, you will receive a `cdpId` of your Vault. When opening a Vault you have to specify the collateral type `(bytes32 ilk)` for the Vault. `address usr` is the address that will own the Vault.
 
@@ -98,7 +97,7 @@ Each Vault can only have one type of collateral. Hence, you as a user can open m
 
 An example where one would use this method of opening many Vaults, is custodial exchanges that want to integrate Vaults onto their platform. As the users don't have access to their keys to interact with the Vault, the exchange could open each user a Vault and link the cdpId to the userId.
 
-Let's define the ilk before we call the open function.
+Let's define the ilk before you call the open function.
 
 ```bash
 export ilk=$(seth --to-bytes32 $(seth --from-ascii "BAT-A"))
@@ -116,7 +115,7 @@ To get the cdpId, execute:
 export cdpId=$(seth --to-dec $(seth call $CDP_MANAGER 'last(address)' $ETH_FROM))
 ```
 
-Besides the `cdpId`, we need to get the `urn` address as well. That's where ink(collateral balance) and art(outstanding stablecoin debt) is registered.
+Besides the `cdpId`, you need to get the `urn` address as well. That's where ink(collateral balance) and art(outstanding stablecoin debt) is registered.
 
 ```bash
 export urn=$(seth call $CDP_MANAGER 'urns(uint)(address)' $cdpId)
@@ -124,12 +123,12 @@ export urn=$(seth call $CDP_MANAGER 'urns(uint)(address)' $cdpId)
 
 ----------
 
-After acquiring the `cdpId` and `urn` address, we can move to the next step. Locking our tokens into the system. This process has two steps:
+After acquiring the `cdpId` and `urn` address, you can move to the next step. Locking your tokens into the system. This process has two steps:
 
-- Approving MCD_JOIN_BAT_A adapter to withdraw BAT from our wallet
+- Approving MCD_JOIN_BAT_A adapter to withdraw BAT from your wallet
 - Send BAT to the urn address.
 
-Let's define the value of collateral that we will lock, `dink`, and the value of Dai that we'll draw, `dart`.
+Let's define the value of collateral that you will lock, `dink`, and the value of Dai that you'll draw, `dart`.
 
 ```bash
 export dink=$(seth --to-uint256 $(seth --to-wei 300 eth))
@@ -148,13 +147,13 @@ Sending `dink` amount of BAT to the urn.
 seth send $MCD_JOIN_BAT_A 'join(address,uint)' $urn $dink
 ```
 
-Now we can lock our BAT into the system and draw Dai against it. We can do it all in one function.
+Now you can lock your BAT into the system and draw Dai against it. You can do it all in one function.
 
 ```bash
 seth send $CDP_MANAGER 'frob(uint,int,int)' $cdpId $dink $dart
 ```
 
-Let's check the status of our `urn` by calling VAT.
+Let's check the status of your `urn` by calling VAT.
 
 ```bash
 seth call $MCD_VAT 'urns(bytes32,address)(uint256,uint256)' $ilk $urn
@@ -167,20 +166,20 @@ Output:
 25000000000000000000
 ```
   
-If converted to decimals we get this:  
+If converted to decimals you get this:  
 
 ```bash
 300.000000000000000000 <- Dink  
 25.000000000000000000 <- Dart
 ```
 
-This tells us that our Vault has 300 BAT as collateral and 25 DAI as outstanding debt.
+This tells us that your Vault has 300 BAT as collateral and 25 DAI as outstanding debt.
 
 ----------
 
 ### Draw Dai
 
-What has been covered so far in this guide was the creation of Dai debt in the system. In short, you create a balance of your debt in the system. After, you need to add this balance to your wallet. Now, to actually withdraw it to your own address, we will need to do some functions calls:
+What has been covered so far in this guide was the creation of Dai debt in the system. In short, you create a balance of your debt in the system. After, you need to add this balance to your wallet. Now, to actually withdraw it to your own address, you will need to do some functions calls:
 
 ```bash
 CDP_MANAGER.move(uint,address,uint);
@@ -191,7 +190,7 @@ MCD_JOIN_DAI.exit(address,uint)
 `CDP_MANAGER.move()` function moves the Dai from the `urn` to your `ETH_FROM`, your personal address. However, you still won't see the balance on your wallet. In order to see the balance, you'll need to approve the `MCD_JOIN_DAI` adapter in `MCD_VAT` from the system with the `MCD_VAT.hope()` function. After, you call the `MCD_JOIN_DAI.exit()` to finally move the DAI to your wallet. This looks a bit of a complicated process, but this just shows how the system operates.
 
 Moving DAI from `urn` to `ETH_FROM`(your address).
-You need to define rad, a high precision number as a variable that will be passed in the `move()` function. In VAT the debt balance is registered with a higher precision number than on your wallet. So to make sure to move all funds, we need to define a `rad` variable that has 45 decimal places.
+You need to define rad, a high precision number as a variable that will be passed in the `move()` function. In VAT the debt balance is registered with a higher precision number than on your wallet. So to make sure to move all funds, you need to define a `rad` variable that has 45 decimal places.
 
 ```bash
 export rad=$(seth --to-uint256 $(echo "25"*10^45 | bc))
@@ -210,7 +209,7 @@ Exiting Dai to own wallet address.
 seth send $MCD_JOIN_DAI 'exit(address,uint)' $ETH_FROM $dart
 ```
   
-Finally, we have got our new Dai in our wallet. To check the balance, execute the below command.
+Finally, you have got your new Dai in your wallet. To check the balance, execute the below command.
 
 ```bash
 seth --from-wei $(seth --to-dec $(seth call $MCD_DAI 'balanceOf(address)' $ETH_FROM))
@@ -260,7 +259,7 @@ Check if it all worked:
 seth --to-fix 45 $(seth call $MCD_VAT 'dai(address)(uint256)' $urn)
 ```
   
-Paying back Dai involves calling the `CDP_MANAGER.frob()` function with negative dink and dart values. In other words, we're just changing the balance to 0 in VAT. This of course involves sending the Dai to the system, which gets burned, and unlocking the collateral in your urn.
+Paying back Dai involves calling the `CDP_MANAGER.frob()` function with negative dink and dart values. In other words, you're just changing the balance to 0 in VAT. This of course involves sending the Dai to the system, which gets burned, and unlocking the collateral in your urn.
 
 ```bash
 export nDink=$(seth --to-int256 $(seth --to-wei -300 eth))
@@ -275,7 +274,7 @@ seth send $CDP_MANAGER 'frob(uint, int, int)' $cdpId $nDink $nDart
 
 ----------
 
-Alternative to pay back debt is to create the raw transaction data and pass it to the CDP_MANAGER contract. First we prepare all necessary data to transform it into raw data.
+Alternative to pay back debt is to create the raw transaction data and pass it to the CDP_MANAGER contract. First you prepare all necessary data to transform it into raw data.
 
 ```bash
 sig="frob(uint256,int256,int256)"
@@ -301,7 +300,7 @@ seth send $CDP_MANAGER $rawData
   
 ### Unlock collateral from system
 
-Now we need to take the collateral from the urn and have it sent back to your address.
+Now you need to take the collateral from the urn and have it sent back to your address.
 
 ```bash
 seth send $CDP_MANAGER 'flux(uint,address,uint)' $cdpId $ETH_FROM $dink

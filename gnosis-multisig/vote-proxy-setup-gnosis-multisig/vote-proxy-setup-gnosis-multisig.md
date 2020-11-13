@@ -58,7 +58,7 @@ To initiate the link, we need to call `initateLink(hotAddress)` with our multisi
 
 ## Step 2: Approve Link
 
-To approve the link, we need to call `approveLink(coldAddress)` with our Hot wallet. In this guide, we are assuming it is a MetaMask wallet.
+To approve the link, you need to call `approveLink(coldAddress)` with our Hot wallet. In this guide, it is assumed it is a MetaMask wallet.
 
 - Now, let’s head over to the `Write Contract tab` under the Kovan etherscan Address page for the [VoteProxyFactory](https://kovan.etherscan.io/address/0x3e08741a68c2d964d172793cd0ad14292f658cd8#writeContract)
 
@@ -76,7 +76,7 @@ Note: Every cold-hot wallet link is one to one, meaning for any approved link, t
 
 ## Step 3: Approve MKR Transfer
 
-Before we can lock up MKR, we need to approve our VoteProxy to make ERC20 Token (MKR) transfers. That way MKR can be pulled from the cold wallet and pushed to the voting contract (DSChief). Feel free to change the allowance to a value more appropriate for your case.
+Before you can lock up MKR, you need to approve our VoteProxy to make ERC20 Token (MKR) transfers. That way MKR can be pulled from the cold wallet and pushed to the voting contract (DSChief). Feel free to change the allowance to a value more appropriate for your case.
 
 You’ll also need the address of your VoteProxy. This can be found via <https://kovan.etherscan.io> and under the internal transactions tab of your previous transaction (the one used to approve the cold-hot link).
 
@@ -110,7 +110,7 @@ Let’s set up and approve the Voting Proxy contract that you made in the previo
 
 ## Step 4: Lock MKR
 
-With both the proxy link and MKR transfer approved, the hot wallet can be used to move MKR to and from DSChief. To call the `lock(wad)` method on your VoteProxy contract, we will use the multisig, though the method can be called with your hot wallet as well. The lock method will pull MKR from your cold wallet and push it to DSChief.
+With both the proxy link and MKR transfer approved, the hot wallet can be used to move MKR to and from DSChief. To call the `lock(wad)` method on your VoteProxy contract, you will use the multisig, though the method can be called with your hot wallet as well. The lock method will pull MKR from your cold wallet and push it to DSChief.
 
 - Go to <https://wallet.gnosis.pm/> and login with your wallet. This is the old version of Gnosis Multisig.
 
@@ -152,6 +152,6 @@ If you wish to work with mainnet, you would need to go through the guide again w
 
 In this guide, you signed transactions on your Gnosis Multisig wallet, initiated and approved a cold-hot wallet link, approved an MKR transfer, and locked MKR in DSChief. You can now participate in Polling and Executive Voting at the Governance dapp at <https://vote.makerdao.com>
 
-If you have any questions, we’re always here to help either on our subreddit or chat.makerdao.com.
+If you have any questions, you can reach out in the #dev channel on chat.makerdao.com.
 
 Happy voting!

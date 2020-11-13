@@ -25,7 +25,7 @@ Estimated Time: 30 minutes
 
 ## Overview
 
-The MKR token is the governance token of the Dai Credit System. It is primarily used to vote on changes to its Risk Parameters. To vote, MKR owners must "lock up" their tokens into a [voting proxy contract](https://medium.com/makerdao/the-makerdao-voting-proxy-contract-5765dd5946b4) or the [DSChief contract directly](https://github.com/dapphub/ds-chief), and from there vote on the different proposals.
+The MKR token is the governance token of the Dai Stablecoin System. It is primarily used to vote on changes to its Risk Parameters. To vote, MKR owners must "lock up" their tokens into a [voting proxy contract](https://medium.com/makerdao/the-makerdao-voting-proxy-contract-5765dd5946b4) or the [DSChief contract directly](https://github.com/dapphub/ds-chief), and from there vote on the different proposals.
 
 MKR is also the collateral of last resort in Multi-Collateral DAI: When the system is underwater, MKR is minted to replenish it. The risk of underwater CDPs for MKR holders is counterbalanced by the burning of a portion of CDP Stability Fees in MKR.
 

@@ -341,7 +341,4 @@ In this guide you have learned how to act in case of an Emergency Shutdown event
 
 # Help
 
-Reach us at:
-
-- [Rocket Chat](https://chat.makerdao.com/channel/dev)
-- Contact Integrations Team: integrate@makerdao.com
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

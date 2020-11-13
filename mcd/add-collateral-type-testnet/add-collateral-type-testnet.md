@@ -28,7 +28,7 @@
 
 ## Overview
 
-Maker Protocol deployed to the Kovan testnet now supports multiple collateral types. You can now add a new token as a collateral type, and allow users and developers to test various aspects of this integration. This guide covers the steps involved in setting up various contracts to initialize a new collateral type on the testnet. Adding it to the mainnet deployment will be handled by risk teams and those steps won't be covered in this guide.
+The Maker Protocol deployed to the Kovan testnet supports multiple collateral types. You can now add a new token as a collateral type, and allow users and developers to test various aspects of this integration. This guide covers the steps involved in setting up various contracts to initialize a new collateral type on the testnet. Adding it to the mainnet deployment will be handled by risk teams and those steps will not be covered in this guide.
 
 ## Learning Objectives
 
@@ -43,10 +43,10 @@ After going through this guide you will get a better understanding of,
 You will need a good understanding of these concepts to be able to work through this guide,
 
 - [MCD 101](https://github.com/makerdao/developerguides/blob/master/mcd/mcd-101/mcd-101.md).
-- Vault Positions.
-- Risk parameters of a collateral type.
-- Solidity.
-- Dapptools - Dapp, Seth.
+- Vaults
+- Risk parameters of a collateral type
+- Solidity
+- Dapptools - Dapp, Seth
 
 ## Guide
 
@@ -94,7 +94,7 @@ export ILK="$(seth --to-bytes32 "$(seth --from-ascii "MKR-A")")"
 
 Initializing a collateral type involves making changes to various core Maker Protocol contracts using `file()` functions, and updating authorization permissions among contracts using `rely()`. A set of changes to be made at a time are captured in a `Spell` smart contract. Once a Spell is deployed, governance can elect its address as an authority which then lets it execute the changes in Maker Protocol. Although it is strictly not required, spells currently are designed to be used once and will lock up after they are executed.
 
-Spell contracts can be built for various purposes, we will use an existing spell template to create a new collateral type.
+Spell contracts can be built for various purposes, you will use an existing spell template to create a new collateral type.
 
 Download the `dss-add-ilk-spell` repo and build it locally using the commands below. Please ensure you have `dapp` setup prior to executing this step. The build process is going to take a while!
 
@@ -109,7 +109,7 @@ dapp build --extract
 
 Off-chain oracles get the pricing data of a token from various exchange APIs and they then submit these updates to an on-chain median contract which computes a median value. The Oracle Security Module(OSM) introduces a delay before the system accepts the newly reported price to give users a chance to add more collateral if their Vault is about to become unsafe, and also for governance to trigger emergency shutdown if compromised oracles have input a malicious price value.
 
-Instead of deploying the full set of these contracts, we will only deploy a single `DSValue` contract without a price feed delay for our testing purposes. You can retain admin permissions over it to update the price value manually using a seth command. For example, the command below sets the price of each token to 9000 USD.
+Instead of deploying the full set of these contracts, you will only deploy a single `DSValue` contract without a price feed delay for testing purposes. You can retain admin permissions over it to update the price value manually using a seth command. For example, the command below sets the price of each token to 9000 USD.
 
 ```bash
 export PIP=$(dapp create DSValue)
@@ -149,7 +149,7 @@ seth send "$FLIP" 'deny(address)' "$ETH_FROM"
 
 ### Calculate Risk Parameters
 
-All collateral types need risk parameters to set bounds for issuing Dai debt. We'll set the new collateral type with some starting parameters and they can also be updated later by governance through executive votes.
+All collateral types need risk parameters to set bounds for issuing Dai debt. You'll set the new collateral type with some starting parameters and they can also be updated later by governance through executive votes.
 
 Debt ceiling sets the maximum amount of Dai that can be issued against Vaults of this collateral type. Calculate the uint256 value using the first command to initialize the LINE variable with `5 Million`.
 
@@ -174,17 +174,17 @@ seth --to-uint256 1000000000315522921573372069
 export DUTY=0000000000000000000000000000000000000000033b2e3ca43176a9d2dfd0a5
 ```
 
-*Note: We'll cover how the number `1000000000315522921573372069` corresponds to a `1%` annual rate in a future guide and link it here.*
+*Note: How the number `1000000000315522921573372069` corresponds to a `1%` annual rate is covered in [this guide](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)*
 
-A liquidation penalty is imposed on a Vault by increasing it's debt by a percentage before a collateral aucion is kicked off. This penalty is imposed to prevent [Auction Grinding Attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf).
-Calculate the uint256 value using the first command to initialize the CHOP variable with an additional `10%`.  We pass `110%` here because when we start an auction we want it to be for the amount of the outstanding debt plus `10%`.
+A liquidation penalty is imposed on a Vault by increasing its debt by a percentage before a collateral aucion is kicked off. This penalty is imposed to prevent [Auction Grinding Attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf).
+Calculate the uint256 value using the first command to initialize the CHOP variable with an additional `10%`.  E.g. you can pass `110%` here so when you start an auction it will be for the amount of the outstanding debt plus `10%`.
 
 ```bash
 seth --to-uint256 $(echo "110"*10^25 | bc)
 export CHOP=0000000000000000000000000000000000000000038de60f7c988d0fcc000000
 ```
 
-Since the size of Vaults of a collateral type can vary wildly, collateral auctions can be inefficient if even large Vaults are auctioned off with a single Flip auction. Vaults with locked collateral amounts greater than liquidation quantity of their collateral type are processed with multiple collateral auctions. Only one collateral auction is required if the amount of collateral locked in a Vault is below the liquidation quantity.
+Vaults with locked collateral amounts greater than liquidation quantity of their collateral type are processed with multiple collateral auctions. Only one collateral auction is required if the amount of collateral locked in a Vault is below the liquidation quantity.
 
 Calculate and initialize the LUMP variable with `1000`.
 
@@ -195,7 +195,7 @@ export LUMP=00000000000000000000000000000000000000000000003635c9adc5dea00000
 
 ### Deploy Spell
 
-We have everything setup to deploy a new spell contract that captures the steps that need to be executed to initialize a new collateral type.
+You have everything setup to deploy a new spell contract that captures the steps that need to be executed to initialize a new collateral type.
 
 Execute the command below to deploy this spell and capture its address in a variable.
 
@@ -296,7 +296,7 @@ You've now successfully generated Dai with the new collateral type.
 
 ## Summary
 
-In this guide we looked at setting up a new collateral type for a token and opened a Vault to generate Dai from it.
+In this guide you learned how to set up a new collateral type for a token and opened a Vault to generate Dai from it.
 
 ## Additional resources
 
@@ -306,5 +306,4 @@ In this guide we looked at setting up a new collateral type for a token and open
 
 ## Help
 
-- Contact Integrations team - integrate@makerdao.com
-- Rocket chat - #dev channel
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

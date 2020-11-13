@@ -26,7 +26,7 @@
 
 ## Overview
 
-This guide is intended to give an introduction on how to use Maker’s custom test chain. This test chain has all of Maker’s smart contracts deployed on it, so you as a developer can start building your dApps on top of Maker’s system. In addition, you can also use our [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki) library with this test chain.
+This guide is intended to give an introduction on how to use test chain. The test chain has all of the Maker Protocol's smart contracts deployed on it, so you as a developer can start building your dApps on top of the Maker Protocol. In addition, you can also use [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki) library with this test chain.
 
 ## Learning Objectives
 
@@ -62,7 +62,7 @@ Have a go and see if it works for you.
 
 ## Benefits of using the test chain
 
-This test chain has Maker’s smart contracts deployed on it. This is very convenient for you as a developer to interact or build smart contracts that interact with the Maker system.
+This test chain has the Maker Protocol smart contracts deployed on it. This is very convenient for you as a developer to interact or build smart contracts that interact with the Maker Protocol.
 In addition, you have the convenience of tweaking your chain configurations to suit your needs, such as changing the block time or deploying your own set of smart contracts when instantiating the chain.
 
 ## Getting Started
@@ -99,7 +99,7 @@ Launched testchain in --- seconds.
 Press Ctrl-C to stop the test chain.
 ```
 
-If you see this, then congrats, you have your test chain running on `http://127.0.0.1:2000`
+If you see this, then congratulations, you have your test chain running on `http://127.0.0.1:2000`
 
 ## Options
 
@@ -121,11 +121,11 @@ Here you change your port and add verbose option
 scripts/launch -s default --fast --verbose -p 2001
 ```
 
-For more options check out our [repo](https://github.com/makerdao/testchain#options).
+For more options check out this [repo](https://github.com/makerdao/testchain#options).
 
 ## Interacting with Maker Protocol contracts
 
-You’ll find all the necessary Maker contract addresses in the `out/addresses-mcd.json` file in the testchain folder. You can use these addresses to develop your own tools that interact with Maker contracts. Use our own [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki) library or interact through the command line with [seth](https://dapp.tools/seth/). We will go through both of these methods now.
+You’ll find all the necessary Maker Protocol contract addresses in the `out/addresses-mcd.json` file in the testchain folder. You can use these addresses to develop your own tools that interact with Maker Protocol contracts. Use [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki) library or interact through the command line with [seth](https://dapp.tools/seth/). You will go be introduced to both of these methods now.
 
 ### Open a Vault with [dai.js](https://docs.makerdao.com/building-on-top-of-the-maker-protocol/dai.js-wiki)
 
@@ -194,13 +194,13 @@ Debt Value:20.00 MDAI
 
 ### Interact with contracts directly with [seth](https://dapp.tools/seth/)
 
-In this example, we will draw Dai by depositing ETH into the MCD contracts that are deployed on our testchain. We will interact with the smart contracts directly, so there’s more steps involved.
+In this example, you will draw Dai by depositing ETH into the MCD contracts that are deployed on the testchain. You will interact with the smart contracts directly, so there’s more steps involved.
 
 As a prerequisite, you need to have the test chain running in a terminal with the `scripts/launch -s default --fast` command, if you haven’t done so already.  Note: If you see a message saying the testchain is already running on port 2000, you can kill it with `kill -9 $(lsof -t -i:2000)`
 
-Next, go to another terminal window or tab.  To start, we will need to set up and export some environmental variables in our second  terminal. These variables will help you connect to the test chain and interact with the MCD system through seth.
+Next, go to another terminal window or tab. To start, you will need to set up and export some environmental variables in your second terminal. These variables will help you connect to the test chain and interact with the MCD system through seth.
 
-Let’s add the variables that will set our account and connection with the test chain. In your second terminal tab, in your home location, add these variables:
+Let’s add the variables that will set your account and connection with the test chain. In your second terminal tab, in your home location, add these variables:
 
 ```bash
 export ETH_FROM=0x16fb96a5fa0427af0c8f7cf1eb4870231c8154b6
@@ -215,7 +215,7 @@ export ETH_RPC_URL=http://localhost:2000
 
 - This sets the connection to the test chain.
 
-We are using an account handled by the ethereum client, and as such we need to instruct `seth` not to use local keystores and instead use to use the RPC account to sign the transactions:
+You are using an account handled by the ethereum client, and as such you need to instruct `seth` not to use local keystores and instead use to use the RPC account to sign the transactions:
 
 ```bash
 export ETH_RPC_ACCOUNTS=1
@@ -233,7 +233,7 @@ If connection is right, you’ll see this (your values might differ):
 94829630380000000000
 ```
 
-Next, we can start adding the MCD contract addresses. You’ll find these addresses in the file `testchain/out/addresses-mcd.json`. Make sure to be in the testchain directory. The following command will parse the json file and store the addresses as environment variables:
+Next, you can start adding the MCD contract addresses. You’ll find these addresses in the file `testchain/out/addresses-mcd.json`. Make sure to be in the testchain directory. The following command will parse the json file and store the addresses as environment variables:
 
 ```bash
 eval $(jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' out/addresses-mcd.json)
@@ -241,7 +241,7 @@ eval $(jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' out/addresses-mc
 
 #### Opening a Vault
 
-We will begin by setting a few useful variables:
+You will begin by setting a few useful variables:
 
 ```bash
 export ilk=$(seth --to-bytes32 "$(seth --from-ascii "ETH-A")")
@@ -250,19 +250,19 @@ export ilk=$(seth --to-bytes32 "$(seth --from-ascii "ETH-A")")
 - `ilk` - a collateral type
 - Setting the `ilk` variable to the `ETH` type of collateral and converting it to hex and bytes32 format.
 
-We also set the gas limit for our transactions (with the default, certain transactions are likely to fail):
+You also set the gas limit for your transactions (with the default, certain transactions are likely to fail):
 
 ```bash
 export ETH_GAS=1000000
 ```
 
-First we open the Vault using the CDP Manager:
+First you open the Vault using the CDP Manager:
 
 ```bash
 seth send -F $ETH_FROM $CDP_MANAGER 'open(bytes32,address)' "$ilk" "$ETH_FROM"
 ```
 
-This call does not return anything useful, so we use these commands to determine the Id and urn address of the vault we just opened:
+This call does not return anything useful, so you use these commands to determine the Id and urn address of the vault you just opened:
 
 ```bash
 export cdpId=$(seth --to-dec $(seth call $CDP_MANAGER 'last(address)' $ETH_FROM))
@@ -271,13 +271,13 @@ echo $cdpId
 echo $urn
 ```
 
-Then we deposit 5 eth into the `WETH` adapter:
+Then you deposit 5 eth into the `WETH` adapter:
 
 ```bash
 seth send $ETH 'deposit()' --value $(seth --to-wei 5 ETH)
 ```
 
-And we approve `MCD_JOIN_ETH_A` to withdraw some `WETH`:
+And you approve `MCD_JOIN_ETH_A` to withdraw some `WETH`:
 
 ```bash
 seth send $ETH 'approve(address,uint256)' $MCD_JOIN_ETH_A $(seth --to-uint256 $(seth --to-wei 5 ETH))
@@ -289,7 +289,7 @@ To finally lock the 5 ether into the ether adapter, to the benefit of our vault 
 seth send $MCD_JOIN_ETH_A 'join(address,uint256)' $urn $(seth --to-uint256 $(seth --to-wei 5 ETH))
 ```
 
-As a validation, we can confirm that the collateral is available to our vault:
+As a validation, you can confirm that the collateral is available to our vault:
 
 ```bash
 seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'gem(bytes32,address)(uint256)' $ilk $urn)) eth
@@ -297,7 +297,7 @@ seth --from-wei $(seth --to-dec $(seth call $MCD_VAT 'gem(bytes32,address)(uint2
 
 At this point, the collateral is in `MCD_JOIN_ETH_A` and available for use in the vault, but isn't yet locked.
 
-To prepare the locking of collateral, we set two variables with the amount of collateral that we will put in the Vault and the amount of Dai we will be generating:
+To prepare the locking of collateral, you set two variables with the amount of collateral that you will put in the Vault and the amount of Dai you will be generating:
 
 ```bash
 export dink=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 5 eth)))
@@ -307,32 +307,32 @@ export dart=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 100 eth)))
 - `dink` is delta ink - a signed difference value to the current value. This value is used in the frob function call to determine how much ink to lock in the Vat.
 - `dart`  is delta art - a signed difference value to the current value. This value is used in the frob function call to determine how much art(debt) to mint in the Vat.
 
-Finally, we can lock up collateral in the Vat and generate Dai. The parameters `$dink` and `$dart` that we defined earlier represent how much ether we want to lock in our ether Vault and how much Dai we want to generate, respectively. This being 5 ether and 100 Dai. We can deposit the ether and generate Dai all in one transaction, as shown below:
+Finally, you can lock up collateral in the Vat and generate Dai. The parameters `$dink` and `$dart` that you defined earlier represent how much ether you want to lock in our ether Vault and how much Dai you want to generate, respectively. This being 5 ether and 100 Dai. You can deposit the ether and generate Dai all in one transaction, as shown below:
 
 ```bash
 seth send $CDP_MANAGER 'frob(uint256,int256,int256)' $cdpId $dink $dart
 ```
 
-Now we can check if we successfully generated our Dai in the Dai Adapter (output is in rad):
+Now you can check if you successfully generated your Dai in the Dai Adapter (output is in rad):
 
 ```bash
  seth call $MCD_VAT 'dai(address)(uint256)' $urn
 ```
 
-And then move the internal Dai balance from the urn account to our account:
+And then move the internal Dai balance from the urn account to your account:
 
 ```bash
 export rad=$(seth call $MCD_VAT 'dai(address)(uint256)' $urn)
 seth send $CDP_MANAGER 'move(uint256,address,uint256)' $cdpId $ETH_FROM $(seth --to-uint256 $rad)
 ```
 
-We need to approve the Dai adapter to withdraw the created Dai from the `urn`.
+You need to approve the Dai adapter to withdraw the created Dai from the `urn`.
 
 ```bash
 seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI
 ```
 
-Finally, we withdraw the Dai to our account. We need the `$wad` parameter that will define the amount of Dai we want to withdraw.
+Finally, you withdraw the Dai to your account. You need the `$wad` parameter that will define the amount of Dai you want to withdraw.
 
 ```bash
 export wad=$(seth --to-uint256 $(seth --to-wei 100 eth))
@@ -361,7 +361,7 @@ If you want to pay back your Dai, follow the steps below.
 
 Note: These steps assume that the DAI is paid before fees are accrued using `drip()`. If `drip()` is called, an extra amount of DAI must be paid back.
 
-Approve `$MCD_JOIN_DAI` to withdraw `$wad` DAI (the amount we just generated) from `$MCD_DAI`
+Approve `$MCD_JOIN_DAI` to withdraw `$wad` DAI (the amount you just generated) from `$MCD_DAI`
 
 ```bash
 seth send $MCD_DAI 'approve(address,uint256)' $MCD_JOIN_DAI $wad
@@ -373,41 +373,41 @@ Add Dai back to the MCD_JOIN_DAI adapter.
 seth send $MCD_JOIN_DAI 'join(address,uint256)' $urn $wad
 ```
 
-Pay back your Dai debt and unlock your collateral. We do this with the same `$dink` `$dart` values and with the `$frob` function. But we change them into negative numbers instead. We do it this way:
+Pay back your Dai debt and unlock your collateral. You do this with the same `$dink` `$dart` values and with the `$frob` function. But you change them into negative numbers instead. You do it this way:
 
-Using [mcd-cli](https://github.com/makerdao/mcd-cli#installation), we create our two negative numbers:
+Using [mcd-cli](https://github.com/makerdao/mcd-cli#installation), you create your two negative numbers:
 
 ```bash
 export minus20hex=$(mcd --to-hex $(seth --to-wei -20 eth))
 export minus5hex=$(mcd --to-hex $(seth --to-wei -5 eth))
 ```
 
-Then, we set these negative numbers to `$dink` and `$dart`.
+Then, you set these negative numbers to `$dink` and `$dart`.
 
  ```bash
  export dink=$(seth --to-uint256 $minus5hex)
  export dart=$(seth --to-uint256 $minus20hex)
  ```
 
- Now we can call the `frob` function via the CDPManager to pay back Dai and unlock our collateral.
+ Now you can call the `frob` function via the CDPManager to pay back Dai and unlock your collateral.
 
 ```bash
 seth send $CDP_MANAGER "frob(uint256,int256,int256)" $cdpId $dink $dart
 ```
 
-The collateral withdrawn by from is still in possession of the urn, so we have to move to our own account:
+The collateral withdrawn by from is still in possession of the urn, so you have to move to your own account:
 
 ```bash
 seth send $CDP_MANAGER 'flux(uint256,address,uint256)' $cdpId $ETH_FROM $(seth --to-uint256 $(seth --to-wei 5 eth))
 ```
 
-Our ETH is in the `MCD_JOIN_ETH_A` adapter now, we need to call the exit function to withdraw them.
+Your ETH is in the `MCD_JOIN_ETH_A` adapter now, you need to call the exit function to withdraw them.
 
 ```bash
 seth send $MCD_JOIN_ETH_A 'exit(address,uint)' $ETH_FROM $(seth --to-uint256 $(seth --to-wei 5 eth))
 ```
 
-Finally, we just need to unwrap our ETH from the `$WETH` contract.
+Finally, you just need to unwrap your ETH from the `$WETH` contract.
 
 ```bash
 seth send $ETH 'withdraw(uint)' $(seth --to-uint256 $(seth --to-wei 5 eth))
@@ -468,7 +468,7 @@ seth send $PIP_ETH 'poke(bytes32)' $(seth --to-uint256 "$(seth --to-wei 151 ETH)
 ```
 
 The `MCD_SPOT` contract allows external actors to update the price feed in the Vat contract.
-Setting the value of spot, which defines how much unit dai we can draw from unit collateral.
+Setting the value of spot, which defines how much unit dai you can draw from unit collateral.
 
 ```bash
 seth send "$MCD_SPOT" 'poke(bytes32)' "$ilk"
@@ -480,11 +480,11 @@ In this guide, you have been introduced to Maker’s test chain and its benefits
 
 ## Troubleshooting
 
-Feel free to create an [issue](https://github.com/makerdao/testchain/issues) if you run into trouble. We are here to help you.
+Feel free to create an [issue](https://github.com/makerdao/testchain/issues) if you run into trouble.
 
 ## Next Steps
 
-After you have deployed your test chain, you could go and discover our [integration examples](https://github.com/makerdao/integration-examples). Some of them will need to use this test chain that you just deployed. Feel free to poke around and do PRs with your own examples.
+After you have deployed your test chain, you could go and discover your [integration examples](https://github.com/makerdao/integration-examples). Some of them will need to use this test chain that you just deployed. Feel free to poke around and do PRs with your own examples.
 In addition, you can use this [repo](https://github.com/makerdao/dss-deploy) to deploy the MCD contracts to your own local test chain of choice.
 
 ## Resources

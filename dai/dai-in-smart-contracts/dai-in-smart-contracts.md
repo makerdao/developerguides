@@ -234,5 +234,4 @@ In this guide, we showcased how you can integrate the Dai token in a smart contr
 
 ## Help
 
-- Contact integrations team - integrate@makerdao.com
 - Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

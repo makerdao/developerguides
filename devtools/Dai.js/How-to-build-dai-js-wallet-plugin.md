@@ -20,7 +20,7 @@
 
 ## Overview
 
-In this guide, we’ll walk you through building your own Dai.js plugin that integrates a wallet provider. As we know, there are many wallet providers out there. In order for these wallet providers to interact with the Maker suite of dapps (oasis.app, governance dashboard, migration app), they have to integrate through the Dai.js SDK. As this SDK is used in the Maker dapps, your wallet can be used to interact with the Maker Protocol.
+This guide will walk you through building your own Dai.js plugin that integrates a wallet provider. There are many wallet providers out there, and in order for these wallet providers to interact with the Maker suite of dapps (oasis.app, governance dashboard, migration app), they have to integrate through the Dai.js SDK. As this SDK is used in the Maker dapps, your wallet can be used to interact with the Maker Protocol.
 
 ## Learning Objectives
 
@@ -72,7 +72,7 @@ Anytime the user will choose your account type to initialise the wallet from the
 
 This is the main pattern for how to integrate a third party wallet into the Dai.js SDK. Next, you will see some examples of how different partners have integrated.
 
-## Examples of partners integrating with the plugin
+## Examples of integrating with the plugin
 
 There are different levels of complexity with which a third wallet provider could integrate with the Dai.js SDK. The level of complexity depends on the compatibility of this third party wallet provider with the SDK. The more compatible the easier it is to integrate.  
   
@@ -275,7 +275,7 @@ Last thing, in [/src/components/AccountSelection.js](https://github.com/makerdao
 
 ## Summary
 
-In this guide we walked you through the process of creating a Dai.js wallet plugin and showed you the general pattern to integrate. As a rule of thumb, the more compatible your web3 provider is with the Dai.js SDK, the easier it will be to build the plugin. If it’s not compatible we showed you how to adapt the plugin to be able to communicate with the SDK. Lastly, we showed you a live implementation of how to integrate your plugin with oasis.app.
+This guide explained the process of creating a Dai.js wallet plugin and showed you the general pattern to integrate. As a rule of thumb, the more compatible your web3 provider is with the Dai.js SDK, the easier it will be to build the plugin. If it’s not compatible the guide showed you how to adapt the plugin to be able to communicate with the SDK. Lastly, it covered a live implementation of how to integrate your plugin with oasis.app.
 
 ## Additional Resources
 
@@ -283,7 +283,6 @@ If you want to dive deeper into the web3 providers, have a look at Metamask’s 
 
 ## Help
 
-For any help, you can reach us at:
+For any help, you can reach out at:
 
 - [#dev](https://chat.makerdao.com/channel/dev) chat in [chat.makerdao.com](https://chat.makerdao.com/channel/dev).
-- Contact Integrations Team: <integrate@makerdao.com>

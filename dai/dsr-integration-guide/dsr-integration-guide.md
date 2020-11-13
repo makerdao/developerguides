@@ -413,6 +413,4 @@ In this guide, we covered the basics of DSR, and how to properly integrate DSR, 
 
 ## Need help
 
-- Contact Integrations team - [integrate@makerdao.com](mailto:integrate@makerdao.com)
-
-- Rocket chat - #dev channel
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

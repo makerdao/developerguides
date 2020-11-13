@@ -182,4 +182,4 @@ In this guide you have learned how to use your proxy contract to execute Oasis D
 
 ## Help
 
-- If you need help reach us at the #dev channel in [https://chat.makerdao.com/channel/dev](https://chat.makerdao.com/channel/dev)
+- If you need help reach out in the #dev channel in [https://chat.makerdao.com/channel/dev](https://chat.makerdao.com/channel/dev)

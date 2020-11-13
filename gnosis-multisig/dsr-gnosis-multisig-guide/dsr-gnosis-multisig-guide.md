@@ -24,7 +24,7 @@ In this guide, we will cover how you can add Dai from the old version of the Gno
 
 - Learn how to safely move funds from Gnosis Multisig Wallet into the DSR contract of the Maker Protocol.
 
-- Learn how to retrieve Dai and accrued savings back into Gnosis Multisig Wallet.
+- Learn how to retrieve Dai and earned savings back into Gnosis Multisig Wallet.
 
 ## Pre-requisites
 
@@ -201,5 +201,4 @@ Under “Read Contract”, function 5. “Pie” you can insert the DS-Proxy con
 
 ## Help
 
-- Contact Integrations team -  [integrate@makerdao.com](mailto:integrate@makerdao.com)
-- chat.makerdao.com - #dev channel
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel

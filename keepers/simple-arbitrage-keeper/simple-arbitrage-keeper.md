@@ -28,13 +28,13 @@ Estimated Time: 60 minutes
 
 ## Overview
 
-Typically in the form of an automated bot, Keepers are external actors that participate in [market making](https://github.com/makerdao/market-maker-keeper), [auctions](https://github.com/makerdao/auction-keeper), [market arbitrage](https://github.com/makerdao/arbitrage-keeper), and system upkeep within the Maker protocol and the greater Ethereum ecosystem. Under a pure economic assumption, they are solely incentivized by profits or a vested interest. However, their activity provides indirect services such as increased liquidity and price consistency across various financial markets. This guide presents a simple arbitrage keeper, and structure thereof, that can be used out of the box to participate in wildly volatile markets. The purpose of the guide is to motivate the user in improving its functionality to participate in less volatile markets, leading to a more efficient financial ecosystem.
+Typically in the form of an automated bot, Keepers are external actors that participate in [market making](https://github.com/makerdao/market-maker-keeper), [auctions](https://github.com/makerdao/auction-keeper), [market arbitrage](https://github.com/makerdao/arbitrage-keeper), and system upkeep within the Maker protocol and the greater Ethereum ecosystem. Under a pure economic assumption, they are solely incentivized by profits or a vested interest. However, their activity provides indirect services such as increased liquidity and price consistency across various financial markets. This guide presents a simple arbitrage keeper, and structure thereof, that can be used out of the box to participate in markets. The purpose of the guide is to motivate the user in improving its functionality to participate in less volatile markets, leading to a more efficient financial ecosystem.
 
 ## Learning objectives
 
 By reading this guide, you’ll gain:
 
-- Better understanding of Arbitrage, how it is achieved and the role it plays in financial markets
+- Better understanding of arbitrage, how it is achieved and the role it plays in financial markets
 - An overview of the simple arbitrage keeper and common structure across the Maker Keeper framework
 - Insight into the operation of the simple arbitrage keeper and ways to improve its code
 
@@ -81,7 +81,7 @@ General high level information and comments for each class/method are in the [si
 
 The usage of the bot can be found in the [Usage section](https://github.com/makerdao/simple-arbitrage-keeper#usage) of the README. Here are some preparation steps in running on Kovan:
 
-To operate the keeper, call the `/bin/simple-arbitrage-keeper` script with the required arguments. This adds the pyexchange and pymaker modules to the python path and initializes the SimpleArbitrageKeeper class. It's convenient to write a shell script that can be easily rerun after argument changes, but before we begin, let's prepare our Keeper ethereum address, deploy our TxManager, find the Uniswap exchange addresses and MatchingMarket address.
+To operate the keeper, call the `/bin/simple-arbitrage-keeper` script with the required arguments. This adds the pyexchange and pymaker modules to the python path and initializes the SimpleArbitrageKeeper class. It's convenient to write a shell script that can be easily rerun after argument changes, but before you begin, let's prepare your Keeper ethereum address, deploy the TxManager, find the Uniswap exchange addresses and MatchingMarket address.
 
 #### Keeper Installation
 
@@ -99,7 +99,7 @@ For some known Ubuntu and macOS issues see the [pymaker README](https://github.c
 
 #### Install the DappHub Toolkit
 
-If you are running Linux or macOS you can take advantage of our all in one installer.
+If you are running Linux or macOS you can take advantage of the all in one installer.
 
 ```bash
 curl https://dapp.tools/install | sh
@@ -115,7 +115,7 @@ If you'd like to start from scratch, [install geth](https://github.com/ethereum/
 
 #### Deploy TxManager
 
-A [TxManager](https://github.com/makerdao/tx-manager) must be deployed and linked with the Keeper ethereum address in order to bundle multiple contract calls in a single ethereum transaction; this is what we call an atomic transaction, where the entire call set is successful, or the state remains unaffected. Once the DappHub Toolkit is installed, execute the following commands to deploy TxManager:
+A [TxManager](https://github.com/makerdao/tx-manager) must be deployed and linked with the Keeper ethereum address in order to bundle multiple contract calls in a single ethereum transaction; this is what is called an atomic transaction, where the entire call set is successful, or the state remains unaffected. Once the DappHub Toolkit is installed, execute the following commands to deploy TxManager:
 
 ```bash
 git clone https://github.com/makerdao/tx-manager.git
@@ -142,7 +142,7 @@ You'll need to find the address to the Uniswap exchange corresponding to the ent
 
 #### Shell Script
 
-As was mentioned before, let's make a shell script so that it's easy to run this Bot. For example, we're using _Kovan Sai_ for the entry-token since we won't be exposed to the arb token's price exposure in between trades. Moreover, for kovan testing, we will be using the WETH/DAI pair, since liquidity is thin across the Kovan versions of MatchingMarket and Uniswap exchanges. Any `NoneType` errors are likely due to a lack of liquidity on either exchange and can be resolved once liquidity is added. As mentioned earlier, the min-profit and max-engagement arguments define how the keeper will operate. Maximum engagement refers to the amount of entry-tokens you would like to sell within the first leg of the trade, whereas minimum profit refers to the amount of profit gained from executing the arbitrage; both arguments are denominated in entry-tokens and in _units of ether_ (in the below script, 1 SAI of min-profit would be 1 SAI). For example, the below script will trade with a max-engagement of 10 SAI, but only if the returned value from the trade results in at least 11 SAI.
+As was mentioned before, let's make a shell script so that it's easy to run this Bot. For example, you're using _Kovan Sai_ for the entry-token since you won't be exposed to the arb token's price exposure in between trades. Moreover, for kovan testing, you will be using the WETH/DAI pair, since liquidity is thin across the Kovan versions of MatchingMarket and Uniswap exchanges. Any `NoneType` errors are likely due to a lack of liquidity on either exchange and can be resolved once liquidity is added. As mentioned earlier, the min-profit and max-engagement arguments define how the keeper will operate. Maximum engagement refers to the amount of entry-tokens you would like to sell within the first leg of the trade, whereas minimum profit refers to the amount of profit gained from executing the arbitrage; both arguments are denominated in entry-tokens and in _units of ether_ (in the below script, 1 SAI of min-profit would be 1 SAI). For example, the below script will trade with a max-engagement of 10 SAI, but only if the returned value from the trade results in at least 11 SAI.
 
 Create a file called like below, insert the arguments relevant to your environment, make it executable, then run it!
 
@@ -206,7 +206,7 @@ ValueError: {'code': -32010, 'message': 'Transaction with the same hash was alre
 
 ### Improvements
 
-Here are some suggestions to improve the usability, versatility, and profitability of this keeper. We hope that everyone tinkers with the parameters, runs the keeper for their own benefit, and eventually upgrades the bot to meet their risk tolerance and profit appetite.
+Here are some suggestions to improve the usability, versatility, and profitability of this keeper. The hope is that everyone tinkers with the parameters, runs the keeper for their own benefit, and eventually upgrades the bot to meet their risk tolerance and profit appetite.
 
 - Develop unit tests for each method
 - Use the Uniswap Factory contract to query the _uniswap-entry-exchange_ and _uniswap-arb-exchange_ addresses rather than requiring it as an argument
@@ -220,7 +220,7 @@ Here are some suggestions to improve the usability, versatility, and profitabili
     - <https://math.stackexchange.com/a/94420>
     - <https://www.dailycodingproblem.com/blog/how-to-find-arbitrage-opportunities-in-python/>
 - Improve efficiency of TxManager
-  - Do we really need to send all of our token balance to the contract during every atomic transaction?
+  - Is it really necessary to send all of the token balance to the contract during every atomic transaction?
 - Read the state of the MatchingMarket (OasisDex) contract rather than using the Oasis REST API
   - To save gas, [get all active orders](https://github.com/makerdao/pymaker/blob/master/pymaker/oasis.py#L613) and [take specific orders](https://github.com/makerdao/pymaker/blob/master/pymaker/oasis.py#L428) by ID rather than use `MatchingMarket.offer(...)` and the on-chain matching engine
 - Send trade updates through a text/email Python API

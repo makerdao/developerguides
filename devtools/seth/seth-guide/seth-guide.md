@@ -31,7 +31,7 @@ Seth is a simple, but powerful command line tool created to interface with the E
 
 ## Getting started
 
-In the following section we will go through the installation and setup of Seth. These steps only work on Unix-based systems (i.e. Linux and macOS), however on Windows, you can try with an emulator, like [cmder](http://cmder.net/) or [cygwin](https://www.cygwin.com/), the [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) in Windows 10, a virtual machine or a container.
+In the following section you will go through the installation and setup of Seth. These steps only work on Unix-based systems (i.e. Linux and macOS), however on Windows, you can try with an emulator, like [cmder](http://cmder.net/) or [cygwin](https://www.cygwin.com/), the [linux subsystem](https://docs.microsoft.com/en-us/windows/wsl/install-win10) in Windows 10, a virtual machine or a container.
 
 ## Installation
 
@@ -39,11 +39,11 @@ Seth can be installed as a part of the Dapp Tools suite, which is a collection o
 
 From the Dapp Tools page:
 
-> If you are running GNU/Linux or macOS you can take advantage of our all in one installer.
+> If you are running GNU/Linux or macOS you can take advantage of the all in one installer.
 
 `$ curl https://dapp.tools/install | sh`
 
-This script downloads the Nix package manager, setups binary cache with Cachix and installs our most used tools.
+This script downloads the Nix package manager, setups binary cache with Cachix and installs the most used tools.
 
 ## Manual install
 
@@ -81,7 +81,7 @@ Nix wouln't be able to be installed on the Catalina OS due to it being stricted 
 
 ## Set up and configuring variables
 
-Configuring Seth can be done with environment variables or command line options. Environment variables can be generally used in two ways: you can save them in a configuration file named .sethrc in specific locations, like your home folder, or just set them only for the current terminal session. In this guide we will use environment variables with the latter approach for simplicity’s sake, however for ease-of-use in the future, we strongly encourage to save the variables in your project folder. Follow [this example](https://github.com/dapphub/dapptools/tree/master/src/seth#example-sethrc-file) to do so.
+Configuring Seth can be done with environment variables or command line options. Environment variables can be generally used in two ways: you can save them in a configuration file named .sethrc in specific locations, like your home folder, or just set them only for the current terminal session. In this guide you will use environment variables with the latter approach for simplicity’s sake, however for ease-of-use in the future, it is strongly encouraged to save the variables in your project folder. Follow [this example](https://github.com/dapphub/dapptools/tree/master/src/seth#example-sethrc-file) to do so.
 
 ### Using a local private network
 
@@ -97,7 +97,7 @@ Then in a separate terminal let’s create an empty password file:
 
 `$ touch pass`
 
-And let’s create our environment variables:
+And let’s create your environment variables:
 
     export ETH_PASSWORD=$PWD/pass   
     export ETH_KEYSTORE=~/.dapp/testnet/8545/keystore   
@@ -148,7 +148,7 @@ This indicates that the transaction was successful.
 
 ### seth call - Reading contract storage
 
-Since we don't have any contracts deployed to our private network, **let's use Kovan from now on**. Let’s use one of the simplest contracts possible: an ERC-20 token contract. In this example, we are going to use a test collateral token (BAT). You can save its address in a variable with the following command:
+Since you don't have any contracts deployed to your private network, **let's use Kovan from now on**. Let’s use one of the simplest contracts possible: an ERC-20 token contract. In this example, you are going to use a test collateral token (BAT). You can save its address in a variable with the following command:
 
 `$ export BAT=0x9f8cfb61d3b2af62864408dd703f9c3beb55dff7`
 
@@ -188,7 +188,7 @@ The output is:
 
 `500000000000000000000`
 
-Now, that's a rather large value we got. The reason for this is that the contract stores the balances in wei unit (10^-18), which is why we have to convert it to get the actual number of BAT we own:
+Now, that's a rather large value you got. The reason for this is that the contract stores the balances in wei unit (10^-18), which is why you have to convert it to get the actual number of BAT you own:
 
 `$ seth --from-wei $(seth --to-dec $(seth call $BAT 'balanceOf(address)' $ETH_FROM)) eth`
 
@@ -198,7 +198,7 @@ The output is:
 
 ### seth block - Retrieving block information
 
-With seth block, we are capable of querying any information about an Ethereum block. Here is the usage from the help option `$ seth block --help`:
+With seth block, you are capable of querying any information about an Ethereum block. Here is the usage from the help option `$ seth block --help`:
 
     Usage: seth block [-j|--json] <block> [<field>] 
     Print a table of information about <block>.
@@ -206,7 +206,7 @@ With seth block, we are capable of querying any information about an Ethereum bl
 
 Like any other Seth command, this command depends on Ethereum JSON RPC calls, which are part of the interface of any Ethereum client. You can dive into the corresponding documentation ([https://github.com/ethereum/wiki/wiki/JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC)) to learn more about it.
 
-What can come in handy is the fact that in place of a block number, we can also use earliest, latest or pending. So if we would like to query the current block gas limit (I have tried this with seth configured for the kovan testnet) we can do the following:
+What can come in handy is the fact that in place of a block number, you can also use earliest, latest or pending. So if you would like to query the current block gas limit (I have tried this with seth configured for the kovan testnet) you can do the following:
 
 `$ seth block latest gasLimit`
 
@@ -234,7 +234,7 @@ Output:
 
 ### seth receipt and seth tx
 
-With seth receipt and seth tx, we can query every single detail imaginable about a transaction. They both take a transaction (tx) hash as an input parameter. The main difference between the two, is that the receipt, which contains the results of the transaction, is only constructed after the transaction gets mined, while the output of seth tx only contains the basic parameters of the transaction before it takes effect.
+With seth receipt and seth tx, you can query every single detail imaginable about a transaction. They both take a transaction (tx) hash as an input parameter. The main difference between the two, is that the receipt, which contains the results of the transaction, is only constructed after the transaction gets mined, while the output of seth tx only contains the basic parameters of the transaction before it takes effect.
 
 You can try them for example by first executing a transaction to have a transaction hash:
 
@@ -253,7 +253,7 @@ Now you can try the discussed commands (use your own tx hash from the previous t
 
 `$ seth tx 0x58ba3980775741aecaf8435646a003bff3395d7d4e00c8f7a32ad1fa0ce64e01`
 
-These both generate a pretty long output, but we can filter each query with an optional extra parameter. For example let's see, how accurate was our previous estimation for the gas consumption (it was perfectly accurate):
+These both generate a pretty long output, but we can filter each query with an optional extra parameter. For example let's see, how accurate was your previous estimation for the gas consumption (it was perfectly accurate):
 
 `$ seth receipt 0x58ba3980775741aecaf8435646a003bff3395d7d4e00c8f7a32ad1fa0ce64e01 gasUsed`
 

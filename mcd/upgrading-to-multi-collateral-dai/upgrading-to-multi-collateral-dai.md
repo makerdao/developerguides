@@ -379,9 +379,7 @@ In this guide, we introduced you to the steps of how to upgrade to Multi-Collate
 
 If you encounter any issues with your upgrade process, don’t hesitate to contact us.
 
-- Contact integrations team - integrate@makerdao.com
-- Rocket chat - #dev channel
-
+- Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel
 ### Next Steps
 
 After finishing this guide we think you’ll enjoy these next guides:

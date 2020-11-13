@@ -55,5 +55,4 @@ In this guide, we will cover how you can migrate from Sai to Dai using the old v
 
 ## Help
 
-- Contact Integrations team -  [integrate@makerdao.com](mailto:integrate@makerdao.com)
 - chat.makerdao.com - #dev channel
