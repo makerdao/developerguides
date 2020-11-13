@@ -1,3 +1,16 @@
+---
+title: Intro to the OasisDEX Protocol
+description: Learn about OasisDEX protocol and start trading
+parent: oasisdex
+tags:
+  - oasisdex
+  - trade
+  - decentralized  
+slug: intro-to-the-oasisdex-protocol
+contentType: guides
+root: false
+---
+
 # Intro to the OasisDEX Protocol
 
 **Level**: Beginner  

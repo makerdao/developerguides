@@ -1,3 +1,15 @@
+---
+title: Dai Token
+description: Learm about Dai and integrate it into applications
+parent: dai
+tags:
+  - dai
+	- ERC20 contract
+slug: dai-token
+contentType: guides
+root: false
+---
+
 # Dai Token
 
 **Level**: Beginner
@@ -57,8 +69,9 @@ The token contract conforms to the ERC20 token standard which allows wallets, ex
 #### Addresses
 
 Dai is available on the:
-* _Ethereum mainnet_ at [0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/token/0x6B175474E89094C44Da98b954EedeAC495271d0F)
-* _Kovan testnet_ at [0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa](https://kovan.etherscan.io/token/0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa)
+
+- _Ethereum mainnet_ at [0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/token/0x6B175474E89094C44Da98b954EedeAC495271d0F)
+- _Kovan testnet_ at [0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa](https://kovan.etherscan.io/token/0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa)
 
 Other deployments are listed on [changelog.makerdao.com](https://changelog.makerdao.com).
 
