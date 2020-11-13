@@ -1,5 +1,3 @@
-**DEPRECATED**
-
 # Market Makers
 
 - [Market Makers](#market-makers)
