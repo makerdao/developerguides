@@ -55,6 +55,7 @@ All guides are organized in sections and by proficiency levels within each secti
 - [How to use Oasis Direct Proxy on OasisDEX Protocol](./Oasis/oasis-direct-proxy/oasis-direct-proxy.md)
 - [OasisDEX Market Maker Guide](./Oasis/oasisdex-market-maker-guide/oasisdex-market-maker-guide.md)  
 - [OasisDEX Market Taker Guide](./Oasis/oasisdex-market-taker-guide/oasisdex-market-taker-guide.md)
+- [OasisDEX UI Development Guide](./Oasis/oasisdex-ui-guide/oasisdex-ui-guide.md)
 
 ## Oracles
 

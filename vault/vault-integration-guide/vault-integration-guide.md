@@ -54,7 +54,7 @@ root: false
 
 ## Overview
 
-Vaults can accept a wide variety of tokenized collateral, representing both crypto and real world assets, and give users the ability to borrow Dai against this pledged collateral. Custom Vault portals can leverage this versatility along with the open developer platform to make it easier for users to better manage their vaults and can also go further and package vaults with other financial components to build products tailored for their needs.
+Vaults can accept a wide variety of tokenized collateral, and give users the ability to generate Dai against this collateral. Custom Vault portals can leverage this versatility along with the open developer platform to make it easier for users to better manage their vaults and can also go further and package vaults with other financial components to build products tailored for their needs.
 
 ## Learning Objectives
 
