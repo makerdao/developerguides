@@ -25,6 +25,7 @@ Estimated Time: 45 minutes
     - [Collateral Types](#collateral-types)
       - [Example](#example)
     - [Vaults](#vaults)
+    - [Use Maker Protocol parameters for calculations](#use-maker-protocol-parameters-for-calculations)
       - [Example](#example-1)
   - [Summary](#summary)
   - [Troubleshooting](#troubleshooting)
@@ -164,6 +165,29 @@ mapping (bytes32 => mapping (address => Urn )) public urns;
 On the mapping, the first argument is a `bytes32` representation of the [collateral type](https://github.com/makerdao/developerguides/blob/kenton_dev/vault/vault-integration-guide/vault-integration-guide.md#collateral-types), while the second argument is the user's Ethereum address.
 
 You may notice that an Ethereum address only has access to a single `Urn` for each `Ilk` Collateral type. The CDP-Manager exists to circumvent this constraint. The [CDP-Manager](https://github.com/makerdao/dss-cdp-manager/blob/master/src/DssCdpManager.sol) manages a list of `UrnHandlers`, which is a simple contract that has a single goal of being owned by an Ethereum address and holds ownership of an `Urn`. In other words, with the CDP-Manager, one could own multiple `UrnHandlers` and thus `open(...)` multiple `urns` for each `Ilk`. Although CDP-Manager can be used manually, most interactions are conducted through a [DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md), a proxy contract used to execute atomic transactions, and [DssProxyActions](https://github.com/makerdao/dss-cdp-manager), an atomic transaction library.
+
+### Use Maker Protocol parameters for calculations
+
+When calculating different ratios about vaults or different collateral assets in the Maker Protocol, it is mandatory to use these parameters as a source directly from the Maker Protocol.  So in order to be on the same level with what Maker Protocol sees as the true information about its system parameters. 
+
+With the addition of the [Vox](https://forum.makerdao.com/t/mip20-target-price-adjustment-module-vox/3196) module, the `[par](https://github.com/makerdao/dss/blob/master/src/spot.sol#L49)` (ref per dai) parameter will be able to be changed by Maker Governance to ensure a stable Dai price. 
+
+As `par` is being used in the [Spot.poke()](https://github.com/makerdao/dss/blob/master/src/spot.sol#L96) function, depending on the value it has, it will affect the `spot` value of the collateral. See spot variable in the `poke()` function below.
+
+```solidity
+function poke(bytes32 ilk) external {
+        (bytes32 val, bool has) = ilks[ilk].pip.peek();
+        uint256 spot = has ? rdiv(rdiv(mul(uint(val), 10 ** 9), par), ilks[ilk].mat) : 0;
+        vat.file(ilk, "spot", spot);
+        emit Poke(ilk, val, spot);
+    }
+```
+
+So, for example, when calculating the Collateral Ratio of a certain collateral asset (ilk) you should do it this way:
+
+```bash
+CollateraizationlRatio = Vat.urn.ink * Vat.ilk.spot * Spot.ilk.mat / (Vat.urn.art * Vat.ilk.rate)
+```
 
 #### Example
 
