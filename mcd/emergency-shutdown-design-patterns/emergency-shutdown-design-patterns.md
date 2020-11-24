@@ -39,6 +39,7 @@ root: false
   - [Vault](#vault)
   - [Emergency shutdown trigger](#emergency-shutdown-trigger)
   - [Decentralized Emergency Shutdown](#decentralized-emergency-shutdown)
+  - [Dai Reference Price](#dai-reference-price)
 - [Design Patterns](#design-patterns)
   - [Freeze actions](#freeze-actions)
     - [Dai](#dai-1)
@@ -195,6 +196,23 @@ Emergency shutdown is triggered by an executive vote and will be processed only 
 ## Decentralized Emergency Shutdown
 
 There is a decentralized mechanism available to MKR holders to trigger emergency shutdown if the `Sum` amount of MKR locked in the Emergency Shutdown Module (ESM) contract exceeds the `min` threshold set by governance. Emergency shutdown is effective immediately and can be instantaneous when triggered via this route.
+
+## Dai Reference Price
+
+When users start redeeming collateral from their Dai through the END contract by calling the `cash()` function, the system has to calculate first how much of each collateral the user will receive. This calculation is done when the `cage()` function is called. See below:
+
+```solidity
+function cage(bytes32 ilk) external note {
+        require(live == 0, "End/still-live");
+        require(tag[ilk] == 0, "End/tag-ilk-already-defined");
+        (Art[ilk],,,,) = vat.ilks(ilk);
+        (PipLike pip,) = spot.ilks(ilk);
+        // par is a ray, pip returns a wad
+        tag[ilk] = wdiv(spot.par(), uint(pip.read()));
+    }
+```
+
+In this function the price of collateral is defined when the system undergoes the emergency shutdown procedure. The `tag` mapping sets the price for each collateral. The price of the collateral assets will be influenced by the `par` parameter in the system, `par` being the reference price of Dai in the Maker Protocol. Depending on the value of `par` set by governance, the system will calculate the final amount of collateral the user is entitled to redeem from his Dai.
 
 # Design Patterns
 
