@@ -199,7 +199,7 @@ There is a decentralized mechanism available to MKR holders to trigger emergency
 
 ## Dai Reference Price
 
-When users start redeeming collateral from their Dai through the END contract by calling the `cash()` function, the system has to calculate first how much of each collateral the user will receive. This calculation is done when the `cage()` function is called. See below:
+If Emergency Shutdown is triggered, the Maker Protocol calculates how much of each collateral type can be redeemed per Dai. This calculation is done per collateral type when the cage() function is called. See below:
 
 ```solidity
 function cage(bytes32 ilk) external note {
@@ -212,7 +212,9 @@ function cage(bytes32 ilk) external note {
     }
 ```
 
-In this function the price of collateral is defined when the system undergoes the emergency shutdown procedure. The `tag` mapping sets the price for each collateral. The price of the collateral assets will be influenced by the `par` parameter in the system, `par` being the reference price of Dai in the Maker Protocol. Depending on the value of `par` set by governance, the system will calculate the final amount of collateral the user is entitled to redeem from his Dai.
+The tag mapping in the last line of the function sets the price for each collateral. The price of the collateral types is influenced by the `par` parameter in the system, `par` being the reference price of Dai in the Maker Protocol. Depending on the value of `par` set by Maker governance, the system will calculate the final amount of collateral the user is entitled to redeem per Dai.
+
+Therefore, if you are integrating Dai redemption functionality, it is important to take `par` into consideration.
 
 # Design Patterns
 

@@ -236,5 +236,4 @@ Run into an issue that’s not covered in this guide? Please find our contact in
 [Guide: Intro to Rates Mechanism in the Maker Protocol](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 [Example: Compounding rates](https://docs.google.com/spreadsheets/d/1fDwooo9tVftgd9Q7dVbd857Ue8demLVukFnsakl8MHE/edit?usp=sharing)
 
-
 - Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel
