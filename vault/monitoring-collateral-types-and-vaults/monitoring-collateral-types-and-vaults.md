@@ -25,6 +25,7 @@ Estimated Time: 45 minutes
     - [Collateral Types](#collateral-types)
       - [Example](#example)
     - [Vaults](#vaults)
+    - [Use Maker Protocol parameters for calculations](#use-maker-protocol-parameters-for-calculations)
       - [Example](#example-1)
   - [Summary](#summary)
   - [Troubleshooting](#troubleshooting)
@@ -165,6 +166,29 @@ On the mapping, the first argument is a `bytes32` representation of the [collate
 
 You may notice that an Ethereum address only has access to a single `Urn` for each `Ilk` Collateral type. The CDP-Manager exists to circumvent this constraint. The [CDP-Manager](https://github.com/makerdao/dss-cdp-manager/blob/master/src/DssCdpManager.sol) manages a list of `UrnHandlers`, which is a simple contract that has a single goal of being owned by an Ethereum address and holds ownership of an `Urn`. In other words, with the CDP-Manager, one could own multiple `UrnHandlers` and thus `open(...)` multiple `urns` for each `Ilk`. Although CDP-Manager can be used manually, most interactions are conducted through a [DSProxy](https://github.com/makerdao/developerguides/blob/master/devtools/working-with-dsproxy/working-with-dsproxy.md), a proxy contract used to execute atomic transactions, and [DssProxyActions](https://github.com/makerdao/dss-cdp-manager), an atomic transaction library.
 
+### Use Maker Protocol parameters for calculations
+
+In order to calculate collateralization ratios for Vaults in the Maker Protocol, it is important to take the variable `par`, also known as the reference price of Dai, into consideration. Failure to do so, might result in incorrect calculation of collateralization ratios, which can result in unwanted liquidations.
+
+To calculate the collateralization ratio of a collateral type (ilk), use the following formula:
+
+`Collateralization Ratio = Vat.urn.ink * Vat.ilk.spot * Spot.ilk.mat / (Vat.urn.art * Vat.ilk.rate)`
+
+Since `par` is being used in the [Spot.poke()](https://github.com/makerdao/dss/blob/master/src/spot.sol#L96) function, it will affect the `spot` value of the collateral type. See spot variable in the poke() function below.
+
+```solidity
+function poke(bytes32 ilk) external {
+        (bytes32 val, bool has) = ilks[ilk].pip.peek();
+        uint256 spot = has ? rdiv(rdiv(mul(uint(val), 10 ** 9), par), ilks[ilk].mat) : 0;
+        vat.file(ilk, "spot", spot);
+        emit Poke(ilk, val, spot);
+    }
+```
+
+Since `spot` takes `par` into consideration, the formula for collateralization ratio above will work, even if `par` changes.
+
+In order to ensure that your integration calculates the same collateralization ratio as the Maker Protocol, only parameters used in the Vat and Spot contracts should be utilized.
+
 #### Example
 
 Since it’s the most complex and more commonly used, the following example for reading the state of an `Urn` with a proxy identity is used; if the proxy identity owns multiple `urns` through the CDPManager, it will read the list through the [GetCDPs contract](https://github.com/makerdao/dss-cdp-manager/blob/master/src/GetCdps.sol). Data location is shown in pseudocode and follows this format: `Contract.function(...).variable`. Assuming that a DSProxy has already been built for a particular User Address:
@@ -211,6 +235,5 @@ Run into an issue that’s not covered in this guide? Please find our contact in
 [Rates Module Documentation](https://docs.makerdao.com/smart-contract-modules/rates-module)
 [Guide: Intro to Rates Mechanism in the Maker Protocol](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 [Example: Compounding rates](https://docs.google.com/spreadsheets/d/1fDwooo9tVftgd9Q7dVbd857Ue8demLVukFnsakl8MHE/edit?usp=sharing)
-
 
 - Rocket chat - [#dev](https://chat.makerdao.com/channel/dev) channel
