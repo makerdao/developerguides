@@ -168,11 +168,13 @@ You may notice that an Ethereum address only has access to a single `Urn` for ea
 
 ### Use Maker Protocol parameters for calculations
 
-When calculating different ratios about vaults or different collateral assets in the Maker Protocol, it is mandatory to use these parameters as a source directly from the Maker Protocol.  So in order to be on the same level with what Maker Protocol sees as the true information about its system parameters. 
+In order to calculate collateralization ratios for Vaults in the Maker Protocol, it is important to take the variable `par`, also known as the reference price of Dai, into consideration. Failure to do so, might result in incorrect calculation of collateralization ratios, which can result in unwanted liquidations.
 
-With the addition of the [Vox](https://forum.makerdao.com/t/mip20-target-price-adjustment-module-vox/3196) module, the `[par](https://github.com/makerdao/dss/blob/master/src/spot.sol#L49)` (ref per dai) parameter will be able to be changed by Maker Governance to ensure a stable Dai price. 
+To calculate the collateralization ratio of a collateral type (ilk), use the following formula:
 
-As `par` is being used in the [Spot.poke()](https://github.com/makerdao/dss/blob/master/src/spot.sol#L96) function, depending on the value it has, it will affect the `spot` value of the collateral. See spot variable in the `poke()` function below.
+`Collateralization Ratio = Vat.urn.ink * Vat.ilk.spot * Spot.ilk.mat / (Vat.urn.art * Vat.ilk.rate)`
+
+Since `par` is being used in the [Spot.poke()](https://github.com/makerdao/dss/blob/master/src/spot.sol#L96) function, it will affect the `spot` value of the collateral type. See spot variable in the poke() function below.
 
 ```solidity
 function poke(bytes32 ilk) external {
@@ -183,11 +185,9 @@ function poke(bytes32 ilk) external {
     }
 ```
 
-So, for example, when calculating the Collateral Ratio of a certain collateral asset (ilk) you should do it this way:
+Since `spot` takes `par` into consideration, the formula for collateralization ratio above will work, even if `par` changes.
 
-```bash
-CollateraizationlRatio = Vat.urn.ink * Vat.ilk.spot * Spot.ilk.mat / (Vat.urn.art * Vat.ilk.rate)
-```
+In order to ensure that your integration calculates the same collateralization ratio as the Maker Protocol, only parameters used in the Vat and Spot contracts should be utilized.
 
 #### Example
 
