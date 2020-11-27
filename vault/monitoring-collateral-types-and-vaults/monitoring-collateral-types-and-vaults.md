@@ -189,35 +189,6 @@ Since `spot` takes `par` into consideration, the formula for collateralization r
 
 In order to ensure that your integration calculates the same collateralization ratio as the Maker Protocol, only parameters used in the Vat and Spot contracts should be utilized.
 
-#### Example
-
-Since it’s the most complex and more commonly used, the following example for reading the state of an `Urn` with a proxy identity is used; if the proxy identity owns multiple `urns` through the CDPManager, it will read the list through the [GetCDPs contract](https://github.com/makerdao/dss-cdp-manager/blob/master/src/GetCdps.sol). Data location is shown in pseudocode and follows this format: `Contract.function(...).variable`. Assuming that a DSProxy has already been built for a particular User Address:
-
-```bash
-UserAddress = ‘0x123ABC….’
-DSProxyAddress = ProxyRegistry.proxies(UserAddress)
-
-(CDPIDs, UrnHandlerAddresses, Ilks) = GetCDPs.getCdpsAsc(CDPManager, DSProxyAddress)
-
-urn1 = Vat.urns(UrnHandlerAddresses[0],Ilks[0])
-urn2 = Vat.urns(UrnHandlerAddresses[1],Ilks[1])
-…
-
-Collateral Debt Multiplier = Ilk.rate = 1.018 x 10^27
-
-Normalized Internal Dai = urn1.art = 18.26 x 10^18
-
-Locked Collateral = urn1.ink = 1 x 10^18
-
-USD Debt = Normalized Internal Dai x Collateral Debt Multiplier = 18.26 x 1.018 = $18.58 (remember to normalize to a common unit)
-
-USD Collateral = Locked Collateral x Delayed Collateral Price (from Ilk example) = 1 x 225 ETH / USD = $225 (remember to normalize to a common unit)
-
-Collateralization Ratio = USD Collateral / USD Debt = $225 / $18.58 = 1210%
-```
-
-As supplemental education materials, here’s a [spreadsheet example](https://docs.google.com/spreadsheets/d/1fDwooo9tVftgd9Q7dVbd857Ue8demLVukFnsakl8MHE/edit?usp=sharing) as well as our [Intro to Rates Mechanism Guide](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md) showing how compounding rates are handled in the Maker Protocol; in addition to the [Rates Module documentation](https://docs.makerdao.com/smart-contract-modules/rates-module) we recommend their review when learning more about `Normalized Internal Dai` and the `Collateral Debt Multiplier`.
-
 ## Summary
 
 In this guide, you were introduced to the locations of important data structures within the Maker Protocol, ranging from collateral types and their risk parameters to the state of Vaults.
