@@ -26,7 +26,6 @@ Estimated Time: 45 minutes
       - [Example](#example)
     - [Vaults](#vaults)
     - [Use Maker Protocol parameters for calculations](#use-maker-protocol-parameters-for-calculations)
-      - [Example](#example-1)
   - [Summary](#summary)
   - [Troubleshooting](#troubleshooting)
   - [Next steps](#next-steps)
@@ -173,6 +172,26 @@ In order to calculate collateralization ratios for Vaults in the Maker Protocol,
 To calculate the collateralization ratio of a collateral type (ilk), use the following formula:
 
 `Collateralization Ratio = Vat.urn.ink * Vat.ilk.spot * Spot.ilk.mat / (Vat.urn.art * Vat.ilk.rate)`
+
+`Vat`: Vault database contract
+
+`Spot`: Collateral price contract (Interface between price oracles and core Maker contracts)
+
+`urn`: Vault
+
+`ink`: Amount of collateral tokens
+
+`ilk`: Collateral type
+
+`mat`: Liquidation ratio
+
+`spot`: collateral price with safety margin, i.e. the maximum stablecoin allowed per unit of collateral. Uses par internally.
+
+`art`: Normalized stablecoin debt
+
+`rate`: Stability fee accumulator - (urn.art*ilk.rate = Dai debt for a Vault)
+
+Note the difference between Spot the contract, and spot the variable.
 
 Since `par` is being used in the [Spot.poke()](https://github.com/makerdao/dss/blob/master/src/spot.sol#L96) function, it will affect the `spot` value of the collateral type. See spot variable in the poke() function below.
 
