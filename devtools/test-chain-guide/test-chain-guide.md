@@ -164,7 +164,7 @@ async function start() {
 
     const cdp = await maker
       .service('mcd:cdpManager')
-      .openLockAndDraw('ETH-A', ETH(1), MDAI(20));
+      .openLockAndDraw('ETH-A', ETH(5), MDAI(500));
 
     console.log('Opened CDP #'+cdp.id);
     console.log('Collateral amount:'+cdp.collateralAmount.toString());
@@ -188,8 +188,8 @@ Web3 is authenticating...
 Account:  0x16fb96a5fa0427af0c8f7cf1eb4870231c8154b6
 Balance 70.85 ETH
 Opened CDP #6
-Collateral amount:1.00 ETH
-Debt Value:20.00 MDAI
+Collateral amount:5.00 ETH
+Debt Value:500.00 MDAI
 ```
 
 ### Interact with contracts directly with [seth](https://dapp.tools/seth/)
@@ -301,13 +301,13 @@ To prepare the locking of collateral, you set two variables with the amount of c
 
 ```bash
 export dink=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 5 eth)))
-export dart=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 100 eth)))
+export dart=$(seth --to-uint256 $(seth --to-hex $(seth --to-wei 500 eth)))
 ```
 
 - `dink` is delta ink - a signed difference value to the current value. This value is used in the frob function call to determine how much ink to lock in the Vat.
 - `dart`  is delta art - a signed difference value to the current value. This value is used in the frob function call to determine how much art(debt) to mint in the Vat.
 
-Finally, you can lock up collateral in the Vat and generate Dai. The parameters `$dink` and `$dart` that you defined earlier represent how much ether you want to lock in our ether Vault and how much Dai you want to generate, respectively. This being 5 ether and 100 Dai. You can deposit the ether and generate Dai all in one transaction, as shown below:
+Finally, you can lock up collateral in the Vat and generate Dai. The parameters `$dink` and `$dart` that you defined earlier represent how much ether you want to lock in our ether Vault and how much Dai you want to generate, respectively. This being 5 ether and 500 Dai. You can deposit the ether and generate Dai all in one transaction, as shown below:
 
 ```bash
 seth send $CDP_MANAGER 'frob(uint256,int256,int256)' $cdpId $dink $dart
@@ -335,7 +335,7 @@ seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI
 Finally, you withdraw the Dai to your account. You need the `$wad` parameter that will define the amount of Dai you want to withdraw.
 
 ```bash
-export wad=$(seth --to-uint256 $(seth --to-wei 100 eth))
+export wad=$(seth --to-uint256 $(seth --to-wei 500 eth))
 seth send $MCD_JOIN_DAI "exit(address,uint256)" $ETH_FROM $wad
 ```
 
@@ -350,7 +350,7 @@ seth --from-wei $(seth --to-dec $(seth call $MCD_DAI 'balanceOf(address)' $ETH_F
 Output:
 
 ```bash
-100.000000000000000000
+500.000000000000000000
 ```
 
 Congratulations, you’ve successfully created an ETH Vault in the MCD system and drawn some fresh Dai.
@@ -378,15 +378,15 @@ Pay back your Dai debt and unlock your collateral. You do this with the same `$d
 Using [mcd-cli](https://github.com/makerdao/mcd-cli#installation), you create your two negative numbers:
 
 ```bash
-export minus20hex=$(mcd --to-hex $(seth --to-wei -20 eth))
 export minus5hex=$(mcd --to-hex $(seth --to-wei -5 eth))
+export minus500hex=$(mcd --to-hex $(seth --to-wei -500 eth))
 ```
 
 Then, you set these negative numbers to `$dink` and `$dart`.
 
  ```bash
  export dink=$(seth --to-uint256 $minus5hex)
- export dart=$(seth --to-uint256 $minus20hex)
+ export dart=$(seth --to-uint256 $minus500hex)
  ```
 
  Now you can call the `frob` function via the CDPManager to pay back Dai and unlock your collateral.
