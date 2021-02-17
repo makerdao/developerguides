@@ -1,6 +1,3 @@
-
-# CDP Manager Guide
-=======
 ---
 title: CDP Manager Guide
 description: Learn about CDP Manager and use it to integrate with Maker Protocol
@@ -13,6 +10,7 @@ contentType: guides
 root: false
 ---
 
+# CDP Manager Guide
 
 **Level**: Advanced  
 **Estimated Time**: 30 minutes
