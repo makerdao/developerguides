@@ -1,6 +1,6 @@
 ---
 title: Dai Token
-description: Learm about Dai and integrate it into applications
+description: Learn about Dai and integrate it into applications
 parent: dai
 tags:
   - dai
