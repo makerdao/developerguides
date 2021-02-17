@@ -4,7 +4,7 @@ description: Learm about Dai and integrate it into applications
 parent: dai
 tags:
   - dai
-	- ERC20 contract
+  - ERC20 contract
 slug: dai-token
 contentType: guides
 root: false
