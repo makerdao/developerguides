@@ -3,7 +3,7 @@ title: Working with DSProxy
 description: Learn how DSProxy is used in Maker and apply it in your applications
 parent: devtools
 tags:
-  - proxy conntracts
+  - proxy contracts
   - dsproxy
   - aggregate transactions
 slug: working-with-ds-proxy
@@ -143,7 +143,7 @@ A DSProxy contract generates a event called `LogNote` with these values indexed 
 
 #### Factory Contract
 
-The function `build` in the DSProxyFactory contract is used to deploy a personal DSProxy contract. Since proxy addresses are derived from the internal nonce of the DSProxyFactory, **it's reccommended a 20 block confirmation time follows the `build` transaction**, lest an accidental address re-assignment during a block re-org. For production use cases on mainnet you can use a common factory contract that is already being used by existing projects to avoid deploying redundant DSProxy contracts for users who already have one. Please check the [Production Usage](#production-usage) section in this guide for more details.
+The function `build` in the DSProxyFactory contract is used to deploy a personal DSProxy contract. Since proxy addresses are derived from the internal nonce of the DSProxyFactory, **it's recommended a 20 block confirmation time follows the `build` transaction**, lest an accidental address re-assignment during a block re-org. For production use cases on mainnet you can use a common factory contract that is already being used by existing projects to avoid deploying redundant DSProxy contracts for users who already have one. Please check the [Production Usage](#production-usage) section in this guide for more details.
 
 ### Create a script
 
@@ -424,7 +424,7 @@ contract Delev {
 
 ### Deployment and Execution
 
-Before you begin, ensure you have some Kovan ETH to pay gas for transactions and Kovan Sai on the address by following instructions on this [guide](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md#testnet)
+Before you begin, ensure you have some Kovan ETH to pay gas for transactions and Kovan Dai on the address by following instructions on this [guide](https://github.com/makerdao/developerguides/blob/master/dai/dai-token/dai-token.md#testnet)
 
 Build the `delev` project
 
@@ -496,7 +496,7 @@ Call execute on the DSProxy contract with these inputs,
 seth send $MYPROXY 'execute(address,bytes memory)' $DELEV $CALLDATA
 ```
 
-If the call worked correctly, you will the Ether and Dai balances on the contract reduced by a small amount.
+If the call worked correctly, you will see the Ether and Dai balances on the contract reduced by a small amount.
 
 ### Best Practices
 
