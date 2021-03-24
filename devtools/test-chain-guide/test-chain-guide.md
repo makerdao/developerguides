@@ -489,7 +489,7 @@ In addition, you can use this [repo](https://github.com/makerdao/dss-deploy) to 
 
 ## Resources
 
-- <https://makerdao.com/documentation/>
+- <https://docs.makerdao.com/>
 - <https://docs.microsoft.com/en-us/windows/wsl/install-win10>
 - <https://dapp.tools/>
 - <https://nodejs.org>
