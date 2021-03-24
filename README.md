@@ -32,6 +32,7 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Introduction and Overview of Multi-Collateral Dai: MCD101](./mcd/mcd-101/mcd-101.md)
 - [Using MCD-CLI to create and close a Vault on Kovan](./mcd/mcd-cli/mcd-cli-guide/mcd-cli-guide.md)
 - [Using Seth to create and close a Vault on Kovan](./mcd/mcd-seth/mcd-seth.md)
+- [Collateral Auction Integration Guide](mcd/collateral-auction-integration-guide/collateral-auction-integration-guide.md)
 - [Add a new collateral type to Maker Protocol - Kovan](./mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
 - [Intro to the Rate mechanism](./mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 
