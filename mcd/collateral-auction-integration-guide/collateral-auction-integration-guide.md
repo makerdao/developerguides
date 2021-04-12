@@ -1,7 +1,5 @@
 # Collateral Auction Integration Guide
 
-**Disclaimer: Content in this guide is work in progress and subject to change as LIQ 2.0 is still being audited.**
-
 ## **Overview**
 
 In this guide, you’ll learn how to monitor the state of, begin and participate with LIQ2.0 Collateral Auctions.
