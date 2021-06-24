@@ -52,7 +52,7 @@ You will need a good understanding of these concepts to be able to work through 
 
 _Before starting this guide please install [dapptools](https://dapp.tools) and [setup seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md) for use with the Kovan testnet._
 
-The guide below is updated for the [0.2.17](https://changelog.makerdao.com/releases/kovan/1.9.0/index.html) release of Maker Protocol on Kovan.
+The guide below is updated for the [1.9.0](https://changelog.makerdao.com/releases/kovan/1.9.0/index.html) release of Maker Protocol on Kovan.
 
 For this tutorial you will want to set the gas limit to 3,000,000
 
