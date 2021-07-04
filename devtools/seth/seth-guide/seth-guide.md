@@ -49,7 +49,11 @@ This script downloads the Nix package manager, setups binary cache with Cachix a
 
 If you have issues using the script above, you can try the manual installation on the aforementioned website. A this point in time you can do a manual installation by running the following scripts:
 
-    curl https://nixos.org/nix/install | sh
+    curl -L https://nixos.org/nix/install | sh
+
+    <!-- Or on MacOS >=10.15 -->
+    sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
+
 
     . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
@@ -57,7 +61,7 @@ If you have issues using the script above, you can try the manual installation o
 
     cachix use dapp  
 
-    git clone --recursive [https://github.com/dapphub/dapptools](https://github.com/dapphub/dapptools) $HOME/.dapp/dapptools  
+    git clone --recursive https://github.com/dapphub/dapptools $HOME/.dapp/dapptools  
     
     nix-env -f $HOME/.dapp/dapptools -iA dapp seth solc hevm ethsign
 

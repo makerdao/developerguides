@@ -22,7 +22,7 @@ This tutorial will cover how to use the tool `seth` to deposit BAT tokens to dra
 
 For this guide, we are going to use the tool `seth`, to send transactions and interact with the Ethereum smart contracts.
 
-[Use this guide to install and set up Seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md).
+[Use this guide to install and set up Seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide/seth-guide.md).
 
 **Note: Complete the above guide to setup your Seth environment variables and getting familiar with the tool before continuing. For this guide, we are using the Kovan Testnet. Ensure that Seth is configured to connect to Kovan by setting the network parameter accordingly in a terminal or config file:**
 
