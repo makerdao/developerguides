@@ -72,6 +72,7 @@ All guides are organized in sections and by proficiency levels within each secti
 - [Activating Dai Savings Rate on Dai in Gnosis Multisig Wallet](./gnosis-multisig/dsr-gnosis-multisig-guide/dsr-gnosis-multisig-guide.md)
 - [Vote Proxy Setup with Gnosis Multisig Wallet](./gnosis-multisig/vote-proxy-setup-gnosis-multisig/vote-proxy-setup-gnosis-multisig.md)
 - [Add Dai to DSR through DsrManager with Gnosis Multisig](./gnosis-multisig/dsr-gnosis-multisig-guide/dsr-manager-gnosis-multisig-guide.md)
+- [Nested Multisig Gnosis Safe Wallet - Setup Walkthrough](./gnosis-multisig/nested-multisig-gnosis-safe-wallet-setup-walkthrough/nested-multisig-gnosis-safe-wallet-setup-walkthrough.md)
 
 ## Contribution guidelines
 
