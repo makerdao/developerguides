@@ -50,9 +50,9 @@ You will need a good understanding of these concepts to be able to work through 
 
 ## Guide
 
-*Before starting this guide please install [dapptools](https://dapp.tools) and [setup seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md) for use with the Kovan testnet.*
+_Before starting this guide please install [dapptools](https://dapp.tools) and [setup seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md) for use with the Kovan testnet._
 
-The guide below is updated for the [0.2.17](https://changelog.makerdao.com/releases/kovan/0.2.17/index.html) release of Maker Protocol on Kovan.
+The guide below is updated for the [1.9.0](https://changelog.makerdao.com/releases/kovan/1.9.0/index.html) release of Maker Protocol on Kovan.
 
 For this tutorial you will want to set the gas limit to 3,000,000
 
@@ -66,14 +66,14 @@ Execute these commands to initialize environment variables with addresses of the
 
 ```bash
 export MCD_VAT=0xba987bdb501d131f766fee8180da5d81b34b69d9
-export MCD_CAT=0x0511674a67192fe51e86fe55ed660eb4f995bdd6
-export MCD_JUG=0xcbb7718c9f39d05aeede1c472ca8bf804b2f1ead
-export MCD_SPOT=0x3a042de6413edb15f2784f2f97cc68c7e9750b2d
-export MCD_PAUSE=0x8754e6ecb4fe68daa5132c2886ab39297a5c7189
-export MCD_PAUSE_PROXY=0x0e4725db88bb038bba4c4723e91ba183be11edf3
-export MCD_ADM=0xbbffc76e94b34f72d96d054b31f6424249c1337d
-export MCD_END=0x24728acf2e2c403f5d2db4df6834b8998e56aa5f
-export MCD_JOIN_DAI=0x5aa71a3ae1c0bd6ac27a1f28e1415fffb6f15b8c
+export MCD_CAT=0xdDb5F7A3A5558b9a6a1f3382BD75E2268d1c6958
+export MCD_JUG=0xcbB7718c9F39d05aEEDE1c472ca8Bf804b2f1EaD
+export MCD_SPOT=0x3a042de6413eDB15F2784f2f97cC68C7E9750b2D
+export MCD_PAUSE=0x8754E6ecb4fe68DaA5132c2886aB39297a5c7189
+export MCD_PAUSE_PROXY=0x0e4725db88Bb038bBa4C4723e91Ba183BE11eDf3
+export MCD_ADM=0x27E0c9567729Ea6e3241DE74B3dE499b7ddd3fe6
+export MCD_END=0x3d9603037FF096af03B83725dFdB1CDA9EA02CE4
+export MCD_JOIN_DAI=0x5AA71a3ae1C0bd6ac27A1f28e1415fFFB6F15B8c
 ```
 
 Set a variable with the address of the token going to be used for the collateral type. This guide will use the Kovan MKR token as an example.
@@ -174,10 +174,10 @@ seth --to-uint256 1000000000315522921573372069
 export DUTY=0000000000000000000000000000000000000000033b2e3ca43176a9d2dfd0a5
 ```
 
-*Note: How the number `1000000000315522921573372069` corresponds to a `1%` annual rate is covered in [this guide](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)*
+_Note: How the number `1000000000315522921573372069` corresponds to a `1%` annual rate is covered in [this guide](https://github.com/makerdao/developerguides/blob/master/mcd/intro-rate-mechanism/intro-rate-mechanism.md)_
 
 A liquidation penalty is imposed on a Vault by increasing its debt by a percentage before a collateral aucion is kicked off. This penalty is imposed to prevent [Auction Grinding Attacks](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf).
-Calculate the uint256 value using the first command to initialize the CHOP variable with an additional `10%`.  E.g. you can pass `110%` here so when you start an auction it will be for the amount of the outstanding debt plus `10%`.
+Calculate the uint256 value using the first command to initialize the CHOP variable with an additional `10%`. E.g. you can pass `110%` here so when you start an auction it will be for the amount of the outstanding debt plus `10%`.
 
 ```bash
 seth --to-uint256 $(echo "110"*10^25 | bc)
