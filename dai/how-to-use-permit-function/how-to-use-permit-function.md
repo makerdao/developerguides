@@ -121,8 +121,11 @@ Make sure you have:
 Define permit function parameters
 
 ```javascript
+const SECOND = 1000;
+
 const fromAddress = "0x9EE5e175D09895b8E1E28c22b961345e1dF4B5aE";
-const expiry = Date.now() + 120;
+// JavaScript dates have millisecond resolution
+const expiry = Math.trunc((Date.now() + 120 * SECOND) / SECOND);
 const nonce = 1;
 const spender = "0xE1B48CddD97Fa4b2F960Ca52A66CeF8f1f8A58A5";
 ```
@@ -203,30 +206,18 @@ Define signing function that will use the EIP712 for signing the message data an
 
 ```javascript
 const signData = async function (web3, fromAddress, typeData) {
-  return new Promise(function (resolve, reject) {
-    web3.currentProvider.sendAsync(
-      {
-        id: 1,
-        method: "eth_signTypedData_v3",
-        params: [fromAddress, typeData],
-        from: fromAddress,
-      },
-      function (err, result) {
-        if (err) {
-          reject(err); //TODO
-        } else {
-          const r = result.result.slice(0, 66);
-          const s = "0x" + result.result.slice(66, 130);
-          const v = Number("0x" + result.result.slice(130, 132));
-          resolve({
-            v,
-            r,
-            s,
-          });
-        }
-      }
-    );
+  const result = await web3.currentProvider.sendAsync({
+    id: 1,
+    method: "eth_signTypedData_v3",
+    params: [fromAddress, typeData],
+    from: fromAddress,
   });
+  
+  const r = result.result.slice(0, 66);
+  const s = "0x" + result.result.slice(66, 130);
+  const v = Number("0x" + result.result.slice(130, 132));
+  
+  return { v, r, s };
 };
 ```
 
