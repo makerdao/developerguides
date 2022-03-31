@@ -55,6 +55,7 @@ export WBTC=0x7ccF0411c7932B99FC3704d68575250F032e3bB7
 ```
 
 **NOTICE:** `WBTC` has only 8 decimals instead of the standard 18 decimals, so keep this in mind when performing conversions, as `seth --to-wei/--from-wei` will not work. Use `seth --to-fix/--from-fix` instead.
+For tokens with 18 decimals, you can simply change the value of the variable below to `18` or use `seth --to-wei/--from-wei`.
 
 ```bash
 export WBTC_DECIMALS=8
@@ -182,7 +183,7 @@ We begin by opening an empty Vault, so we can use it to lock collateral into. Fo
 export ilk=$(seth --to-bytes32 $(seth --from-ascii "WBTC-A"))
 ```
 
-Now let's open the Vault:
+Now let’s open the Vault:
 ```bash
 seth send $CDP_MANAGER 'open(bytes32, address)' $ilk $ETH_FROM
 ```
@@ -259,9 +260,7 @@ With the variables set, we can call `frob`:
 seth send $CDP_MANAGER 'frob(uint256, int256, int256)' $cdpId $dink $dart
 ```
 
-Now, let's check out our internal DAI balance to see if we have succeeded.
-
-We are going to use the following `vat` function: `dai(address urn)(uint256)`:
+Now, let’s check out our internal DAI balance to see if we have succeeded. We are going to use the following `vat` function: `dai(address urn)(uint256)`:
 
 ```bash
 seth call $MCD_VAT 'dai(address)(uint256)' $urn | seth --to-fix 45
