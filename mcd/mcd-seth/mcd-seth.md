@@ -6,8 +6,6 @@
 
 This tutorial will cover how to use the tool `seth` to deposit WBTC tokens to draw DAI from the Goerli deployment of MCD as an example, since the process is the same for any other ERC-20 token. You can use the same methodology for any supported token in MCD, by changing the contract addresses to the specific token you want to use.
 
-<!-- vim-markdown-toc GFM -->
-
 * [Prerequisites](#prerequisites)
     * [Setting up Seth](#setting-up-seth)
     * [Other tools](#other-tools)
@@ -16,8 +14,6 @@ This tutorial will cover how to use the tool `seth` to deposit WBTC tokens to dr
 * [Token approval](#token-approval)
 * [Finally interacting with the Maker Protocol contracts](#finally-interacting-with-the-maker-protocol-contracts)
 * [Paying back DAI debt to release collateral](#paying-back-dai-debt-to-release-collateral)
-
-<!-- vim-markdown-toc -->
 
 ## Prerequisites
 
