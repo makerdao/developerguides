@@ -260,9 +260,9 @@ Learn more about naming in MCD [here](https://github.com/makerdao/dss/wiki/Gloss
 
 
 ```bash
-export RAD_DECIMALS=45
-export RAY_DECIMALS=27
 export WAD_DECIMALS=18
+export RAY_DECIMALS=27
+export RAD_DECIMALS=45
 
 export dink=$(seth --to-wei 5 eth)
 export rate=$(seth call $MCD_VAT \
