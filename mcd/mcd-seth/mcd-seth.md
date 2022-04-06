@@ -23,24 +23,29 @@ For this guide, we are going to use the tool `seth`, to send transactions and in
 
 [Use this guide to install and set up Seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide/seth-guide.md).
 
-**Note: Complete the above guide to set up your Seth environment variables and getting familiar with the tool before continuing. For this guide, we are using the Goerli Testnet. Ensure that Seth is configured to connect to Goerli by setting the network parameter accordingly in a terminal or config file:**
-
-**If using other networks, make sure to change the `SETH_CHAIN` and `ETH_RPC_URL` variables to your preferred network**
+**⚠️ ATTENTION:** Complete the above guide to set up your Seth environment variables and getting familiar with the tool before continuing. For this guide, we are using the Goerli Testnet. Ensure that `seth` is configured to connect to Goerli by setting the network parameter accordingly in a terminal or config file:
 
 ```bash
 export SETH_CHAIN=goerli
 ```
 
+If using other networks, make sure to change the `SETH_CHAIN` and `ETH_RPC_URL` variables to your preferred network:
+
+```bash
+# Remove the `#` from the line below to execute it
+# export SETH_CHAIN=rinkeby
+```
+
 ### Other tools
 
-- [mcd-cli](https://github.com/makerdao/mcd-cli#installation)
-- `bc` ([Arbitrary Precision Calculator](https://www.gnu.org/software/bc/))
+- [`mcd-cli`](https://github.com/makerdao/mcd-cli#installation)
+- [`bc` (Arbitrary Precision Calculator)](https://www.gnu.org/software/bc/)
 
 ## Getting tokens
 
 Even though we are not using it as collateral, we will need Goerli ETH for gas. We can get some from this [faucet](https://goerlifaucet.com/).
 
-Next, we are going to need some test collateral tokens (WBTC) on the Goerli network to draw DAI from them. Luckily, there is a faucet set up just for this. It gives the caller 5 WBTC Goerli tokens.
+Next, we need to get some test collateral tokens (WBTC) on the Goerli network to draw DAI from them. Luckily, there is a faucet set up just for this. It gives the caller 5 WBTC Goerli tokens.
 
 We can only call the faucet once per account address, so if you mess something up in the future, or you require more for any reason, you are going to need to create a new account. This is how we can call the faucet with `seth`:
 
@@ -85,7 +90,8 @@ If everything went according to plan, the output should be this:
 
 For better readability, we are going to save a bunch of contract addresses in variables belonging to the related smart contracts deployed to Goerli. In a terminal, carry out the following commands (in grey):
 
-**Set the gas quantity:**  
+**Set the gas quantity:**
+
 ```bash
 export ETH_GAS=2000000
 ```
@@ -108,7 +114,7 @@ export MCD_DAI=0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844
 export MCD_JOIN_WBTC_A=0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D
 ```
 
-**Vat contract - Central state storage for MCD:**
+**Vat contract &ndash; Central state storage for MCD:**
 
 ```bash
 export MCD_VAT=0xB966002DDAa2Baf48369f5015329750019736031
@@ -134,9 +140,9 @@ export MCD_JUG=0xC90C99FE9B5d5207A03b9F28A6E8A19C0e558916
 
 ## Token approval
 
-We do not transfer ERC-20 tokens manually to the MCD adapters - instead we give approval for the adapters to using some of our ERC-20 tokens. The following section will take us through the necessary steps.
+We do not transfer ERC-20 tokens manually to the MCD adapters &ndash; instead we give approval for the adapters to using some of our ERC-20 tokens. The following section will take us through the necessary steps.
 
-In this example, we are going to use 5 WBTC tokens to draw 15000 DAI. You may of course use different amounts, just remember to change it accordingly in the function calls of this guide, while ensuring that you are within the accepted collateralization ratio of WBTC Vault (145% at the time of this writing) and the minimum vault debt (15000 DAI). 
+In this example, we are going to use 5 WBTC tokens to draw 15000 DAI. You may of course use different amounts, just remember to change it accordingly in the function calls of this guide, while ensuring that you are within the accepted collateralization ratio (`mat`) of a WBTC Vault and the minimum vault debt (`dust`) &ndash; respectively, `145%` and `15000` DAI at the time of this writing.
 
 Let’s approve the use of 5 WBTC tokens for the adapter, and then call the `approve` function of the WBTC token contract with the right parameters. Again, we have to do some conversions:
 
@@ -162,11 +168,11 @@ In order to better understand the MCD contracts, the following provides a brief 
 - `wad`: token unit amount
 - `gem`: collateral token adapter
 - `ilk`: Vault type
-- `urn`: Vault record - keeps track of a Vault
+- `urn`: Vault record &ndash; keeps track of a Vault
 - `ink`: rate \* wad represented in collateral
-- `dink`: delta ink - a signed difference value to the current value
+- `dink`: delta ink &ndash; a signed difference value to the current value
 - `art`: rate \* wad represented in DAI
-- `dart`: delta art - a signed difference value to the current value
+- `dart`: delta art &ndash; a signed difference value to the current value
 - `lad`: Vault owner
 - `rat`: collateralization ratio
 
@@ -194,7 +200,7 @@ export urn=$(seth call $CDP_MANAGER 'urns(uint256)(address)' $cdpId)
 After acquiring `cdpId` and `urn` address, we can move to the next step. Locking our tokens into the system.
 
 First we are going to make a transaction to the WBTC adapter to actually take 5 of our tokens with the join contract function.
-The contract function looks like the following: `join(address urn, uint256 wad)`
+The contract function looks like the following: `join(address urn, uint256 amt)`
 
 - The first parameter is the `urn`, our vault address.
 - The second parameter is the token amount in `wad`.
@@ -205,13 +211,13 @@ For the sake of readability, we up the `amt` parameter representing the amount o
 export amt=$(seth --from-fix $WBTC_DECIMALS 5)
 ```
 
-Then use the following command to use the join function, thus taking 150 WBTC from our account and sending to `urn` address.
+Then use the following command to use the join function, thus taking 5 WBTC from our account and sending to `urn` address.
 
 ```bash
 seth send $MCD_JOIN_WBTC_A "join(address, uint256)" $urn $amt
 ```
 
-**NOTICE:** From this point on, the join adapter already took care of the fact that WBTC has only 8 decimals, so we can proceed with `wad` normally.
+**NOTICE:** From this point on, the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter already took care of the fact that WBTC has only 8 decimals, so we can proceed with `wad` normally.
 
 We can check the results with the contract function: `gem(bytes32 ilk, address urn)(uint256)` with:
 
@@ -233,33 +239,47 @@ The next step is adding the collateral into an urn. This is done through the `CD
 
 The function is called `frob(uint256, uint256, uint256)`, which receives the following parameters:
 
-- `uint256 cdp` - the `cdpId`
-- `int256 dink` - delta ink (collateral)
-- `int256 dart` - delta art (Dai).
+- `uint256 cdp` &ndash; the `cdpId`
+- `int256 dink` &ndash; delta ink (collateral)
+- `int256 dart` &ndash; delta art (Dai).
 
 If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. 
 
-Let’s add our 150 WBTC to the urn, and draw 15000 DAI ensuring that the position is overcollateralized.
+Let’s add our 5 WBTC to the urn, and draw 15000 DAI ensuring that the position is overcollateralized.
 We already set up `cdp` before, so we only need to set up `dink` (WBTC deposit) and `dart` (DAI to be drawn):
 
-```bash
-dink=$(seth --to-wei 5 eth)
-rate=$(seth call $MCD_VAT 'ilks(bytes32)(uint256 Art, uint256 rate, uint256 spot, uint256 line, uint256 dust)' $ilk | \
-    sed -n 2p | seth --to-fix 27)
-dart=$(bc<<<"scale=18; art=(15000/$rate*10^18+1); scale=0; art/1")
-```
+**NOTICE:** The `vat` uses an internal `dai` representation called &ldquo;normalized art&rdquo; that is useful to calculate accrued stability fees. To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`.
 
-**NOTICE:** The `vat` is using an internal `dai` representation called "normalized art" that is useful to calculate accrued stability fees. To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`.
+Inside the `vat`, different parameters have different decimal precisions:
+
+- `dai`: 45 decimals (`rad`)
+- `rate`: 27 decimals (`ray`)
+- `dink`/`dart`: 18 decimals (`wad`)
+
+Learn more about naming in MCD [here](https://github.com/makerdao/dss/wiki/Glossary#general).
+
+
+```bash
+export RAD_DECIMALS=45
+export RAY_DECIMALS=27
+export WAD_DECIMALS=18
+
+export dink=$(seth --to-wei 5 eth)
+export rate=$(seth call $MCD_VAT \
+    'ilks(bytes32)(uint256 Art, uint256 rate, uint256 spot, uint256 line, uint256 dust)' $ilk | \
+    sed -n 2p | seth --to-fix $RAY_DECIMALS)
+export dart=$(bc<<<"scale=${WAD_DECIMALS}; art=(15000/$rate*10^${WAD_DECIMALS}+1); scale=0; art/1")
+```
 
 With the variables set, we can call `frob`:
 ```bash
 seth send $CDP_MANAGER 'frob(uint256, int256, int256)' $cdpId $dink $dart
 ```
 
-Now, let’s check out our internal DAI balance to see if we have succeeded. We are going to use the following `vat` function: `dai(address urn)(uint256)`:
+Now, let’s check out our internal DAI balance to see if we have succeeded. We can use the `vat` function `dai(address urn)(uint256)`:
 
 ```bash
-seth call $MCD_VAT 'dai(address)(uint256)' $urn | seth --to-fix 45
+seth call $MCD_VAT 'dai(address)(uint256)' $urn | seth --to-fix $RAD_DECIMALS
 ```
 
 The output should look like this (The result isn't exactly 15000 Dai because of number precision):
@@ -313,13 +333,17 @@ seth send $MCD_JUG 'drip(bytes32)' $ilk
 First thing is to determine what is our debt, including the accrued stability fee:
 
 ```bash
-art=$(seth call $MCD_VAT 'urns(bytes32, address)(uint256 ink, uint256 art)' $ilk $urn | \
+export RAD_DECIMALS=45
+export RAY_DECIMALS=27
+export WAD_DECIMALS=18
+
+export art=$(seth call $MCD_VAT 'urns(bytes32, address)(uint256 ink, uint256 art)' $ilk $urn | \
     sed -n 2p | seth --from-wei)
-rate=$(seth call $MCD_VAT \
+export rate=$(seth call $MCD_VAT \
     'ilks(bytes32)(uint256 Art, uint256 rate, uint256 spot, uint256 line, uint256 dust)' $ilk | \
-    sed -n 2p | seth --to-fix 27)
-debt=$(bc<<<"$art*$rate")
-debtWadRound=$(bc<<<"($art*$rate*10^18)/1 + 1")
+    sed -n 2p | seth --to-fix $RAY_DECIMALS)
+export debt=$(bc<<<"$art*$rate")
+export debtWadRound=$(bc<<<"($art*$rate*10^${WAD_DECIMALS})/1 + 1")
 ```
 
 - `art`: internal vault debt representation
@@ -352,7 +376,7 @@ seth send $MCD_JOIN_DAI "join(address, uint256)" $urn $debtWadRound
 To make sure it all worked:
 
 ```bash
-seth call $MCD_VAT 'dai(address)(uint256)' $urn | seth --to-fix 45
+seth call $MCD_VAT 'dai(address)(uint256)' $urn | seth --to-fix $RAD_DECIMALS
 ```
 
 Output:
@@ -369,7 +393,7 @@ dink=$(seth --to-uint256 $(mcd --to-hex $(seth --to-wei -5 eth)))
 dart=$(seth --to-uint256 $(mcd --to-hex -$(seth --to-wei $art eth)))
 ```
 
-Again, we need to use the `frob` operation to change these parameters: `frob(uint256 cdpId, address ETH_FROM, int dink, int dart)`
+Again, we need to use the `frob` operation to change these parameters: `frob(uint256 cdpId, address from, int dink, int dart)`
 
 ```bash
 seth send $CDP_MANAGER "frob(uint256, int256, int256)" $cdpId $dink $dart
@@ -387,13 +411,18 @@ Output:
 
 The WBTC is still assigned to the Vault, so we need to move them to our address:
 ```bash
-wadC=$(seth --to-wei 5 eth)
+export wadC=$(seth --to-wei 5 eth)
 seth send $CDP_MANAGER 'flux(uint256, address, uint256)' $cdpId $ETH_FROM $wadC
 ```
 
-And from there exit the WBTC adapter to get back our tokens:
+**NOTICE:** We are about to interact with the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter once again, so we need to bring `$WBTC_DECIMALS` back into the equation.
+
+From there exit the WBTC adapter to get back our tokens:
 
 ```bash
+export WBTC_DECIMALS=8
+
+export amt=$(seth --from-fix $WBTC_DECIMALS 5)
 seth send $MCD_JOIN_WBTC_A "exit(address, uint256)" $ETH_FROM $amt
 ```
 
