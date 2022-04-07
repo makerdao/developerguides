@@ -181,7 +181,7 @@ We'll be using the [CDP Manager](https://github.com/makerdao/dss-cdp-manager) as
 
 We begin by opening an empty Vault, so we can use it to lock collateral into. For this we need to define the type of collateral (WBTC-A) we want to lock in this Vault:
 ```bash
-export ilk=$(seth --to-bytes32 $(seth --from-ascii "WBTC-A"))
+export ilk=$(seth --to-bytes32 $(seth --from-ascii 'WBTC-A'))
 ```
 
 Now let’s open the Vault:
@@ -213,7 +213,7 @@ export amt=$(seth --from-fix $WBTC_DECIMALS 5)
 Then use the following command to use the join function, thus taking 5 WBTC from our account and sending to `urn` address.
 
 ```bash
-seth send $MCD_JOIN_WBTC_A "join(address, uint256)" $urn $amt
+seth send $MCD_JOIN_WBTC_A 'join(address, uint256)' $urn $amt
 ```
 
 **NOTICE:** From this point on, the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter already took care of the fact that WBTC has only 8 decimals, so we can proceed with `wad` normally.
@@ -303,7 +303,7 @@ seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI
 
 And finally we exit the internal `dai` to the ERC-20 DAI:
 ```bash
-seth send $MCD_JOIN_DAI "exit(address, uint256)" $ETH_FROM $(seth --to-wei 15000 eth)
+seth send $MCD_JOIN_DAI 'exit(address, uint256)' $ETH_FROM $(seth --to-wei 15000 eth)
 ```
 
 And to check the DAI balance of our account:
@@ -341,8 +341,8 @@ export art=$(seth call $MCD_VAT 'urns(bytes32, address)(uint256 ink, uint256 art
 export rate=$(seth call $MCD_VAT \
     'ilks(bytes32)(uint256 Art, uint256 rate, uint256 spot, uint256 line, uint256 dust)' $ilk | \
     sed -n 2p | seth --to-fix $RAY_DECIMALS)
-export debt=$(bc<<<"$art*$rate")
-export debtWadRound=$(bc<<<"($art*$rate*10^${WAD_DECIMALS})/1 + 1")
+export debt=$(bc<<<"${art}*${rate}")
+export debtWadRound=$(bc<<<"(${art}*${rate}*10^${WAD_DECIMALS})/1 + 1")
 ```
 
 - `art`: internal vault debt representation
@@ -369,7 +369,7 @@ Output:
 Now to actually join the Dai to the adapter:
 
 ```bash
-seth send $MCD_JOIN_DAI "join(address, uint256)" $urn $debtWadRound
+seth send $MCD_JOIN_DAI 'join(address, uint256)' $urn $debtWadRound
 ```
 
 To make sure it all worked:
@@ -394,7 +394,7 @@ dart=$(seth --to-int256 -$(seth --to-wei $art eth))
 Again, we need to use the `frob` operation to change these parameters `frob(uint256 cdpId, address from, int dink, int dart)`:
 
 ```bash
-seth send $CDP_MANAGER "frob(uint256, int256, int256)" $cdpId $dink $dart
+seth send $CDP_MANAGER 'frob(uint256, int256, int256)' $cdpId $dink $dart
 ```
 
 This doesn’t mean we have already got back your tokens yet. Our account’s WBTC balance is not yet back to the original amount:
@@ -421,7 +421,7 @@ From there exit the WBTC adapter to get back our tokens:
 export WBTC_DECIMALS=8
 
 export amt=$(seth --from-fix $WBTC_DECIMALS 5)
-seth send $MCD_JOIN_WBTC_A "exit(address, uint256)" $ETH_FROM $amt
+seth send $MCD_JOIN_WBTC_A 'exit(address, uint256)' $ETH_FROM $amt
 ```
 
 If we check the balance again:
