@@ -1,6 +1,6 @@
 # Drawing Dai from the Goerli Maker Protocol deployment using Seth
 
-**⚠️ ATTENTION:** This guide works under the Goerli [1.11.0 Release](https://changelog.makerdao.com/releases/goerli/1.11.0/index.html) of the system.
+**⚠️ ATTENTION:** This guide works under the Goerli [1.11.0 Release](https://chainlog.makerdao.com/api/goerli/1.11.0.json) of the system.
 
 **ℹ️ NOTICE:** You can also use the Kovan, Rinkey and Ropsten deployments in this guide. Just make sure to change the contract addresses from the specific network.
 
