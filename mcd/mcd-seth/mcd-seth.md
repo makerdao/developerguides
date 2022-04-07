@@ -113,7 +113,7 @@ export MCD_DAI=0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844
 export MCD_JOIN_WBTC_A=0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D
 ```
 
-**Vat contract &ndash; Central state storage for MCD:**
+**Vat contract – Central state storage for MCD:**
 
 ```bash
 export MCD_VAT=0xB966002DDAa2Baf48369f5015329750019736031
@@ -139,9 +139,9 @@ export MCD_JUG=0xC90C99FE9B5d5207A03b9F28A6E8A19C0e558916
 
 ## Token approval
 
-We do not transfer ERC-20 tokens manually to the MCD adapters &ndash; instead we give approval for the adapters to using some of our ERC-20 tokens. The following section will take us through the necessary steps.
+We do not transfer ERC-20 tokens manually to the MCD adapters – instead we give approval for the adapters to using some of our ERC-20 tokens. The following section will take us through the necessary steps.
 
-In this example, we are going to use 5 WBTC tokens to draw 15000 DAI. You may of course use different amounts, just remember to change it accordingly in the function calls of this guide, while ensuring that you are within the accepted collateralization ratio (`mat`) of a WBTC Vault and the minimum vault debt (`dust`) &ndash; respectively, `145%` and `15000` DAI at the time of this writing.
+In this example, we are going to use 5 WBTC tokens to draw 15000 DAI. You may of course use different amounts, just remember to change it accordingly in the function calls of this guide, while ensuring that you are within the accepted collateralization ratio (`mat`) of a WBTC Vault and the minimum vault debt (`dust`) – respectively, `145%` and `15000` DAI at the time of this writing.
 
 Let’s approve the use of 5 WBTC tokens for the adapter, and then call the `approve` function of the WBTC token contract with the right parameters. Again, we have to do some conversions:
 
@@ -167,11 +167,11 @@ In order to better understand the MCD contracts, the following provides a brief 
 - `wad`: token unit amount
 - `gem`: collateral token adapter
 - `ilk`: Vault type
-- `urn`: Vault record &ndash; keeps track of a Vault
+- `urn`: Vault record – keeps track of a Vault
 - `ink`: rate \* wad represented in collateral
-- `dink`: delta ink &ndash; a signed difference value to the current value
+- `dink`: delta ink – a signed difference value to the current value
 - `art`: rate \* wad represented in DAI
-- `dart`: delta art &ndash; a signed difference value to the current value
+- `dart`: delta art – a signed difference value to the current value
 - `lad`: Vault owner
 - `rat`: collateralization ratio
 
@@ -238,9 +238,9 @@ The next step is adding the collateral into an urn. This is done through the `CD
 
 The function is called `frob(uint256, uint256, uint256)`, which receives the following parameters:
 
-- `uint256 cdp` &ndash; the `cdpId`
-- `int256 dink` &ndash; delta ink (collateral)
-- `int256 dart` &ndash; delta art (Dai).
+- `uint256 cdp`: the `cdpId`
+- `int256 dink`: delta ink (collateral)
+- `int256 dart`: delta art (Dai).
 
 If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. 
 
