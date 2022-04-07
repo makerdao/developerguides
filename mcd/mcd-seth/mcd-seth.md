@@ -38,7 +38,7 @@ If using other networks, make sure to change the `SETH_CHAIN` and `ETH_RPC_URL` 
 
 ### Other tools
 
-- [`bc` (Arbitrary Precision Calculator)](https://www.gnu.org/software/bc/)
+- [`bc` (Arbitrary Precision Calculator)](https://www.gnu.org/software/bc/).
 
 ## Getting tokens
 
@@ -173,7 +173,7 @@ In order to better understand the MCD contracts, the following provides a brief 
 - `art`: rate \* wad represented in DAI
 - `dart`: delta art – a signed difference value to the current value
 - `lad`: Vault owner
-- `rat`: collateralization ratio
+- `rat`: collateralization ratio.
 
 After giving permission to the WBTC adapter of MCD to take some of our tokens, it’s time to finally start using the MCD contracts.
 
@@ -199,12 +199,12 @@ export urn=$(seth call $CDP_MANAGER 'urns(uint256)(address)' $cdpId)
 After acquiring `cdpId` and `urn` address, we can move to the next step. Locking our tokens into the system.
 
 First we are going to make a transaction to the WBTC adapter to actually take 5 of our tokens with the join contract function.
-The contract function looks like the following: `join(address urn, uint256 amt)`
+The contract function looks like the following: `join(address urn, uint256 amt)`.
 
-- The first parameter is the `urn`, our vault address.
+- The first parameter is the `urn`, our vault address
 - The second parameter is the token amount in `wad`.
 
-For the sake of readability, we up the `amt` parameter representing the amount of collateral:
+For the sake of readability, we set the `amt` parameter representing the amount of collateral:
 
 ```bash
 export amt=$(seth --from-fix $WBTC_DECIMALS 5)
@@ -253,7 +253,7 @@ Inside the `vat`, different parameters have different decimal precisions:
 
 - `dai`: 45 decimals (`rad`)
 - `rate`: 27 decimals (`ray`)
-- `dink`/`dart`: 18 decimals (`wad`)
+- `dink`/`dart`: 18 decimals (`wad`).
 
 Learn more about naming in MCD [here](https://github.com/makerdao/dss/wiki/Glossary#general).
 
