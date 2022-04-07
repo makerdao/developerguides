@@ -333,9 +333,9 @@ seth send $MCD_JUG 'drip(bytes32)' $ilk
 First thing is to determine what is our debt, including the accrued stability fee:
 
 ```bash
-export RAD_DECIMALS=45
-export RAY_DECIMALS=27
 export WAD_DECIMALS=18
+export RAY_DECIMALS=27
+export RAD_DECIMALS=45
 
 export art=$(seth call $MCD_VAT 'urns(bytes32, address)(uint256 ink, uint256 art)' $ilk $urn | \
     sed -n 2p | seth --from-wei)
