@@ -73,7 +73,7 @@ Execute the following to receive test 5 WBTC tokens:
 seth send $FAUCET 'gulp(address)' $WBTC
 ```
 
-Let's check if we have received the tokens from the faucet. The following conversions are needed, because seth returns data in hexadecimal value, and the contract stores it in wei unit.
+Let's check if we have received the tokens from the faucet. The following conversions are needed, because `seth` returns data in hexadecimal value, and the contract stores it in `wei` unit.
 
 Execute:
 
@@ -180,29 +180,31 @@ After giving permission to the WBTC adapter of MCD to take some of our tokens, i
 We'll be using the [CDP Manager](https://github.com/makerdao/dss-cdp-manager) as the preferred interface to interact with MCD contracts.
 
 We begin by opening an empty Vault, so we can use it to lock collateral into. For this we need to define the type of collateral (WBTC-A) we want to lock in this Vault:
+
 ```bash
-export ilk=$(seth --to-bytes32 $(seth --from-ascii 'WBTC-A'))
+export ilk=$(seth --to-bytes32 $(seth --from-ascii "WBTC-A"))
 ```
 
 Now let’s open the Vault:
+
 ```bash
 seth send $CDP_MANAGER 'open(bytes32, address)' $ilk $ETH_FROM
 ```
 
-We need the `cdpId` and `urn` address of our open Vault, so we can interact with the system.
+We need the `cdpId` and `urn` address of our open Vault, so we can interact with the system:
 
 ```bash
 export cdpId=$(seth call $CDP_MANAGER 'last(address)(uint256)' $ETH_FROM)
 export urn=$(seth call $CDP_MANAGER 'urns(uint256)(address)' $cdpId)
 ```
 
-After acquiring `cdpId` and `urn` address, we can move to the next step. Locking our tokens into the system.
+After acquiring `cdpId` and `urn` address, we can move to the next step: locking our tokens into the system.
 
 First we are going to make a transaction to the WBTC adapter to actually take 5 of our tokens with the join contract function.
 The contract function looks like the following: `join(address urn, uint256 amt)`.
 
 - The first parameter is the `urn`, our vault address
-- The second parameter is the token amount in `wad`.
+- The second parameter is the token amount.
 
 For the sake of readability, we set the `amt` parameter representing the amount of collateral:
 
@@ -218,6 +220,16 @@ seth send $MCD_JOIN_WBTC_A 'join(address, uint256)' $urn $amt
 
 **ℹ️ NOTICE:** From this point on, the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter already took care of the fact that WBTC has only 8 decimals, so we can proceed with `wad` normally.
 
+Inside the `Vat`, different parameters have different decimal precisions:
+
+- `dai`: 45 decimals `[rad]`
+- `rate`: 27 decimals `[ray]`
+- `dink`: 18 decimals `[wad]`.
+- `dart`: 18 decimals `[wad]`.
+- ...
+
+Learn more about naming in MCD [here](https://github.com/makerdao/dss/wiki/Glossary#general).
+
 We can check the results with the contract function: `gem(bytes32 ilk, address urn)(uint256)` with:
 
 ```bash
@@ -228,35 +240,29 @@ The output should look like this:
 
 `5.000000000000000000`
 
-An optional, but recommended step is to invoke `jug.drip(ilk)` to make we are not paying undue stability fees. For more detail, please read the guide [Intro to the Rate mechanism](../intro-rate-mechanism/intro-rate-mechanism.md).
+An optional, but recommended step is to invoke `jug.drip(ilk)` to make we are not paying undue stability fees.
 
 ```bash
 seth send $MCD_JUG 'drip(bytes32)' $ilk
 ```
+
+ For more details, please see the guide [Intro to the Rate mechanism](../intro-rate-mechanism/intro-rate-mechanism.md).
 
 The next step is adding the collateral into an urn. This is done through the `CDP Manager` contract.
 
 The function is called `frob(uint256, uint256, uint256)`, which receives the following parameters:
 
 - `uint256 cdp`: the `cdpId`
-- `int256 dink`: delta ink (collateral)
-- `int256 dart`: delta art (Dai).
+- `int256 dink`: delta ink (collateral) `[wad]`
+- `int256 dart`: delta art (Dai). `[wad]`
 
 If the `frob` operation is successful, it will adjust the corresponding data in the protected `vat` module. When adding collateral to an `urn`, `dink` needs to be the (positive) amount we want to add and `dart` needs to be the (positive) amount of DAI we want to draw. 
 
 Let’s add our 5 WBTC to the urn, and draw 15000 DAI ensuring that the position is overcollateralized.
 We already set up `cdp` before, so we only need to set up `dink` (WBTC deposit) and `dart` (DAI to be drawn):
 
-**ℹ️ NOTICE:** The `vat` uses an internal `dai` representation called “normalized art” that is useful to calculate accrued stability fees. To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`.
-
-Inside the `vat`, different parameters have different decimal precisions:
-
-- `dai`: 45 decimals (`rad`)
-- `rate`: 27 decimals (`ray`)
-- `dink`/`dart`: 18 decimals (`wad`).
-
-Learn more about naming in MCD [here](https://github.com/makerdao/dss/wiki/Glossary#general).
-
+**ℹ️ NOTICE:** The `Vat` uses an internal `dai` representation called “normalized art” that is useful to calculate accrued stability fees.
+To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`:
 
 ```bash
 export WAD_DECIMALS=18
@@ -297,16 +303,19 @@ seth send $CDP_MANAGER 'move(uint256, address, uint256)' $cdpId $ETH_FROM $rad
 **ℹ️ NOTICE:** Here, `rad`, is the total amount of DAI available in the `urn`. We are reading this number to get all the DAI possible.
 
 We now allow the Dai adapter to move Dai from VAT to our address:
+
 ```bash
 seth send $MCD_VAT 'hope(address)' $MCD_JOIN_DAI
 ```
 
 And finally we exit the internal `dai` to the ERC-20 DAI:
+
 ```bash
 seth send $MCD_JOIN_DAI 'exit(address, uint256)' $ETH_FROM $(seth --to-wei 15000 eth)
 ```
 
 And to check the DAI balance of our account:
+
 ```bash
 seth call $MCD_DAI 'balanceOf(address)(uint256)' $ETH_FROM | seth --from-wei
 ```
@@ -345,10 +354,10 @@ export debt=$(bc<<<"${art}*${rate}")
 export debtWadRound=$(bc<<<"(${art}*${rate}*10^${WAD_DECIMALS})/1 + 1")
 ```
 
-- `art`: internal vault debt representation
-- `rate`: accumulated stability fee from the system
-- `debt`: vault debt in Dai
-- `debtWadRound`: vault debt in wad (i.e. multiplied by 10^18), added by 1 wad to avoid rounding issues.
+- `art`: internal vault debt representation `[wad]`
+- `rate`: accumulated stability fee from the system `[ray]`
+- `debt`: vault debt in Dai `[rad]`
+- `debtWadRound`: vault debt added by 1 wad to avoid rounding issues `[wad]`.
 
 Then we need to approve the transfer of DAI tokens to the adapter. Call the `approve` function of the DAI ERC-20 token contract with the right parameters:
 
@@ -408,6 +417,7 @@ Output:
 `0.00000000`
 
 The WBTC is still assigned to the Vault, so we need to move them to our address:
+
 ```bash
 export wad=$(seth --to-wei 5 eth)
 seth send $CDP_MANAGER 'flux(uint256, address, uint256)' $cdpId $ETH_FROM $wad
