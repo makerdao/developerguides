@@ -1,8 +1,8 @@
 # Drawing Dai from the Goerli Maker Protocol deployment using Seth
 
-**This guide works under the Goerli [1.11.0 Release](https://changelog.makerdao.com/releases/goerli/1.11.0/index.html) of the system.**
+**⚠️ ATTENTION:** This guide works under the Goerli [1.11.0 Release](https://changelog.makerdao.com/releases/goerli/1.11.0/index.html) of the system.
 
-**You can also use the Kovan, Rinkey and Ropsten deployments in this guide. Just make sure to change the contract addresses from the specific network.**
+**ℹ️ NOTICE:** You can also use the Kovan, Rinkey and Ropsten deployments in this guide. Just make sure to change the contract addresses from the specific network.
 
 This tutorial will cover how to use the tool `seth` to deposit WBTC tokens to draw DAI from the Goerli deployment of MCD as an example, since the process is the same for any other ERC-20 token. You can use the same methodology for any supported token in MCD, by changing the contract addresses to the specific token you want to use.
 
@@ -54,7 +54,7 @@ We can only call the faucet once per account address, so if you mess something u
 export WBTC=0x7ccF0411c7932B99FC3704d68575250F032e3bB7
 ```
 
-**NOTICE:** `WBTC` has only 8 decimals instead of the standard 18 decimals, so keep this in mind when performing conversions, as `seth --to-wei/--from-wei` will not work. Use `seth --to-fix/--from-fix` instead.
+**ℹ️ NOTICE:** `WBTC` has only 8 decimals instead of the standard 18 decimals, so keep this in mind when performing conversions, as `seth --to-wei/--from-wei` will not work. Use `seth --to-fix/--from-fix` instead.
 For tokens with 18 decimals, you can simply change the value of the variable below to `18` or use `seth --to-wei/--from-wei`.
 
 ```bash
@@ -216,7 +216,7 @@ Then use the following command to use the join function, thus taking 5 WBTC from
 seth send $MCD_JOIN_WBTC_A 'join(address, uint256)' $urn $amt
 ```
 
-**NOTICE:** From this point on, the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter already took care of the fact that WBTC has only 8 decimals, so we can proceed with `wad` normally.
+**ℹ️ NOTICE:** From this point on, the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter already took care of the fact that WBTC has only 8 decimals, so we can proceed with `wad` normally.
 
 We can check the results with the contract function: `gem(bytes32 ilk, address urn)(uint256)` with:
 
@@ -247,7 +247,7 @@ If the `frob` operation is successful, it will adjust the corresponding data in 
 Let’s add our 5 WBTC to the urn, and draw 15000 DAI ensuring that the position is overcollateralized.
 We already set up `cdp` before, so we only need to set up `dink` (WBTC deposit) and `dart` (DAI to be drawn):
 
-**NOTICE:** The `vat` uses an internal `dai` representation called &ldquo;normalized art&rdquo; that is useful to calculate accrued stability fees. To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`.
+**ℹ️ NOTICE:** The `vat` uses an internal `dai` representation called “normalized art” that is useful to calculate accrued stability fees. To convert the Dai amount to normalized art, we have to divide it by the current ilk `rate`.
 
 Inside the `vat`, different parameters have different decimal precisions:
 
@@ -294,7 +294,7 @@ export rad=$(seth call $MCD_VAT 'dai(address)(uint256)' $urn)
 seth send $CDP_MANAGER 'move(uint256, address, uint256)' $cdpId $ETH_FROM $rad
 ```
 
-**NOTICE:** Here, `rad`, is the total amount of DAI available in the `urn`. We are reading this number to get all the DAI possible.
+**ℹ️ NOTICE:** Here, `rad`, is the total amount of DAI available in the `urn`. We are reading this number to get all the DAI possible.
 
 We now allow the Dai adapter to move Dai from VAT to our address:
 ```bash
@@ -321,7 +321,7 @@ If everything checks out, congratulations: you have just acquired some multi-col
 
 To pay back your DAI and release the locked collateral, follow the following steps. 
 
-**IMPORTANT:** Please make sure to **obtain some additional Dai** (from another account or from another vault) because chances are interest will have accumulated in the meantime.
+**⚠️ ATTENTION:** Please make sure to **obtain some additional Dai** (from another account or from another vault) because chances are interest will have accumulated in the meantime.
 
 To force stability fee accumulation, anyone can invoke `jug.drip(ilk)`:
 
@@ -413,7 +413,7 @@ export wad=$(seth --to-wei 5 eth)
 seth send $CDP_MANAGER 'flux(uint256, address, uint256)' $cdpId $ETH_FROM $wad
 ```
 
-**NOTICE:** We are about to interact with the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter once again, so we need to bring `$WBTC_DECIMALS` back into the equation.
+**ℹ️ NOTICE:** We are about to interact with the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter once again, so we need to bring `$WBTC_DECIMALS` back into the equation.
 
 From there exit the WBTC adapter to get back our tokens:
 
