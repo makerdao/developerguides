@@ -409,8 +409,8 @@ Output:
 
 The WBTC is still assigned to the Vault, so we need to move them to our address:
 ```bash
-export wadC=$(seth --to-wei 5 eth)
-seth send $CDP_MANAGER 'flux(uint256, address, uint256)' $cdpId $ETH_FROM $wadC
+export wad=$(seth --to-wei 5 eth)
+seth send $CDP_MANAGER 'flux(uint256, address, uint256)' $cdpId $ETH_FROM $wad
 ```
 
 **NOTICE:** We are about to interact with the [join-5](https://goerli.etherscan.io/address/0x3cbE712a12e651eEAF430472c0C1BF1a2a18939D#code) adapter once again, so we need to bring `$WBTC_DECIMALS` back into the equation.
