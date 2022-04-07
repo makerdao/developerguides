@@ -38,7 +38,6 @@ If using other networks, make sure to change the `SETH_CHAIN` and `ETH_RPC_URL` 
 
 ### Other tools
 
-- [`mcd-cli`](https://github.com/makerdao/mcd-cli#installation)
 - [`bc` (Arbitrary Precision Calculator)](https://www.gnu.org/software/bc/)
 
 ## Getting tokens
@@ -386,14 +385,13 @@ Output:
 Now, onto actually getting our collateral back. `dart` and `dink`, as the `d` in their abbreviation stands for delta, are inputs for changing a value, and thus they can be negative. When we want to lower the amount of DAI drawn from the `urn`, we lower the art parameter of the `urn`.
 
 We only need to set up the `dink` and `dart` variables.
-Using [mcd-cli](https://github.com/makerdao/mcd-cli#installation), we create our two negative `$dink` and `$dart`:
 
 ```bash
-dink=$(seth --to-uint256 $(mcd --to-hex $(seth --to-wei -5 eth)))
-dart=$(seth --to-uint256 $(mcd --to-hex -$(seth --to-wei $art eth)))
+dink=$(seth --to-int256 -$(seth --to-wei 5 eth))
+dart=$(seth --to-int256 -$(seth --to-wei $art eth))
 ```
 
-Again, we need to use the `frob` operation to change these parameters: `frob(uint256 cdpId, address from, int dink, int dart)`
+Again, we need to use the `frob` operation to change these parameters `frob(uint256 cdpId, address from, int dink, int dart)`:
 
 ```bash
 seth send $CDP_MANAGER "frob(uint256, int256, int256)" $cdpId $dink $dart
