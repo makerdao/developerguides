@@ -2,7 +2,7 @@
 
 **⚠️ ATTENTION:** This guide works under the Goerli [1.11.0 Release](https://chainlog.makerdao.com/api/goerli/1.11.0.json) of the system.
 
-**ℹ️ NOTICE:** You can also use the Kovan, Rinkey and Ropsten deployments in this guide. Just make sure to change the contract addresses from the specific network.
+**ℹ️ NOTICE:** You can also use the Kovan, Rinkeby and Ropsten deployments in this guide. Just make sure to change the contract addresses from the specific network.
 
 This tutorial will cover how to use the tool `seth` to deposit WBTC tokens to draw DAI from the Goerli deployment of MCD as an example, since the process is the same for any other ERC-20 token. You can use the same methodology for any supported token in MCD, by changing the contract addresses to the specific token you want to use.
 
