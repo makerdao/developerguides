@@ -19,8 +19,8 @@ root: false
   - [Overview](#overview)
   - [Learning Objectives](#learning-objectives)
   - [Pre-requisites](#pre-requisites)
+    - [Dependencies](#dependencies)
   - [Sections](#sections)
-    - [Dependency](#dependency)
     - [Installation](#installation)
     - [Tokens deplyoment (Optional)](#tokens-deplyoment-optional)
     - [Configuration](#configuration)
@@ -55,14 +55,14 @@ Knowledge in:
 - [makerdao/dss-deploy-scripts](https://github.com/makerdao/dss-deploy-scripts)
 - Testnet ETH kovan/rinkeby/ropsten/goerli
 
-## Sections
-
-### Dependency
+### Dependencies
 
 We need to have `nix` and `dapp.tools` installed on our machine.
 
 - Install `nix`: You can use this [instruction](https://nixos.org/download.html)
 - Install `dapp.tools`: ```curl https://dapp.tools/install | sh```
+
+## Sections
 
 ### Installation
 
