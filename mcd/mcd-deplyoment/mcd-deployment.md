@@ -59,7 +59,7 @@ Knowledge in:
 
 We need to have `nix` and `dapp.tools` installed on our machine.
 
-- Install `nix`: You can use this [instruction](https://nixos.org/download.html)
+- Install `nix`: You can use these [instructions](https://nixos.org/download.html)
 - Install `dapp.tools`: ```curl https://dapp.tools/install | sh```
 
 ## Sections
@@ -68,18 +68,18 @@ We need to have `nix` and `dapp.tools` installed on our machine.
 
 First of all we will need to clone `dss-deploy-script` repo:
 
-```shell
+```bash
 git clone https://github.com/makerdao/dss-deploy-scripts.git
 cd dss-deploy-scripts
 ```
 
 The only way to install everything necessary to deploy MCD we need to run
 
-```shell
+```bash
 nix-shell --pure
 ```
 
-to drop into a Bash shell with all dependency installed.
+to drop into a Bash shell with all dependencies installed.
 
 <div style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b;; background-color: #fcf8e3; border-color: #faebcc;">
 <h5 style="color: #8a6d3b">Ethereum node</h5>
@@ -108,12 +108,12 @@ There are 2 main pieces of configuration necessary for a deployment:
 
 If you're using `nix-shell`, these variables are set automatically for you in [shell.nix](https://github.com/makerdao/dss-deploy-scripts/blob/master/shell.nix).
 
-But you can also configure the below variables manually:
+But you can also configure the variables below variables manually:
 
-- `ETH_FROM`: address of deployment account
-- `ETH_PASSWORD`: path of account password file
-- `ETH_KEYSTORE`: keystore path
-- `ETH_RPC_URL`: URL of the RPC node
+- `ETH_FROM`: address of the deployer.
+- `ETH_PASSWORD`: path of the account password file, if you don't set this, it will prompt you for your password every transaction.
+- `ETH_KEYSTORE`: keystore directory, if you are using the default `~/.ethereum/keystore/`, you don't need to set it.
+- `ETH_RPC_URL`: URL of the RPC node.
 
 #### Chain configuration
 
@@ -150,7 +150,7 @@ Below is the expected structure of such a config file:
   "flap_lid": "<Max amount of DAI that can be put up for sale at the same time in DAI unit (e.g. 1000000)>",
   "flash_max": "<Max DAI can be borrowed from flash loan module in DAI unit (e.g. 1000000)>",
   "flash_toll": "<Fee being charged from amount being borrow via flash loan module in percentage (e.g 0.1%)>",
-  import: {
+  "import": {
     "gov": "<GOV token address (if there is an existing one to import)> note: make sure to mint enough tokens for launch",
     "authority": "<Authority address (if there is an existing one to import)> note: make sure to launch MCD_ADMIN",
     "proxyRegistry": "<Proxy Registry address (if there is an existing one to import)>",
@@ -223,18 +223,18 @@ Below is the expected structure of such a config file:
 <h5 style="color: #8a6d3b">Note</h5>
 Make sure to launch <bold style="color: grey">MCD_ADMIN</bold> if you are providing it in <bold style="color: grey">config.authority</bold>.
 </div>
-```shell
-sethSend "$MCD_GOV" 'mint(address,uint256)' "$ETH_FROM" "$(seth --to-uint256 "$(seth --to-wei 1000000 ETH)")"
+```bash
+sethSend "$MCD_GOV" 'mint(address,uint256)' $ETH_FROM $(seth --to-wei 1000000 ETH)
 ```
 
 <div style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b;; background-color: #fcf8e3; border-color: #faebcc;">
 <h5 style="color: #8a6d3b">Note</h5>
 Make sure to launch <bold style="color: grey">MCD_ADMIN</bold> if you are providing it in <bold style="color: grey">config.authority</bold>.
 </div>
-```shell
+```bash
 # lock enough MKR (80,000 MKR threshold)
-sethSend "$MCD_GOV" "approve(address,uint256)" "$MCD_ADM" "$(seth --to-uint256 "$(seth --to-wei 80000 ETH)")"
-sethSend "$MCD_ADM" "lock(uint256)" "$(seth --to-uint256 "$(seth --to-wei 80000 ETH)")"
+sethSend "$MCD_GOV" "approve(address,uint256)" "$MCD_ADM" $(seth --to-wei 80000 ETH)
+sethSend "$MCD_ADM" "lock(uint256)" $(seth --to-wei 80000 ETH)
 sethSend "$MCD_ADM" "vote(address[])" "[0x0000000000000000000000000000000000000000]"
 sethSend "$MCD_ADM" "launch()"
 ```
@@ -249,25 +249,25 @@ Currently, there are default config files for 3 networks:
 
 #### Deploy on local testchain with default config file
 
-```shell
+```bash
 dss-deploy testchain
 ```
 
 #### Deploy on Goerli with default config file
 
-```shell
+```bash
 dss-deploy goerli
 ```
 
 #### Deploy on Mainnet with default config file
 
-```shell
+```bash
 dss-deploy main
 ```
 
 #### Deploy on any network passing a custom config file
 
-```shell
+```bash
 dss-deploy <NETWORK> -f <CONFIG_FILE_PATH>
 ```
 
@@ -290,7 +290,7 @@ The `auth-checker` script loads the addresses from `out/addresses.json` and the 
 
 To update smart contract dependencies use dapp2nix:
 
-```shell
+```bash
 nix-shell --pure
 dapp2nix help
 dapp2nix list
@@ -299,7 +299,7 @@ dapp2nix up vote-proxy <COMMIT_HASH>
 
 To clone smart contract dependencies into working directory run:
 
-```shell
+```bash
 dapp2nix clone-recursive contracts
 ```
 
