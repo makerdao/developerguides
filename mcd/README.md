@@ -11,3 +11,4 @@ This repo contains guides for interacting and integrating with Multi-Collateral 
 - [Add a new collateral type - Kovan](/mcd/add-collateral-type-testnet/add-collateral-type-testnet.md)
 - [Intro to the Rate mechanism](/mcd/intro-rate-mechanism/intro-rate-mechanism.md)
 - [Collateral Auction Integration Guide](mcd/collateral-auction-integration-guide/collateral-auction-integration-guide.md)
+- [MCD deplyoment guide](/mcd/mcd-deplyoment/mcd-deployment.md)
