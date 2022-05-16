@@ -22,10 +22,13 @@ root: false
     - [Dependencies](#dependencies)
   - [Sections](#sections)
     - [Installation](#installation)
+      - [Ethereum node](#ethereum-node)
     - [Tokens deplyoment (Optional)](#tokens-deplyoment-optional)
     - [Configuration](#configuration)
       - [Account configuration](#account-configuration)
       - [Chain configuration](#chain-configuration)
+        - [Note](#note)
+      - [Note](#note-1)
     - [MCD Deployment process](#mcd-deployment-process)
       - [Deploy on local testchain with default config file](#deploy-on-local-testchain-with-default-config-file)
       - [Deploy on Goerli with default config file](#deploy-on-goerli-with-default-config-file)
@@ -81,10 +84,9 @@ nix-shell --pure
 
 to drop into a Bash shell with all dependencies installed.
 
-<div style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b;; background-color: #fcf8e3; border-color: #faebcc;">
-<h5 style="color: #8a6d3b">Ethereum node</h5>
+#### Ethereum node
+
 You'll also need an Ethereum RPC node to connect to. Depending on your usecase, this could be a local node or a remote one.
-</div>
 
 ### Tokens deplyoment (Optional)
 
@@ -219,18 +221,18 @@ Below is the expected structure of such a config file:
 }
 ```
 
-<div style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b;; background-color: #fcf8e3; border-color: #faebcc;">
-<h5 style="color: #8a6d3b">Note</h5>
-Make sure to launch <bold style="color: grey">MCD_ADMIN</bold> if you are providing it in <bold style="color: grey">config.authority</bold>.
-</div>
+##### Note
+
+Make sure to launch `MCD_ADMIN` if you are providing it in `config.authority`.
+
 ```bash
 sethSend "$MCD_GOV" 'mint(address,uint256)' $ETH_FROM $(seth --to-wei 1000000 ETH)
 ```
 
-<div style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b;; background-color: #fcf8e3; border-color: #faebcc;">
-<h5 style="color: #8a6d3b">Note</h5>
-Make sure to launch <bold style="color: grey">MCD_ADMIN</bold> if you are providing it in <bold style="color: grey">config.authority</bold>.
-</div>
+#### Note
+
+Make sure to launch `MCD_ADMIN` if you are providing it in `config.authority`.
+
 ```bash
 # lock enough MKR (80,000 MKR threshold)
 sethSend "$MCD_GOV" "approve(address,uint256)" "$MCD_ADM" $(seth --to-wei 80000 ETH)
