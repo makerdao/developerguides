@@ -68,7 +68,7 @@ Dai is a decentralized stablecoin built on Ethereum. The Dai token contract conf
 
 Dai is available on the:
 
-- _Ethereum mainnet_ at [0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/token/0x6B175474E89094C44Da98b954EedeAC495271d0F)
+- _Ethereum mainnet_ at [0x3E62E50C4FAFCb5589e1682683ce38e8645541e8](https://etherscan.io/token/0x3E62E50C4FAFCb5589e1682683ce38e8645541e8)
 - _Kovan testnet_ at [0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa](https://kovan.etherscan.io/token/0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa)
 
 Other deployments are listed on [changelog.makerdao.com](https://changelog.makerdao.com).
