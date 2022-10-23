@@ -34,7 +34,7 @@ root: false
   - [Troubleshooting](#troubleshooting)
   - [Resources](#resources)
 
-This guide is based on the [Kovan deployed](https://kovan.etherscan.io/address/0xe325acB9765b02b8b418199bf9650972299235F4) [maker-otc contract](https://github.com/makerdao/maker-otc). This guide can also be used with the [mainnet deployment](https://etherscan.io/address/0x794e6e91555438aFc3ccF1c5076A74F42133d08D).
+This guide is based on the [Goerli deployed](https://goerli.etherscan.io/address/0xC3aeeA75c75d12287132B14eD9C3cD1a8962D321#code) [maker-otc contract](https://github.com/makerdao/maker-otc). This guide can also be used with the [mainnet deployment](https://etherscan.io/address/0x794e6e91555438aFc3ccF1c5076A74F42133d08D).
 
 ## Overview
 
@@ -64,7 +64,7 @@ You'll need to know these concepts in order to continue with this guide:
 
 ## OasisDEX Protocol
 
-*Before starting this guide please install [dapptools](https://dapp.tools/) and [setup seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md) for use with the Kovan testnet.*
+*Before starting this guide please install [dapptools](https://dapp.tools/) and [setup seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md) for use with the Goerli testnet.*
 
 ### **High Level Overview**
 
@@ -80,7 +80,7 @@ Through the matching_market.sol contract, you can make all the necessary calls t
 
 **Note:** It is recommended to make direct function calls to the maker-otc contract if you are intending to build other smart contracts that communicate with the maker-otc contract or build a trading bot. Example of this is the [dydx exchange](https://dydx.exchange/). However, if you’re integrating this maker-otc engine for wallets or UIs, then it is recommended to use the [Oasis Direct proxy contracts](https://github.com/makerdao/oasis-direct-proxy).
 
-To find all the functions available for this contract, check the source code on [etherscan](https://kovan.etherscan.io/address/0xe325acB9765b02b8b418199bf9650972299235F4#code). Below is a list of the main functions you can use from this contract:
+To find all the functions available for this contract, check the source code on [etherscan](https://goerli.etherscan.io/address/0xC3aeeA75c75d12287132B14eD9C3cD1a8962D321#code). Below is a list of the main functions you can use from this contract:
 
 - **offer(pay_amt, pay_gem, buy_amt, buy_gem, pos)** - the main API of the matching engine. This method should be used 99% of the time!
   - uint pay_amt - the maker (ask) sell amount.
@@ -98,12 +98,12 @@ To find all the functions available for this contract, check the source code on 
 
 ### **Making your first order**
 
-Before starting with the orders, let's setup the necessary env variables in your terminal. You'll need the main [maker-otc](https://kovan.etherscan.io/address/0xe325acB9765b02b8b418199bf9650972299235F4#code) (OASISDEX) contract address, the [DAI](https://kovan.etherscan.io/address/0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa#code) token and the [WETH](https://kovan.etherscan.io/address/0xd0a1e359811322d97991e03f863a0c30c2cf029c#code) token address:
+Before starting with the orders, let's setup the necessary env variables in your terminal. You'll need the main [maker-otc](https://goerli.etherscan.io/address/0xC3aeeA75c75d12287132B14eD9C3cD1a8962D321#code) (OASISDEX) contract address, the [DAI](https://goerli.etherscan.io/address/0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844#code) token and the [WETH](https://goerli.etherscan.io/address/0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6#code) token address:
 
 ```bash
-export OASIS=0xe325acB9765b02b8b418199bf9650972299235F4
-export DAI=0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa
-export WETH=0xd0A1E359811322d97991E03f863a0C30C2cF029C
+export OASIS=0xC3aeeA75c75d12287132B14eD9C3cD1a8962D321
+export DAI=0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844
+export WETH=0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6
 export ETH_GAS=3000000
 ```
 
@@ -131,7 +131,7 @@ seth send $WETH 'approve(address,uint256)' $OASIS $ALLOWANCE
 
 #### Reading the market
 
-In order to make an order on the market, you need to inform yourself of the current market prices. There are 2 ways to do this. One is to go to the [oasis.app/trade](https://oasis.app/trade) interface, make sure you're on Kovan, and see the order book. Or, call the OASISDEX contract functions to read the order book.
+In order to make an order on the market, you need to inform yourself of the current market prices. There are 2 ways to do this. One is to go to the [oasis.app/trade](https://oasis.app/trade) interface, make sure you're on Goerli, and see the order book. Or, call the OASISDEX contract functions to read the order book.
 
 <img align="right" alt='order book' width='300px' src="./assets/order-book-1.png"/>
 
@@ -206,7 +206,7 @@ We can see the order appear on the oasis.app interface:
 
 <img align="center" alt='order display' src='./assets/order.png'/>
 
-However, as you can see, more than half of my order has been filled by the matching engine of Oasis. Now if we look at [etherscan's](https://kovan.etherscan.io/tx/0x21b7267d966f5cf64e684b18aed553d98c946250756a77841ce4232ab9d6f389) transaction overview:
+However, as you can see, more than half of my order has been filled by the matching engine of Oasis. Now if we look at etherscan's transaction overview:
 
 <img alt='transaction on etherscan' src='./assets/transaction.png' align="center"/>
 
@@ -288,7 +288,7 @@ If you have any questions, feel free to reach to our rocket chat channel at: <ht
 
 ## Resources
 
-- [Maker-otc contract](https://kovan.etherscan.io/address/0x4a6bc4e803c62081ffebcc8d227b5a87a58f1f8f#code)
+- [Maker-otc contract](https://goerli.etherscan.io/address/0xC3aeeA75c75d12287132B14eD9C3cD1a8962D321#code)
 - [Maker-otc repo](https://github.com/makerdao/maker-otc)
 - [Dapptools](https://github.com/dapphub/dapptools)
 - [Setup seth](https://github.com/makerdao/developerguides/blob/master/devtools/seth/seth-guide-01/seth-guide-01.md)
